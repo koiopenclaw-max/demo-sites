@@ -40,13 +40,11 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* Scrollbar */
 ::-webkit-scrollbar { width: 6px; }
 ::-webkit-scrollbar-track { background: var(--bg-deep); }
 ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
 ::-webkit-scrollbar-thumb:hover { background: var(--accent-dim); }
 
-/* Header */
 .header {
   background: linear-gradient(135deg, var(--bg-main) 0%, #0e1628 100%);
   border-bottom: 1px solid var(--border);
@@ -59,533 +57,142 @@ body {
   z-index: 100;
   backdrop-filter: blur(12px);
 }
-.header-brand {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  cursor: pointer;
-}
+.header-brand { display: flex; align-items: center; gap: 0.75rem; cursor: pointer; }
 .header-logo {
-  width: 36px;
-  height: 36px;
-  background: var(--accent);
-  border-radius: var(--radius-sm);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 900;
-  font-size: 1.1rem;
-  color: var(--bg-deep);
+  width: 36px; height: 36px; background: var(--accent); border-radius: var(--radius-sm);
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 900; font-size: 1.1rem; color: var(--bg-deep);
   box-shadow: 0 0 20px var(--accent-glow);
 }
-.header-title {
-  font-size: 1.15rem;
-  font-weight: 700;
-  letter-spacing: -0.02em;
-}
+.header-title { font-size: 1.15rem; font-weight: 700; letter-spacing: -0.02em; }
 .header-title span { color: var(--accent); }
 
-/* Main container */
-.container {
-  max-width: 900px;
-  margin: 0 auto;
-  padding: 1.5rem;
-}
+.container { max-width: 900px; margin: 0 auto; padding: 1.5rem; }
 
-/* Views */
 .view { display: none; animation: fadeIn 0.35s ease; }
 .view.active { display: block; }
 
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(12px); }
-  to { opacity: 1; transform: translateY(0); }
-}
+@keyframes fadeIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes slideInRight { from { opacity: 0; transform: translateX(40px); } to { opacity: 1; transform: translateX(0); } }
+@keyframes slideInLeft { from { opacity: 0; transform: translateX(-40px); } to { opacity: 1; transform: translateX(0); } }
 
-@keyframes slideInRight {
-  from { opacity: 0; transform: translateX(40px); }
-  to { opacity: 1; transform: translateX(0); }
-}
-
-@keyframes slideInLeft {
-  from { opacity: 0; transform: translateX(-40px); }
-  to { opacity: 1; transform: translateX(0); }
-}
-
-/* Buttons */
 .btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.65rem 1.25rem;
-  border: none;
-  border-radius: var(--radius-sm);
-  font-size: 0.9rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all var(--transition);
-  text-decoration: none;
-  white-space: nowrap;
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  padding: 0.65rem 1.25rem; border: none; border-radius: var(--radius-sm);
+  font-size: 0.9rem; font-weight: 600; cursor: pointer;
+  transition: all var(--transition); text-decoration: none; white-space: nowrap;
 }
 .btn:active { transform: scale(0.97); }
-
-.btn-primary {
-  background: var(--accent);
-  color: var(--bg-deep);
-  box-shadow: 0 2px 12px rgba(240, 165, 0, 0.3);
-}
-.btn-primary:hover {
-  background: #ffb920;
-  box-shadow: 0 4px 20px rgba(240, 165, 0, 0.45);
-  transform: translateY(-1px);
-}
-
-.btn-secondary {
-  background: var(--bg-card);
-  color: var(--text);
-  border: 1px solid var(--border);
-}
-.btn-secondary:hover {
-  background: var(--bg-card-hover);
-  border-color: var(--accent-dim);
-}
-
-.btn-ghost {
-  background: transparent;
-  color: var(--text-dim);
-  padding: 0.5rem 0.75rem;
-}
+.btn-primary { background: var(--accent); color: var(--bg-deep); box-shadow: 0 2px 12px rgba(240, 165, 0, 0.3); }
+.btn-primary:hover { background: #ffb920; box-shadow: 0 4px 20px rgba(240, 165, 0, 0.45); transform: translateY(-1px); }
+.btn-secondary { background: var(--bg-card); color: var(--text); border: 1px solid var(--border); }
+.btn-secondary:hover { background: var(--bg-card-hover); border-color: var(--accent-dim); }
+.btn-ghost { background: transparent; color: var(--text-dim); padding: 0.5rem 0.75rem; }
 .btn-ghost:hover { color: var(--accent); }
-
-.btn-danger {
-  background: rgba(231, 76, 60, 0.15);
-  color: var(--danger);
-  border: 1px solid rgba(231, 76, 60, 0.3);
-}
+.btn-danger { background: rgba(231, 76, 60, 0.15); color: var(--danger); border: 1px solid rgba(231, 76, 60, 0.3); }
 .btn-danger:hover { background: rgba(231, 76, 60, 0.25); }
-
 .btn-sm { padding: 0.4rem 0.85rem; font-size: 0.82rem; }
 .btn-lg { padding: 0.85rem 2rem; font-size: 1rem; }
 
-/* Cards */
-.card {
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 1.25rem;
-  transition: all var(--transition);
-}
-.card:hover {
-  border-color: rgba(240, 165, 0, 0.3);
-  box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-}
+.card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.25rem; transition: all var(--transition); }
+.card:hover { border-color: rgba(240, 165, 0, 0.3); box-shadow: 0 4px 20px rgba(0,0,0,0.3); }
 
-/* Input */
 input[type="text"], input[type="email"], input[type="tel"], input[type="url"], textarea, select {
-  width: 100%;
-  padding: 0.75rem 1rem;
-  background: var(--bg-input);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-  color: var(--text);
-  font-size: 0.95rem;
-  font-family: inherit;
-  transition: all var(--transition);
-  outline: none;
+  width: 100%; padding: 0.75rem 1rem; background: var(--bg-input);
+  border: 1px solid var(--border); border-radius: var(--radius-sm);
+  color: var(--text); font-size: 0.95rem; font-family: inherit;
+  transition: all var(--transition); outline: none;
 }
-input:focus, textarea:focus, select:focus {
-  border-color: var(--accent);
-  box-shadow: 0 0 0 3px var(--accent-glow);
-}
+input:focus, textarea:focus, select:focus { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-glow); }
 textarea { resize: vertical; min-height: 80px; }
-select { cursor: pointer; }
-select option { background: var(--bg-main); }
 
-/* ===== DASHBOARD VIEW ===== */
-.dashboard-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 1.5rem;
-  flex-wrap: wrap;
-  gap: 1rem;
-}
-.dashboard-header h2 {
-  font-size: 1.4rem;
-  font-weight: 700;
-  letter-spacing: -0.02em;
-}
+.dashboard-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem; }
+.dashboard-header h2 { font-size: 1.4rem; font-weight: 700; letter-spacing: -0.02em; }
+.projects-grid { display: grid; gap: 1rem; }
 
-.projects-grid {
-  display: grid;
-  gap: 1rem;
-}
-
-.project-card {
-  cursor: pointer;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 1rem;
-}
+.project-card { cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 1rem; }
 .project-card:hover { transform: translateY(-2px); }
-
 .project-info { flex: 1; min-width: 0; }
-.project-name {
-  font-size: 1.05rem;
-  font-weight: 700;
-  margin-bottom: 0.25rem;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-.project-meta {
-  font-size: 0.8rem;
-  color: var(--text-dim);
-  display: flex;
-  gap: 1rem;
-  flex-wrap: wrap;
-}
+.project-name { font-size: 1.05rem; font-weight: 700; margin-bottom: 0.25rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.project-meta { font-size: 0.8rem; color: var(--text-dim); display: flex; gap: 1rem; flex-wrap: wrap; }
+.project-stats { display: flex; gap: 0.5rem; align-items: center; flex-shrink: 0; }
 
-.project-stats {
-  display: flex;
-  gap: 0.5rem;
-  align-items: center;
-  flex-shrink: 0;
-}
-
-.stat-badge {
-  padding: 0.25rem 0.6rem;
-  border-radius: 20px;
-  font-size: 0.75rem;
-  font-weight: 600;
-}
-
-.status-badge {
-  padding: 0.3rem 0.75rem;
-  border-radius: 20px;
-  font-size: 0.75rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.03em;
-}
+.status-badge { padding: 0.3rem 0.75rem; border-radius: 20px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.03em; }
 .status-new { background: rgba(52, 152, 219, 0.15); color: var(--info); }
 .status-progress { background: var(--accent-glow); color: var(--accent); }
 .status-plan { background: rgba(46, 204, 113, 0.15); color: var(--success); }
-.status-dev { background: rgba(155, 89, 182, 0.15); color: #9b59b6; }
-.status-done { background: rgba(46, 204, 113, 0.25); color: var(--success); }
 
-.progress-mini {
-  width: 60px;
-  height: 6px;
-  background: var(--bg-deep);
-  border-radius: 3px;
-  overflow: hidden;
-}
-.progress-mini-bar {
-  height: 100%;
-  background: var(--accent);
-  border-radius: 3px;
-  transition: width var(--transition);
-}
+.progress-mini { width: 60px; height: 6px; background: var(--bg-deep); border-radius: 3px; overflow: hidden; }
+.progress-mini-bar { height: 100%; background: var(--accent); border-radius: 3px; transition: width var(--transition); }
 
-.empty-state {
-  text-align: center;
-  padding: 4rem 2rem;
-  color: var(--text-dim);
-}
+.empty-state { text-align: center; padding: 4rem 2rem; color: var(--text-dim); }
 .empty-state-icon { font-size: 3rem; margin-bottom: 1rem; opacity: 0.4; }
 .empty-state h3 { font-size: 1.2rem; margin-bottom: 0.5rem; color: var(--text); }
 .empty-state p { margin-bottom: 1.5rem; }
 
-/* ===== NEW PROJECT MODAL ===== */
-.modal-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.7);
-  backdrop-filter: blur(4px);
-  z-index: 200;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 1rem;
-  animation: fadeIn 0.2s ease;
-}
-.modal {
-  background: var(--bg-main);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 2rem;
-  width: 100%;
-  max-width: 440px;
-  box-shadow: var(--shadow-lg);
-}
+.modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.7); backdrop-filter: blur(4px); z-index: 200; display: flex; align-items: center; justify-content: center; padding: 1rem; animation: fadeIn 0.2s ease; }
+.modal { background: var(--bg-main); border: 1px solid var(--border); border-radius: var(--radius); padding: 2rem; width: 100%; max-width: 440px; box-shadow: var(--shadow-lg); }
 .modal h3 { font-size: 1.2rem; margin-bottom: 1.25rem; }
-.modal-actions {
-  display: flex;
-  gap: 0.75rem;
-  justify-content: flex-end;
-  margin-top: 1.5rem;
-}
+.modal-actions { display: flex; gap: 0.75rem; justify-content: flex-end; margin-top: 1.5rem; }
 
-/* ===== QUESTIONNAIRE VIEW ===== */
-.questionnaire-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 1rem;
-  flex-wrap: wrap;
-  gap: 0.75rem;
-}
-.questionnaire-header h2 {
-  font-size: 1.2rem;
-  font-weight: 700;
-}
+.questionnaire-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem; flex-wrap: wrap; gap: 0.75rem; }
+.questionnaire-header h2 { font-size: 1.2rem; font-weight: 700; }
 
-.progress-bar-container {
-  background: var(--bg-card);
-  border-radius: 20px;
-  padding: 0.5rem 1rem;
-  margin-bottom: 1.5rem;
-  border: 1px solid var(--border);
-}
-.progress-bar-top {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 0.5rem;
-  font-size: 0.8rem;
-  color: var(--text-dim);
-}
+.progress-bar-container { background: var(--bg-card); border-radius: 20px; padding: 0.5rem 1rem; margin-bottom: 1.5rem; border: 1px solid var(--border); }
+.progress-bar-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem; font-size: 0.8rem; color: var(--text-dim); }
 .progress-bar-top strong { color: var(--accent); }
-.progress-bar {
-  width: 100%;
-  height: 8px;
-  background: var(--bg-deep);
-  border-radius: 4px;
-  overflow: hidden;
-}
-.progress-bar-fill {
-  height: 100%;
-  background: linear-gradient(90deg, var(--accent-dim), var(--accent));
-  border-radius: 4px;
-  transition: width 0.5s ease;
-}
+.progress-bar { width: 100%; height: 8px; background: var(--bg-deep); border-radius: 4px; overflow: hidden; }
+.progress-bar-fill { height: 100%; background: linear-gradient(90deg, var(--accent-dim), var(--accent)); border-radius: 4px; transition: width 0.5s ease; }
 
-.category-tabs {
-  display: flex;
-  gap: 0.25rem;
-  margin-bottom: 1.5rem;
-  overflow-x: auto;
-  padding-bottom: 0.25rem;
-  scrollbar-width: none;
-}
+.category-tabs { display: flex; gap: 0.25rem; margin-bottom: 1.5rem; overflow-x: auto; padding-bottom: 0.25rem; scrollbar-width: none; }
 .category-tabs::-webkit-scrollbar { display: none; }
-
-.category-tab {
-  padding: 0.5rem 0.85rem;
-  border-radius: var(--radius-sm);
-  font-size: 0.78rem;
-  font-weight: 600;
-  cursor: pointer;
-  white-space: nowrap;
-  background: var(--bg-card);
-  color: var(--text-dim);
-  border: 1px solid transparent;
-  transition: all var(--transition);
-}
+.category-tab { padding: 0.5rem 0.85rem; border-radius: var(--radius-sm); font-size: 0.78rem; font-weight: 600; cursor: pointer; white-space: nowrap; background: var(--bg-card); color: var(--text-dim); border: 1px solid transparent; transition: all var(--transition); }
 .category-tab:hover { color: var(--text); border-color: var(--border); }
-.category-tab.active {
-  background: var(--accent-glow);
-  color: var(--accent);
-  border-color: rgba(240, 165, 0, 0.3);
-}
-.category-tab .tab-count {
-  display: inline-block;
-  margin-left: 0.35rem;
-  padding: 0.1rem 0.4rem;
-  border-radius: 10px;
-  font-size: 0.65rem;
-  background: var(--bg-deep);
-}
+.category-tab.active { background: var(--accent-glow); color: var(--accent); border-color: rgba(240, 165, 0, 0.3); }
+.category-tab .tab-count { display: inline-block; margin-left: 0.35rem; padding: 0.1rem 0.4rem; border-radius: 10px; font-size: 0.65rem; background: var(--bg-deep); }
 
-/* Question Card */
-.question-card-wrapper {
-  perspective: 1000px;
-  min-height: 280px;
-}
-
-.question-card {
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 2rem;
-  box-shadow: var(--shadow);
-  position: relative;
-  overflow: hidden;
-}
-.question-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 3px;
-  background: linear-gradient(90deg, var(--accent), transparent);
-}
-
-.question-category {
-  font-size: 0.75rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  color: var(--accent);
-  margin-bottom: 0.75rem;
-}
-.question-number {
-  font-size: 0.8rem;
-  color: var(--text-muted);
-  margin-bottom: 0.5rem;
-}
-.question-text {
-  font-size: 1.15rem;
-  font-weight: 700;
-  line-height: 1.5;
-  margin-bottom: 1.5rem;
-}
-
+.question-card-wrapper { perspective: 1000px; min-height: 280px; }
+.question-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 2rem; box-shadow: var(--shadow); position: relative; overflow: hidden; }
+.question-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--accent), transparent); }
+.question-category { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--accent); margin-bottom: 0.75rem; }
+.question-number { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.5rem; }
+.question-text { font-size: 1.15rem; font-weight: 700; line-height: 1.5; margin-bottom: 1.5rem; }
 .question-input-area { margin-bottom: 1.25rem; }
-
-.question-options {
-  display: grid;
-  gap: 0.5rem;
-}
-.question-option {
-  padding: 0.7rem 1rem;
-  background: var(--bg-input);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-  cursor: pointer;
-  transition: all var(--transition);
-  font-size: 0.9rem;
-  text-align: left;
-  color: var(--text);
-}
+.question-options { display: grid; gap: 0.5rem; }
+.question-option { padding: 0.7rem 1rem; background: var(--bg-input); border: 1px solid var(--border); border-radius: var(--radius-sm); cursor: pointer; transition: all var(--transition); font-size: 0.9rem; text-align: left; color: var(--text); }
 .question-option:hover { border-color: var(--accent); background: rgba(240, 165, 0, 0.05); }
 .question-option.selected { border-color: var(--accent); background: var(--accent-glow); color: var(--accent); font-weight: 600; }
+.question-nav { display: flex; justify-content: space-between; align-items: center; gap: 0.5rem; flex-wrap: wrap; }
+.question-skip-actions { display: flex; gap: 0.5rem; }
 
-.question-nav {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 0.5rem;
-  flex-wrap: wrap;
-}
-.question-skip-actions {
-  display: flex;
-  gap: 0.5rem;
-}
-
-.answer-status {
-  display: inline-block;
-  padding: 0.15rem 0.5rem;
-  border-radius: 10px;
-  font-size: 0.7rem;
-  font-weight: 600;
-  margin-left: 0.5rem;
-}
+.answer-status { display: inline-block; padding: 0.15rem 0.5rem; border-radius: 10px; font-size: 0.7rem; font-weight: 600; margin-left: 0.5rem; }
 .answer-status.answered { background: rgba(46, 204, 113, 0.15); color: var(--success); }
 .answer-status.skipped { background: rgba(231, 76, 60, 0.15); color: var(--danger); }
 .answer-status.deferred { background: rgba(52, 152, 219, 0.15); color: var(--info); }
 
-/* Question mini-nav */
-.question-dots {
-  display: flex;
-  gap: 4px;
-  justify-content: center;
-  margin-top: 1.25rem;
-  flex-wrap: wrap;
-}
-.question-dot {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background: var(--bg-deep);
-  border: 1.5px solid var(--border);
-  cursor: pointer;
-  transition: all var(--transition);
-}
+.question-dots { display: flex; gap: 4px; justify-content: center; margin-top: 1.25rem; flex-wrap: wrap; }
+.question-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--bg-deep); border: 1.5px solid var(--border); cursor: pointer; transition: all var(--transition); }
 .question-dot:hover { border-color: var(--accent); }
 .question-dot.current { background: var(--accent); border-color: var(--accent); box-shadow: 0 0 8px var(--accent-glow); }
 .question-dot.answered { background: var(--success); border-color: var(--success); }
 .question-dot.skipped { background: var(--danger); border-color: var(--danger); }
 .question-dot.deferred { background: var(--info); border-color: var(--info); }
 
-/* Generate plan button */
-.generate-plan-section {
-  margin-top: 2rem;
-  text-align: center;
-  padding: 1.5rem;
-  border: 2px dashed var(--border);
-  border-radius: var(--radius);
-}
+.generate-plan-section { margin-top: 2rem; text-align: center; padding: 1.5rem; border: 2px dashed var(--border); border-radius: var(--radius); }
 .generate-plan-section.ready { border-color: var(--accent); background: var(--accent-glow); }
 
-/* ===== PLAN VIEW ===== */
-.plan-content {
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 2rem;
-  line-height: 1.8;
-  white-space: pre-wrap;
-  font-size: 0.92rem;
-}
-.plan-content h1, .plan-content h2, .plan-content h3 {
-  color: var(--accent);
-  margin-top: 1.5rem;
-  margin-bottom: 0.5rem;
-}
-.plan-content h1 { font-size: 1.4rem; }
-.plan-content h2 { font-size: 1.15rem; }
+.plan-content { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 2rem; line-height: 1.8; font-size: 0.92rem; }
+.plan-content h1, .plan-content h2, .plan-content h3 { color: var(--accent); margin-top: 1.5rem; margin-bottom: 0.5rem; }
+.plan-content h1 { font-size: 1.4rem; } .plan-content h2 { font-size: 1.15rem; }
 
-/* ===== TOAST ===== */
-.toast-container {
-  position: fixed;
-  bottom: 1.5rem;
-  right: 1.5rem;
-  z-index: 300;
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-.toast {
-  padding: 0.75rem 1.25rem;
-  border-radius: var(--radius-sm);
-  font-size: 0.85rem;
-  font-weight: 600;
-  animation: slideUp 0.3s ease, fadeOut 0.3s ease 2.5s forwards;
-  box-shadow: var(--shadow);
-}
+.toast-container { position: fixed; bottom: 1.5rem; right: 1.5rem; z-index: 300; display: flex; flex-direction: column; gap: 0.5rem; }
+.toast { padding: 0.75rem 1.25rem; border-radius: var(--radius-sm); font-size: 0.85rem; font-weight: 600; animation: slideUp 0.3s ease, fadeOut 0.3s ease 2.5s forwards; box-shadow: var(--shadow); }
 .toast-success { background: rgba(46, 204, 113, 0.9); color: #fff; }
 .toast-error { background: rgba(231, 76, 60, 0.9); color: #fff; }
 .toast-info { background: rgba(52, 152, 219, 0.9); color: #fff; }
-
 @keyframes slideUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
 @keyframes fadeOut { to { opacity: 0; transform: translateY(-10px); } }
 
-/* ===== LOADING ===== */
-.spinner {
-  display: inline-block;
-  width: 20px;
-  height: 20px;
-  border: 2.5px solid var(--border);
-  border-top-color: var(--accent);
-  border-radius: 50%;
-  animation: spin 0.6s linear infinite;
-}
-@keyframes spin { to { transform: rotate(360deg); } }
-
-/* ===== RESPONSIVE ===== */
 @media (max-width: 640px) {
   .container { padding: 1rem; }
   .header { padding: 0.75rem 1rem; }
@@ -604,39 +211,28 @@ select option { background: var(--bg-main); }
 </head>
 <body>
 
-<!-- Header -->
 <header class="header">
   <div class="header-brand" onclick="navigateTo('dashboard')">
     <div class="header-logo">DS</div>
     <div class="header-title">Demo <span>Sites</span></div>
   </div>
-  <div id="headerActions"></div>
 </header>
 
-<!-- Toast Container -->
 <div class="toast-container" id="toastContainer"></div>
 
 <div class="container">
-
-  <!-- Dashboard View -->
   <div id="dashboardView" class="view active">
     <div class="dashboard-header">
       <h2>Проекти</h2>
-      <button class="btn btn-primary" onclick="showNewProjectModal()">
-        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="2" x2="8" y2="14"/><line x1="2" y1="8" x2="14" y2="8"/></svg>
-        Нов проект
-      </button>
+      <button class="btn btn-primary" onclick="showNewProjectModal()">+ Нов проект</button>
     </div>
     <div id="projectsList" class="projects-grid"></div>
   </div>
 
-  <!-- Questionnaire View -->
   <div id="questionnaireView" class="view">
     <div class="questionnaire-header">
       <div style="display:flex;align-items:center;gap:0.75rem">
-        <button class="btn btn-ghost" onclick="navigateTo('dashboard')" title="Назад">
-          <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3L6 9l6 6"/></svg>
-        </button>
+        <button class="btn btn-ghost" onclick="navigateTo('dashboard')"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3L6 9l6 6"/></svg></button>
         <h2 id="projectTitle"></h2>
       </div>
       <div style="display:flex;gap:0.5rem">
@@ -644,55 +240,38 @@ select option { background: var(--bg-main); }
         <button class="btn btn-danger btn-sm" onclick="confirmDeleteProject()">Изтрий</button>
       </div>
     </div>
-
     <div class="progress-bar-container">
       <div class="progress-bar-top">
-        <span>Прогрес: <strong id="progressText">0/26</strong></span>
+        <span>Прогрес: <strong id="progressText">0/25</strong></span>
         <span id="progressPercent">0%</span>
       </div>
-      <div class="progress-bar">
-        <div class="progress-bar-fill" id="progressFill" style="width: 0%"></div>
-      </div>
+      <div class="progress-bar"><div class="progress-bar-fill" id="progressFill" style="width:0%"></div></div>
     </div>
-
     <div class="category-tabs" id="categoryTabs"></div>
-
-    <div class="question-card-wrapper">
-      <div class="question-card" id="questionCard"></div>
-    </div>
-
+    <div class="question-card-wrapper"><div class="question-card" id="questionCard"></div></div>
     <div class="question-dots" id="questionDots"></div>
-
     <div class="generate-plan-section" id="generatePlanSection">
-      <p style="margin-bottom:1rem;color:var(--text-dim)" id="planSectionText">Отговорете на повече въпроси за да генерирате план</p>
-      <button class="btn btn-primary btn-lg" id="btnGeneratePlan" onclick="generatePlan()" disabled>
-        Генерирай план
-      </button>
+      <p style="margin-bottom:1rem;color:var(--text-dim)" id="planSectionText"></p>
+      <button class="btn btn-primary btn-lg" id="btnGeneratePlan" onclick="generatePlan()" disabled>Генерирай план</button>
     </div>
   </div>
 
-  <!-- Plan View -->
   <div id="planView" class="view">
     <div class="questionnaire-header">
       <div style="display:flex;align-items:center;gap:0.75rem">
-        <button class="btn btn-ghost" onclick="navigateTo('questionnaire')" title="Назад">
-          <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3L6 9l6 6"/></svg>
-        </button>
+        <button class="btn btn-ghost" onclick="navigateTo('questionnaire')"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3L6 9l6 6"/></svg></button>
         <h2>План за редизайн</h2>
       </div>
     </div>
     <div class="plan-content" id="planContent"></div>
   </div>
-
 </div>
 
-<!-- New Project Modal (hidden by default) -->
 <div class="modal-overlay" id="newProjectModal" style="display:none" onclick="event.target===this&&closeModal()">
   <div class="modal">
     <h3>Нов проект</h3>
     <label style="display:block;margin-bottom:0.5rem;font-size:0.85rem;color:var(--text-dim)">Име на бизнеса / проекта</label>
-    <input type="text" id="newProjectName" placeholder="напр. Автоморга Петров" autofocus
-           onkeydown="if(event.key==='Enter')createProject()">
+    <input type="text" id="newProjectName" placeholder="напр. Автоморга Петров" onkeydown="if(event.key==='Enter')createProject()">
     <div class="modal-actions">
       <button class="btn btn-secondary" onclick="closeModal()">Отказ</button>
       <button class="btn btn-primary" onclick="createProject()">Създай</button>
@@ -701,190 +280,130 @@ select option { background: var(--bg-main); }
 </div>
 
 <script>
-// ===== QUESTIONS CONFIG =====
+// ===== QUESTIONS =====
 const QUESTIONS = [
-  // 1. Основна информация
   { id: 'business_name', category: 'Основна информация', text: 'Как се казва бизнесът?', type: 'text', placeholder: 'напр. Автоморга Петров' },
   { id: 'current_url', category: 'Основна информация', text: 'Какъв е URL адресът на текущия сайт?', type: 'url', placeholder: 'https://example.com' },
   { id: 'niche', category: 'Основна информация', text: 'Каква е нишата / категорията на бизнеса?', type: 'text', placeholder: 'напр. автоморга, зъболекар, ресторант' },
   { id: 'city', category: 'Основна информация', text: 'В кой град се намира бизнесът?', type: 'text', placeholder: 'напр. София' },
   { id: 'phone', category: 'Основна информация', text: 'Телефон за контакт?', type: 'tel', placeholder: '+359 88 123 4567' },
   { id: 'email', category: 'Основна информация', text: 'Email адрес?', type: 'email', placeholder: 'info@example.com' },
-
-  // 2. Текущо състояние
-  { id: 'social_pages', category: 'Текущо състояние', text: 'Има ли Facebook / Instagram страница? Ако да — URL?', type: 'text', placeholder: 'facebook.com/... или instagram.com/...' },
+  { id: 'social_pages', category: 'Текущо състояние', text: 'Има ли Facebook / Instagram страница? Ако да — URL?', type: 'text', placeholder: 'facebook.com/...' },
   { id: 'google_business', category: 'Текущо състояние', text: 'Има ли Google Business Profile?', type: 'options', options: ['Да', 'Не', 'Не знам'] },
   { id: 'site_condition', category: 'Текущо състояние', text: 'Какво е текущото състояние на сайта?', type: 'textarea', placeholder: 'напр. Остарял дизайн, не е мобилен, бавен...' },
   { id: 'main_problems', category: 'Текущо състояние', text: 'Какви са основните проблеми на текущия сайт?', type: 'textarea', placeholder: 'Опишете проблемите...' },
-
-  // 3. Ресурси от клиента
   { id: 'real_photos', category: 'Ресурси от клиента', text: 'Има ли реални снимки? (двор, екип, продукти)', type: 'options', options: ['Да, има добри снимки', 'Има, но лошо качество', 'Няма — трябват нови', 'Не знам'] },
   { id: 'logo_vector', category: 'Ресурси от клиента', text: 'Има ли лого във векторен формат (SVG, AI, EPS)?', type: 'options', options: ['Да', 'Само растерно (PNG/JPG)', 'Няма лого', 'Не знам'] },
   { id: 'brandbook', category: 'Ресурси от клиента', text: 'Има ли брандбук или цветова схема?', type: 'options', options: ['Да', 'Не', 'Не знам'] },
-  { id: 'working_hours', category: 'Ресурси от клиента', text: 'Какво е работното време?', type: 'text', placeholder: 'напр. Пон-Пет 9:00-18:00, Съб 10:00-14:00' },
-  { id: 'social_links', category: 'Ресурси от клиента', text: 'Какви социални мрежи / месинджъри използва? (WhatsApp, Viber, etc.)', type: 'text', placeholder: 'напр. WhatsApp, Viber, Facebook Messenger' },
-
-  // 4. Изисквания за новия сайт
+  { id: 'working_hours', category: 'Ресурси от клиента', text: 'Какво е работното време?', type: 'text', placeholder: 'напр. Пон-Пет 9:00-18:00' },
+  { id: 'social_links', category: 'Ресурси от клиента', text: 'Какви месинджъри използва? (WhatsApp, Viber, etc.)', type: 'text', placeholder: 'напр. WhatsApp, Viber' },
   { id: 'site_goal', category: 'Нов сайт', text: 'Каква е основната цел на новия сайт?', type: 'options', options: ['Информационен (визитка)', 'Каталог с продукти/услуги', 'E-commerce (онлайн магазин)', 'Портфолио', 'Блог / Новини'] },
   { id: 'needs_catalog', category: 'Нов сайт', text: 'Трябва ли каталог / инвентар система?', type: 'options', options: ['Да — с цени', 'Да — без цени', 'Не', 'Не знам'] },
   { id: 'needs_contact_form', category: 'Нов сайт', text: 'Трябва ли контактна форма?', type: 'options', options: ['Да', 'Не', 'Не знам'] },
   { id: 'needs_maps', category: 'Нов сайт', text: 'Трябва ли Google Maps на сайта?', type: 'options', options: ['Да', 'Не', 'Не знам'] },
-  { id: 'special_features', category: 'Нов сайт', text: 'Има ли специални функционалности?', type: 'textarea', placeholder: 'напр. онлайн записване, чат, галерия, видео...' },
+  { id: 'special_features', category: 'Нов сайт', text: 'Има ли специални функционалности?', type: 'textarea', placeholder: 'напр. онлайн записване, чат, галерия...' },
   { id: 'domain_plan', category: 'Нов сайт', text: 'Домейнът — остава текущият или нов?', type: 'options', options: ['Остава текущият', 'Нов домейн', 'Не знам'] },
   { id: 'hosting_plan', category: 'Нов сайт', text: 'Хостинг — текущ или нов?', type: 'options', options: ['Текущ хостинг', 'Нов хостинг', 'Не знам'] },
-
-  // 5. Бюджет и срокове
   { id: 'budget_range', category: 'Бюджет и срокове', text: 'Какъв е ценовият диапазон?', type: 'options', options: ['До 500 лв', '500 - 1000 лв', '1000 - 2000 лв', '2000 - 5000 лв', 'Над 5000 лв', 'Не знам'] },
-  { id: 'deadline', category: 'Бюджет и срокове', text: 'Има ли краен срок?', type: 'text', placeholder: 'напр. до края на месеца, няма спешност' },
-  { id: 'priority', category: 'Бюджет и срокове', text: 'Кои два приоритета са най-важни? (избери 2)', type: 'options', options: ['Бързо + Качествено', 'Бързо + Евтино', 'Качествено + Евтино'] },
+  { id: 'deadline', category: 'Бюджет и срокове', text: 'Има ли краен срок?', type: 'text', placeholder: 'напр. до края на месеца' },
+  { id: 'priority', category: 'Бюджет и срокове', text: 'Кои два приоритета са най-важни?', type: 'options', options: ['Бързо + Качествено', 'Бързо + Евтино', 'Качествено + Евтино'] },
 ];
-
 const CATEGORIES = [...new Set(QUESTIONS.map(q => q.category))];
+const STORAGE_KEY = 'demoSitesProjects';
+
+// ===== LOCAL STORAGE =====
+function getProjects() {
+  try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}; } catch { return {}; }
+}
+function saveProjects(data) { localStorage.setItem(STORAGE_KEY, JSON.stringify(data)); }
+function getProject(slug) { return getProjects()[slug] || null; }
+function saveProject(slug, project) { const all = getProjects(); all[slug] = project; saveProjects(all); }
+function deleteProject(slug) { const all = getProjects(); delete all[slug]; saveProjects(all); }
+function makeSlug(name) {
+  const base = name.toLowerCase().replace(/[^a-zа-яё0-9]+/gi, '-').replace(/^-|-$/g, '') || 'project';
+  const all = getProjects();
+  let slug = base, i = 1;
+  while (all[slug]) { slug = `${base}-${i++}`; }
+  return slug;
+}
 
 // ===== STATE =====
-let currentProject = null;
+let currentSlug = null;
 let currentQuestionIndex = 0;
 let animDirection = 'right';
 
-// ===== API =====
-async function api(url, options = {}) {
-  const res = await fetch(url, {
-    headers: { 'Content-Type': 'application/json' },
-    ...options,
-    body: options.body ? JSON.stringify(options.body) : undefined
-  });
-  if (!res.ok) {
-    const err = await res.json().catch(() => ({ error: 'Грешка' }));
-    throw new Error(err.error || 'Грешка');
-  }
-  return res.json();
-}
-
 // ===== TOAST =====
-function toast(message, type = 'success') {
+function toast(msg, type='success') {
   const el = document.createElement('div');
   el.className = `toast toast-${type}`;
-  el.textContent = message;
+  el.textContent = msg;
   document.getElementById('toastContainer').appendChild(el);
   setTimeout(() => el.remove(), 3000);
 }
 
-// ===== NAVIGATION =====
+// ===== NAV =====
 function navigateTo(view) {
   document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
-  if (view === 'dashboard') {
-    document.getElementById('dashboardView').classList.add('active');
-    document.getElementById('headerActions').innerHTML = '';
-    loadProjects();
-  } else if (view === 'questionnaire') {
-    document.getElementById('questionnaireView').classList.add('active');
-    renderQuestionnaire();
-  } else if (view === 'plan') {
-    document.getElementById('planView').classList.add('active');
-  }
+  if (view === 'dashboard') { document.getElementById('dashboardView').classList.add('active'); renderDashboard(); }
+  else if (view === 'questionnaire') { document.getElementById('questionnaireView').classList.add('active'); renderQuestionnaire(); }
+  else if (view === 'plan') { document.getElementById('planView').classList.add('active'); }
 }
 
-// ===== PROJECTS LIST =====
-async function loadProjects() {
+// ===== DASHBOARD =====
+function renderDashboard() {
+  const all = getProjects();
   const list = document.getElementById('projectsList');
-  list.innerHTML = '<div style="text-align:center;padding:2rem"><div class="spinner"></div></div>';
-  try {
-    const projects = await api('/api/projects');
-    if (projects.length === 0) {
-      list.innerHTML = `
-        <div class="empty-state">
-          <div class="empty-state-icon">📋</div>
-          <h3>Няма проекти все още</h3>
-          <p>Създайте първия проект за да започнете</p>
-          <button class="btn btn-primary btn-lg" onclick="showNewProjectModal()">Нов проект</button>
-        </div>`;
-      return;
-    }
-    list.innerHTML = projects.map(p => {
-      const pct = Math.round((p.stats.answered / p.stats.totalQuestions) * 100);
-      const statusClass = getStatusClass(p.status);
-      return `
-        <div class="card project-card" onclick="openProject('${p.slug}')">
-          <div class="project-info">
-            <div class="project-name">${esc(p.name)}</div>
-            <div class="project-meta">
-              <span>${timeAgo(p.updatedAt)}</span>
-              <span>${p.stats.answered}/${p.stats.totalQuestions} отговорени</span>
-            </div>
-          </div>
-          <div class="project-stats">
-            <div class="progress-mini"><div class="progress-mini-bar" style="width:${pct}%"></div></div>
-            <span class="status-badge ${statusClass}">${esc(p.status)}</span>
-          </div>
-        </div>`;
-    }).join('');
-  } catch (e) {
-    list.innerHTML = `<div class="empty-state"><p style="color:var(--danger)">Грешка: ${esc(e.message)}</p></div>`;
+  const slugs = Object.keys(all).sort((a,b) => new Date(all[b].updatedAt) - new Date(all[a].updatedAt));
+  if (!slugs.length) {
+    list.innerHTML = `<div class="empty-state"><div class="empty-state-icon">📋</div><h3>Няма проекти все още</h3><p>Създайте първия проект за да започнете</p><button class="btn btn-primary btn-lg" onclick="showNewProjectModal()">Нов проект</button></div>`;
+    return;
   }
-}
-
-function getStatusClass(status) {
-  if (status === 'Нов') return 'status-new';
-  if (status === 'В процес') return 'status-progress';
-  if (status === 'Готов план') return 'status-plan';
-  if (status === 'В разработка') return 'status-dev';
-  if (status === 'Завършен') return 'status-done';
-  return '';
+  list.innerHTML = slugs.map(slug => {
+    const p = all[slug];
+    const answers = p.answers || {};
+    const answered = Object.values(answers).filter(a => a.status === 'answered').length;
+    const total = QUESTIONS.length;
+    const pct = Math.round((answered / total) * 100);
+    const status = p.plan ? 'Готов план' : answered > 0 ? 'В процес' : 'Нов';
+    const statusCls = p.plan ? 'status-plan' : answered > 0 ? 'status-progress' : 'status-new';
+    return `<div class="card project-card" onclick="openProject('${slug}')">
+      <div class="project-info"><div class="project-name">${esc(p.name)}</div>
+      <div class="project-meta"><span>${timeAgo(p.updatedAt)}</span><span>${answered}/${total} отговорени</span></div></div>
+      <div class="project-stats"><div class="progress-mini"><div class="progress-mini-bar" style="width:${pct}%"></div></div>
+      <span class="status-badge ${statusCls}">${status}</span></div></div>`;
+  }).join('');
 }
 
 // ===== NEW PROJECT =====
-function showNewProjectModal() {
-  document.getElementById('newProjectModal').style.display = 'flex';
-  const inp = document.getElementById('newProjectName');
-  inp.value = '';
-  setTimeout(() => inp.focus(), 100);
-}
-
-function closeModal() {
-  document.getElementById('newProjectModal').style.display = 'none';
-}
-
-async function createProject() {
+function showNewProjectModal() { document.getElementById('newProjectModal').style.display='flex'; const inp=document.getElementById('newProjectName'); inp.value=''; setTimeout(()=>inp.focus(),100); }
+function closeModal() { document.getElementById('newProjectModal').style.display='none'; }
+function createProject() {
   const name = document.getElementById('newProjectName').value.trim();
-  if (!name) { toast('Въведете име на проекта', 'error'); return; }
-  try {
-    const project = await api('/api/projects', { method: 'POST', body: { name } });
-    closeModal();
-    toast('Проектът е създаден');
-    openProject(project.slug);
-  } catch (e) {
-    toast(e.message, 'error');
-  }
+  if (!name) { toast('Въведете име','error'); return; }
+  const slug = makeSlug(name);
+  saveProject(slug, { name, answers: {}, plan: null, createdAt: new Date().toISOString(), updatedAt: new Date().toISOString() });
+  closeModal(); toast('Проектът е създаден');
+  openProject(slug);
 }
 
 // ===== OPEN PROJECT =====
-async function openProject(slug) {
-  try {
-    currentProject = await api(`/api/projects/${slug}`);
-    currentQuestionIndex = 0;
-    // Find first unanswered question
-    const answers = currentProject.answers || {};
-    for (let i = 0; i < QUESTIONS.length; i++) {
-      if (!answers[QUESTIONS[i].id] || answers[QUESTIONS[i].id].status !== 'answered') {
-        currentQuestionIndex = i;
-        break;
-      }
-    }
-    navigateTo('questionnaire');
-  } catch (e) {
-    toast(e.message, 'error');
+function openProject(slug) {
+  currentSlug = slug;
+  const p = getProject(slug);
+  if (!p) { toast('Проектът не е намерен','error'); return; }
+  currentQuestionIndex = 0;
+  const answers = p.answers || {};
+  for (let i = 0; i < QUESTIONS.length; i++) {
+    if (!answers[QUESTIONS[i].id] || answers[QUESTIONS[i].id].status !== 'answered') { currentQuestionIndex = i; break; }
   }
+  navigateTo('questionnaire');
 }
 
 // ===== QUESTIONNAIRE =====
 function renderQuestionnaire() {
-  if (!currentProject) return;
-  const answers = currentProject.answers || {};
-
-  // Title
-  document.getElementById('projectTitle').textContent = currentProject.name;
-
-  // Progress
+  const p = getProject(currentSlug); if (!p) return;
+  const answers = p.answers || {};
+  document.getElementById('projectTitle').textContent = p.name;
   const answered = Object.values(answers).filter(a => a.status === 'answered').length;
   const total = QUESTIONS.length;
   const pct = Math.round((answered / total) * 100);
@@ -892,69 +411,43 @@ function renderQuestionnaire() {
   document.getElementById('progressPercent').textContent = `${pct}%`;
   document.getElementById('progressFill').style.width = `${pct}%`;
 
-  // Category tabs
-  const tabsEl = document.getElementById('categoryTabs');
   const currentCat = QUESTIONS[currentQuestionIndex].category;
-  tabsEl.innerHTML = CATEGORIES.map(cat => {
+  document.getElementById('categoryTabs').innerHTML = CATEGORIES.map(cat => {
     const catQs = QUESTIONS.filter(q => q.category === cat);
-    const catAnswered = catQs.filter(q => answers[q.id] && answers[q.id].status === 'answered').length;
-    const isActive = cat === currentCat ? 'active' : '';
-    return `<div class="category-tab ${isActive}" onclick="jumpToCategory('${cat}')">
-      ${cat} <span class="tab-count">${catAnswered}/${catQs.length}</span>
-    </div>`;
+    const catAns = catQs.filter(q => answers[q.id] && answers[q.id].status === 'answered').length;
+    return `<div class="category-tab ${cat===currentCat?'active':''}" onclick="jumpToCategory('${cat}')">${cat} <span class="tab-count">${catAns}/${catQs.length}</span></div>`;
   }).join('');
 
-  // Question card
-  renderQuestionCard();
+  renderQuestionCard(p, answers);
+  renderDots(answers);
 
-  // Dots
-  renderDots();
-
-  // Generate plan section
   const planSection = document.getElementById('generatePlanSection');
   const btnPlan = document.getElementById('btnGeneratePlan');
   const planText = document.getElementById('planSectionText');
-  const btnViewPlan = document.getElementById('btnViewPlan');
-
-  if (answered >= 8) {
-    planSection.classList.add('ready');
-    btnPlan.disabled = false;
-    planText.textContent = `${answered} отговора — можете да генерирате план`;
-  } else {
-    planSection.classList.remove('ready');
-    btnPlan.disabled = true;
-    planText.textContent = `Отговорете на поне 8 въпроса за да генерирате план (${answered}/8)`;
-  }
-
-  btnViewPlan.style.display = currentProject.plan ? 'inline-flex' : 'none';
+  document.getElementById('btnViewPlan').style.display = p.plan ? 'inline-flex' : 'none';
+  if (answered >= 8) { planSection.classList.add('ready'); btnPlan.disabled = false; planText.textContent = `${answered} отговора — можете да генерирате план`; }
+  else { planSection.classList.remove('ready'); btnPlan.disabled = true; planText.textContent = `Отговорете на поне 8 въпроса за да генерирате план (${answered}/8)`; }
 }
 
-function renderQuestionCard() {
+function renderQuestionCard(p, answers) {
   const q = QUESTIONS[currentQuestionIndex];
-  const answers = currentProject.answers || {};
   const answer = answers[q.id];
   const card = document.getElementById('questionCard');
-
   const anim = animDirection === 'right' ? 'slideInRight' : 'slideInLeft';
-  card.style.animation = 'none';
-  card.offsetHeight; // trigger reflow
-  card.style.animation = `${anim} 0.35s ease`;
+  card.style.animation = 'none'; card.offsetHeight; card.style.animation = `${anim} 0.35s ease`;
 
-  let inputHTML = '';
   const currentVal = answer ? answer.value : '';
   const currentStatus = answer ? answer.status : '';
+  let inputHTML = '';
 
   if (q.type === 'options') {
     inputHTML = `<div class="question-options">${q.options.map(opt =>
-      `<button class="question-option ${currentVal === opt ? 'selected' : ''}" onclick="selectOption('${esc(opt)}')">${esc(opt)}</button>`
+      `<button class="question-option ${currentVal===opt?'selected':''}" onclick="selectOption('${esc(opt)}')">${esc(opt)}</button>`
     ).join('')}</div>`;
   } else if (q.type === 'textarea') {
-    inputHTML = `<div class="question-input-area"><textarea id="answerInput" placeholder="${esc(q.placeholder || '')}"
-      onblur="saveCurrentAnswer()" onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();saveAndNext()}">${esc(currentVal)}</textarea></div>`;
+    inputHTML = `<div class="question-input-area"><textarea id="answerInput" placeholder="${esc(q.placeholder||'')}" onblur="saveCurrentAnswer()" onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();saveAndNext()}">${esc(currentVal)}</textarea></div>`;
   } else {
-    inputHTML = `<div class="question-input-area"><input type="${q.type || 'text'}" id="answerInput" value="${esc(currentVal)}"
-      placeholder="${esc(q.placeholder || '')}" onblur="saveCurrentAnswer()"
-      onkeydown="if(event.key==='Enter'){saveAndNext()}"></div>`;
+    inputHTML = `<div class="question-input-area"><input type="${q.type||'text'}" id="answerInput" value="${esc(currentVal)}" placeholder="${esc(q.placeholder||'')}" onblur="saveCurrentAnswer()" onkeydown="if(event.key==='Enter'){saveAndNext()}"></div>`;
   }
 
   let statusBadge = '';
@@ -964,32 +457,23 @@ function renderQuestionCard() {
 
   card.innerHTML = `
     <div class="question-category">${esc(q.category)}</div>
-    <div class="question-number">Въпрос ${currentQuestionIndex + 1} от ${QUESTIONS.length} ${statusBadge}</div>
+    <div class="question-number">Въпрос ${currentQuestionIndex+1} от ${QUESTIONS.length} ${statusBadge}</div>
     <div class="question-text">${esc(q.text)}</div>
     ${inputHTML}
     <div class="question-nav">
-      <button class="btn btn-secondary btn-sm" onclick="prevQuestion()" ${currentQuestionIndex === 0 ? 'disabled style="opacity:0.3"' : ''}>
-        ← Назад
-      </button>
+      <button class="btn btn-secondary btn-sm" onclick="prevQuestion()" ${currentQuestionIndex===0?'disabled style="opacity:0.3"':''}>← Назад</button>
       <div class="question-skip-actions">
-        <button class="btn btn-ghost btn-sm" onclick="skipQuestion()" title="Нямам информация">Нямам инфо</button>
-        <button class="btn btn-ghost btn-sm" onclick="deferQuestion()" title="Ще проверя после">Ще проверя</button>
+        <button class="btn btn-ghost btn-sm" onclick="skipQuestion()">Нямам инфо</button>
+        <button class="btn btn-ghost btn-sm" onclick="deferQuestion()">Ще проверя</button>
       </div>
-      <button class="btn btn-primary btn-sm" onclick="saveAndNext()">
-        ${currentQuestionIndex === QUESTIONS.length - 1 ? 'Готово ✓' : 'Напред →'}
-      </button>
-    </div>
-  `;
-
-  // Focus input
+      <button class="btn btn-primary btn-sm" onclick="saveAndNext()">${currentQuestionIndex===QUESTIONS.length-1?'Готово ✓':'Напред →'}</button>
+    </div>`;
   const inp = document.getElementById('answerInput');
   if (inp) setTimeout(() => inp.focus(), 100);
 }
 
-function renderDots() {
-  const answers = currentProject.answers || {};
-  const dotsEl = document.getElementById('questionDots');
-  dotsEl.innerHTML = QUESTIONS.map((q, i) => {
+function renderDots(answers) {
+  document.getElementById('questionDots').innerHTML = QUESTIONS.map((q,i) => {
     const a = answers[q.id];
     let cls = '';
     if (i === currentQuestionIndex) cls = 'current';
@@ -1000,170 +484,113 @@ function renderDots() {
   }).join('');
 }
 
-// ===== QUESTION ACTIONS =====
-async function saveAnswer(value, status = 'answered') {
-  const q = QUESTIONS[currentQuestionIndex];
-  const answers = { [q.id]: { value, status, updatedAt: new Date().toISOString() } };
-  try {
-    currentProject = await api(`/api/projects/${currentProject.slug}/answers`, {
-      method: 'PUT', body: { answers }
-    });
-  } catch (e) {
-    toast(e.message, 'error');
-  }
+// ===== ACTIONS =====
+function saveAnswer(value, status) {
+  const p = getProject(currentSlug); if (!p) return;
+  if (!p.answers) p.answers = {};
+  p.answers[QUESTIONS[currentQuestionIndex].id] = { value, status, updatedAt: new Date().toISOString() };
+  p.updatedAt = new Date().toISOString();
+  saveProject(currentSlug, p);
 }
 
 function saveCurrentAnswer() {
   const inp = document.getElementById('answerInput');
-  if (!inp) return;
-  const val = inp.value.trim();
-  if (val) saveAnswer(val, 'answered');
+  if (inp && inp.value.trim()) saveAnswer(inp.value.trim(), 'answered');
 }
 
-async function selectOption(value) {
-  await saveAnswer(value, 'answered');
-  setTimeout(() => {
-    if (currentQuestionIndex < QUESTIONS.length - 1) {
-      animDirection = 'right';
-      currentQuestionIndex++;
-      renderQuestionnaire();
-    } else {
-      renderQuestionnaire();
-      toast('Всички въпроси са попълнени!', 'info');
-    }
-  }, 150);
+function selectOption(value) {
+  saveAnswer(value, 'answered');
+  setTimeout(() => { if (currentQuestionIndex < QUESTIONS.length-1) { animDirection='right'; currentQuestionIndex++; renderQuestionnaire(); } else { renderQuestionnaire(); toast('Всички въпроси!','info'); } }, 150);
 }
 
-async function saveAndNext() {
+function saveAndNext() {
   const q = QUESTIONS[currentQuestionIndex];
-  if (q.type !== 'options') {
-    const inp = document.getElementById('answerInput');
-    if (inp && inp.value.trim()) {
-      await saveAnswer(inp.value.trim(), 'answered');
-    }
-  }
-  if (currentQuestionIndex < QUESTIONS.length - 1) {
-    animDirection = 'right';
-    currentQuestionIndex++;
-    renderQuestionnaire();
-  } else {
-    renderQuestionnaire();
-    toast('Последен въпрос!', 'info');
-  }
+  if (q.type !== 'options') { const inp = document.getElementById('answerInput'); if (inp && inp.value.trim()) saveAnswer(inp.value.trim(), 'answered'); }
+  if (currentQuestionIndex < QUESTIONS.length-1) { animDirection='right'; currentQuestionIndex++; renderQuestionnaire(); }
+  else { renderQuestionnaire(); toast('Последен въпрос!','info'); }
 }
 
-function prevQuestion() {
-  if (currentQuestionIndex > 0) {
-    animDirection = 'left';
-    currentQuestionIndex--;
-    renderQuestionnaire();
-  }
-}
-
-async function skipQuestion() {
-  await saveAnswer('', 'skipped');
-  toast('Пропуснат', 'info');
-  if (currentQuestionIndex < QUESTIONS.length - 1) {
-    animDirection = 'right';
-    currentQuestionIndex++;
-  }
-  renderQuestionnaire();
-}
-
-async function deferQuestion() {
-  await saveAnswer('', 'deferred');
-  toast('Отложен', 'info');
-  if (currentQuestionIndex < QUESTIONS.length - 1) {
-    animDirection = 'right';
-    currentQuestionIndex++;
-  }
-  renderQuestionnaire();
-}
-
-function goToQuestion(index) {
-  animDirection = index > currentQuestionIndex ? 'right' : 'left';
-  currentQuestionIndex = index;
-  renderQuestionnaire();
-}
-
-function jumpToCategory(cat) {
-  const idx = QUESTIONS.findIndex(q => q.category === cat);
-  if (idx >= 0) goToQuestion(idx);
-}
+function prevQuestion() { if (currentQuestionIndex > 0) { animDirection='left'; currentQuestionIndex--; renderQuestionnaire(); } }
+function skipQuestion() { saveAnswer('','skipped'); toast('Пропуснат','info'); if (currentQuestionIndex<QUESTIONS.length-1){animDirection='right';currentQuestionIndex++;} renderQuestionnaire(); }
+function deferQuestion() { saveAnswer('','deferred'); toast('Отложен','info'); if (currentQuestionIndex<QUESTIONS.length-1){animDirection='right';currentQuestionIndex++;} renderQuestionnaire(); }
+function goToQuestion(i) { animDirection = i > currentQuestionIndex ? 'right' : 'left'; currentQuestionIndex = i; renderQuestionnaire(); }
+function jumpToCategory(cat) { const idx = QUESTIONS.findIndex(q => q.category === cat); if (idx >= 0) goToQuestion(idx); }
 
 // ===== PLAN =====
-async function generatePlan() {
-  const btn = document.getElementById('btnGeneratePlan');
-  btn.disabled = true;
-  btn.innerHTML = '<div class="spinner"></div> Генериране...';
-  try {
-    const result = await api(`/api/projects/${currentProject.slug}/generate-plan`, { method: 'POST' });
-    currentProject.plan = result.plan;
-    toast('Планът е генериран!');
-    renderQuestionnaire();
-  } catch (e) {
-    toast(e.message, 'error');
-  } finally {
-    btn.disabled = false;
-    btn.textContent = 'Генерирай план';
+function generatePlan() {
+  const p = getProject(currentSlug); if (!p) return;
+  const a = p.answers || {};
+  let plan = `# План за редизайн: ${p.name}\n\n`;
+  plan += `## 📋 Основна информация\n`;
+  plan += a.business_name?.value ? `- **Бизнес:** ${a.business_name.value}\n` : '';
+  plan += a.current_url?.value ? `- **Текущ сайт:** ${a.current_url.value}\n` : '';
+  plan += a.niche?.value ? `- **Ниша:** ${a.niche.value}\n` : '';
+  plan += a.city?.value ? `- **Град:** ${a.city.value}\n` : '';
+  plan += a.phone?.value ? `- **Телефон:** ${a.phone.value}\n` : '';
+  plan += a.email?.value ? `- **Email:** ${a.email.value}\n` : '';
+  plan += `\n## 🔍 Текущо състояние\n`;
+  plan += a.social_pages?.value ? `- **Социални мрежи:** ${a.social_pages.value}\n` : '';
+  plan += a.google_business?.value ? `- **Google Business:** ${a.google_business.value}\n` : '';
+  plan += a.site_condition?.value ? `- **Състояние:** ${a.site_condition.value}\n` : '';
+  plan += a.main_problems?.value ? `- **Проблеми:** ${a.main_problems.value}\n` : '';
+  plan += `\n## 🎨 Ресурси\n`;
+  plan += a.real_photos?.value ? `- **Снимки:** ${a.real_photos.value}\n` : '';
+  plan += a.logo_vector?.value ? `- **Лого:** ${a.logo_vector.value}\n` : '';
+  plan += a.brandbook?.value ? `- **Брандбук:** ${a.brandbook.value}\n` : '';
+  plan += a.working_hours?.value ? `- **Работно време:** ${a.working_hours.value}\n` : '';
+  plan += a.social_links?.value ? `- **Месинджъри:** ${a.social_links.value}\n` : '';
+  plan += `\n## 🚀 Нов сайт\n`;
+  plan += a.site_goal?.value ? `- **Цел:** ${a.site_goal.value}\n` : '';
+  plan += a.needs_catalog?.value ? `- **Каталог:** ${a.needs_catalog.value}\n` : '';
+  plan += a.needs_contact_form?.value ? `- **Контактна форма:** ${a.needs_contact_form.value}\n` : '';
+  plan += a.needs_maps?.value ? `- **Google Maps:** ${a.needs_maps.value}\n` : '';
+  plan += a.special_features?.value ? `- **Специални функции:** ${a.special_features.value}\n` : '';
+  plan += a.domain_plan?.value ? `- **Домейн:** ${a.domain_plan.value}\n` : '';
+  plan += a.hosting_plan?.value ? `- **Хостинг:** ${a.hosting_plan.value}\n` : '';
+  plan += `\n## 💰 Бюджет и срокове\n`;
+  plan += a.budget_range?.value ? `- **Бюджет:** ${a.budget_range.value}\n` : '';
+  plan += a.deadline?.value ? `- **Срок:** ${a.deadline.value}\n` : '';
+  plan += a.priority?.value ? `- **Приоритет:** ${a.priority.value}\n` : '';
+
+  const skipped = QUESTIONS.filter(q => !a[q.id] || a[q.id].status !== 'answered');
+  if (skipped.length) {
+    plan += `\n## ⚠️ Липсваща информация (${skipped.length} въпроса)\n`;
+    skipped.forEach(q => { plan += `- ${q.text}\n`; });
   }
+
+  p.plan = plan; p.updatedAt = new Date().toISOString();
+  saveProject(currentSlug, p);
+  toast('Планът е генериран!');
+  renderQuestionnaire();
 }
 
-async function viewPlan() {
-  try {
-    const result = await api(`/api/projects/${currentProject.slug}/plan`);
-    document.getElementById('planContent').innerHTML = renderMarkdown(result.plan);
-    navigateTo('plan');
-  } catch (e) {
-    toast(e.message, 'error');
-  }
+function viewPlan() {
+  const p = getProject(currentSlug);
+  if (!p || !p.plan) { toast('Няма план','error'); return; }
+  document.getElementById('planContent').innerHTML = renderMarkdown(p.plan);
+  navigateTo('plan');
 }
 
 function renderMarkdown(md) {
-  return md
-    .replace(/^### (.+)$/gm, '<h3>$1</h3>')
-    .replace(/^## (.+)$/gm, '<h2>$1</h2>')
-    .replace(/^# (.+)$/gm, '<h1>$1</h1>')
-    .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
-    .replace(/^- (.+)$/gm, '• $1')
-    .replace(/\n/g, '<br>');
+  return md.replace(/^### (.+)$/gm,'<h3>$1</h3>').replace(/^## (.+)$/gm,'<h2>$1</h2>').replace(/^# (.+)$/gm,'<h1>$1</h1>').replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>').replace(/^- (.+)$/gm,'• $1').replace(/\n/g,'<br>');
 }
 
-// ===== DELETE =====
-async function confirmDeleteProject() {
-  if (!confirm(`Сигурни ли сте, че искате да изтриете "${currentProject.name}"?`)) return;
-  try {
-    await api(`/api/projects/${currentProject.slug}`, { method: 'DELETE' });
-    toast('Проектът е изтрит');
-    currentProject = null;
-    navigateTo('dashboard');
-  } catch (e) {
-    toast(e.message, 'error');
-  }
+function confirmDeleteProject() {
+  const p = getProject(currentSlug);
+  if (!confirm(`Изтриване на "${p?.name}"?`)) return;
+  deleteProject(currentSlug); currentSlug = null;
+  toast('Изтрит'); navigateTo('dashboard');
 }
 
-// ===== HELPERS =====
-function esc(str) {
-  if (!str) return '';
-  const d = document.createElement('div');
-  d.textContent = str;
-  return d.innerHTML;
+function esc(s) { if (!s) return ''; const d=document.createElement('div'); d.textContent=s; return d.innerHTML; }
+function timeAgo(ds) {
+  const d = Date.now() - new Date(ds).getTime(), m = Math.floor(d/60000);
+  if (m<1) return 'току-що'; if (m<60) return `преди ${m} мин`;
+  const h=Math.floor(m/60); if (h<24) return `преди ${h} ч`;
+  const dd=Math.floor(h/24); return dd<30 ? `преди ${dd} дни` : new Date(ds).toLocaleDateString('bg-BG');
 }
 
-function timeAgo(dateStr) {
-  const diff = Date.now() - new Date(dateStr).getTime();
-  const min = Math.floor(diff / 60000);
-  if (min < 1) return 'току-що';
-  if (min < 60) return `преди ${min} мин`;
-  const hr = Math.floor(min / 60);
-  if (hr < 24) return `преди ${hr} ч`;
-  const days = Math.floor(hr / 24);
-  if (days < 30) return `преди ${days} дни`;
-  return new Date(dateStr).toLocaleDateString('bg-BG');
-}
-
-// ===== INIT =====
-loadProjects();
+renderDashboard();
 </script>
 </body>
 </html>
