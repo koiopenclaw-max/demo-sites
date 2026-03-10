@@ -309,26 +309,22 @@ const QUESTIONS = [
   { id: 'priority', category: 'Бюджет и срокове', text: 'Кои два приоритета са най-важни?', type: 'options', options: ['Бързо + Качествено', 'Бързо + Евтино', 'Качествено + Евтино'] },
 ];
 const CATEGORIES = [...new Set(QUESTIONS.map(q => q.category))];
-const STORAGE_KEY = 'demoSitesProjects';
+const API_BASE = 'http://161.35.19.170:3847';
 
-// ===== LOCAL STORAGE =====
-function getProjects() {
-  try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}; } catch { return {}; }
-}
-function saveProjects(data) { localStorage.setItem(STORAGE_KEY, JSON.stringify(data)); }
-function getProject(slug) { return getProjects()[slug] || null; }
-function saveProject(slug, project) { const all = getProjects(); all[slug] = project; saveProjects(all); }
-function deleteProject(slug) { const all = getProjects(); delete all[slug]; saveProjects(all); }
-function makeSlug(name) {
-  const base = name.toLowerCase().replace(/[^a-zа-яё0-9]+/gi, '-').replace(/^-|-$/g, '') || 'project';
-  const all = getProjects();
-  let slug = base, i = 1;
-  while (all[slug]) { slug = `${base}-${i++}`; }
-  return slug;
+// ===== API HELPER =====
+async function api(endpoint, options = {}) {
+  const res = await fetch(`${API_BASE}${endpoint}`, {
+    headers: { 'Content-Type': 'application/json' },
+    ...options,
+    body: options.body ? JSON.stringify(options.body) : undefined
+  });
+  if (!res.ok) { const err = await res.json().catch(() => ({ error: 'Грешка' })); throw new Error(err.error || 'Грешка'); }
+  return res.json();
 }
 
 // ===== STATE =====
 let currentSlug = null;
+let currentProject = null;
 let currentQuestionIndex = 0;
 let animDirection = 'right';
 
@@ -350,60 +346,59 @@ function navigateTo(view) {
 }
 
 // ===== DASHBOARD =====
-function renderDashboard() {
-  const all = getProjects();
+async function renderDashboard() {
   const list = document.getElementById('projectsList');
-  const slugs = Object.keys(all).sort((a,b) => new Date(all[b].updatedAt) - new Date(all[a].updatedAt));
-  if (!slugs.length) {
-    list.innerHTML = `<div class="empty-state"><div class="empty-state-icon">📋</div><h3>Няма проекти все още</h3><p>Създайте първия проект за да започнете</p><button class="btn btn-primary btn-lg" onclick="showNewProjectModal()">Нов проект</button></div>`;
-    return;
-  }
-  list.innerHTML = slugs.map(slug => {
-    const p = all[slug];
-    const answers = p.answers || {};
-    const answered = Object.values(answers).filter(a => a.status === 'answered').length;
-    const total = QUESTIONS.length;
-    const pct = Math.round((answered / total) * 100);
-    const status = p.plan ? 'Готов план' : answered > 0 ? 'В процес' : 'Нов';
-    const statusCls = p.plan ? 'status-plan' : answered > 0 ? 'status-progress' : 'status-new';
-    return `<div class="card project-card" onclick="openProject('${slug}')">
-      <div class="project-info"><div class="project-name">${esc(p.name)}</div>
-      <div class="project-meta"><span>${timeAgo(p.updatedAt)}</span><span>${answered}/${total} отговорени</span></div></div>
-      <div class="project-stats"><div class="progress-mini"><div class="progress-mini-bar" style="width:${pct}%"></div></div>
-      <span class="status-badge ${statusCls}">${status}</span></div></div>`;
-  }).join('');
+  list.innerHTML = '<div style="text-align:center;padding:2rem;color:var(--text-dim)">Зареждане...</div>';
+  try {
+    const projects = await api('/api/projects');
+    if (!projects.length) {
+      list.innerHTML = `<div class="empty-state"><div class="empty-state-icon">📋</div><h3>Няма проекти все още</h3><p>Създайте първия проект за да започнете</p><button class="btn btn-primary btn-lg" onclick="showNewProjectModal()">Нов проект</button></div>`;
+      return;
+    }
+    list.innerHTML = projects.map(p => {
+      const pct = Math.round((p.stats.answered / p.stats.totalQuestions) * 100);
+      const statusCls = p.hasPlan ? 'status-plan' : p.stats.answered > 0 ? 'status-progress' : 'status-new';
+      return `<div class="card project-card" onclick="openProject('${p.slug}')">
+        <div class="project-info"><div class="project-name">${esc(p.name)}</div>
+        <div class="project-meta"><span>${timeAgo(p.updatedAt)}</span><span>${p.stats.answered}/${p.stats.totalQuestions} отговорени</span></div></div>
+        <div class="project-stats"><div class="progress-mini"><div class="progress-mini-bar" style="width:${pct}%"></div></div>
+        <span class="status-badge ${statusCls}">${p.status}</span></div></div>`;
+    }).join('');
+  } catch(e) { list.innerHTML = `<div class="empty-state"><p style="color:var(--danger)">Грешка при свързване: ${esc(e.message)}</p></div>`; }
 }
 
 // ===== NEW PROJECT =====
 function showNewProjectModal() { document.getElementById('newProjectModal').style.display='flex'; const inp=document.getElementById('newProjectName'); inp.value=''; setTimeout(()=>inp.focus(),100); }
 function closeModal() { document.getElementById('newProjectModal').style.display='none'; }
-function createProject() {
+async function createProject() {
   const name = document.getElementById('newProjectName').value.trim();
   if (!name) { toast('Въведете име','error'); return; }
-  const slug = makeSlug(name);
-  saveProject(slug, { name, answers: {}, plan: null, createdAt: new Date().toISOString(), updatedAt: new Date().toISOString() });
-  closeModal(); toast('Проектът е създаден');
-  openProject(slug);
+  try {
+    const project = await api('/api/projects', { method: 'POST', body: { name } });
+    closeModal(); toast('Проектът е създаден');
+    openProject(project.slug);
+  } catch(e) { toast(e.message, 'error'); }
 }
 
 // ===== OPEN PROJECT =====
-function openProject(slug) {
-  currentSlug = slug;
-  const p = getProject(slug);
-  if (!p) { toast('Проектът не е намерен','error'); return; }
-  currentQuestionIndex = 0;
-  const answers = p.answers || {};
-  for (let i = 0; i < QUESTIONS.length; i++) {
-    if (!answers[QUESTIONS[i].id] || answers[QUESTIONS[i].id].status !== 'answered') { currentQuestionIndex = i; break; }
-  }
-  navigateTo('questionnaire');
+async function openProject(slug) {
+  try {
+    currentSlug = slug;
+    currentProject = await api(`/api/projects/${slug}`);
+    currentQuestionIndex = 0;
+    const answers = currentProject.answers || {};
+    for (let i = 0; i < QUESTIONS.length; i++) {
+      if (!answers[QUESTIONS[i].id] || answers[QUESTIONS[i].id].status !== 'answered') { currentQuestionIndex = i; break; }
+    }
+    navigateTo('questionnaire');
+  } catch(e) { toast(e.message, 'error'); }
 }
 
 // ===== QUESTIONNAIRE =====
 function renderQuestionnaire() {
-  const p = getProject(currentSlug); if (!p) return;
-  const answers = p.answers || {};
-  document.getElementById('projectTitle').textContent = p.name;
+  if (!currentProject) return;
+  const answers = currentProject.answers || {};
+  document.getElementById('projectTitle').textContent = currentProject.name;
   const answered = Object.values(answers).filter(a => a.status === 'answered').length;
   const total = QUESTIONS.length;
   const pct = Math.round((answered / total) * 100);
@@ -418,13 +413,13 @@ function renderQuestionnaire() {
     return `<div class="category-tab ${cat===currentCat?'active':''}" onclick="jumpToCategory('${cat}')">${cat} <span class="tab-count">${catAns}/${catQs.length}</span></div>`;
   }).join('');
 
-  renderQuestionCard(p, answers);
+  renderQuestionCard(currentProject, answers);
   renderDots(answers);
 
   const planSection = document.getElementById('generatePlanSection');
   const btnPlan = document.getElementById('btnGeneratePlan');
   const planText = document.getElementById('planSectionText');
-  document.getElementById('btnViewPlan').style.display = p.plan ? 'inline-flex' : 'none';
+  document.getElementById('btnViewPlan').style.display = currentProject.plan ? 'inline-flex' : 'none';
   if (answered >= 8) { planSection.classList.add('ready'); btnPlan.disabled = false; planText.textContent = `${answered} отговора — можете да генерирате план`; }
   else { planSection.classList.remove('ready'); btnPlan.disabled = true; planText.textContent = `Отговорете на поне 8 въпроса за да генерирате план (${answered}/8)`; }
 }
@@ -485,12 +480,13 @@ function renderDots(answers) {
 }
 
 // ===== ACTIONS =====
-function saveAnswer(value, status) {
-  const p = getProject(currentSlug); if (!p) return;
-  if (!p.answers) p.answers = {};
-  p.answers[QUESTIONS[currentQuestionIndex].id] = { value, status, updatedAt: new Date().toISOString() };
-  p.updatedAt = new Date().toISOString();
-  saveProject(currentSlug, p);
+async function saveAnswer(value, status) {
+  const q = QUESTIONS[currentQuestionIndex];
+  try {
+    currentProject = await api(`/api/projects/${currentSlug}/answers`, {
+      method: 'PUT', body: { answers: { [q.id]: { value, status, updatedAt: new Date().toISOString() } } }
+    });
+  } catch(e) { toast(e.message, 'error'); }
 }
 
 function saveCurrentAnswer() {
@@ -498,88 +494,56 @@ function saveCurrentAnswer() {
   if (inp && inp.value.trim()) saveAnswer(inp.value.trim(), 'answered');
 }
 
-function selectOption(value) {
-  saveAnswer(value, 'answered');
+async function selectOption(value) {
+  await saveAnswer(value, 'answered');
   setTimeout(() => { if (currentQuestionIndex < QUESTIONS.length-1) { animDirection='right'; currentQuestionIndex++; renderQuestionnaire(); } else { renderQuestionnaire(); toast('Всички въпроси!','info'); } }, 150);
 }
 
-function saveAndNext() {
+async function saveAndNext() {
   const q = QUESTIONS[currentQuestionIndex];
-  if (q.type !== 'options') { const inp = document.getElementById('answerInput'); if (inp && inp.value.trim()) saveAnswer(inp.value.trim(), 'answered'); }
+  if (q.type !== 'options') { const inp = document.getElementById('answerInput'); if (inp && inp.value.trim()) await saveAnswer(inp.value.trim(), 'answered'); }
   if (currentQuestionIndex < QUESTIONS.length-1) { animDirection='right'; currentQuestionIndex++; renderQuestionnaire(); }
   else { renderQuestionnaire(); toast('Последен въпрос!','info'); }
 }
 
 function prevQuestion() { if (currentQuestionIndex > 0) { animDirection='left'; currentQuestionIndex--; renderQuestionnaire(); } }
-function skipQuestion() { saveAnswer('','skipped'); toast('Пропуснат','info'); if (currentQuestionIndex<QUESTIONS.length-1){animDirection='right';currentQuestionIndex++;} renderQuestionnaire(); }
-function deferQuestion() { saveAnswer('','deferred'); toast('Отложен','info'); if (currentQuestionIndex<QUESTIONS.length-1){animDirection='right';currentQuestionIndex++;} renderQuestionnaire(); }
+async function skipQuestion() { await saveAnswer('','skipped'); toast('Пропуснат','info'); if (currentQuestionIndex<QUESTIONS.length-1){animDirection='right';currentQuestionIndex++;} renderQuestionnaire(); }
+async function deferQuestion() { await saveAnswer('','deferred'); toast('Отложен','info'); if (currentQuestionIndex<QUESTIONS.length-1){animDirection='right';currentQuestionIndex++;} renderQuestionnaire(); }
 function goToQuestion(i) { animDirection = i > currentQuestionIndex ? 'right' : 'left'; currentQuestionIndex = i; renderQuestionnaire(); }
 function jumpToCategory(cat) { const idx = QUESTIONS.findIndex(q => q.category === cat); if (idx >= 0) goToQuestion(idx); }
 
 // ===== PLAN =====
-function generatePlan() {
-  const p = getProject(currentSlug); if (!p) return;
-  const a = p.answers || {};
-  let plan = `# План за редизайн: ${p.name}\n\n`;
-  plan += `## 📋 Основна информация\n`;
-  plan += a.business_name?.value ? `- **Бизнес:** ${a.business_name.value}\n` : '';
-  plan += a.current_url?.value ? `- **Текущ сайт:** ${a.current_url.value}\n` : '';
-  plan += a.niche?.value ? `- **Ниша:** ${a.niche.value}\n` : '';
-  plan += a.city?.value ? `- **Град:** ${a.city.value}\n` : '';
-  plan += a.phone?.value ? `- **Телефон:** ${a.phone.value}\n` : '';
-  plan += a.email?.value ? `- **Email:** ${a.email.value}\n` : '';
-  plan += `\n## 🔍 Текущо състояние\n`;
-  plan += a.social_pages?.value ? `- **Социални мрежи:** ${a.social_pages.value}\n` : '';
-  plan += a.google_business?.value ? `- **Google Business:** ${a.google_business.value}\n` : '';
-  plan += a.site_condition?.value ? `- **Състояние:** ${a.site_condition.value}\n` : '';
-  plan += a.main_problems?.value ? `- **Проблеми:** ${a.main_problems.value}\n` : '';
-  plan += `\n## 🎨 Ресурси\n`;
-  plan += a.real_photos?.value ? `- **Снимки:** ${a.real_photos.value}\n` : '';
-  plan += a.logo_vector?.value ? `- **Лого:** ${a.logo_vector.value}\n` : '';
-  plan += a.brandbook?.value ? `- **Брандбук:** ${a.brandbook.value}\n` : '';
-  plan += a.working_hours?.value ? `- **Работно време:** ${a.working_hours.value}\n` : '';
-  plan += a.social_links?.value ? `- **Месинджъри:** ${a.social_links.value}\n` : '';
-  plan += `\n## 🚀 Нов сайт\n`;
-  plan += a.site_goal?.value ? `- **Цел:** ${a.site_goal.value}\n` : '';
-  plan += a.needs_catalog?.value ? `- **Каталог:** ${a.needs_catalog.value}\n` : '';
-  plan += a.needs_contact_form?.value ? `- **Контактна форма:** ${a.needs_contact_form.value}\n` : '';
-  plan += a.needs_maps?.value ? `- **Google Maps:** ${a.needs_maps.value}\n` : '';
-  plan += a.special_features?.value ? `- **Специални функции:** ${a.special_features.value}\n` : '';
-  plan += a.domain_plan?.value ? `- **Домейн:** ${a.domain_plan.value}\n` : '';
-  plan += a.hosting_plan?.value ? `- **Хостинг:** ${a.hosting_plan.value}\n` : '';
-  plan += `\n## 💰 Бюджет и срокове\n`;
-  plan += a.budget_range?.value ? `- **Бюджет:** ${a.budget_range.value}\n` : '';
-  plan += a.deadline?.value ? `- **Срок:** ${a.deadline.value}\n` : '';
-  plan += a.priority?.value ? `- **Приоритет:** ${a.priority.value}\n` : '';
-
-  const skipped = QUESTIONS.filter(q => !a[q.id] || a[q.id].status !== 'answered');
-  if (skipped.length) {
-    plan += `\n## ⚠️ Липсваща информация (${skipped.length} въпроса)\n`;
-    skipped.forEach(q => { plan += `- ${q.text}\n`; });
-  }
-
-  p.plan = plan; p.updatedAt = new Date().toISOString();
-  saveProject(currentSlug, p);
-  toast('Планът е генериран!');
-  renderQuestionnaire();
+async function generatePlan() {
+  const btn = document.getElementById('btnGeneratePlan');
+  btn.disabled = true; btn.textContent = 'Генериране...';
+  try {
+    const result = await api(`/api/projects/${currentSlug}/generate-plan`, { method: 'POST' });
+    currentProject.plan = result.plan;
+    toast('Планът е генериран!');
+    renderQuestionnaire();
+  } catch(e) { toast(e.message, 'error'); }
+  finally { btn.disabled = false; btn.textContent = 'Генерирай план'; }
 }
 
-function viewPlan() {
-  const p = getProject(currentSlug);
-  if (!p || !p.plan) { toast('Няма план','error'); return; }
-  document.getElementById('planContent').innerHTML = renderMarkdown(p.plan);
-  navigateTo('plan');
+async function viewPlan() {
+  try {
+    const result = await api(`/api/projects/${currentSlug}/plan`);
+    document.getElementById('planContent').innerHTML = renderMarkdown(result.plan);
+    navigateTo('plan');
+  } catch(e) { toast(e.message, 'error'); }
 }
 
 function renderMarkdown(md) {
   return md.replace(/^### (.+)$/gm,'<h3>$1</h3>').replace(/^## (.+)$/gm,'<h2>$1</h2>').replace(/^# (.+)$/gm,'<h1>$1</h1>').replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>').replace(/^- (.+)$/gm,'• $1').replace(/\n/g,'<br>');
 }
 
-function confirmDeleteProject() {
-  const p = getProject(currentSlug);
-  if (!confirm(`Изтриване на "${p?.name}"?`)) return;
-  deleteProject(currentSlug); currentSlug = null;
-  toast('Изтрит'); navigateTo('dashboard');
+async function confirmDeleteProject() {
+  if (!confirm(`Изтриване на "${currentProject?.name}"?`)) return;
+  try {
+    await api(`/api/projects/${currentSlug}`, { method: 'DELETE' });
+    currentSlug = null; currentProject = null;
+    toast('Изтрит'); navigateTo('dashboard');
+  } catch(e) { toast(e.message, 'error'); }
 }
 
 function esc(s) { if (!s) return ''; const d=document.createElement('div'); d.textContent=s; return d.innerHTML; }
