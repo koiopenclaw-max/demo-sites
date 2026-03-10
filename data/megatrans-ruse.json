@@ -1,0 +1,134 @@
+{
+  "name": "Автоморга Мегатранс Русе",
+  "slug": "megatrans-ruse",
+  "createdAt": "2026-03-10T13:00:00Z",
+  "updatedAt": "2026-03-10T13:47:51.016Z",
+  "plan": null,
+  "answers": {
+    "business_name": {
+      "value": "Автоморга Мегатранс",
+      "status": "answered",
+      "updatedAt": "2026-03-10T13:35:00Z"
+    },
+    "current_url": {
+      "value": "https://megatrans-ruse.com",
+      "status": "answered",
+      "updatedAt": "2026-03-10T13:35:00Z"
+    },
+    "niche": {
+      "value": "Автоморга — авточасти втора употреба, изкупуване на коли за скрап",
+      "status": "answered",
+      "updatedAt": "2026-03-10T13:35:00Z"
+    },
+    "city": {
+      "value": "Русе",
+      "status": "answered",
+      "updatedAt": "2026-03-10T13:35:00Z"
+    },
+    "phone": {
+      "value": "0878 101 801",
+      "status": "answered",
+      "updatedAt": "2026-03-10T13:35:00Z"
+    },
+    "email": {
+      "value": "panaka.gs@gmail.com",
+      "status": "answered",
+      "updatedAt": "2026-03-10T13:35:00Z"
+    },
+    "site_condition": {
+      "value": "Шаблонен сайт от ~2012г. през infocall.bg/add.bg. Остарял дизайн, не е мобилен, счупена снимка на началната страница, галерията е празна, няма функционалност.",
+      "status": "answered",
+      "updatedAt": "2026-03-10T13:46:16.295Z"
+    },
+    "main_problems": {
+      "value": "1) Счупена снимка на homepage\n2) Празна галерия\n3) Нулева функционалност — няма търсене, каталог, инвентар\n4) Gmail за контакт (panaka.gs@gmail.com)\n5) Не е responsive/мобилен\n6) Няма контактна форма на сайта\n7) Без WhatsApp/Viber\n8) Без Google Maps\n9) Без работно време\n10) Стокови снимки смесени с реални\n11) Footer с 1 ред — без адрес, без нищо\n12) Без GDPR cookie банер",
+      "status": "answered",
+      "updatedAt": "2026-03-10T13:46:33.096Z"
+    },
+    "social_pages": {
+      "value": "",
+      "status": "skipped",
+      "updatedAt": "2026-03-10T13:46:06.695Z"
+    },
+    "google_business": {
+      "value": "Да",
+      "status": "answered",
+      "updatedAt": "2026-03-10T13:46:10.440Z"
+    },
+    "real_photos": {
+      "value": "Не знам",
+      "status": "answered",
+      "updatedAt": "2026-03-10T13:46:40.732Z"
+    },
+    "logo_vector": {
+      "value": "Само растерно (PNG/JPG)",
+      "status": "answered",
+      "updatedAt": "2026-03-10T13:46:45.032Z"
+    },
+    "brandbook": {
+      "value": "Не",
+      "status": "answered",
+      "updatedAt": "2026-03-10T13:46:47.846Z"
+    },
+    "working_hours": {
+      "value": "",
+      "status": "skipped",
+      "updatedAt": "2026-03-10T13:47:01.624Z"
+    },
+    "social_links": {
+      "value": "",
+      "status": "skipped",
+      "updatedAt": "2026-03-10T13:47:04.999Z"
+    },
+    "site_goal": {
+      "value": "Информационен (визитка)",
+      "status": "answered",
+      "updatedAt": "2026-03-10T13:47:13.136Z"
+    },
+    "needs_catalog": {
+      "value": "Не",
+      "status": "answered",
+      "updatedAt": "2026-03-10T13:47:17.196Z"
+    },
+    "needs_contact_form": {
+      "value": "Не",
+      "status": "answered",
+      "updatedAt": "2026-03-10T13:47:19.503Z"
+    },
+    "needs_maps": {
+      "value": "Да",
+      "status": "answered",
+      "updatedAt": "2026-03-10T13:47:21.304Z"
+    },
+    "special_features": {
+      "value": "",
+      "status": "skipped",
+      "updatedAt": "2026-03-10T13:47:27.480Z"
+    },
+    "domain_plan": {
+      "value": "",
+      "status": "deferred",
+      "updatedAt": "2026-03-10T13:47:32.808Z"
+    },
+    "hosting_plan": {
+      "value": "",
+      "status": "deferred",
+      "updatedAt": "2026-03-10T13:47:34.800Z"
+    },
+    "budget_range": {
+      "value": "Не знам",
+      "status": "answered",
+      "updatedAt": "2026-03-10T13:47:42.424Z"
+    },
+    "deadline": {
+      "value": "",
+      "status": "skipped",
+      "updatedAt": "2026-03-10T13:47:44.944Z"
+    },
+    "priority": {
+      "value": "Бързо + Качествено",
+      "status": "answered",
+      "updatedAt": "2026-03-10T13:47:51.016Z"
+    }
+  }
+}
