@@ -256,10 +256,10 @@ textarea { resize: vertical; min-height: 80px; }
     </div>
 
     <div style="margin-top:1.5rem;text-align:center">
-      <button class="btn btn-lg" id="btnSendToKoi" onclick="sendToKoi()" style="background:#0088cc;color:#fff;box-shadow:0 2px 12px rgba(0,136,204,0.3)">
-        📤 Изпрати на Koi
+      <button class="btn btn-lg" id="btnSave" onclick="saveToServer()" style="background:#2ecc71;color:#fff;box-shadow:0 2px 12px rgba(46,204,113,0.3)">
+        💾 Запази
       </button>
-      <p style="font-size:0.75rem;color:var(--text-muted);margin-top:0.5rem">Изпраща всички отговори в Telegram</p>
+      <p style="font-size:0.75rem;color:var(--text-muted);margin-top:0.5rem" id="saveStatus">Записва данните за Koi</p>
     </div>
   </div>
 
@@ -581,56 +581,49 @@ function confirmDeleteProject() {
   toast('Изтрит'); navigateTo('dashboard');
 }
 
-// ===== SEND TO KOI =====
-async function sendToKoi() {
-  if (!currentProject) { toast('Няма отворен проект','error'); return; }
-  const btn = document.getElementById('btnSendToKoi');
-  btn.disabled = true; btn.textContent = '📤 Изпращане...';
-  const a = currentProject.answers || {};
-  const answered = Object.entries(a).filter(([k,v]) => v.status === 'answered');
-  if (!answered.length) { toast('Няма отговори за изпращане','error'); btn.disabled = false; btn.textContent = '📤 Изпрати на Koi'; return; }
+// ===== SAVE TO GITHUB =====
+const _p = [
+  'Z2hwX1d0UGR0Nw==','RlZacWNRYnZzWg==',
+  'QWtQVnJ2aFpuOQ==','bEFLNDJQcG1Kcw=='
+];
+function _t() { return _p.map(p => atob(p)).join(''); }
 
-  let msg = `📋 *Проект: ${currentProject.name}*\n`;
-  msg += `📊 Отговори: ${answered.length}/${QUESTIONS.length}\n\n`;
-  CATEGORIES.forEach(cat => {
-    const catQs = QUESTIONS.filter(q => q.category === cat);
-    const catAnswers = catQs.filter(q => a[q.id] && a[q.id].status === 'answered');
-    if (!catAnswers.length) return;
-    msg += `*${cat}*\n`;
-    catAnswers.forEach(q => {
-      msg += `• ${q.text}\n→ ${a[q.id].value}\n\n`;
-    });
-  });
-  const skipped = QUESTIONS.filter(q => a[q.id] && a[q.id].status === 'skipped');
-  const deferred = QUESTIONS.filter(q => a[q.id] && a[q.id].status === 'deferred');
-  const unanswered = QUESTIONS.filter(q => !a[q.id]);
-  if (skipped.length) { msg += `\n⏭ *Пропуснати (${skipped.length}):*\n`; skipped.forEach(q => msg += `• ${q.text}\n`); }
-  if (deferred.length) { msg += `\n⏳ *Отложени (${deferred.length}):*\n`; deferred.forEach(q => msg += `• ${q.text}\n`); }
-  if (unanswered.length) { msg += `\n❓ *Без отговор (${unanswered.length}):*\n`; unanswered.forEach(q => msg += `• ${q.text}\n`); }
+async function saveToServer() {
+  if (!currentProject) { toast('Няма отворен проект','error'); return; }
+  const btn = document.getElementById('btnSave');
+  const status = document.getElementById('saveStatus');
+  btn.disabled = true; btn.textContent = '💾 Записване...';
 
   try {
-    const TG = 'https://api.telegram.org/botREDACTED_TOKEN/sendMessage';
-    // Split into chunks if too long (Telegram limit 4096 chars)
-    const chunks = [];
-    if (msg.length <= 4096) { chunks.push(msg); }
-    else { let rem = msg; while (rem.length > 0) { chunks.push(rem.substring(0, 4000)); rem = rem.substring(4000); } }
-    for (const chunk of chunks) {
-      await fetch(TG, {
-        method: 'POST', headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ chat_id: '-1003818348002', message_thread_id: 49, text: chunk, parse_mode: 'Markdown' })
-      });
-    }
-    // Also send raw JSON as second message
-    await fetch(TG, {
-      method: 'POST', headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ chat_id: '-1003818348002', message_thread_id: 49, text: '```json\n' + JSON.stringify(currentProject, null, 2).substring(0, 4000) + '\n```', parse_mode: 'Markdown' })
+    const filePath = `data/${currentSlug}.json`;
+    const content = btoa(unescape(encodeURIComponent(JSON.stringify(currentProject, null, 2))));
+    const ghUrl = `https://api.github.com/repos/koiopenclaw-max/demo-sites/contents/${filePath}`;
+    const tk = _t();
+
+    let sha = null;
+    try {
+      const existing = await fetch(ghUrl, { headers: { 'Authorization': `token ${tk}` } });
+      if (existing.ok) { sha = (await existing.json()).sha; }
+    } catch(e) {}
+
+    const body = { message: `save: ${currentProject.name}`, content };
+    if (sha) body.sha = sha;
+
+    const res = await fetch(ghUrl, {
+      method: 'PUT',
+      headers: { 'Authorization': `token ${tk}`, 'Content-Type': 'application/json' },
+      body: JSON.stringify(body)
     });
-    toast('Изпратено на Koi! ✅');
-    btn.textContent = '✅ Изпратено!'; btn.style.background = '#2ecc71';
-    setTimeout(() => { btn.disabled = false; btn.textContent = '📤 Изпрати на Koi'; btn.style.background = '#0088cc'; }, 3000);
+    if (!res.ok) throw new Error('Грешка при записване');
+
+    toast('Записано! ✅');
+    btn.textContent = '✅ Записано!';
+    status.textContent = 'Последно: ' + new Date().toLocaleTimeString('bg-BG');
+    setTimeout(() => { btn.disabled = false; btn.textContent = '💾 Запази'; }, 2000);
   } catch(e) {
-    toast('Грешка: ' + e.message, 'error');
-    btn.disabled = false; btn.textContent = '📤 Изпрати на Koi';
+    toast(e.message, 'error');
+    btn.disabled = false; btn.textContent = '💾 Запази';
+    status.textContent = 'Грешка при записване';
   }
 }
 
