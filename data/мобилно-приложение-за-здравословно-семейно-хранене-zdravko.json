@@ -10,5 +10,6 @@
   "qa": [],
   "demoUrl": null,
   "createdAt": "2026-03-11T18:33:44.700Z",
-  "updatedAt": "2026-03-11T18:33:56.215Z"
+  "updatedAt": "2026-03-11T18:33:56.215Z",
+  "_trigger": "test"
 }
