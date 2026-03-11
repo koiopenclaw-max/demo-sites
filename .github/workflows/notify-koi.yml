@@ -1,0 +1,52 @@
+name: Notify Koi
+
+on:
+  push:
+    paths:
+      - 'data/*.json'
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check for actionable projects
+        id: check
+        run: |
+          MESSAGES=""
+          for f in data/*.json; do
+            [ -f "$f" ] || continue
+            slug=$(basename "$f" .json)
+            status=$(python3 -c "import json; d=json.load(open('$f')); print(d.get('status',''))" 2>/dev/null)
+            name=$(python3 -c "import json; d=json.load(open('$f')); print(d.get('name',''))" 2>/dev/null)
+            
+            if [ "$status" = "briefing" ]; then
+              MESSAGES="${MESSAGES}🔔 *${name}* — Пусни за задание! Статус: briefing\n"
+            elif [ "$status" = "building" ]; then
+              MESSAGES="${MESSAGES}🔨 *${name}* — Одобрено за билд! Статус: building\n"
+            fi
+          done
+          
+          if [ -n "$MESSAGES" ]; then
+            echo "has_message=true" >> $GITHUB_OUTPUT
+            # Escape for JSON
+            ESCAPED=$(echo -e "$MESSAGES" | python3 -c "import sys,json; print(json.dumps(sys.stdin.read().strip()))")
+            echo "message=$ESCAPED" >> $GITHUB_OUTPUT
+          else
+            echo "has_message=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Send Telegram notification
+        if: steps.check.outputs.has_message == 'true'
+        run: |
+          MESSAGE=${{ steps.check.outputs.message }}
+          curl -s -X POST \
+            "https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage" \
+            -H "Content-Type: application/json" \
+            -d "{
+              \"chat_id\": \"-1003818348002\",
+              \"message_thread_id\": 49,
+              \"text\": $MESSAGE,
+              \"parse_mode\": \"Markdown\"
+            }"
