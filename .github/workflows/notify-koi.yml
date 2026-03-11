@@ -24,6 +24,12 @@ jobs:
           chat_id = os.environ["CHAT_ID"]
           topic_id = int(os.environ["TOPIC_ID"])
 
+          triggers = {
+              "briefing": "🔔 Пусни за задание!",
+              "qa_submitted": "💬 Нови отговори на въпроси!",
+              "building": "🔨 Одобрено за билд!"
+          }
+
           for fpath in glob.glob("data/*.json"):
               try:
                   with open(fpath) as f:
@@ -33,26 +39,23 @@ jobs:
               except:
                   continue
 
-              msg = None
-              if status == "briefing":
-                  msg = f"🔔 {name} — Пусни за задание! Статус: briefing"
-              elif status == "building":
-                  msg = f"🔨 {name} — Одобрено за билд! Статус: building"
+              if status not in triggers:
+                  continue
 
-              if msg:
-                  payload = json.dumps({
-                      "chat_id": chat_id,
-                      "message_thread_id": topic_id,
-                      "text": msg
-                  }).encode()
-                  req = urllib.request.Request(
-                      f"https://api.telegram.org/bot{bot_token}/sendMessage",
-                      data=payload,
-                      headers={"Content-Type": "application/json"}
-                  )
-                  try:
-                      resp = urllib.request.urlopen(req)
-                      print(f"OK: {name} -> {resp.status}")
-                  except Exception as e:
-                      print(f"ERROR: {name} -> {e}")
+              msg = f"{triggers[status]} Проект: {name} | Status: {status}"
+              payload = json.dumps({
+                  "chat_id": chat_id,
+                  "message_thread_id": topic_id,
+                  "text": msg
+              }).encode()
+              req = urllib.request.Request(
+                  f"https://api.telegram.org/bot{bot_token}/sendMessage",
+                  data=payload,
+                  headers={"Content-Type": "application/json"}
+              )
+              try:
+                  resp = urllib.request.urlopen(req)
+                  print(f"OK: {name} ({status}) -> {resp.status}")
+              except Exception as e:
+                  print(f"ERROR: {name} -> {e}")
           PYEOF
