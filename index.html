@@ -447,6 +447,7 @@ function renderDetail() {
   renderAction(p);
   renderBrief(p);
   renderQa(p);
+  renderBottomActions(p);
   renderDemo(p);
 }
 
@@ -463,14 +464,11 @@ function renderAction(p) {
       <p style="margin-top:1rem">${msgs[p.status]}</p>
       <p style="font-size:0.8rem;color:var(--text-muted)">Страницата се обновява автоматично на всеки 10 сек</p></div>`;
   } else if (p.status === 'brief_ready') {
-    a.innerHTML = `<div class="action-section highlight">
-      <p>Заданието е готово. Прегледай, отговори на въпросите и изпрати.</p>
-      <button class="btn btn-primary btn-xl" onclick="doAction('qa_submitted')">📨 Изпрати отговори</button>
-      <div style="margin-top:0.75rem"><button class="btn btn-success btn-lg" onclick="doAction('building')">🔨 Директно към Билд (без въпроси)</button></div></div>`;
+    a.innerHTML = `<div class="action-section" style="border:none;padding:0.5rem">
+      <p style="font-size:0.85rem">👇 Прегледай заданието и отговори на въпросите по-долу</p></div>`;
   } else if (p.status === 'brief_final') {
-    a.innerHTML = `<div class="action-section highlight">
-      <p>Финалното задание е готово. Прегледай и потвърди билда.</p>
-      <button class="btn btn-success btn-xl" onclick="doAction('building')">🔨 Потвърди → Билд</button></div>`;
+    a.innerHTML = `<div class="action-section" style="border:none;padding:0.5rem">
+      <p style="font-size:0.85rem">👇 Прегледай финалното задание и потвърди билда долу</p></div>`;
   } else if (p.status === 'done') {
     a.innerHTML = '';
   } else {
@@ -500,6 +498,27 @@ function renderQa(p) {
       }
     </div>`).join('')}
   </div>`;
+}
+
+function renderBottomActions(p) {
+  let el = document.getElementById('bottomActions');
+  if (!el) {
+    el = document.createElement('div');
+    el.id = 'bottomActions';
+    document.getElementById('qaArea').after(el);
+  }
+  if (p.status === 'brief_ready') {
+    el.innerHTML = `<div class="action-section highlight" style="margin-top:1.5rem">
+      <p>Готов с отговорите? Изпрати ги или премини директно към билд.</p>
+      <button class="btn btn-primary btn-xl" onclick="doAction('qa_submitted')">📨 Изпрати отговори</button>
+      <div style="margin-top:0.75rem"><button class="btn btn-success btn-lg" onclick="doAction('building')">🔨 Директно към Билд</button></div></div>`;
+  } else if (p.status === 'brief_final') {
+    el.innerHTML = `<div class="action-section highlight" style="margin-top:1.5rem">
+      <p>Финалното задание е готово. Потвърди билда.</p>
+      <button class="btn btn-success btn-xl" onclick="doAction('building')">🔨 Потвърди → Билд</button></div>`;
+  } else {
+    el.innerHTML = '';
+  }
 }
 
 function renderDemo(p) {
