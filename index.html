@@ -544,7 +544,8 @@ function stopPolling() {
 async function pollServer() {
   if (!currentSlug) return;
   try {
-    const ghUrl = `https://api.github.com/repos/koiopenclaw-max/demo-sites/contents/data/${currentSlug}.json`;
+    const encodedSlug = encodeURIComponent(currentSlug);
+    const ghUrl = `https://api.github.com/repos/koiopenclaw-max/demo-sites/contents/data/${encodedSlug}.json`;
     const res = await fetch(ghUrl, {
       headers: { 'Authorization': `token ${_t()}`, 'If-None-Match': '' },
       cache: 'no-store'
@@ -582,13 +583,14 @@ function _t() { return _p.map(p => atob(p)).join(''); }
 async function saveToGH() {
   if (!currentProject) return;
   try {
-    const fp = `data/${currentSlug}.json`;
+    const fp = `data/${encodeURIComponent(currentSlug)}.json`;
     const content = btoa(unescape(encodeURIComponent(JSON.stringify(currentProject, null, 2))));
     const ghUrl = `https://api.github.com/repos/koiopenclaw-max/demo-sites/contents/${fp}`;
     const tk = _t();
     let sha = null;
     try { const r = await fetch(ghUrl, {headers:{'Authorization':`token ${tk}`}}); if (r.ok) sha = (await r.json()).sha; } catch(e) {}
-    const body = { message: `[${currentProject.status}] ${currentProject.name}`, content };
+    const rawPath = `data/${currentSlug}.json`;
+    const body = { message: `[${currentProject.status}] ${currentProject.name}`, content, path: rawPath };
     if (sha) body.sha = sha;
     const res = await fetch(ghUrl, { method:'PUT', headers:{'Authorization':`token ${tk}`,'Content-Type':'application/json'}, body: JSON.stringify(body) });
     if (!res.ok) throw new Error('Save failed');
