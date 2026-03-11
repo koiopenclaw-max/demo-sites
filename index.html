@@ -43,7 +43,6 @@ body {
 ::-webkit-scrollbar { width: 6px; }
 ::-webkit-scrollbar-track { background: var(--bg-deep); }
 ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
-::-webkit-scrollbar-thumb:hover { background: var(--accent-dim); }
 
 .header {
   background: linear-gradient(135deg, var(--bg-main) 0%, #0e1628 100%);
@@ -73,8 +72,6 @@ body {
 .view.active { display: block; }
 
 @keyframes fadeIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
-@keyframes slideInRight { from { opacity: 0; transform: translateX(40px); } to { opacity: 1; transform: translateX(0); } }
-@keyframes slideInLeft { from { opacity: 0; transform: translateX(-40px); } to { opacity: 1; transform: translateX(0); } }
 
 .btn {
   display: inline-flex; align-items: center; gap: 0.5rem;
@@ -83,31 +80,41 @@ body {
   transition: all var(--transition); text-decoration: none; white-space: nowrap;
 }
 .btn:active { transform: scale(0.97); }
+.btn:disabled { opacity: 0.4; cursor: not-allowed; }
 .btn-primary { background: var(--accent); color: var(--bg-deep); box-shadow: 0 2px 12px rgba(240, 165, 0, 0.3); }
-.btn-primary:hover { background: #ffb920; box-shadow: 0 4px 20px rgba(240, 165, 0, 0.45); transform: translateY(-1px); }
+.btn-primary:hover:not(:disabled) { background: #ffb920; box-shadow: 0 4px 20px rgba(240, 165, 0, 0.45); transform: translateY(-1px); }
 .btn-secondary { background: var(--bg-card); color: var(--text); border: 1px solid var(--border); }
 .btn-secondary:hover { background: var(--bg-card-hover); border-color: var(--accent-dim); }
 .btn-ghost { background: transparent; color: var(--text-dim); padding: 0.5rem 0.75rem; }
 .btn-ghost:hover { color: var(--accent); }
 .btn-danger { background: rgba(231, 76, 60, 0.15); color: var(--danger); border: 1px solid rgba(231, 76, 60, 0.3); }
 .btn-danger:hover { background: rgba(231, 76, 60, 0.25); }
+.btn-success { background: var(--success); color: #fff; box-shadow: 0 2px 12px rgba(46, 204, 113, 0.3); }
+.btn-success:hover:not(:disabled) { background: #27ae60; }
 .btn-sm { padding: 0.4rem 0.85rem; font-size: 0.82rem; }
 .btn-lg { padding: 0.85rem 2rem; font-size: 1rem; }
+.btn-xl { padding: 1rem 2.5rem; font-size: 1.1rem; border-radius: var(--radius); }
 
 .card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.25rem; transition: all var(--transition); }
 .card:hover { border-color: rgba(240, 165, 0, 0.3); box-shadow: 0 4px 20px rgba(0,0,0,0.3); }
 
-input[type="text"], input[type="email"], input[type="tel"], input[type="url"], textarea, select {
+.form-group { margin-bottom: 1.25rem; }
+.form-label { display: block; margin-bottom: 0.4rem; font-size: 0.85rem; color: var(--text-dim); font-weight: 600; }
+.form-hint { font-size: 0.75rem; color: var(--text-muted); margin-top: 0.25rem; }
+
+input[type="text"], input[type="url"], textarea, select {
   width: 100%; padding: 0.75rem 1rem; background: var(--bg-input);
   border: 1px solid var(--border); border-radius: var(--radius-sm);
   color: var(--text); font-size: 0.95rem; font-family: inherit;
   transition: all var(--transition); outline: none;
 }
 input:focus, textarea:focus, select:focus { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-glow); }
-textarea { resize: vertical; min-height: 80px; }
+select { cursor: pointer; }
+select option { background: var(--bg-main); color: var(--text); }
+textarea { resize: vertical; min-height: 100px; }
 
 .dashboard-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem; }
-.dashboard-header h2 { font-size: 1.4rem; font-weight: 700; letter-spacing: -0.02em; }
+.dashboard-header h2 { font-size: 1.4rem; font-weight: 700; }
 .projects-grid { display: grid; gap: 1rem; }
 
 .project-card { cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 1rem; }
@@ -115,76 +122,80 @@ textarea { resize: vertical; min-height: 80px; }
 .project-info { flex: 1; min-width: 0; }
 .project-name { font-size: 1.05rem; font-weight: 700; margin-bottom: 0.25rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .project-meta { font-size: 0.8rem; color: var(--text-dim); display: flex; gap: 1rem; flex-wrap: wrap; }
-.project-stats { display: flex; gap: 0.5rem; align-items: center; flex-shrink: 0; }
+.project-type-badge { font-size: 0.75rem; padding: 0.15rem 0.5rem; border-radius: 10px; background: rgba(52, 152, 219, 0.15); color: var(--info); font-weight: 600; }
 
 .status-badge { padding: 0.3rem 0.75rem; border-radius: 20px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.03em; }
-.status-new { background: rgba(52, 152, 219, 0.15); color: var(--info); }
-.status-progress { background: var(--accent-glow); color: var(--accent); }
-.status-plan { background: rgba(46, 204, 113, 0.15); color: var(--success); }
-
-.progress-mini { width: 60px; height: 6px; background: var(--bg-deep); border-radius: 3px; overflow: hidden; }
-.progress-mini-bar { height: 100%; background: var(--accent); border-radius: 3px; transition: width var(--transition); }
+.status-created { background: rgba(52, 152, 219, 0.15); color: var(--info); }
+.status-briefing { background: var(--accent-glow); color: var(--accent); }
+.status-brief_ready { background: rgba(46, 204, 113, 0.15); color: var(--success); }
+.status-qa { background: rgba(155, 89, 182, 0.15); color: #9b59b6; }
+.status-building { background: var(--accent-glow); color: var(--accent); }
+.status-done { background: rgba(46, 204, 113, 0.25); color: var(--success); }
 
 .empty-state { text-align: center; padding: 4rem 2rem; color: var(--text-dim); }
 .empty-state-icon { font-size: 3rem; margin-bottom: 1rem; opacity: 0.4; }
 .empty-state h3 { font-size: 1.2rem; margin-bottom: 0.5rem; color: var(--text); }
 .empty-state p { margin-bottom: 1.5rem; }
 
-.modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.7); backdrop-filter: blur(4px); z-index: 200; display: flex; align-items: center; justify-content: center; padding: 1rem; animation: fadeIn 0.2s ease; }
-.modal { background: var(--bg-main); border: 1px solid var(--border); border-radius: var(--radius); padding: 2rem; width: 100%; max-width: 440px; box-shadow: var(--shadow-lg); }
-.modal h3 { font-size: 1.2rem; margin-bottom: 1.25rem; }
-.modal-actions { display: flex; gap: 0.75rem; justify-content: flex-end; margin-top: 1.5rem; }
+/* Modal */
+.modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.7); backdrop-filter: blur(4px); z-index: 200; display: flex; align-items: flex-start; justify-content: center; padding: 2rem 1rem; overflow-y: auto; animation: fadeIn 0.2s ease; }
+.modal { background: var(--bg-main); border: 1px solid var(--border); border-radius: var(--radius); padding: 2rem; width: 100%; max-width: 520px; box-shadow: var(--shadow-lg); margin-top: 2rem; }
+.modal h3 { font-size: 1.2rem; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.5rem; }
+.modal-actions { display: flex; gap: 0.75rem; justify-content: flex-end; margin-top: 1.75rem; }
 
-.questionnaire-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem; flex-wrap: wrap; gap: 0.75rem; }
-.questionnaire-header h2 { font-size: 1.2rem; font-weight: 700; }
+/* Project detail view */
+.detail-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 0.75rem; }
+.detail-header-left { display: flex; align-items: center; gap: 0.75rem; }
+.detail-header h2 { font-size: 1.3rem; font-weight: 700; }
 
-.progress-bar-container { background: var(--bg-card); border-radius: 20px; padding: 0.5rem 1rem; margin-bottom: 1.5rem; border: 1px solid var(--border); }
-.progress-bar-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem; font-size: 0.8rem; color: var(--text-dim); }
-.progress-bar-top strong { color: var(--accent); }
-.progress-bar { width: 100%; height: 8px; background: var(--bg-deep); border-radius: 4px; overflow: hidden; }
-.progress-bar-fill { height: 100%; background: linear-gradient(90deg, var(--accent-dim), var(--accent)); border-radius: 4px; transition: width 0.5s ease; }
+.info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem; }
+.info-item { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 1rem; }
+.info-item-label { font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.35rem; }
+.info-item-value { font-size: 0.95rem; word-break: break-all; }
+.info-item-value a { color: var(--accent); text-decoration: none; }
+.info-item-value a:hover { text-decoration: underline; }
+.info-item.full { grid-column: 1 / -1; }
 
-.category-tabs { display: flex; gap: 0.25rem; margin-bottom: 1.5rem; overflow-x: auto; padding-bottom: 0.25rem; scrollbar-width: none; }
-.category-tabs::-webkit-scrollbar { display: none; }
-.category-tab { padding: 0.5rem 0.85rem; border-radius: var(--radius-sm); font-size: 0.78rem; font-weight: 600; cursor: pointer; white-space: nowrap; background: var(--bg-card); color: var(--text-dim); border: 1px solid transparent; transition: all var(--transition); }
-.category-tab:hover { color: var(--text); border-color: var(--border); }
-.category-tab.active { background: var(--accent-glow); color: var(--accent); border-color: rgba(240, 165, 0, 0.3); }
-.category-tab .tab-count { display: inline-block; margin-left: 0.35rem; padding: 0.1rem 0.4rem; border-radius: 10px; font-size: 0.65rem; background: var(--bg-deep); }
+/* Status flow */
+.status-flow { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 2rem; flex-wrap: wrap; }
+.status-step { display: flex; align-items: center; gap: 0.35rem; font-size: 0.8rem; font-weight: 600; color: var(--text-muted); padding: 0.4rem 0.75rem; border-radius: 20px; background: var(--bg-card); border: 1px solid var(--border); }
+.status-step.active { color: var(--accent); border-color: var(--accent); background: var(--accent-glow); }
+.status-step.done { color: var(--success); border-color: rgba(46, 204, 113, 0.3); background: rgba(46, 204, 113, 0.1); }
+.status-arrow { color: var(--text-muted); font-size: 0.8rem; }
 
-.question-card-wrapper { perspective: 1000px; min-height: 280px; }
-.question-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 2rem; box-shadow: var(--shadow); position: relative; overflow: hidden; }
-.question-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--accent), transparent); }
-.question-category { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--accent); margin-bottom: 0.75rem; }
-.question-number { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.5rem; }
-.question-text { font-size: 1.15rem; font-weight: 700; line-height: 1.5; margin-bottom: 1.5rem; }
-.question-input-area { margin-bottom: 1.25rem; }
-.question-options { display: grid; gap: 0.5rem; }
-.question-option { padding: 0.7rem 1rem; background: var(--bg-input); border: 1px solid var(--border); border-radius: var(--radius-sm); cursor: pointer; transition: all var(--transition); font-size: 0.9rem; text-align: left; color: var(--text); }
-.question-option:hover { border-color: var(--accent); background: rgba(240, 165, 0, 0.05); }
-.question-option.selected { border-color: var(--accent); background: var(--accent-glow); color: var(--accent); font-weight: 600; }
-.question-nav { display: flex; justify-content: space-between; align-items: center; gap: 0.5rem; flex-wrap: wrap; }
-.question-skip-actions { display: flex; gap: 0.5rem; }
+/* Action section */
+.action-section { text-align: center; padding: 2rem; border: 2px dashed var(--border); border-radius: var(--radius); margin-bottom: 1.5rem; }
+.action-section.highlight { border-color: var(--accent); background: var(--accent-glow); }
+.action-section p { color: var(--text-dim); margin-bottom: 1rem; font-size: 0.95rem; }
 
-.answer-status { display: inline-block; padding: 0.15rem 0.5rem; border-radius: 10px; font-size: 0.7rem; font-weight: 600; margin-left: 0.5rem; }
-.answer-status.answered { background: rgba(46, 204, 113, 0.15); color: var(--success); }
-.answer-status.skipped { background: rgba(231, 76, 60, 0.15); color: var(--danger); }
-.answer-status.deferred { background: rgba(52, 152, 219, 0.15); color: var(--info); }
+/* Brief display */
+.brief-section { margin-bottom: 1.5rem; }
+.brief-section h3 { font-size: 1.1rem; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem; }
+.brief-content { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.5rem; line-height: 1.8; font-size: 0.92rem; }
+.brief-content h1 { font-size: 1.3rem; color: var(--accent); margin: 1.5rem 0 0.5rem 0; }
+.brief-content h2 { font-size: 1.1rem; color: var(--accent); margin: 1.25rem 0 0.5rem 0; }
+.brief-content h3 { font-size: 1rem; color: var(--accent); margin: 1rem 0 0.4rem 0; }
+.brief-content ul, .brief-content ol { padding-left: 1.5rem; margin: 0.5rem 0; }
+.brief-content li { margin: 0.25rem 0; }
+.brief-content p { margin: 0.5rem 0; }
+.brief-content strong { color: var(--accent); }
 
-.question-dots { display: flex; gap: 4px; justify-content: center; margin-top: 1.25rem; flex-wrap: wrap; }
-.question-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--bg-deep); border: 1.5px solid var(--border); cursor: pointer; transition: all var(--transition); }
-.question-dot:hover { border-color: var(--accent); }
-.question-dot.current { background: var(--accent); border-color: var(--accent); box-shadow: 0 0 8px var(--accent-glow); }
-.question-dot.answered { background: var(--success); border-color: var(--success); }
-.question-dot.skipped { background: var(--danger); border-color: var(--danger); }
-.question-dot.deferred { background: var(--info); border-color: var(--info); }
+/* Q&A */
+.qa-section { margin-bottom: 1.5rem; }
+.qa-section h3 { font-size: 1.1rem; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem; }
+.qa-item { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 1rem; margin-bottom: 0.75rem; }
+.qa-question { font-weight: 700; margin-bottom: 0.5rem; color: var(--accent); font-size: 0.95rem; }
+.qa-answer { margin-top: 0.5rem; }
+.qa-answer textarea { min-height: 60px; }
+.qa-timestamp { font-size: 0.7rem; color: var(--text-muted); margin-top: 0.25rem; }
 
-.generate-plan-section { margin-top: 2rem; text-align: center; padding: 1.5rem; border: 2px dashed var(--border); border-radius: var(--radius); }
-.generate-plan-section.ready { border-color: var(--accent); background: var(--accent-glow); }
+/* Demo link */
+.demo-link-section { text-align: center; padding: 2rem; background: rgba(46, 204, 113, 0.1); border: 2px solid rgba(46, 204, 113, 0.3); border-radius: var(--radius); margin-bottom: 1.5rem; }
+.demo-link-section h3 { color: var(--success); margin-bottom: 1rem; }
+.demo-link { font-size: 1.1rem; color: var(--accent); text-decoration: none; word-break: break-all; }
+.demo-link:hover { text-decoration: underline; }
 
-.plan-content { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 2rem; line-height: 1.8; font-size: 0.92rem; }
-.plan-content h1, .plan-content h2, .plan-content h3 { color: var(--accent); margin-top: 1.5rem; margin-bottom: 0.5rem; }
-.plan-content h1 { font-size: 1.4rem; } .plan-content h2 { font-size: 1.15rem; }
-
+/* Toast */
 .toast-container { position: fixed; bottom: 1.5rem; right: 1.5rem; z-index: 300; display: flex; flex-direction: column; gap: 0.5rem; }
 .toast { padding: 0.75rem 1.25rem; border-radius: var(--radius-sm); font-size: 0.85rem; font-weight: 600; animation: slideUp 0.3s ease, fadeOut 0.3s ease 2.5s forwards; box-shadow: var(--shadow); }
 .toast-success { background: rgba(46, 204, 113, 0.9); color: #fff; }
@@ -193,19 +204,18 @@ textarea { resize: vertical; min-height: 80px; }
 @keyframes slideUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
 @keyframes fadeOut { to { opacity: 0; transform: translateY(-10px); } }
 
+/* Spinner */
+.spinner { display: inline-block; width: 20px; height: 20px; border: 3px solid var(--border); border-top-color: var(--accent); border-radius: 50%; animation: spin 0.8s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
 @media (max-width: 640px) {
   .container { padding: 1rem; }
   .header { padding: 0.75rem 1rem; }
-  .question-card { padding: 1.25rem; }
-  .question-text { font-size: 1rem; }
-  .question-nav { gap: 0.35rem; }
-  .btn { padding: 0.55rem 0.85rem; font-size: 0.83rem; }
-  .btn-lg { padding: 0.65rem 1.25rem; }
-  .dashboard-header { flex-direction: column; align-items: flex-start; }
-  .project-card { flex-direction: column; align-items: flex-start; }
-  .project-stats { width: 100%; justify-content: space-between; }
+  .info-grid { grid-template-columns: 1fr; }
   .modal { padding: 1.5rem; }
-  .category-tab { padding: 0.4rem 0.65rem; font-size: 0.72rem; }
+  .status-flow { gap: 0.25rem; }
+  .status-step { font-size: 0.7rem; padding: 0.3rem 0.5rem; }
+  .btn-xl { padding: 0.85rem 1.5rem; font-size: 1rem; }
 }
 </style>
 </head>
@@ -221,6 +231,7 @@ textarea { resize: vertical; min-height: 80px; }
 <div class="toast-container" id="toastContainer"></div>
 
 <div class="container">
+  <!-- DASHBOARD -->
   <div id="dashboardView" class="view active">
     <div class="dashboard-header">
       <h2>Проекти</h2>
@@ -229,94 +240,109 @@ textarea { resize: vertical; min-height: 80px; }
     <div id="projectsList" class="projects-grid"></div>
   </div>
 
-  <div id="questionnaireView" class="view">
-    <div class="questionnaire-header">
-      <div style="display:flex;align-items:center;gap:0.75rem">
-        <button class="btn btn-ghost" onclick="navigateTo('dashboard')"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3L6 9l6 6"/></svg></button>
-        <h2 id="projectTitle"></h2>
+  <!-- PROJECT DETAIL -->
+  <div id="detailView" class="view">
+    <div class="detail-header">
+      <div class="detail-header-left">
+        <button class="btn btn-ghost" onclick="navigateTo('dashboard')">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3L6 9l6 6"/></svg>
+        </button>
+        <h2 id="detailTitle"></h2>
       </div>
-      <div style="display:flex;gap:0.5rem">
-        <button class="btn btn-secondary btn-sm" id="btnViewPlan" onclick="viewPlan()" style="display:none">Виж план</button>
+      <div style="display:flex;gap:0.5rem;align-items:center">
+        <span class="status-badge" id="detailStatusBadge"></span>
         <button class="btn btn-danger btn-sm" onclick="confirmDeleteProject()">Изтрий</button>
       </div>
     </div>
-    <div class="progress-bar-container">
-      <div class="progress-bar-top">
-        <span>Прогрес: <strong id="progressText">0/25</strong></span>
-        <span id="progressPercent">0%</span>
-      </div>
-      <div class="progress-bar"><div class="progress-bar-fill" id="progressFill" style="width:0%"></div></div>
-    </div>
-    <div class="category-tabs" id="categoryTabs"></div>
-    <div class="question-card-wrapper"><div class="question-card" id="questionCard"></div></div>
-    <div class="question-dots" id="questionDots"></div>
-    <div class="generate-plan-section" id="generatePlanSection">
-      <p style="margin-bottom:1rem;color:var(--text-dim)" id="planSectionText"></p>
-      <button class="btn btn-primary btn-lg" id="btnGeneratePlan" onclick="generatePlan()" disabled>Генерирай план</button>
-    </div>
 
-    <div style="margin-top:1.5rem;text-align:center">
-      <button class="btn btn-lg" id="btnSave" onclick="saveToServer()" style="background:#2ecc71;color:#fff;box-shadow:0 2px 12px rgba(46,204,113,0.3)">
-        💾 Запази
-      </button>
-      <p style="font-size:0.75rem;color:var(--text-muted);margin-top:0.5rem" id="saveStatus">Записва данните за Koi</p>
-    </div>
-  </div>
+    <!-- Status flow -->
+    <div class="status-flow" id="statusFlow"></div>
 
-  <div id="planView" class="view">
-    <div class="questionnaire-header">
-      <div style="display:flex;align-items:center;gap:0.75rem">
-        <button class="btn btn-ghost" onclick="navigateTo('questionnaire')"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3L6 9l6 6"/></svg></button>
-        <h2>План за редизайн</h2>
-      </div>
+    <!-- Project info -->
+    <div class="info-grid" id="projectInfo"></div>
+
+    <!-- Action area - changes based on status -->
+    <div id="actionArea"></div>
+
+    <!-- Brief section -->
+    <div id="briefArea"></div>
+
+    <!-- Q&A section -->
+    <div id="qaArea"></div>
+
+    <!-- Demo link -->
+    <div id="demoArea"></div>
+
+    <!-- Save button -->
+    <div style="text-align:center;margin-top:2rem">
+      <button class="btn btn-success btn-lg" onclick="saveToServer()">💾 Запази</button>
+      <p style="font-size:0.75rem;color:var(--text-muted);margin-top:0.5rem" id="saveStatus"></p>
     </div>
-    <div class="plan-content" id="planContent"></div>
   </div>
 </div>
 
+<!-- NEW PROJECT MODAL -->
 <div class="modal-overlay" id="newProjectModal" style="display:none" onclick="event.target===this&&closeModal()">
   <div class="modal">
-    <h3>Нов проект</h3>
-    <label style="display:block;margin-bottom:0.5rem;font-size:0.85rem;color:var(--text-dim)">Име на бизнеса / проекта</label>
-    <input type="text" id="newProjectName" placeholder="напр. Автоморга Петров" onkeydown="if(event.key==='Enter')createProject()">
+    <h3>🆕 Нов проект</h3>
+
+    <div class="form-group">
+      <label class="form-label">Име на бизнеса / проекта *</label>
+      <input type="text" id="npName" placeholder="напр. Автоморга Петров">
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">Тип проект *</label>
+      <select id="npType">
+        <option value="">— Избери —</option>
+        <option value="redesign">🔄 Редизайн на съществуващ сайт</option>
+        <option value="new">🆕 Нов сайт от нулата</option>
+        <option value="ecommerce">🛒 Онлайн магазин</option>
+        <option value="other">📋 Друго</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">URL на текущ сайт</label>
+      <input type="url" id="npWebsiteUrl" placeholder="https://example.com">
+      <div class="form-hint">Ако бизнесът има съществуващ сайт</div>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">Facebook / Instagram страница</label>
+      <input type="url" id="npFacebookUrl" placeholder="https://facebook.com/...">
+      <div class="form-hint">Ако бизнесът има социална страница</div>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">Допълнителна информация</label>
+      <textarea id="npNotes" placeholder="Какво иска клиентът? Специални изисквания, бележки от разговора, желания..."></textarea>
+      <div class="form-hint">Всичко, което ще помогне при подготовката на заданието</div>
+    </div>
+
     <div class="modal-actions">
       <button class="btn btn-secondary" onclick="closeModal()">Отказ</button>
-      <button class="btn btn-primary" onclick="createProject()">Създай</button>
+      <button class="btn btn-primary btn-lg" onclick="createProject()">🚀 Създай проекта</button>
     </div>
   </div>
 </div>
 
 <script>
-// ===== QUESTIONS =====
-const QUESTIONS = [
-  { id: 'business_name', category: 'Основна информация', text: 'Как се казва бизнесът?', type: 'text', placeholder: 'напр. Автоморга Петров' },
-  { id: 'current_url', category: 'Основна информация', text: 'Какъв е URL адресът на текущия сайт?', type: 'url', placeholder: 'https://example.com' },
-  { id: 'niche', category: 'Основна информация', text: 'Каква е нишата / категорията на бизнеса?', type: 'text', placeholder: 'напр. автоморга, зъболекар, ресторант' },
-  { id: 'city', category: 'Основна информация', text: 'В кой град се намира бизнесът?', type: 'text', placeholder: 'напр. София' },
-  { id: 'phone', category: 'Основна информация', text: 'Телефон за контакт?', type: 'tel', placeholder: '+359 88 123 4567' },
-  { id: 'email', category: 'Основна информация', text: 'Email адрес?', type: 'email', placeholder: 'info@example.com' },
-  { id: 'social_pages', category: 'Текущо състояние', text: 'Има ли Facebook / Instagram страница? Ако да — URL?', type: 'text', placeholder: 'facebook.com/...' },
-  { id: 'google_business', category: 'Текущо състояние', text: 'Има ли Google Business Profile?', type: 'options', options: ['Да', 'Не', 'Не знам'] },
-  { id: 'site_condition', category: 'Текущо състояние', text: 'Какво е текущото състояние на сайта?', type: 'textarea', placeholder: 'напр. Остарял дизайн, не е мобилен, бавен...' },
-  { id: 'main_problems', category: 'Текущо състояние', text: 'Какви са основните проблеми на текущия сайт?', type: 'textarea', placeholder: 'Опишете проблемите...' },
-  { id: 'real_photos', category: 'Ресурси от клиента', text: 'Има ли реални снимки? (двор, екип, продукти)', type: 'options', options: ['Да, има добри снимки', 'Има, но лошо качество', 'Няма — трябват нови', 'Не знам'] },
-  { id: 'logo_vector', category: 'Ресурси от клиента', text: 'Има ли лого във векторен формат (SVG, AI, EPS)?', type: 'options', options: ['Да', 'Само растерно (PNG/JPG)', 'Няма лого', 'Не знам'] },
-  { id: 'brandbook', category: 'Ресурси от клиента', text: 'Има ли брандбук или цветова схема?', type: 'options', options: ['Да', 'Не', 'Не знам'] },
-  { id: 'working_hours', category: 'Ресурси от клиента', text: 'Какво е работното време?', type: 'text', placeholder: 'напр. Пон-Пет 9:00-18:00' },
-  { id: 'social_links', category: 'Ресурси от клиента', text: 'Какви месинджъри използва? (WhatsApp, Viber, etc.)', type: 'text', placeholder: 'напр. WhatsApp, Viber' },
-  { id: 'site_goal', category: 'Нов сайт', text: 'Каква е основната цел на новия сайт?', type: 'options', options: ['Информационен (визитка)', 'Каталог с продукти/услуги', 'E-commerce (онлайн магазин)', 'Портфолио', 'Блог / Новини'] },
-  { id: 'needs_catalog', category: 'Нов сайт', text: 'Трябва ли каталог / инвентар система?', type: 'options', options: ['Да — с цени', 'Да — без цени', 'Не', 'Не знам'] },
-  { id: 'needs_contact_form', category: 'Нов сайт', text: 'Трябва ли контактна форма?', type: 'options', options: ['Да', 'Не', 'Не знам'] },
-  { id: 'needs_maps', category: 'Нов сайт', text: 'Трябва ли Google Maps на сайта?', type: 'options', options: ['Да', 'Не', 'Не знам'] },
-  { id: 'special_features', category: 'Нов сайт', text: 'Има ли специални функционалности?', type: 'textarea', placeholder: 'напр. онлайн записване, чат, галерия...' },
-  { id: 'domain_plan', category: 'Нов сайт', text: 'Домейнът — остава текущият или нов?', type: 'options', options: ['Остава текущият', 'Нов домейн', 'Не знам'] },
-  { id: 'hosting_plan', category: 'Нов сайт', text: 'Хостинг — текущ или нов?', type: 'options', options: ['Текущ хостинг', 'Нов хостинг', 'Не знам'] },
-  { id: 'budget_range', category: 'Бюджет и срокове', text: 'Какъв е ценовият диапазон?', type: 'options', options: ['До 500 лв', '500 - 1000 лв', '1000 - 2000 лв', '2000 - 5000 лв', 'Над 5000 лв', 'Не знам'] },
-  { id: 'deadline', category: 'Бюджет и срокове', text: 'Има ли краен срок?', type: 'text', placeholder: 'напр. до края на месеца' },
-  { id: 'priority', category: 'Бюджет и срокове', text: 'Кои два приоритета са най-важни?', type: 'options', options: ['Бързо + Качествено', 'Бързо + Евтино', 'Качествено + Евтино'] },
-];
-const CATEGORIES = [...new Set(QUESTIONS.map(q => q.category))];
-const STORAGE_KEY = 'demoSitesProjects';
+const STORAGE_KEY = 'demoSitesProjects_v2';
+const TYPE_LABELS = {
+  'redesign': '🔄 Редизайн',
+  'new': '🆕 Нов сайт',
+  'ecommerce': '🛒 Онлайн магазин',
+  'other': '📋 Друго'
+};
+const STATUS_LABELS = {
+  'created': 'Създаден',
+  'briefing': 'Koi анализира...',
+  'brief_ready': 'Задание готово',
+  'building': 'Билд...',
+  'done': 'Готово ✓'
+};
+const STATUS_ORDER = ['created', 'briefing', 'brief_ready', 'building', 'done'];
 
 // ===== STORAGE =====
 function db() { try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}; } catch { return {}; } }
@@ -328,33 +354,43 @@ function makeSlug(name) {
   return slug;
 }
 
-// Seed Megatrans if not in localStorage yet
-(function seedData() {
-  const all = db();
-  if (!all['megatrans-ruse']) {
-    all['megatrans-ruse'] = {
-      name: 'Автоморга Мегатранс Русе', slug: 'megatrans-ruse',
-      createdAt: '2026-03-10T13:00:00Z', updatedAt: '2026-03-10T13:35:00Z', plan: null,
-      answers: {
-        business_name: { value: 'Автоморга Мегатранс', status: 'answered', updatedAt: '2026-03-10T13:35:00Z' },
-        current_url: { value: 'https://megatrans-ruse.com', status: 'answered', updatedAt: '2026-03-10T13:35:00Z' },
-        niche: { value: 'Автоморга — авточасти втора употреба, изкупуване на коли за скрап', status: 'answered', updatedAt: '2026-03-10T13:35:00Z' },
-        city: { value: 'Русе', status: 'answered', updatedAt: '2026-03-10T13:35:00Z' },
-        phone: { value: '0878 101 801', status: 'answered', updatedAt: '2026-03-10T13:35:00Z' },
-        email: { value: 'panaka.gs@gmail.com', status: 'answered', updatedAt: '2026-03-10T13:35:00Z' },
-        site_condition: { value: 'Шаблонен сайт от ~2012г. през infocall.bg/add.bg. Остарял дизайн, не е мобилен, счупена снимка на началната страница, галерията е празна, няма функционалност.', status: 'answered', updatedAt: '2026-03-10T13:35:00Z' },
-        main_problems: { value: '1) Счупена снимка на homepage\n2) Празна галерия\n3) Нулева функционалност — няма търсене, каталог, инвентар\n4) Gmail за контакт (panaka.gs@gmail.com)\n5) Не е responsive/мобилен\n6) Няма контактна форма на сайта\n7) Без WhatsApp/Viber\n8) Без Google Maps\n9) Без работно време\n10) Стокови снимки смесени с реални\n11) Footer с 1 ред — без адрес, без нищо\n12) Без GDPR cookie банер', status: 'answered', updatedAt: '2026-03-10T13:35:00Z' }
-      }
-    };
-    dbSave(all);
-  }
-})();
-
 // ===== STATE =====
 let currentSlug = null;
 let currentProject = null;
-let currentQuestionIndex = 0;
-let animDirection = 'right';
+
+// ===== MIGRATE old data =====
+(function migrate() {
+  const oldData = localStorage.getItem('demoSitesProjects');
+  if (!oldData) return;
+  try {
+    const old = JSON.parse(oldData);
+    const newDb = db();
+    for (const [slug, p] of Object.entries(old)) {
+      if (newDb[slug]) continue;
+      const answers = p.answers || {};
+      newDb[slug] = {
+        name: p.name,
+        slug: p.slug,
+        type: 'redesign',
+        websiteUrl: answers.current_url?.value || '',
+        facebookUrl: answers.social_pages?.value || '',
+        notes: [
+          answers.niche?.value ? `Ниша: ${answers.niche.value}` : '',
+          answers.city?.value ? `Град: ${answers.city.value}` : '',
+          answers.site_condition?.value ? `Състояние: ${answers.site_condition.value}` : '',
+          answers.main_problems?.value ? `Проблеми: ${answers.main_problems.value}` : '',
+        ].filter(Boolean).join('\n'),
+        status: p.plan ? 'brief_ready' : 'created',
+        brief: p.plan || null,
+        qa: [],
+        demoUrl: null,
+        createdAt: p.createdAt,
+        updatedAt: p.updatedAt
+      };
+    }
+    dbSave(newDb);
+  } catch(e) { console.error('Migration failed:', e); }
+})();
 
 // ===== TOAST =====
 function toast(msg, type='success') {
@@ -369,8 +405,7 @@ function toast(msg, type='success') {
 function navigateTo(view) {
   document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
   if (view === 'dashboard') { document.getElementById('dashboardView').classList.add('active'); renderDashboard(); }
-  else if (view === 'questionnaire') { document.getElementById('questionnaireView').classList.add('active'); renderQuestionnaire(); }
-  else if (view === 'plan') { document.getElementById('planView').classList.add('active'); }
+  else if (view === 'detail') { document.getElementById('detailView').classList.add('active'); renderDetail(); }
 }
 
 // ===== DASHBOARD =====
@@ -379,36 +414,64 @@ function renderDashboard() {
   const list = document.getElementById('projectsList');
   const slugs = Object.keys(all).sort((a,b) => new Date(all[b].updatedAt) - new Date(all[a].updatedAt));
   if (!slugs.length) {
-    list.innerHTML = `<div class="empty-state"><div class="empty-state-icon">📋</div><h3>Няма проекти все още</h3><p>Създайте първия проект за да започнете</p><button class="btn btn-primary btn-lg" onclick="showNewProjectModal()">Нов проект</button></div>`;
+    list.innerHTML = `<div class="empty-state"><div class="empty-state-icon">📋</div><h3>Няма проекти все още</h3><p>Създайте първия проект за да започнете</p><button class="btn btn-primary btn-lg" onclick="showNewProjectModal()">+ Нов проект</button></div>`;
     return;
   }
   list.innerHTML = slugs.map(slug => {
     const p = all[slug];
-    const answers = p.answers || {};
-    const answered = Object.values(answers).filter(a => a.status === 'answered').length;
-    const total = QUESTIONS.length;
-    const pct = Math.round((answered / total) * 100);
-    const status = p.plan ? 'Готов план' : answered > 0 ? 'В процес' : 'Нов';
-    const statusCls = p.plan ? 'status-plan' : answered > 0 ? 'status-progress' : 'status-new';
+    const typeLabel = TYPE_LABELS[p.type] || p.type;
+    const statusLabel = STATUS_LABELS[p.status] || p.status;
     return `<div class="card project-card" onclick="openProject('${slug}')">
-      <div class="project-info"><div class="project-name">${esc(p.name)}</div>
-      <div class="project-meta"><span>${timeAgo(p.updatedAt)}</span><span>${answered}/${total} отговорени</span></div></div>
-      <div class="project-stats"><div class="progress-mini"><div class="progress-mini-bar" style="width:${pct}%"></div></div>
-      <span class="status-badge ${statusCls}">${status}</span></div></div>`;
+      <div class="project-info">
+        <div class="project-name">${esc(p.name)}</div>
+        <div class="project-meta">
+          <span class="project-type-badge">${typeLabel}</span>
+          <span>${timeAgo(p.updatedAt)}</span>
+          ${p.websiteUrl ? `<span>🌐 ${truncUrl(p.websiteUrl)}</span>` : ''}
+        </div>
+      </div>
+      <span class="status-badge status-${p.status}">${statusLabel}</span>
+    </div>`;
   }).join('');
 }
 
 // ===== NEW PROJECT =====
-function showNewProjectModal() { document.getElementById('newProjectModal').style.display='flex'; const inp=document.getElementById('newProjectName'); inp.value=''; setTimeout(()=>inp.focus(),100); }
-function closeModal() { document.getElementById('newProjectModal').style.display='none'; }
+function showNewProjectModal() {
+  document.getElementById('newProjectModal').style.display = 'flex';
+  document.getElementById('npName').value = '';
+  document.getElementById('npType').value = '';
+  document.getElementById('npWebsiteUrl').value = '';
+  document.getElementById('npFacebookUrl').value = '';
+  document.getElementById('npNotes').value = '';
+  setTimeout(() => document.getElementById('npName').focus(), 100);
+}
+function closeModal() { document.getElementById('newProjectModal').style.display = 'none'; }
+
 function createProject() {
-  const name = document.getElementById('newProjectName').value.trim();
-  if (!name) { toast('Въведете име','error'); return; }
+  const name = document.getElementById('npName').value.trim();
+  const type = document.getElementById('npType').value;
+  const websiteUrl = document.getElementById('npWebsiteUrl').value.trim();
+  const facebookUrl = document.getElementById('npFacebookUrl').value.trim();
+  const notes = document.getElementById('npNotes').value.trim();
+
+  if (!name) { toast('Въведете име на бизнеса', 'error'); return; }
+  if (!type) { toast('Изберете тип проект', 'error'); return; }
+
   const slug = makeSlug(name);
   const all = db();
-  all[slug] = { name, slug, answers: {}, plan: null, createdAt: new Date().toISOString(), updatedAt: new Date().toISOString() };
+  all[slug] = {
+    name, slug, type,
+    websiteUrl, facebookUrl, notes,
+    status: 'created',
+    brief: null,
+    qa: [],
+    demoUrl: null,
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString()
+  };
   dbSave(all);
-  closeModal(); toast('Проектът е създаден');
+  closeModal();
+  toast('Проектът е създаден! 🎉');
   openProject(slug);
 }
 
@@ -417,168 +480,204 @@ function openProject(slug) {
   const all = db();
   currentSlug = slug;
   currentProject = all[slug];
-  if (!currentProject) { toast('Не е намерен','error'); return; }
-  currentQuestionIndex = 0;
-  const answers = currentProject.answers || {};
-  for (let i = 0; i < QUESTIONS.length; i++) {
-    if (!answers[QUESTIONS[i].id] || answers[QUESTIONS[i].id].status !== 'answered') { currentQuestionIndex = i; break; }
-  }
-  navigateTo('questionnaire');
+  if (!currentProject) { toast('Проектът не е намерен', 'error'); return; }
+  navigateTo('detail');
 }
 
-// ===== QUESTIONNAIRE =====
-function renderQuestionnaire() {
+// ===== DETAIL VIEW =====
+function renderDetail() {
   if (!currentProject) return;
-  const answers = currentProject.answers || {};
-  document.getElementById('projectTitle').textContent = currentProject.name;
-  const answered = Object.values(answers).filter(a => a.status === 'answered').length;
-  const total = QUESTIONS.length;
-  const pct = Math.round((answered / total) * 100);
-  document.getElementById('progressText').textContent = `${answered}/${total}`;
-  document.getElementById('progressPercent').textContent = `${pct}%`;
-  document.getElementById('progressFill').style.width = `${pct}%`;
+  const p = currentProject;
 
-  const currentCat = QUESTIONS[currentQuestionIndex].category;
-  document.getElementById('categoryTabs').innerHTML = CATEGORIES.map(cat => {
-    const catQs = QUESTIONS.filter(q => q.category === cat);
-    const catAns = catQs.filter(q => answers[q.id] && answers[q.id].status === 'answered').length;
-    return `<div class="category-tab ${cat===currentCat?'active':''}" onclick="jumpToCategory('${cat}')">${cat} <span class="tab-count">${catAns}/${catQs.length}</span></div>`;
+  document.getElementById('detailTitle').textContent = p.name;
+  
+  const badge = document.getElementById('detailStatusBadge');
+  badge.textContent = STATUS_LABELS[p.status] || p.status;
+  badge.className = `status-badge status-${p.status}`;
+
+  // Status flow
+  const statusIdx = STATUS_ORDER.indexOf(p.status);
+  document.getElementById('statusFlow').innerHTML = STATUS_ORDER.map((s, i) => {
+    const cls = i < statusIdx ? 'done' : i === statusIdx ? 'active' : '';
+    const arrow = i < STATUS_ORDER.length - 1 ? '<span class="status-arrow">→</span>' : '';
+    const icons = { created: '📝', briefing: '🔍', brief_ready: '📋', building: '🔨', done: '✅' };
+    return `<span class="status-step ${cls}">${icons[s]} ${STATUS_LABELS[s]}</span>${arrow}`;
   }).join('');
 
-  renderQuestionCard(currentProject, answers);
-  renderDots(answers);
-
-  const planSection = document.getElementById('generatePlanSection');
-  const btnPlan = document.getElementById('btnGeneratePlan');
-  const planText = document.getElementById('planSectionText');
-  document.getElementById('btnViewPlan').style.display = currentProject.plan ? 'inline-flex' : 'none';
-  if (answered >= 8) { planSection.classList.add('ready'); btnPlan.disabled = false; planText.textContent = `${answered} отговора — можете да генерирате план`; }
-  else { planSection.classList.remove('ready'); btnPlan.disabled = true; planText.textContent = `Отговорете на поне 8 въпроса за да генерирате план (${answered}/8)`; }
-}
-
-function renderQuestionCard(p, answers) {
-  const q = QUESTIONS[currentQuestionIndex];
-  const answer = answers[q.id];
-  const card = document.getElementById('questionCard');
-  const anim = animDirection === 'right' ? 'slideInRight' : 'slideInLeft';
-  card.style.animation = 'none'; card.offsetHeight; card.style.animation = `${anim} 0.35s ease`;
-
-  const currentVal = answer ? answer.value : '';
-  const currentStatus = answer ? answer.status : '';
-  let inputHTML = '';
-
-  if (q.type === 'options') {
-    inputHTML = `<div class="question-options">${q.options.map(opt =>
-      `<button class="question-option ${currentVal===opt?'selected':''}" onclick="selectOption('${esc(opt)}')">${esc(opt)}</button>`
-    ).join('')}</div>`;
-  } else if (q.type === 'textarea') {
-    inputHTML = `<div class="question-input-area"><textarea id="answerInput" placeholder="${esc(q.placeholder||'')}" onblur="saveCurrentAnswer()" onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();saveAndNext()}">${esc(currentVal)}</textarea></div>`;
-  } else {
-    inputHTML = `<div class="question-input-area"><input type="${q.type||'text'}" id="answerInput" value="${esc(currentVal)}" placeholder="${esc(q.placeholder||'')}" onblur="saveCurrentAnswer()" onkeydown="if(event.key==='Enter'){saveAndNext()}"></div>`;
+  // Project info
+  let infoHtml = `
+    <div class="info-item"><div class="info-item-label">Тип</div><div class="info-item-value">${TYPE_LABELS[p.type] || p.type}</div></div>
+    <div class="info-item"><div class="info-item-label">Създаден</div><div class="info-item-value">${new Date(p.createdAt).toLocaleDateString('bg-BG')} ${new Date(p.createdAt).toLocaleTimeString('bg-BG', {hour:'2-digit',minute:'2-digit'})}</div></div>
+  `;
+  if (p.websiteUrl) {
+    infoHtml += `<div class="info-item"><div class="info-item-label">Уебсайт</div><div class="info-item-value"><a href="${esc(p.websiteUrl)}" target="_blank">${esc(p.websiteUrl)}</a></div></div>`;
   }
+  if (p.facebookUrl) {
+    infoHtml += `<div class="info-item"><div class="info-item-label">Facebook / Instagram</div><div class="info-item-value"><a href="${esc(p.facebookUrl)}" target="_blank">${esc(p.facebookUrl)}</a></div></div>`;
+  }
+  if (p.notes) {
+    infoHtml += `<div class="info-item full"><div class="info-item-label">Бележки</div><div class="info-item-value">${esc(p.notes).replace(/\n/g, '<br>')}</div></div>`;
+  }
+  document.getElementById('projectInfo').innerHTML = infoHtml;
 
-  let statusBadge = '';
-  if (currentStatus === 'answered') statusBadge = '<span class="answer-status answered">✓ Отговорено</span>';
-  else if (currentStatus === 'skipped') statusBadge = '<span class="answer-status skipped">— Пропуснат</span>';
-  else if (currentStatus === 'deferred') statusBadge = '<span class="answer-status deferred">⏳ Отложен</span>';
-
-  card.innerHTML = `
-    <div class="question-category">${esc(q.category)}</div>
-    <div class="question-number">Въпрос ${currentQuestionIndex+1} от ${QUESTIONS.length} ${statusBadge}</div>
-    <div class="question-text">${esc(q.text)}</div>
-    ${inputHTML}
-    <div class="question-nav">
-      <button class="btn btn-secondary btn-sm" onclick="prevQuestion()" ${currentQuestionIndex===0?'disabled style="opacity:0.3"':''}>← Назад</button>
-      <div class="question-skip-actions">
-        <button class="btn btn-ghost btn-sm" onclick="skipQuestion()">Нямам инфо</button>
-        <button class="btn btn-ghost btn-sm" onclick="deferQuestion()">Ще проверя</button>
-      </div>
-      <button class="btn btn-primary btn-sm" onclick="saveAndNext()">${currentQuestionIndex===QUESTIONS.length-1?'Готово ✓':'Напред →'}</button>
-    </div>`;
-  const inp = document.getElementById('answerInput');
-  if (inp) setTimeout(() => inp.focus(), 100);
+  // Action area
+  renderActionArea(p);
+  // Brief
+  renderBriefArea(p);
+  // Q&A
+  renderQaArea(p);
+  // Demo
+  renderDemoArea(p);
 }
 
-function renderDots(answers) {
-  document.getElementById('questionDots').innerHTML = QUESTIONS.map((q,i) => {
-    const a = answers[q.id];
-    let cls = '';
-    if (i === currentQuestionIndex) cls = 'current';
-    else if (a && a.status === 'answered') cls = 'answered';
-    else if (a && a.status === 'skipped') cls = 'skipped';
-    else if (a && a.status === 'deferred') cls = 'deferred';
-    return `<div class="question-dot ${cls}" onclick="goToQuestion(${i})" title="${esc(q.text)}"></div>`;
-  }).join('');
+function renderActionArea(p) {
+  const area = document.getElementById('actionArea');
+  
+  if (p.status === 'created') {
+    area.innerHTML = `
+      <div class="action-section highlight">
+        <p>Проектът е създаден. Когато си готов, натисни бутона и Koi ще анализира ситуацията и ще подготви задание.</p>
+        <button class="btn btn-primary btn-xl" onclick="sendForBriefing()">🚀 Пусни за задание</button>
+      </div>`;
+  } else if (p.status === 'briefing') {
+    area.innerHTML = `
+      <div class="action-section">
+        <div class="spinner"></div>
+        <p style="margin-top:1rem">Koi анализира и подготвя задание...</p>
+        <button class="btn btn-secondary btn-sm" onclick="refreshProject()" style="margin-top:0.5rem">🔄 Обнови</button>
+      </div>`;
+  } else if (p.status === 'brief_ready' || p.status === 'qa') {
+    area.innerHTML = `
+      <div class="action-section highlight">
+        <p>Заданието е готово. Прегледай го, отговори на въпросите и когато си доволен — натисни „Билд".</p>
+        <button class="btn btn-success btn-xl" onclick="sendForBuild()">🔨 Одобрено задание → Билд</button>
+      </div>`;
+  } else if (p.status === 'building') {
+    area.innerHTML = `
+      <div class="action-section">
+        <div class="spinner"></div>
+        <p style="margin-top:1rem">Koi билдва демо сайта...</p>
+        <button class="btn btn-secondary btn-sm" onclick="refreshProject()" style="margin-top:0.5rem">🔄 Обнови</button>
+      </div>`;
+  } else if (p.status === 'done') {
+    area.innerHTML = '';
+  }
+}
+
+function renderBriefArea(p) {
+  const area = document.getElementById('briefArea');
+  if (!p.brief) { area.innerHTML = ''; return; }
+  area.innerHTML = `
+    <div class="brief-section">
+      <h3>📋 Задание</h3>
+      <div class="brief-content">${renderMarkdown(p.brief)}</div>
+    </div>`;
+}
+
+function renderQaArea(p) {
+  const area = document.getElementById('qaArea');
+  if (!p.qa || !p.qa.length) { area.innerHTML = ''; return; }
+  
+  const canAnswer = ['brief_ready', 'qa'].includes(p.status);
+  
+  area.innerHTML = `
+    <div class="qa-section">
+      <h3>❓ Въпроси за уточняване</h3>
+      ${p.qa.map((item, i) => `
+        <div class="qa-item">
+          <div class="qa-question">${i+1}. ${esc(item.question)}</div>
+          ${canAnswer ? `
+            <div class="qa-answer">
+              <textarea id="qa_${i}" placeholder="Твоят отговор..." onblur="saveQaAnswer(${i})">${esc(item.answer || '')}</textarea>
+            </div>
+          ` : item.answer ? `
+            <div class="qa-answer" style="color:var(--text);padding:0.5rem 0">${esc(item.answer)}</div>
+          ` : `
+            <div class="qa-answer" style="color:var(--text-muted);font-style:italic;padding:0.5rem 0">Без отговор</div>
+          `}
+        </div>
+      `).join('')}
+    </div>`;
+}
+
+function renderDemoArea(p) {
+  const area = document.getElementById('demoArea');
+  if (!p.demoUrl) { area.innerHTML = ''; return; }
+  area.innerHTML = `
+    <div class="demo-link-section">
+      <h3>🎉 Демо сайтът е готов!</h3>
+      <a href="${esc(p.demoUrl)}" target="_blank" class="demo-link">${esc(p.demoUrl)}</a>
+      <div style="margin-top:1rem">
+        <a href="${esc(p.demoUrl)}" target="_blank" class="btn btn-primary btn-lg">🌐 Отвори демото</a>
+      </div>
+    </div>`;
 }
 
 // ===== ACTIONS =====
-function saveAnswer(value, status) {
-  const q = QUESTIONS[currentQuestionIndex];
-  if (!currentProject.answers) currentProject.answers = {};
-  currentProject.answers[q.id] = { value, status, updatedAt: new Date().toISOString() };
+function sendForBriefing() {
+  if (!currentProject) return;
+  currentProject.status = 'briefing';
+  currentProject.updatedAt = new Date().toISOString();
+  const all = db(); all[currentSlug] = currentProject; dbSave(all);
+  toast('Изпратено за задание! Koi ще анализира...', 'info');
+  saveToServer();
+  renderDetail();
+}
+
+function sendForBuild() {
+  // Save any pending QA answers first
+  if (currentProject.qa) {
+    currentProject.qa.forEach((item, i) => {
+      const el = document.getElementById(`qa_${i}`);
+      if (el && el.value.trim()) item.answer = el.value.trim();
+    });
+  }
+  currentProject.status = 'building';
+  currentProject.updatedAt = new Date().toISOString();
+  const all = db(); all[currentSlug] = currentProject; dbSave(all);
+  toast('Одобрено! Koi започва билда...', 'success');
+  saveToServer();
+  renderDetail();
+}
+
+function saveQaAnswer(index) {
+  const el = document.getElementById(`qa_${index}`);
+  if (!el || !currentProject.qa[index]) return;
+  currentProject.qa[index].answer = el.value.trim();
   currentProject.updatedAt = new Date().toISOString();
   const all = db(); all[currentSlug] = currentProject; dbSave(all);
 }
 
-function saveCurrentAnswer() {
-  const inp = document.getElementById('answerInput');
-  if (inp && inp.value.trim()) saveAnswer(inp.value.trim(), 'answered');
-}
-
-function selectOption(value) {
-  saveAnswer(value, 'answered');
-  setTimeout(() => { if (currentQuestionIndex < QUESTIONS.length-1) { animDirection='right'; currentQuestionIndex++; renderQuestionnaire(); } else { renderQuestionnaire(); toast('Всички въпроси!','info'); } }, 150);
-}
-
-function saveAndNext() {
-  const q = QUESTIONS[currentQuestionIndex];
-  if (q.type !== 'options') { const inp = document.getElementById('answerInput'); if (inp && inp.value.trim()) saveAnswer(inp.value.trim(), 'answered'); }
-  if (currentQuestionIndex < QUESTIONS.length-1) { animDirection='right'; currentQuestionIndex++; renderQuestionnaire(); }
-  else { renderQuestionnaire(); toast('Последен въпрос!','info'); }
-}
-
-function prevQuestion() { if (currentQuestionIndex > 0) { animDirection='left'; currentQuestionIndex--; renderQuestionnaire(); } }
-function skipQuestion() { saveAnswer('','skipped'); toast('Пропуснат','info'); if (currentQuestionIndex<QUESTIONS.length-1){animDirection='right';currentQuestionIndex++;} renderQuestionnaire(); }
-function deferQuestion() { saveAnswer('','deferred'); toast('Отложен','info'); if (currentQuestionIndex<QUESTIONS.length-1){animDirection='right';currentQuestionIndex++;} renderQuestionnaire(); }
-function goToQuestion(i) { animDirection = i > currentQuestionIndex ? 'right' : 'left'; currentQuestionIndex = i; renderQuestionnaire(); }
-function jumpToCategory(cat) { const idx = QUESTIONS.findIndex(q => q.category === cat); if (idx >= 0) goToQuestion(idx); }
-
-// ===== PLAN =====
-function generatePlan() {
-  const a = currentProject.answers || {};
-  let plan = `# План за редизайн: ${currentProject.name}\n\n`;
-  plan += `## 📋 Основна информация\n`;
-  ['business_name','current_url','niche','city','phone','email'].forEach(k => { if (a[k]?.value) plan += `- **${k}:** ${a[k].value}\n`; });
-  plan += `\n## 🔍 Текущо състояние\n`;
-  ['social_pages','google_business','site_condition','main_problems'].forEach(k => { if (a[k]?.value) plan += `- **${k}:** ${a[k].value}\n`; });
-  plan += `\n## 🎨 Ресурси\n`;
-  ['real_photos','logo_vector','brandbook','working_hours','social_links'].forEach(k => { if (a[k]?.value) plan += `- **${k}:** ${a[k].value}\n`; });
-  plan += `\n## 🚀 Нов сайт\n`;
-  ['site_goal','needs_catalog','needs_contact_form','needs_maps','special_features','domain_plan','hosting_plan'].forEach(k => { if (a[k]?.value) plan += `- **${k}:** ${a[k].value}\n`; });
-  plan += `\n## 💰 Бюджет и срокове\n`;
-  ['budget_range','deadline','priority'].forEach(k => { if (a[k]?.value) plan += `- **${k}:** ${a[k].value}\n`; });
-  const skipped = QUESTIONS.filter(q => !a[q.id] || a[q.id].status !== 'answered');
-  if (skipped.length) { plan += `\n## ⚠️ Липсваща информация (${skipped.length})\n`; skipped.forEach(q => plan += `- ${q.text}\n`); }
-  currentProject.plan = plan; currentProject.updatedAt = new Date().toISOString();
-  const all = db(); all[currentSlug] = currentProject; dbSave(all);
-  toast('Планът е генериран!'); renderQuestionnaire();
-}
-
-function viewPlan() {
-  if (!currentProject?.plan) { toast('Няма план','error'); return; }
-  document.getElementById('planContent').innerHTML = renderMarkdown(currentProject.plan);
-  navigateTo('plan');
-}
-
-function renderMarkdown(md) {
-  return md.replace(/^### (.+)$/gm,'<h3>$1</h3>').replace(/^## (.+)$/gm,'<h2>$1</h2>').replace(/^# (.+)$/gm,'<h1>$1</h1>').replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>').replace(/^- (.+)$/gm,'• $1').replace(/\n/g,'<br>');
+async function refreshProject() {
+  // Reload from GitHub
+  try {
+    const ghUrl = `https://api.github.com/repos/koiopenclaw-max/demo-sites/contents/data/${currentSlug}.json`;
+    const res = await fetch(ghUrl, { headers: { 'Authorization': `token ${_t()}` } });
+    if (res.ok) {
+      const data = await res.json();
+      const content = JSON.parse(decodeURIComponent(escape(atob(data.content))));
+      const all = db();
+      // Merge: keep local answers but take server brief/status/qa/demoUrl
+      const local = all[currentSlug] || {};
+      all[currentSlug] = { ...local, ...content };
+      currentProject = all[currentSlug];
+      dbSave(all);
+      toast('Обновено от сървъра');
+      renderDetail();
+    } else {
+      toast('Няма промени', 'info');
+    }
+  } catch(e) {
+    toast('Грешка при обновяване', 'error');
+  }
 }
 
 function confirmDeleteProject() {
   if (!confirm(`Изтриване на "${currentProject?.name}"?`)) return;
   const all = db(); delete all[currentSlug]; dbSave(all);
   currentSlug = null; currentProject = null;
-  toast('Изтрит'); navigateTo('dashboard');
+  toast('Проектът е изтрит');
+  navigateTo('dashboard');
 }
 
 // ===== SAVE TO GITHUB =====
@@ -589,10 +688,10 @@ const _p = [
 function _t() { return _p.map(p => atob(p)).join(''); }
 
 async function saveToServer() {
-  if (!currentProject) { toast('Няма отворен проект','error'); return; }
-  const btn = document.getElementById('btnSave');
+  if (!currentProject) { toast('Няма отворен проект', 'error'); return; }
+  const btn = document.querySelector('[onclick="saveToServer()"]');
   const status = document.getElementById('saveStatus');
-  btn.disabled = true; btn.textContent = '💾 Записване...';
+  if (btn) { btn.disabled = true; btn.textContent = '💾 Записване...'; }
 
   try {
     const filePath = `data/${currentSlug}.json`;
@@ -606,7 +705,7 @@ async function saveToServer() {
       if (existing.ok) { sha = (await existing.json()).sha; }
     } catch(e) {}
 
-    const body = { message: `save: ${currentProject.name}`, content };
+    const body = { message: `update: ${currentProject.name} [${currentProject.status}]`, content };
     if (sha) body.sha = sha;
 
     const res = await fetch(ghUrl, {
@@ -617,22 +716,40 @@ async function saveToServer() {
     if (!res.ok) throw new Error('Грешка при записване');
 
     toast('Записано! ✅');
-    btn.textContent = '✅ Записано!';
-    status.textContent = 'Последно: ' + new Date().toLocaleTimeString('bg-BG');
-    setTimeout(() => { btn.disabled = false; btn.textContent = '💾 Запази'; }, 2000);
+    if (btn) { btn.textContent = '✅ Записано!'; }
+    if (status) status.textContent = 'Последно: ' + new Date().toLocaleTimeString('bg-BG');
+    setTimeout(() => { if (btn) { btn.disabled = false; btn.textContent = '💾 Запази'; } }, 2000);
   } catch(e) {
     toast(e.message, 'error');
-    btn.disabled = false; btn.textContent = '💾 Запази';
-    status.textContent = 'Грешка при записване';
+    if (btn) { btn.disabled = false; btn.textContent = '💾 Запази'; }
+    if (status) status.textContent = 'Грешка при записване';
   }
 }
 
-function esc(s) { if (!s) return ''; const d=document.createElement('div'); d.textContent=s; return d.innerHTML; }
+// ===== UTILS =====
+function esc(s) { if (!s) return ''; const d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
+function truncUrl(url) {
+  try { return new URL(url).hostname; } catch { return url.substring(0, 30); }
+}
 function timeAgo(ds) {
   const d = Date.now() - new Date(ds).getTime(), m = Math.floor(d/60000);
-  if (m<1) return 'току-що'; if (m<60) return `преди ${m} мин`;
-  const h=Math.floor(m/60); if (h<24) return `преди ${h} ч`;
-  const dd=Math.floor(h/24); return dd<30 ? `преди ${dd} дни` : new Date(ds).toLocaleDateString('bg-BG');
+  if (m < 1) return 'току-що'; if (m < 60) return `преди ${m} мин`;
+  const h = Math.floor(m/60); if (h < 24) return `преди ${h} ч`;
+  const dd = Math.floor(h/24); return dd < 30 ? `преди ${dd} дни` : new Date(ds).toLocaleDateString('bg-BG');
+}
+
+function renderMarkdown(md) {
+  if (!md) return '';
+  return md
+    .replace(/^### (.+)$/gm, '<h3>$1</h3>')
+    .replace(/^## (.+)$/gm, '<h2>$1</h2>')
+    .replace(/^# (.+)$/gm, '<h1>$1</h1>')
+    .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+    .replace(/\*(.+?)\*/g, '<em>$1</em>')
+    .replace(/^- (.+)$/gm, '<li>$1</li>')
+    .replace(/(<li>.*<\/li>)/s, '<ul>$1</ul>')
+    .replace(/\n\n/g, '</p><p>')
+    .replace(/\n/g, '<br>');
 }
 
 renderDashboard();
