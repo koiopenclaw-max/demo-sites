@@ -691,8 +691,8 @@ async function syncFromGH() {
         if (!slug) return;
 
         const local = all[slug];
-        // Update if: no local copy, or GH is newer
-        if (!local || (content.updatedAt && (!local.updatedAt || new Date(content.updatedAt) > new Date(local.updatedAt)))) {
+        // GitHub is always source of truth — overwrite local
+        if (!local || JSON.stringify(local) !== JSON.stringify(content)) {
           all[slug] = content;
           updated = true;
         }
