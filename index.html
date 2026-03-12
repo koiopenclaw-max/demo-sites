@@ -635,7 +635,80 @@ function renderMd(md) {
     .replace(/\n\n/g,'</p><p>').replace(/\n/g,'<br>');
 }
 
+// ===== MIGRATE OLD FORMAT =====
+function migrateProject(content) {
+  // Old v2 format has 'answers' and 'plan' but no type/status
+  if (!content.status && content.answers) {
+    const a = content.answers || {};
+    content.type = 'redesign';
+    content.websiteUrl = content.websiteUrl || a.current_url?.value || '';
+    content.facebookUrl = content.facebookUrl || a.social_pages?.value || '';
+    if (!content.notes) {
+      content.notes = [
+        a.niche?.value ? `Ниша: ${a.niche.value}` : '',
+        a.city?.value ? `Град: ${a.city.value}` : '',
+        a.site_condition?.value ? `Състояние: ${a.site_condition.value}` : '',
+        a.main_problems?.value ? `Проблеми: ${a.main_problems.value}` : ''
+      ].filter(Boolean).join('\n');
+    }
+    content.status = content.plan ? 'brief_ready' : 'created';
+    content.brief = content.brief || content.plan || null;
+    content.qa = content.qa || [];
+    content.demoUrl = content.demoUrl || null;
+  }
+  // Ensure minimum fields
+  if (!content.type) content.type = 'other';
+  if (!content.status) content.status = 'created';
+  return content;
+}
+
+// ===== SYNC FROM GITHUB ON LOAD =====
+async function syncFromGH() {
+  try {
+    const tk = _t();
+    const res = await fetch('https://api.github.com/repos/koiopenclaw-max/demo-sites/contents/data', {
+      headers: { 'Authorization': `token ${tk}`, 'Accept': 'application/vnd.github.v3+json' },
+      cache: 'no-store'
+    });
+    if (!res.ok) { console.log('GH sync failed:', res.status); return; }
+    const files = await res.json();
+    const jsonFiles = files.filter(f => f.name.endsWith('.json') && !f.name.endsWith('-plan.md'));
+    if (!jsonFiles.length) return;
+
+    const all = db();
+    let updated = false;
+
+    await Promise.all(jsonFiles.map(async (f) => {
+      try {
+        const r = await fetch(f.url, {
+          headers: { 'Authorization': `token ${tk}`, 'Accept': 'application/vnd.github.v3+json' },
+          cache: 'no-store'
+        });
+        if (!r.ok) return;
+        const fileData = await r.json();
+        const content = migrateProject(JSON.parse(decodeURIComponent(escape(atob(fileData.content)))));
+        const slug = content.slug;
+        if (!slug) return;
+
+        const local = all[slug];
+        // Update if: no local copy, or GH is newer
+        if (!local || (content.updatedAt && (!local.updatedAt || new Date(content.updatedAt) > new Date(local.updatedAt)))) {
+          all[slug] = content;
+          updated = true;
+        }
+      } catch(e) { console.log('Sync file error:', f.name, e); }
+    }));
+
+    if (updated) {
+      dbSave(all);
+      renderDashboard();
+      console.log('Synced from GitHub');
+    }
+  } catch(e) { console.log('GH sync error:', e); }
+}
+
 renderDashboard();
+syncFromGH(); // Load latest from GitHub after initial render
 </script>
 </body>
 </html>
