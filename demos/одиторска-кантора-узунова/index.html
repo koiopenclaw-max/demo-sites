@@ -1,0 +1,917 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Одиторска кантора Узунова — Одит, счетоводство и данъчни услуги в Пловдив</title>
+<meta name="description" content="Одиторска кантора Узунова ЕООД — одит на ГФО, счетоводни услуги, данъчни консултации и ТРЗ обслужване в Пловдив от 1992 г. Обадете се: 032 65 51 30">
+<meta property="og:title" content="Одиторска кантора Узунова — Пловдив">
+<meta property="og:description" content="Одит, счетоводство, данъчни консултации и ТРЗ от 1992 г. 14 квалифицирани специалисти на ваше разположение.">
+<meta property="og:url" content="https://koiopenclaw-max.github.io/demo-sites/demos/%D0%BE%D0%B4%D0%B8%D1%82%D0%BE%D1%80%D1%81%D0%BA%D0%B0-%D0%BA%D0%B0%D0%BD%D1%82%D0%BE%D1%80%D0%B0-%D1%83%D0%B7%D1%83%D0%BD%D0%BE%D0%B2%D0%B0/">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "AccountingService",
+  "name": "Одиторска кантора Узунова ЕООД",
+  "image": "https://uzunova.net/images/logo.jpg",
+  "url": "https://uzunova.net",
+  "telephone": "+35932655130",
+  "email": "vuzunova@mail.bg",
+  "founder": {
+    "@type": "Person",
+    "name": "Валентина Узунова",
+    "jobTitle": "Регистриран одитор"
+  },
+  "foundingDate": "1992",
+  "numberOfEmployees": {
+    "@type": "QuantitativeValue",
+    "value": 14
+  },
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "бул. Христо Ботев 92 В, РИЛОН ЦЕНТЪР, ет. 3, тяло С",
+    "addressLocality": "Пловдив",
+    "postalCode": "4000",
+    "addressCountry": "BG"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": 42.1431,
+    "longitude": 24.7453
+  },
+  "openingHoursSpecification": {
+    "@type": "OpeningHoursSpecification",
+    "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"],
+    "opens": "09:00",
+    "closes": "18:00"
+  },
+  "priceRange": "$$",
+  "knowsLanguage": ["bg", "en", "it"],
+  "areaServed": {
+    "@type": "City",
+    "name": "Пловдив"
+  }
+}
+</script>
+
+<style>
+:root {
+  --red: #B91C1C;
+  --red-deep: #991B1B;
+  --red-light: #DC2626;
+  --red-pale: #FEE2E2;
+  --gold: #D4A017;
+  --gold-light: #F5C842;
+  --gold-pale: #FEF3C7;
+  --gold-dark: #A07D1C;
+  --dark: #1C1917;
+  --dark-warm: #292524;
+  --text: #44403C;
+  --text-light: #78716C;
+  --bg: #FFFBF5;
+  --white: #FFFFFF;
+  --cream: #FDF8F0;
+  --shadow: 0 4px 24px rgba(28,25,23,0.08);
+  --shadow-lg: 0 12px 48px rgba(28,25,23,0.12);
+  --shadow-gold: 0 4px 20px rgba(212,160,23,0.15);
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; font-size:16px; }
+body {
+  font-family:'Inter',sans-serif;
+  color:var(--text);
+  background:var(--bg);
+  line-height:1.6;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+h1,h2,h3,h4 {
+  font-family:'Playfair Display',serif;
+  line-height:1.2;
+  color:var(--dark);
+}
+a { text-decoration:none; color:inherit; }
+img { max-width:100%; height:auto; }
+
+/* ── NAV ── */
+.nav {
+  position:fixed; top:0; left:0; right:0; z-index:100;
+  background:rgba(255,251,245,0.95);
+  backdrop-filter:blur(20px);
+  -webkit-backdrop-filter:blur(20px);
+  border-bottom:1px solid rgba(185,28,28,0.08);
+  transition:all .3s ease;
+}
+.nav.scrolled { box-shadow:var(--shadow); }
+.nav-inner {
+  max-width:1200px; margin:0 auto;
+  padding:0.75rem 1.5rem;
+  display:flex; align-items:center; justify-content:space-between;
+}
+.nav-logo { display:flex; align-items:center; gap:0.75rem; }
+.nav-logo img { height:44px; width:auto; border-radius:4px; }
+.nav-logo span { font-family:'Playfair Display',serif; font-weight:700; font-size:1.1rem; color:var(--dark); }
+.nav-links { display:flex; gap:1.5rem; align-items:center; }
+.nav-links a {
+  font-size:0.9rem; font-weight:500; color:var(--text-light);
+  transition:color .2s;
+}
+.nav-links a:hover { color:var(--red); }
+.nav-right { display:flex; align-items:center; gap:1rem; }
+.lang-switcher { display:flex; gap:0.25rem; }
+.lang-btn {
+  padding:0.25rem 0.5rem; border-radius:4px; font-size:0.75rem; font-weight:600;
+  border:1px solid rgba(0,0,0,0.1); background:transparent; cursor:pointer;
+  transition:all .2s; color:var(--text-light);
+}
+.lang-btn.active { background:var(--red); color:var(--white); border-color:var(--red); }
+.lang-btn:hover:not(.active) { border-color:var(--red); color:var(--red); }
+.nav-cta {
+  padding:0.5rem 1.25rem; border-radius:8px; font-size:0.85rem; font-weight:600;
+  background:var(--red); color:var(--white);
+  transition:all .2s; border:none; cursor:pointer;
+}
+.nav-cta:hover { background:var(--red-deep); transform:translateY(-1px); }
+.hamburger {
+  display:none; background:none; border:none; cursor:pointer; padding:0.5rem;
+}
+.hamburger span {
+  display:block; width:24px; height:2px; background:var(--dark);
+  margin:5px 0; transition:all .3s;
+}
+
+/* ── HERO ── */
+.hero {
+  min-height:100vh; display:flex; align-items:center;
+  background: linear-gradient(135deg, var(--dark) 0%, var(--dark-warm) 50%, #3D1C1C 100%);
+  position:relative; overflow:hidden; padding-top:80px;
+}
+.hero::before {
+  content:''; position:absolute; inset:0;
+  background: radial-gradient(circle at 70% 30%, rgba(212,160,23,0.12) 0%, transparent 60%),
+              radial-gradient(circle at 20% 80%, rgba(185,28,28,0.08) 0%, transparent 50%);
+}
+.hero::after {
+  content:''; position:absolute; bottom:0; left:0; right:0; height:120px;
+  background:linear-gradient(to top, var(--bg), transparent);
+}
+.hero-pattern {
+  position:absolute; inset:0; opacity:0.04;
+  background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23D4A017' fill-opacity='1'%3E%3Ccircle cx='30' cy='30' r='1.5'/%3E%3C/g%3E%3C/svg%3E");
+}
+.hero-inner {
+  max-width:1200px; margin:0 auto; padding:4rem 1.5rem;
+  position:relative; z-index:2;
+  display:grid; grid-template-columns:1fr 1fr; gap:4rem; align-items:center;
+}
+.hero-text { color:var(--white); }
+.hero-badge {
+  display:inline-flex; align-items:center; gap:0.5rem;
+  padding:0.5rem 1rem; border-radius:100px;
+  background:rgba(212,160,23,0.15); border:1px solid rgba(212,160,23,0.3);
+  font-size:0.8rem; font-weight:600; color:var(--gold-light);
+  margin-bottom:1.5rem;
+}
+.hero-badge svg { width:16px; height:16px; }
+.hero h1 {
+  font-size:clamp(2.2rem,5vw,3.6rem); color:var(--white);
+  margin-bottom:1rem; font-weight:800;
+}
+.hero h1 .gold { color:var(--gold-light); }
+.hero-subtitle {
+  font-size:1.15rem; color:rgba(255,255,255,0.7);
+  line-height:1.7; margin-bottom:2rem; max-width:500px;
+}
+.hero-motto {
+  font-family:'Playfair Display',serif; font-style:italic;
+  font-size:1.05rem; color:var(--gold); margin-bottom:2.5rem;
+  padding-left:1rem; border-left:3px solid var(--gold);
+}
+.hero-actions { display:flex; gap:1rem; flex-wrap:wrap; }
+.btn-primary {
+  display:inline-flex; align-items:center; gap:0.5rem;
+  padding:0.9rem 2rem; border-radius:10px; font-size:0.95rem; font-weight:600;
+  background:var(--red); color:var(--white);
+  transition:all .3s; border:none; cursor:pointer;
+  box-shadow:0 4px 16px rgba(185,28,28,0.3);
+}
+.btn-primary:hover { background:var(--red-deep); transform:translateY(-2px); box-shadow:0 6px 24px rgba(185,28,28,0.4); }
+.btn-outline {
+  display:inline-flex; align-items:center; gap:0.5rem;
+  padding:0.9rem 2rem; border-radius:10px; font-size:0.95rem; font-weight:600;
+  background:transparent; color:var(--white);
+  border:2px solid rgba(255,255,255,0.25);
+  transition:all .3s; cursor:pointer;
+}
+.btn-outline:hover { border-color:var(--gold); color:var(--gold); }
+
+.hero-visual {
+  display:flex; justify-content:center; align-items:center;
+}
+.hero-card {
+  background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.1);
+  border-radius:24px; padding:2.5rem; backdrop-filter:blur(10px);
+  max-width:380px; width:100%;
+}
+.hero-stats { display:grid; grid-template-columns:1fr 1fr; gap:1.5rem; }
+.stat-item { text-align:center; }
+.stat-num {
+  font-family:'Playfair Display',serif; font-size:2.5rem; font-weight:800;
+  color:var(--gold-light); line-height:1;
+}
+.stat-label { font-size:0.8rem; color:rgba(255,255,255,0.5); margin-top:0.25rem; }
+.hero-card-divider {
+  height:1px; background:linear-gradient(90deg, transparent, rgba(212,160,23,0.3), transparent);
+  margin:1.5rem 0;
+}
+.hero-card-footer {
+  display:flex; align-items:center; gap:0.75rem; justify-content:center;
+}
+.hero-card-footer img { width:48px; height:48px; border-radius:50%; border:2px solid var(--gold); object-fit:cover; }
+.hero-card-footer-text span { display:block; color:var(--white); font-weight:600; font-size:0.9rem; }
+.hero-card-footer-text small { color:rgba(255,255,255,0.5); font-size:0.75rem; }
+
+/* ── SECTION COMMON ── */
+section { padding:5rem 1.5rem; }
+.section-inner { max-width:1200px; margin:0 auto; }
+.section-header { text-align:center; max-width:700px; margin:0 auto 3rem; }
+.section-label {
+  display:inline-block; font-size:0.75rem; font-weight:700;
+  text-transform:uppercase; letter-spacing:2px; color:var(--red);
+  margin-bottom:0.75rem;
+}
+.section-title { font-size:clamp(1.8rem,4vw,2.6rem); margin-bottom:1rem; }
+.section-desc { font-size:1.05rem; color:var(--text-light); line-height:1.7; }
+
+/* ── SERVICES ── */
+.services { background:var(--cream); }
+.services-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:1.5rem; }
+.service-card {
+  background:var(--white); border-radius:16px; padding:2rem;
+  border:1px solid rgba(0,0,0,0.04);
+  transition:all .3s; position:relative; overflow:hidden;
+}
+.service-card:hover { transform:translateY(-4px); box-shadow:var(--shadow-lg); }
+.service-card::before {
+  content:''; position:absolute; top:0; left:0; right:0; height:4px;
+  background:linear-gradient(90deg, var(--red), var(--gold));
+  opacity:0; transition:opacity .3s;
+}
+.service-card:hover::before { opacity:1; }
+.service-icon {
+  width:56px; height:56px; border-radius:14px;
+  display:flex; align-items:center; justify-content:center;
+  margin-bottom:1.25rem; font-size:1.5rem;
+}
+.service-icon.audit { background:linear-gradient(135deg, var(--red-pale), #FCA5A5); }
+.service-icon.accounting { background:linear-gradient(135deg, var(--gold-pale), #FDE68A); }
+.service-icon.tax { background:linear-gradient(135deg, #DBEAFE, #93C5FD); }
+.service-icon.hr { background:linear-gradient(135deg, #D1FAE5, #6EE7B7); }
+.service-icon.consulting { background:linear-gradient(135deg, #EDE9FE, #C4B5FD); }
+.service-card h3 { font-size:1.2rem; margin-bottom:0.75rem; }
+.service-card ul {
+  list-style:none; padding:0;
+}
+.service-card li {
+  font-size:0.88rem; color:var(--text-light); padding:0.3rem 0;
+  padding-left:1.25rem; position:relative;
+}
+.service-card li::before {
+  content:''; position:absolute; left:0; top:0.65rem;
+  width:6px; height:6px; border-radius:50%; background:var(--gold);
+}
+
+/* ── ABOUT ── */
+.about-grid { display:grid; grid-template-columns:1fr 1fr; gap:4rem; align-items:center; }
+.about-timeline { position:relative; padding-left:2rem; }
+.about-timeline::before {
+  content:''; position:absolute; left:0; top:0; bottom:0;
+  width:3px; background:linear-gradient(to bottom, var(--red), var(--gold));
+  border-radius:2px;
+}
+.timeline-item { margin-bottom:2rem; position:relative; }
+.timeline-item::before {
+  content:''; position:absolute; left:-2rem; top:0.4rem;
+  width:12px; height:12px; border-radius:50%;
+  background:var(--gold); border:3px solid var(--bg);
+  box-shadow:0 0 0 2px var(--gold);
+}
+.timeline-year { font-size:0.8rem; font-weight:700; color:var(--red); text-transform:uppercase; letter-spacing:1px; }
+.timeline-text { font-size:0.95rem; color:var(--text); margin-top:0.25rem; }
+.about-values { display:grid; gap:1rem; }
+.value-card {
+  display:flex; gap:1rem; padding:1.25rem; border-radius:12px;
+  background:var(--white); border:1px solid rgba(0,0,0,0.04);
+  transition:all .3s;
+}
+.value-card:hover { box-shadow:var(--shadow); }
+.value-icon {
+  width:44px; height:44px; border-radius:10px; flex-shrink:0;
+  display:flex; align-items:center; justify-content:center;
+  background:linear-gradient(135deg, var(--red-pale), #FECACA);
+  font-size:1.2rem;
+}
+.value-card h4 { font-size:0.95rem; margin-bottom:0.25rem; }
+.value-card p { font-size:0.85rem; color:var(--text-light); }
+
+/* ── CONTACT ── */
+.contact { background:var(--cream); }
+.contact-grid { display:grid; grid-template-columns:1fr 1fr; gap:3rem; }
+.contact-info { display:grid; gap:1.5rem; }
+.contact-dept {
+  background:var(--white); border-radius:14px; padding:1.5rem;
+  border:1px solid rgba(0,0,0,0.04); transition:all .3s;
+}
+.contact-dept:hover { box-shadow:var(--shadow); }
+.contact-dept h4 {
+  font-size:0.95rem; margin-bottom:0.75rem; color:var(--red);
+  display:flex; align-items:center; gap:0.5rem;
+}
+.contact-dept a {
+  display:flex; align-items:center; gap:0.5rem;
+  font-size:0.9rem; color:var(--text); padding:0.3rem 0;
+  transition:color .2s;
+}
+.contact-dept a:hover { color:var(--red); }
+.contact-dept a svg { width:16px; height:16px; color:var(--gold); flex-shrink:0; }
+.contact-map {
+  border-radius:16px; overflow:hidden; min-height:400px;
+  box-shadow:var(--shadow);
+}
+.contact-map iframe { width:100%; height:100%; min-height:400px; border:0; }
+.contact-address {
+  background:var(--white); border-radius:14px; padding:1.5rem;
+  border:1px solid rgba(0,0,0,0.04); margin-top:1.5rem;
+}
+.contact-address h4 { font-size:0.95rem; color:var(--red); margin-bottom:0.5rem; }
+.contact-address p { font-size:0.9rem; color:var(--text-light); line-height:1.7; }
+
+/* ── FAQ ── */
+.faq-list { max-width:800px; margin:0 auto; }
+.faq-item {
+  background:var(--white); border-radius:12px; margin-bottom:0.75rem;
+  border:1px solid rgba(0,0,0,0.04); overflow:hidden;
+  transition:all .3s;
+}
+.faq-item:hover { box-shadow:var(--shadow); }
+.faq-q {
+  padding:1.25rem 1.5rem; cursor:pointer;
+  display:flex; justify-content:space-between; align-items:center;
+  font-weight:600; font-size:0.95rem; color:var(--dark);
+  transition:color .2s;
+}
+.faq-q:hover { color:var(--red); }
+.faq-q svg { width:20px; height:20px; transition:transform .3s; flex-shrink:0; color:var(--gold); }
+.faq-item.open .faq-q svg { transform:rotate(180deg); }
+.faq-a {
+  max-height:0; overflow:hidden; transition:max-height .3s ease;
+}
+.faq-a-inner {
+  padding:0 1.5rem 1.25rem;
+  font-size:0.9rem; color:var(--text-light); line-height:1.7;
+}
+.faq-item.open .faq-a { max-height:300px; }
+
+/* ── FOOTER ── */
+.footer {
+  background:var(--dark); color:rgba(255,255,255,0.5); padding:3rem 1.5rem;
+  text-align:center;
+}
+.footer-inner { max-width:1200px; margin:0 auto; }
+.footer-logo {
+  display:flex; align-items:center; gap:0.75rem; justify-content:center;
+  margin-bottom:1rem;
+}
+.footer-logo img { height:36px; border-radius:4px; }
+.footer-logo span { font-family:'Playfair Display',serif; font-weight:700; color:var(--white); }
+.footer p { font-size:0.85rem; }
+.footer-links { display:flex; gap:1.5rem; justify-content:center; margin-top:1rem; }
+.footer-links a { font-size:0.85rem; color:rgba(255,255,255,0.5); transition:color .2s; }
+.footer-links a:hover { color:var(--gold); }
+
+/* ── MOBILE ── */
+@media(max-width:768px) {
+  .nav-links { display:none; }
+  .nav-cta { display:none; }
+  .hamburger { display:block; }
+  .nav.mobile-open .nav-links {
+    display:flex; flex-direction:column;
+    position:absolute; top:100%; left:0; right:0;
+    background:var(--bg); padding:1rem 1.5rem;
+    border-bottom:1px solid rgba(0,0,0,0.06);
+    box-shadow:var(--shadow);
+  }
+  .hero-inner { grid-template-columns:1fr; gap:2rem; text-align:center; }
+  .hero-subtitle { margin:0 auto 1.5rem; }
+  .hero-motto { text-align:left; }
+  .hero-actions { justify-content:center; }
+  .hero-visual { order:-1; }
+  .hero-card { max-width:320px; }
+  .about-grid { grid-template-columns:1fr; gap:2rem; }
+  .contact-grid { grid-template-columns:1fr; }
+  .stat-num { font-size:2rem; }
+  section { padding:3.5rem 1rem; }
+}
+
+/* ── ANIMATIONS ── */
+.fade-up {
+  opacity:0; transform:translateY(30px);
+  transition:opacity .6s ease, transform .6s ease;
+}
+.fade-up.visible { opacity:1; transform:translateY(0); }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav" id="nav">
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">
+      <img src="https://uzunova.net/images/logo.jpg" alt="Одиторска кантора Узунова лого" onerror="this.style.display='none'">
+      <span data-i18n="nav_brand">Кантора Узунова</span>
+    </a>
+    <div class="nav-links" id="navLinks">
+      <a href="#services" data-i18n="nav_services">Услуги</a>
+      <a href="#about" data-i18n="nav_about">За нас</a>
+      <a href="#contact" data-i18n="nav_contact">Контакти</a>
+      <a href="#faq" data-i18n="nav_faq">FAQ</a>
+    </div>
+    <div class="nav-right">
+      <div class="lang-switcher">
+        <button class="lang-btn active" onclick="switchLang('bg')">BG</button>
+        <button class="lang-btn" onclick="switchLang('en')">EN</button>
+        <button class="lang-btn" onclick="switchLang('it')">IT</button>
+      </div>
+      <a href="tel:+35932655130" class="nav-cta" data-i18n="nav_cta">📞 Обадете се</a>
+      <button class="hamburger" id="hamburger" aria-label="Menu" onclick="toggleMenu()">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="hero-pattern"></div>
+  <div class="hero-inner">
+    <div class="hero-text">
+      <div class="hero-badge">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        <span data-i18n="hero_badge">От 1992 г. • Пловдив</span>
+      </div>
+      <h1 data-i18n="hero_title">Одиторска кантора <span class="gold">Узунова</span></h1>
+      <p class="hero-subtitle" data-i18n="hero_subtitle">Професионален одит, счетоводство и данъчни консултации за местни и чуждестранни компании. 14 квалифицирани специалисти на ваше разположение.</p>
+      <p class="hero-motto" data-i18n="hero_motto">„Здравият разум е другото име на счетоводството!"</p>
+      <div class="hero-actions">
+        <a href="tel:+35932655130" class="btn-primary">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+          <span data-i18n="hero_cta_call">032 65 51 30</span>
+        </a>
+        <a href="#services" class="btn-outline">
+          <span data-i18n="hero_cta_services">Нашите услуги</span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+        </a>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="hero-card">
+        <div class="hero-stats">
+          <div class="stat-item">
+            <div class="stat-num">30+</div>
+            <div class="stat-label" data-i18n="stat_years">години опит</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num">14</div>
+            <div class="stat-label" data-i18n="stat_team">специалисти</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num">4</div>
+            <div class="stat-label" data-i18n="stat_depts">отдела</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num">3</div>
+            <div class="stat-label" data-i18n="stat_langs">езика</div>
+          </div>
+        </div>
+        <div class="hero-card-divider"></div>
+        <div class="hero-card-footer">
+          <div class="hero-card-footer-text">
+            <span>Валентина Узунова</span>
+            <small data-i18n="founder_title">Управител • Рег. одитор N058/1992</small>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services" id="services">
+  <div class="section-inner">
+    <div class="section-header fade-up">
+      <span class="section-label" data-i18n="services_label">Какво предлагаме</span>
+      <h2 class="section-title" data-i18n="services_title">Пълен спектър от професионални услуги</h2>
+      <p class="section-desc" data-i18n="services_desc">Четири специализирани отдела покриват всички нужди на вашия бизнес — от одит до ТРЗ.</p>
+    </div>
+    <div class="services-grid">
+      <div class="service-card fade-up">
+        <div class="service-icon audit">🔍</div>
+        <h3 data-i18n="svc_audit_title">Одиторски услуги</h3>
+        <ul>
+          <li data-i18n="svc_audit_1">Одит на ГФО и консолидационни пакети (НСФОМСП/МСФО)</li>
+          <li data-i18n="svc_audit_2">Ограничен преглед на финансови отчети</li>
+        </ul>
+      </div>
+      <div class="service-card fade-up">
+        <div class="service-icon accounting">📊</div>
+        <h3 data-i18n="svc_acc_title">Счетоводни услуги</h3>
+        <ul>
+          <li data-i18n="svc_acc_1">Текущо водене на счетоводство</li>
+          <li data-i18n="svc_acc_2">ГФО и междинни финансови отчети</li>
+          <li data-i18n="svc_acc_3">Данъчни декларации и ДДС</li>
+          <li data-i18n="svc_acc_4">Счетоводна политика и документооборот</li>
+          <li data-i18n="svc_acc_5">Съдействие при проверки</li>
+        </ul>
+      </div>
+      <div class="service-card fade-up">
+        <div class="service-icon tax">📋</div>
+        <h3 data-i18n="svc_tax_title">Данъчни услуги</h3>
+        <ul>
+          <li data-i18n="svc_tax_1">Данъчни консултации и разяснения</li>
+          <li data-i18n="svc_tax_2">Съдействие при данъчни проверки</li>
+          <li data-i18n="svc_tax_3">Данъчно планиране и СИДДО</li>
+          <li data-i18n="svc_tax_4">Възражения по данъчни актове</li>
+        </ul>
+      </div>
+      <div class="service-card fade-up">
+        <div class="service-icon hr">👥</div>
+        <h3 data-i18n="svc_hr_title">ТРЗ обслужване</h3>
+        <ul>
+          <li data-i18n="svc_hr_1">Пълно ТРЗ обслужване</li>
+          <li data-i18n="svc_hr_2">Трудови договори и допълнителни споразумения</li>
+          <li data-i18n="svc_hr_3">Обработка на заплати и осигуровки</li>
+        </ul>
+      </div>
+      <div class="service-card fade-up">
+        <div class="service-icon consulting">💡</div>
+        <h3 data-i18n="svc_con_title">Управленски консултации</h3>
+        <ul>
+          <li data-i18n="svc_con_1">Управленски анализи и прогнози</li>
+          <li data-i18n="svc_con_2">Обучение и квалификация</li>
+          <li data-i18n="svc_con_3">Оценки и бизнес планиране</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="section-inner">
+    <div class="section-header fade-up">
+      <span class="section-label" data-i18n="about_label">За нас</span>
+      <h2 class="section-title" data-i18n="about_title">Над 30 години професионализъм</h2>
+      <p class="section-desc" data-i18n="about_desc">От 1992 г. „Одиторска кантора Узунова" е синоним на качество и доверие в одиторските и счетоводни услуги в Пловдив.</p>
+    </div>
+    <div class="about-grid">
+      <div class="about-timeline fade-up">
+        <div class="timeline-item">
+          <div class="timeline-year" data-i18n="tl_1992">1992</div>
+          <div class="timeline-text" data-i18n="tl_1992_text">Валентина Узунова получава одиторска диплома N058 и стартира кантората</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-year" data-i18n="tl_2002">2002</div>
+          <div class="timeline-text" data-i18n="tl_2002_text">Преобразуване в ЕООД — разширяване на дейността и екипа</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-year" data-i18n="tl_intl">Международен опит</div>
+          <div class="timeline-text" data-i18n="tl_intl_text">Обслужване на чуждестранни клиенти, основно от Италия — комуникация на 3 езика</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-year" data-i18n="tl_today">Днес</div>
+          <div class="timeline-text" data-i18n="tl_today_text">14 квалифицирани специалисти и опитни адвокати, 4 специализирани отдела</div>
+        </div>
+      </div>
+      <div class="about-values fade-up">
+        <div class="value-card">
+          <div class="value-icon">🎯</div>
+          <div>
+            <h4 data-i18n="val_1_title">Професионализъм</h4>
+            <p data-i18n="val_1_text">Стриктно спазване на нормативната база и Етичния кодекс на професионалните счетоводители</p>
+          </div>
+        </div>
+        <div class="value-card">
+          <div class="value-icon">🤝</div>
+          <div>
+            <h4 data-i18n="val_2_title">Уважение към клиента</h4>
+            <p data-i18n="val_2_text">Професионално отношение и приоритизиране на клиентските изисквания</p>
+          </div>
+        </div>
+        <div class="value-card">
+          <div class="value-icon">🔒</div>
+          <div>
+            <h4 data-i18n="val_3_title">Конфиденциалност</h4>
+            <p data-i18n="val_3_text">Пълна защита на клиентската информация и бизнес данни</p>
+          </div>
+        </div>
+        <div class="value-card">
+          <div class="value-icon">🌍</div>
+          <div>
+            <h4 data-i18n="val_4_title">Многоезичност</h4>
+            <p data-i18n="val_4_text">Обслужване на български, английски и италиански език</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="section-inner">
+    <div class="section-header fade-up">
+      <span class="section-label" data-i18n="contact_label">Свържете се с нас</span>
+      <h2 class="section-title" data-i18n="contact_title">Контакти по отдели</h2>
+      <p class="section-desc" data-i18n="contact_desc">Обадете се директно на отдела, от който имате нужда. Работим за вас от понеделник до петък.</p>
+    </div>
+    <div class="contact-grid">
+      <div>
+        <div class="contact-info fade-up">
+          <div class="contact-dept">
+            <h4>📞 <span data-i18n="dept_central">Централа</span></h4>
+            <a href="tel:+35932655130"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg> 032 65 51 30</a>
+            <a href="tel:+35932539535"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg> 032 53 95 35</a>
+          </div>
+          <div class="contact-dept">
+            <h4>👥 <span data-i18n="dept_hr">ТРЗ</span></h4>
+            <a href="tel:+35932539698"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg> 032 53 96 98</a>
+            <a href="tel:+35932539298"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg> 032 53 92 98</a>
+          </div>
+          <div class="contact-dept">
+            <h4>📊 <span data-i18n="dept_acc">Счетоводство</span></h4>
+            <a href="tel:+35932539830"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg> 032 53 98 30</a>
+            <a href="tel:+35932539820"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg> 032 53 98 20</a>
+            <a href="tel:+35932539850"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg> 032 53 98 50</a>
+          </div>
+          <div class="contact-dept">
+            <h4>✉️ <span data-i18n="dept_email">Имейл и факс</span></h4>
+            <a href="mailto:vuzunova@mail.bg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 7l-10 7L2 7"/></svg> vuzunova@mail.bg</a>
+            <a href="tel:+35932399486"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9V2h12v7M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2M6 14h12v8H6v-8z"/></svg> <span data-i18n="fax">Факс:</span> 032 39 94 86</a>
+          </div>
+        </div>
+        <div class="contact-address fade-up">
+          <h4>📍 <span data-i18n="address_title">Адрес</span></h4>
+          <p data-i18n="address_text">4000 Пловдив, бул. „Христо Ботев" 92 В<br>РИЛОН ЦЕНТЪР, ет. 3, тяло С</p>
+          <p style="margin-top:0.5rem; font-size:0.85rem; color:var(--text-light);" data-i18n="address_hours">Пон–Пет: 09:00 – 18:00</p>
+        </div>
+      </div>
+      <div class="contact-map fade-up">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2958.1!2d24.7453!3d42.1431!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14acd1a04e802f2d%3A0x2e09a5db9f8c8c7d!2z0KDQuNC70L7QvSDQptC10L3RgtGK0YA!5e0!3m2!1sbg!2sbg!4v1" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Одиторска кантора Узунова на картата"></iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq">
+  <div class="section-inner">
+    <div class="section-header fade-up">
+      <span class="section-label" data-i18n="faq_label">Често задавани въпроси</span>
+      <h2 class="section-title" data-i18n="faq_title">Имате въпроси?</h2>
+    </div>
+    <div class="faq-list fade-up">
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span data-i18n="faq_1_q">Какви видове одит извършвате?</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+        </div>
+        <div class="faq-a"><div class="faq-a-inner" data-i18n="faq_1_a">Извършваме одит на годишни финансови отчети (ГФО), консолидационни пакети по НСФОМСП и МСФО, както и ограничен преглед на финансови отчети. Работим както с местни, така и с международни стандарти.</div></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span data-i18n="faq_2_q">Работите ли с чуждестранни компании?</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+        </div>
+        <div class="faq-a"><div class="faq-a-inner" data-i18n="faq_2_a">Да, обслужваме множество чуждестранни клиенти, основно от Италия. Комуникираме на български, английски и италиански език. Имаме дългогодишен опит с международните счетоводни и данъчни стандарти.</div></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span data-i18n="faq_3_q">Предлагате ли пълно ТРЗ обслужване?</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+        </div>
+        <div class="faq-a"><div class="faq-a-inner" data-i18n="faq_3_a">Да, нашият ТРЗ отдел осигурява пълно обслужване — от изготвяне на трудови договори и допълнителни споразумения до обработка на заплати, осигуровки и подаване на декларации.</div></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span data-i18n="faq_4_q">Как мога да получа консултация?</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+        </div>
+        <div class="faq-a"><div class="faq-a-inner" data-i18n="faq_4_a">Обадете се на нашата централа на 032 65 51 30 или изпратете имейл на vuzunova@mail.bg. Ще ви насочим към подходящия специалист за вашия казус. Първоначалната консултация ще определи обхвата на нужната услуга.</div></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span data-i18n="faq_5_q">Помагате ли при данъчни проверки?</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+        </div>
+        <div class="faq-a"><div class="faq-a-inner" data-i18n="faq_5_a">Да, осигуряваме пълно съдействие при данъчни проверки и ревизии — включително подготовка на документи, представителство, възражения по данъчни актове и обжалване. Разполагаме и с опитни адвокати за правна подкрепа.</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-logo">
+      <img src="https://uzunova.net/images/logo.jpg" alt="Лого" onerror="this.style.display='none'">
+      <span>Одиторска кантора Узунова</span>
+    </div>
+    <p data-i18n="footer_copy">© 2026 „Одиторска кантора Узунова" ЕООД. Всички права запазени.</p>
+    <div class="footer-links">
+      <a href="#services" data-i18n="nav_services">Услуги</a>
+      <a href="#about" data-i18n="nav_about">За нас</a>
+      <a href="#contact" data-i18n="nav_contact">Контакти</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+// ── i18n ──
+const translations = {
+  bg: {
+    nav_brand: 'Кантора Узунова',
+    nav_services: 'Услуги', nav_about: 'За нас', nav_contact: 'Контакти', nav_faq: 'FAQ',
+    nav_cta: '📞 Обадете се',
+    hero_badge: 'От 1992 г. • Пловдив',
+    hero_title: 'Одиторска кантора <span class="gold">Узунова</span>',
+    hero_subtitle: 'Професионален одит, счетоводство и данъчни консултации за местни и чуждестранни компании. 14 квалифицирани специалисти на ваше разположение.',
+    hero_motto: '„Здравият разум е другото име на счетоводството!"',
+    hero_cta_call: '032 65 51 30', hero_cta_services: 'Нашите услуги',
+    stat_years: 'години опит', stat_team: 'специалисти', stat_depts: 'отдела', stat_langs: 'езика',
+    founder_title: 'Управител • Рег. одитор N058/1992',
+    services_label: 'Какво предлагаме', services_title: 'Пълен спектър от професионални услуги',
+    services_desc: 'Четири специализирани отдела покриват всички нужди на вашия бизнес — от одит до ТРЗ.',
+    svc_audit_title: 'Одиторски услуги', svc_audit_1: 'Одит на ГФО и консолидационни пакети (НСФОМСП/МСФО)', svc_audit_2: 'Ограничен преглед на финансови отчети',
+    svc_acc_title: 'Счетоводни услуги', svc_acc_1: 'Текущо водене на счетоводство', svc_acc_2: 'ГФО и междинни финансови отчети', svc_acc_3: 'Данъчни декларации и ДДС', svc_acc_4: 'Счетоводна политика и документооборот', svc_acc_5: 'Съдействие при проверки',
+    svc_tax_title: 'Данъчни услуги', svc_tax_1: 'Данъчни консултации и разяснения', svc_tax_2: 'Съдействие при данъчни проверки', svc_tax_3: 'Данъчно планиране и СИДДО', svc_tax_4: 'Възражения по данъчни актове',
+    svc_hr_title: 'ТРЗ обслужване', svc_hr_1: 'Пълно ТРЗ обслужване', svc_hr_2: 'Трудови договори и допълнителни споразумения', svc_hr_3: 'Обработка на заплати и осигуровки',
+    svc_con_title: 'Управленски консултации', svc_con_1: 'Управленски анализи и прогнози', svc_con_2: 'Обучение и квалификация', svc_con_3: 'Оценки и бизнес планиране',
+    about_label: 'За нас', about_title: 'Над 30 години професионализъм',
+    about_desc: 'От 1992 г. „Одиторска кантора Узунова" е синоним на качество и доверие в одиторските и счетоводни услуги в Пловдив.',
+    tl_1992: '1992', tl_1992_text: 'Валентина Узунова получава одиторска диплома N058 и стартира кантората',
+    tl_2002: '2002', tl_2002_text: 'Преобразуване в ЕООД — разширяване на дейността и екипа',
+    tl_intl: 'Международен опит', tl_intl_text: 'Обслужване на чуждестранни клиенти, основно от Италия — комуникация на 3 езика',
+    tl_today: 'Днес', tl_today_text: '14 квалифицирани специалисти и опитни адвокати, 4 специализирани отдела',
+    val_1_title: 'Професионализъм', val_1_text: 'Стриктно спазване на нормативната база и Етичния кодекс на професионалните счетоводители',
+    val_2_title: 'Уважение към клиента', val_2_text: 'Професионално отношение и приоритизиране на клиентските изисквания',
+    val_3_title: 'Конфиденциалност', val_3_text: 'Пълна защита на клиентската информация и бизнес данни',
+    val_4_title: 'Многоезичност', val_4_text: 'Обслужване на български, английски и италиански език',
+    contact_label: 'Свържете се с нас', contact_title: 'Контакти по отдели',
+    contact_desc: 'Обадете се директно на отдела, от който имате нужда. Работим за вас от понеделник до петък.',
+    dept_central: 'Централа', dept_hr: 'ТРЗ', dept_acc: 'Счетоводство', dept_email: 'Имейл и факс',
+    fax: 'Факс:', address_title: 'Адрес',
+    address_text: '4000 Пловдив, бул. „Христо Ботев" 92 В<br>РИЛОН ЦЕНТЪР, ет. 3, тяло С',
+    address_hours: 'Пон–Пет: 09:00 – 18:00',
+    faq_label: 'Често задавани въпроси', faq_title: 'Имате въпроси?',
+    faq_1_q: 'Какви видове одит извършвате?', faq_1_a: 'Извършваме одит на годишни финансови отчети (ГФО), консолидационни пакети по НСФОМСП и МСФО, както и ограничен преглед на финансови отчети.',
+    faq_2_q: 'Работите ли с чуждестранни компании?', faq_2_a: 'Да, обслужваме множество чуждестранни клиенти, основно от Италия. Комуникираме на български, английски и италиански език.',
+    faq_3_q: 'Предлагате ли пълно ТРЗ обслужване?', faq_3_a: 'Да, нашият ТРЗ отдел осигурява пълно обслужване — от изготвяне на трудови договори до обработка на заплати и осигуровки.',
+    faq_4_q: 'Как мога да получа консултация?', faq_4_a: 'Обадете се на нашата централа на 032 65 51 30 или изпратете имейл на vuzunova@mail.bg.',
+    faq_5_q: 'Помагате ли при данъчни проверки?', faq_5_a: 'Да, осигуряваме пълно съдействие при данъчни проверки и ревизии — включително подготовка на документи, представителство и обжалване.',
+    footer_copy: '© 2026 „Одиторска кантора Узунова" ЕООД. Всички права запазени.'
+  },
+  en: {
+    nav_brand: 'Uzunova Office',
+    nav_services: 'Services', nav_about: 'About', nav_contact: 'Contact', nav_faq: 'FAQ',
+    nav_cta: '📞 Call Us',
+    hero_badge: 'Since 1992 • Plovdiv, Bulgaria',
+    hero_title: 'Audit Office <span class="gold">Uzunova</span>',
+    hero_subtitle: 'Professional audit, accounting and tax consulting for local and international companies. 14 qualified specialists at your service.',
+    hero_motto: '"Common sense is another name for accounting!"',
+    hero_cta_call: '+359 32 655 130', hero_cta_services: 'Our Services',
+    stat_years: 'years of experience', stat_team: 'specialists', stat_depts: 'departments', stat_langs: 'languages',
+    founder_title: 'Managing Director • Registered Auditor N058/1992',
+    services_label: 'What We Offer', services_title: 'Full Range of Professional Services',
+    services_desc: 'Four specialized departments cover all your business needs — from audit to payroll.',
+    svc_audit_title: 'Audit Services', svc_audit_1: 'Audit of AFS and consolidation packages (NAS/IFRS)', svc_audit_2: 'Limited review of financial statements',
+    svc_acc_title: 'Accounting Services', svc_acc_1: 'Ongoing bookkeeping', svc_acc_2: 'Annual and interim financial statements', svc_acc_3: 'Tax returns and VAT declarations', svc_acc_4: 'Accounting policies and documentation', svc_acc_5: 'Assistance during inspections',
+    svc_tax_title: 'Tax Services', svc_tax_1: 'Tax consultations and explanations', svc_tax_2: 'Assistance during tax audits', svc_tax_3: 'Tax planning and DTAA', svc_tax_4: 'Objections to tax assessments',
+    svc_hr_title: 'Payroll Services', svc_hr_1: 'Full payroll management', svc_hr_2: 'Employment contracts and amendments', svc_hr_3: 'Salary and social security processing',
+    svc_con_title: 'Management Consulting', svc_con_1: 'Management analysis and forecasting', svc_con_2: 'Training and qualification', svc_con_3: 'Valuations and business planning',
+    about_label: 'About Us', about_title: 'Over 30 Years of Excellence',
+    about_desc: 'Since 1992, "Audit Office Uzunova" has been a synonym for quality and trust in audit and accounting services in Plovdiv.',
+    tl_1992: '1992', tl_1992_text: 'Valentina Uzunova receives auditor diploma N058 and establishes the firm',
+    tl_2002: '2002', tl_2002_text: 'Transformation to LLC — expansion of activities and team',
+    tl_intl: 'International Experience', tl_intl_text: 'Serving foreign clients, primarily from Italy — communication in 3 languages',
+    tl_today: 'Today', tl_today_text: '14 qualified specialists and experienced lawyers, 4 specialized departments',
+    val_1_title: 'Professionalism', val_1_text: 'Strict compliance with regulations and the Code of Ethics for Professional Accountants',
+    val_2_title: 'Client Respect', val_2_text: 'Professional attitude and prioritizing client requirements',
+    val_3_title: 'Confidentiality', val_3_text: 'Full protection of client information and business data',
+    val_4_title: 'Multilingual', val_4_text: 'Service in Bulgarian, English and Italian',
+    contact_label: 'Get in Touch', contact_title: 'Contact by Department',
+    contact_desc: 'Call directly the department you need. We work for you Monday to Friday.',
+    dept_central: 'Main Office', dept_hr: 'Payroll', dept_acc: 'Accounting', dept_email: 'Email & Fax',
+    fax: 'Fax:', address_title: 'Address',
+    address_text: '4000 Plovdiv, 92V Hristo Botev Blvd<br>RILON CENTER, 3rd Floor, Block S',
+    address_hours: 'Mon–Fri: 09:00 – 18:00',
+    faq_label: 'Frequently Asked Questions', faq_title: 'Have Questions?',
+    faq_1_q: 'What types of audit do you perform?', faq_1_a: 'We perform audits of annual financial statements, consolidation packages under NAS and IFRS, as well as limited reviews of financial statements.',
+    faq_2_q: 'Do you work with foreign companies?', faq_2_a: 'Yes, we serve many foreign clients, primarily from Italy. We communicate in Bulgarian, English and Italian.',
+    faq_3_q: 'Do you offer full payroll services?', faq_3_a: 'Yes, our payroll department provides full service — from employment contracts to salary and social security processing.',
+    faq_4_q: 'How can I get a consultation?', faq_4_a: 'Call our main office at +359 32 655 130 or email vuzunova@mail.bg.',
+    faq_5_q: 'Do you help with tax audits?', faq_5_a: 'Yes, we provide full assistance during tax audits and inspections — including document preparation, representation and appeals.',
+    footer_copy: '© 2026 "Audit Office Uzunova" Ltd. All rights reserved.'
+  },
+  it: {
+    nav_brand: 'Studio Uzunova',
+    nav_services: 'Servizi', nav_about: 'Chi Siamo', nav_contact: 'Contatti', nav_faq: 'FAQ',
+    nav_cta: '📞 Chiamaci',
+    hero_badge: 'Dal 1992 • Plovdiv, Bulgaria',
+    hero_title: 'Studio di Revisione <span class="gold">Uzunova</span>',
+    hero_subtitle: 'Revisione professionale, contabilità e consulenza fiscale per aziende locali e internazionali. 14 specialisti qualificati al vostro servizio.',
+    hero_motto: '"Il buon senso è l\'altro nome della contabilità!"',
+    hero_cta_call: '+359 32 655 130', hero_cta_services: 'I Nostri Servizi',
+    stat_years: 'anni di esperienza', stat_team: 'specialisti', stat_depts: 'dipartimenti', stat_langs: 'lingue',
+    founder_title: 'Direttore • Revisore Registrato N058/1992',
+    services_label: 'Cosa Offriamo', services_title: 'Gamma Completa di Servizi Professionali',
+    services_desc: 'Quattro dipartimenti specializzati coprono tutte le esigenze della vostra attività — dalla revisione alle buste paga.',
+    svc_audit_title: 'Servizi di Revisione', svc_audit_1: 'Revisione dei bilanci annuali e pacchetti di consolidamento (NAS/IFRS)', svc_audit_2: 'Revisione limitata dei bilanci',
+    svc_acc_title: 'Servizi Contabili', svc_acc_1: 'Contabilità corrente', svc_acc_2: 'Bilanci annuali e intermedi', svc_acc_3: 'Dichiarazioni fiscali e IVA', svc_acc_4: 'Politiche contabili e documentazione', svc_acc_5: 'Assistenza durante le ispezioni',
+    svc_tax_title: 'Servizi Fiscali', svc_tax_1: 'Consulenze e chiarimenti fiscali', svc_tax_2: 'Assistenza nelle verifiche fiscali', svc_tax_3: 'Pianificazione fiscale e convenzioni', svc_tax_4: 'Opposizioni agli accertamenti fiscali',
+    svc_hr_title: 'Buste Paga', svc_hr_1: 'Gestione completa delle buste paga', svc_hr_2: 'Contratti di lavoro e integrazioni', svc_hr_3: 'Elaborazione stipendi e contributi',
+    svc_con_title: 'Consulenza Gestionale', svc_con_1: 'Analisi gestionali e previsioni', svc_con_2: 'Formazione e qualificazione', svc_con_3: 'Valutazioni e pianificazione aziendale',
+    about_label: 'Chi Siamo', about_title: 'Oltre 30 Anni di Eccellenza',
+    about_desc: 'Dal 1992, lo "Studio di Revisione Uzunova" è sinonimo di qualità e fiducia nei servizi di revisione e contabilità a Plovdiv.',
+    tl_1992: '1992', tl_1992_text: 'Valentina Uzunova ottiene il diploma di revisore N058 e fonda lo studio',
+    tl_2002: '2002', tl_2002_text: 'Trasformazione in SRL — espansione delle attività e del team',
+    tl_intl: 'Esperienza Internazionale', tl_intl_text: 'Servizio a clienti stranieri, principalmente italiani — comunicazione in 3 lingue',
+    tl_today: 'Oggi', tl_today_text: '14 specialisti qualificati e avvocati esperti, 4 dipartimenti specializzati',
+    val_1_title: 'Professionalità', val_1_text: 'Rigoroso rispetto delle normative e del Codice Etico dei Commercialisti',
+    val_2_title: 'Rispetto del Cliente', val_2_text: 'Atteggiamento professionale e prioritizzazione delle esigenze del cliente',
+    val_3_title: 'Riservatezza', val_3_text: 'Protezione completa delle informazioni e dei dati aziendali del cliente',
+    val_4_title: 'Multilingue', val_4_text: 'Servizio in bulgaro, inglese e italiano',
+    contact_label: 'Contattaci', contact_title: 'Contatti per Dipartimento',
+    contact_desc: 'Chiama direttamente il dipartimento di cui hai bisogno. Lavoriamo per te dal lunedì al venerdì.',
+    dept_central: 'Sede Centrale', dept_hr: 'Buste Paga', dept_acc: 'Contabilità', dept_email: 'Email e Fax',
+    fax: 'Fax:', address_title: 'Indirizzo',
+    address_text: '4000 Plovdiv, Blvd. Hristo Botev 92 V<br>RILON CENTER, 3° Piano, Corpo S',
+    address_hours: 'Lun–Ven: 09:00 – 18:00',
+    faq_label: 'Domande Frequenti', faq_title: 'Hai Domande?',
+    faq_1_q: 'Quali tipi di revisione effettuate?', faq_1_a: 'Effettuiamo revisione dei bilanci annuali, pacchetti di consolidamento secondo NAS e IFRS, nonché revisione limitata dei bilanci.',
+    faq_2_q: 'Lavorate con aziende straniere?', faq_2_a: 'Sì, serviamo molti clienti stranieri, principalmente italiani. Comunichiamo in bulgaro, inglese e italiano.',
+    faq_3_q: 'Offrite servizi completi di buste paga?', faq_3_a: 'Sì, il nostro dipartimento offre un servizio completo — dai contratti di lavoro all\'elaborazione degli stipendi e dei contributi.',
+    faq_4_q: 'Come posso ottenere una consulenza?', faq_4_a: 'Chiama la nostra sede al +359 32 655 130 o invia un\'email a vuzunova@mail.bg.',
+    faq_5_q: 'Assistete nelle verifiche fiscali?', faq_5_a: 'Sì, forniamo assistenza completa durante le verifiche fiscali — inclusa preparazione documenti, rappresentanza e ricorsi.',
+    footer_copy: '© 2026 "Studio di Revisione Uzunova" SRL. Tutti i diritti riservati.'
+  }
+};
+
+let currentLang = 'bg';
+
+function switchLang(lang) {
+  currentLang = lang;
+  document.documentElement.lang = lang;
+  document.querySelectorAll('.lang-btn').forEach(b => b.classList.toggle('active', b.textContent.trim() === lang.toUpperCase()));
+  const t = translations[lang];
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (t[key]) el.innerHTML = t[key];
+  });
+}
+
+// ── FAQ ──
+function toggleFaq(el) {
+  el.parentElement.classList.toggle('open');
+}
+
+// ── Mobile Menu ──
+function toggleMenu() {
+  document.getElementById('nav').classList.toggle('mobile-open');
+}
+
+// ── Nav scroll ──
+window.addEventListener('scroll', () => {
+  document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 50);
+});
+
+// ── Close mobile menu on link click ──
+document.querySelectorAll('.nav-links a').forEach(a => {
+  a.addEventListener('click', () => document.getElementById('nav').classList.remove('mobile-open'));
+});
+
+// ── Fade-up animation ──
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }});
+}, { threshold: 0.1 });
+document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
