@@ -564,11 +564,7 @@ async function pollServer() {
   if (!currentSlug) return;
   try {
     const encodedSlug = encodeURIComponent(currentSlug);
-    const ghUrl = `https://api.github.com/repos/koiopenclaw-max/demo-sites/contents/data/${encodedSlug}.json`;
-    const res = await fetch(ghUrl, {
-      headers: { 'Authorization': `token ${_t()}`, 'If-None-Match': '' },
-      cache: 'no-store'
-    });
+    const res = await fetch(`/api/data/${encodedSlug}.json`, { cache: 'no-store' });
     if (!res.ok) return;
     const data = await res.json();
     if (data.sha === lastServerHash) return; // no change
@@ -596,21 +592,20 @@ function confirmDeleteProject() {
 }
 
 // ===== GITHUB =====
-function _t() { return '__GH_TOKEN__'; }
+// Token handled server-side via proxy
 
 async function saveToGH() {
   if (!currentProject) return;
   try {
-    const fp = `data/${encodeURIComponent(currentSlug)}.json`;
+    const slug = encodeURIComponent(currentSlug);
     const content = btoa(unescape(encodeURIComponent(JSON.stringify(currentProject, null, 2))));
-    const ghUrl = `https://api.github.com/repos/koiopenclaw-max/demo-sites/contents/${fp}`;
-    const tk = _t();
+    // Get current SHA
     let sha = null;
-    try { const r = await fetch(ghUrl, {headers:{'Authorization':`token ${tk}`}}); if (r.ok) sha = (await r.json()).sha; } catch(e) {}
+    try { const r = await fetch(`/api/data/${slug}.json`); if (r.ok) sha = (await r.json()).sha; } catch(e) {}
     const rawPath = `data/${currentSlug}.json`;
     const body = { message: `[${currentProject.status}] ${currentProject.name}`, content, path: rawPath };
     if (sha) body.sha = sha;
-    const res = await fetch(ghUrl, { method:'PUT', headers:{'Authorization':`token ${tk}`,'Content-Type':'application/json'}, body: JSON.stringify(body) });
+    const res = await fetch(`/api/data/${slug}.json`, { method:'PUT', headers:{'Content-Type':'application/json'}, body: JSON.stringify(body) });
     if (!res.ok) throw new Error('Save failed: ' + res.status);
     const saved = await res.json();
     lastServerHash = saved.content?.sha || null;
@@ -664,11 +659,7 @@ function migrateProject(content) {
 // ===== SYNC FROM GITHUB ON LOAD =====
 async function syncFromGH() {
   try {
-    const tk = _t();
-    const res = await fetch('https://api.github.com/repos/koiopenclaw-max/demo-sites/contents/data', {
-      headers: { 'Authorization': `token ${tk}`, 'Accept': 'application/vnd.github.v3+json' },
-      cache: 'no-store'
-    });
+    const res = await fetch('/api/data', { cache: 'no-store' });
     if (!res.ok) { console.log('GH sync failed:', res.status); return; }
     const files = await res.json();
     const jsonFiles = files.filter(f => f.name.endsWith('.json') && !f.name.endsWith('-plan.md'));
@@ -679,10 +670,7 @@ async function syncFromGH() {
 
     await Promise.all(jsonFiles.map(async (f) => {
       try {
-        const r = await fetch(f.url, {
-          headers: { 'Authorization': `token ${tk}`, 'Accept': 'application/vnd.github.v3+json' },
-          cache: 'no-store'
-        });
+        const r = await fetch(`/api/data/${encodeURIComponent(f.name)}`, { cache: 'no-store' });
         if (!r.ok) return;
         const fileData = await r.json();
         const content = migrateProject(JSON.parse(decodeURIComponent(escape(atob(fileData.content)))));
