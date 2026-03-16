@@ -321,6 +321,64 @@ section { padding:5rem 1.5rem; }
 .value-card h4 { font-size:0.95rem; margin-bottom:0.25rem; }
 .value-card p { font-size:0.85rem; color:var(--text-light); }
 
+/* ── GOOGLE RATING ── */
+.google-rating {
+  display:inline-flex; align-items:center; gap:0.6rem;
+  background:var(--white); border-radius:50px; padding:0.6rem 1.2rem;
+  box-shadow:var(--shadow); border:1px solid rgba(0,0,0,0.04);
+  margin-top:1.5rem;
+}
+.google-rating .g-logo { width:20px; height:20px; }
+.google-rating .stars { color:#FBBC04; font-size:1rem; letter-spacing:1px; }
+.google-rating .score { font-weight:700; color:var(--dark); font-size:0.95rem; }
+.google-rating .count { font-size:0.8rem; color:var(--text-light); }
+
+/* ── OFFICE PHOTOS ── */
+.photos-grid {
+  display:grid; grid-template-columns:repeat(3, 1fr); gap:1rem;
+  margin-top:2rem;
+}
+.photo-card {
+  border-radius:16px; overflow:hidden; position:relative;
+  aspect-ratio:4/3; box-shadow:var(--shadow);
+  transition:all .4s;
+}
+.photo-card:hover { transform:translateY(-4px); box-shadow:var(--shadow-lg); }
+.photo-card img { width:100%; height:100%; object-fit:cover; transition:transform .4s; }
+.photo-card:hover img { transform:scale(1.05); }
+.photo-card .photo-label {
+  position:absolute; bottom:0; left:0; right:0;
+  background:linear-gradient(transparent, rgba(0,0,0,0.7));
+  color:white; padding:1.5rem 1rem 0.75rem;
+  font-size:0.8rem; font-weight:500;
+}
+@media(max-width:768px) {
+  .photos-grid { grid-template-columns:1fr; max-width:400px; margin:2rem auto 0; }
+}
+
+/* ── STRUCTURE ── */
+.structure-grid {
+  display:grid; grid-template-columns:repeat(2, 1fr); gap:1.5rem;
+  margin-top:2rem;
+}
+.structure-card {
+  background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.1);
+  border-radius:16px; padding:1.5rem; transition:all .3s;
+}
+.structure-card:hover {
+  background:rgba(255,255,255,0.1); transform:translateY(-2px);
+}
+.structure-card h4 {
+  font-family:'Inter',sans-serif; font-size:0.95rem; font-weight:600;
+  color:var(--gold); margin-bottom:0.5rem; display:flex; align-items:center; gap:0.5rem;
+}
+.structure-card p {
+  font-size:0.85rem; color:rgba(255,255,255,0.6); line-height:1.6; margin:0;
+}
+@media(max-width:768px) {
+  .structure-grid { grid-template-columns:1fr; }
+}
+
 /* ── CONTACT ── */
 .contact { background:var(--cream); }
 .contact-grid { display:grid; grid-template-columns:1fr 1fr; gap:3rem; }
@@ -578,17 +636,24 @@ section { padding:5rem 1.5rem; }
     <div class="section-header fade-up">
       <span class="section-label" data-i18n="about_label">За нас</span>
       <h2 class="section-title" data-i18n="about_title">Над 30 години професионализъм</h2>
-      <p class="section-desc" data-i18n="about_desc">От 1992 г. „Одиторска кантора Узунова" е синоним на качество и доверие в одиторските и счетоводни услуги в Пловдив.</p>
+      <p class="section-desc" data-i18n="about_desc">„Одиторска кантора Узунова" ЕООД е регистрирана през 2002 г. като дружество, продължаващо дейността на ЕТ „ОДИТОР Валентина Узунова", стартирала през 1992 г. Едноличен собственик и управител е Валентина Узунова – Регистриран одитор с диплома N 058/1992.</p>
+      <!-- Google Rating Badge -->
+      <div class="google-rating fade-up">
+        <svg class="g-logo" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 01-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+        <span class="stars">★★★★★</span>
+        <span class="score">5.0</span>
+        <span class="count" data-i18n="google_reviews">в Google</span>
+      </div>
     </div>
     <div class="about-grid">
       <div class="about-timeline fade-up">
         <div class="timeline-item">
           <div class="timeline-year" data-i18n="tl_1992">1992</div>
-          <div class="timeline-text" data-i18n="tl_1992_text">Валентина Узунова получава одиторска диплома N058 и стартира кантората</div>
+          <div class="timeline-text" data-i18n="tl_1992_text">Валентина Узунова получава одиторска диплома N058 и стартира кантората като едно от първите одиторски дружества в Пловдив</div>
         </div>
         <div class="timeline-item">
           <div class="timeline-year" data-i18n="tl_2002">2002</div>
-          <div class="timeline-text" data-i18n="tl_2002_text">Преобразуване в ЕООД — разширяване на дейността и екипа</div>
+          <div class="timeline-text" data-i18n="tl_2002_text">Преобразуване в ЕООД — разширяване на дейността с 4 специализирани отдела</div>
         </div>
         <div class="timeline-item">
           <div class="timeline-year" data-i18n="tl_intl">Международен опит</div>
@@ -596,37 +661,75 @@ section { padding:5rem 1.5rem; }
         </div>
         <div class="timeline-item">
           <div class="timeline-year" data-i18n="tl_today">Днес</div>
-          <div class="timeline-text" data-i18n="tl_today_text">14 квалифицирани специалисти и опитни адвокати, 4 специализирани отдела</div>
+          <div class="timeline-text" data-i18n="tl_today_text">14 квалифицирани специалисти — счетоводители, помощник одитори, данъчни консултанти и опитни адвокати</div>
         </div>
       </div>
       <div class="about-values fade-up">
         <div class="value-card">
           <div class="value-icon">🎯</div>
           <div>
-            <h4 data-i18n="val_1_title">Професионализъм</h4>
-            <p data-i18n="val_1_text">Стриктно спазване на нормативната база и Етичния кодекс на професионалните счетоводители</p>
+            <h4 data-i18n="val_1_title">Честност и обективност</h4>
+            <p data-i18n="val_1_text">Стриктно спазване на Етичния кодекс на професионалните счетоводители</p>
           </div>
         </div>
         <div class="value-card">
-          <div class="value-icon">🤝</div>
+          <div class="value-icon">📚</div>
           <div>
-            <h4 data-i18n="val_2_title">Уважение към клиента</h4>
-            <p data-i18n="val_2_text">Професионално отношение и приоритизиране на клиентските изисквания</p>
+            <h4 data-i18n="val_2_title">Професионална компетентност</h4>
+            <p data-i18n="val_2_text">Задълбочени познания в одита, счетоводството, данъците и управлението</p>
           </div>
         </div>
         <div class="value-card">
           <div class="value-icon">🔒</div>
           <div>
             <h4 data-i18n="val_3_title">Конфиденциалност</h4>
-            <p data-i18n="val_3_text">Пълна защита на клиентската информация и бизнес данни</p>
+            <p data-i18n="val_3_text">Пълна защита на клиентската информация, коректно съхранение на лични данни</p>
           </div>
         </div>
         <div class="value-card">
-          <div class="value-icon">🌍</div>
+          <div class="value-icon">⚖️</div>
           <div>
-            <h4 data-i18n="val_4_title">Многоезичност</h4>
-            <p data-i18n="val_4_text">Обслужване на български, английски и италиански език</p>
+            <h4 data-i18n="val_4_title">Независимост</h4>
+            <p data-i18n="val_4_text">Обективни и безпристрастни одиторски заключения, спазване на международни стандарти</p>
           </div>
+        </div>
+      </div>
+    </div>
+    <!-- Office Photos -->
+    <div class="photos-grid fade-up" style="margin-top:3rem;">
+      <div class="photo-card">
+        <img src="https://uzunova.net/images/upload/38e2e96539d02e3789c3619b9b700dc8ce7732ed.jpg" alt="Офис на управителя - Валентина Узунова" loading="lazy">
+        <div class="photo-label" data-i18n="photo_1">Офис на управителя</div>
+      </div>
+      <div class="photo-card">
+        <img src="https://uzunova.net/images/upload/80afc90ec0857e5d81d9cdabf54f95c878777685.jpg" alt="Счетоводен отдел" loading="lazy">
+        <div class="photo-label" data-i18n="photo_2">Счетоводен отдел</div>
+      </div>
+      <div class="photo-card">
+        <img src="https://uzunova.net/images/upload/43933a84c80cad40357b3182773a588b2b1a54f5.jpg" alt="Работна среда" loading="lazy">
+        <div class="photo-label" data-i18n="photo_3">Работна среда</div>
+      </div>
+    </div>
+    <!-- Company Structure -->
+    <div style="margin-top:3rem;">
+      <h3 class="fade-up" style="text-align:center; font-size:1.6rem; color:var(--dark); margin-bottom:0.5rem;" data-i18n="structure_title">Структура на кантората</h3>
+      <p class="fade-up" style="text-align:center; color:var(--text-light); font-size:0.95rem; margin-bottom:2rem; max-width:600px; margin-left:auto; margin-right:auto;" data-i18n="structure_desc">Четири специализирани отдела, всеки с екип от експерти в съответната област.</p>
+      <div class="structure-grid" style="--shadow:0 4px 24px rgba(0,0,0,0.08); --shadow-lg:0 12px 48px rgba(0,0,0,0.12);">
+        <div style="background:var(--white); border-radius:16px; padding:1.5rem; border:1px solid rgba(0,0,0,0.04); transition:all .3s;" class="fade-up">
+          <h4 style="font-size:0.95rem; font-weight:600; color:var(--red); margin-bottom:0.5rem;">🔍 <span data-i18n="str_audit_title">Одиторски отдел</span></h4>
+          <p style="font-size:0.85rem; color:var(--text-light); line-height:1.6;" data-i18n="str_audit_text">Едно от първите одиторски дружества в Пловдив. Основната част от персонала работи от стартирането на дейността. Задълбочено познаване на различни сфери на икономиката гарантира придобиване на професионален опит.</p>
+        </div>
+        <div style="background:var(--white); border-radius:16px; padding:1.5rem; border:1px solid rgba(0,0,0,0.04); transition:all .3s;" class="fade-up">
+          <h4 style="font-size:0.95rem; font-weight:600; color:var(--red); margin-bottom:0.5rem;">📊 <span data-i18n="str_acc_title">Счетоводен отдел</span></h4>
+          <p style="font-size:0.85rem; color:var(--text-light); line-height:1.6;" data-i18n="str_acc_text">5 млади специалисти с необходимата образователна и професионална квалификация. Подходящо прилагане на счетоводното и данъчно законодателство за подпомагане на бизнес целите на клиентите.</p>
+        </div>
+        <div style="background:var(--white); border-radius:16px; padding:1.5rem; border:1px solid rgba(0,0,0,0.04); transition:all .3s;" class="fade-up">
+          <h4 style="font-size:0.95rem; font-weight:600; color:var(--red); margin-bottom:0.5rem;">👥 <span data-i18n="str_hr_title">ТРЗ отдел</span></h4>
+          <p style="font-size:0.85rem; color:var(--text-light); line-height:1.6;" data-i18n="str_hr_text">2 специалисти, ангажирани с точна обработка на информацията за персонала, осигуряване на конфиденциалност и коректност на съхранение на личните данни.</p>
+        </div>
+        <div style="background:var(--white); border-radius:16px; padding:1.5rem; border:1px solid rgba(0,0,0,0.04); transition:all .3s;" class="fade-up">
+          <h4 style="font-size:0.95rem; font-weight:600; color:var(--red); margin-bottom:0.5rem;">💼 <span data-i18n="str_tax_title">Данъчен отдел</span></h4>
+          <p style="font-size:0.85rem; color:var(--text-light); line-height:1.6;" data-i18n="str_tax_text">Професионалисти с богат опит, специализирани в предвиждането и решаването на данъчни проблеми във връзка с данъчното законодателство.</p>
         </div>
       </div>
     </div>
@@ -764,15 +867,22 @@ const translations = {
     svc_hr_title: 'ТРЗ обслужване', svc_hr_1: 'Пълно ТРЗ обслужване', svc_hr_2: 'Трудови договори и допълнителни споразумения', svc_hr_3: 'Обработка на заплати и осигуровки',
     svc_con_title: 'Управленски консултации', svc_con_1: 'Управленски анализи и прогнози', svc_con_2: 'Обучение и квалификация', svc_con_3: 'Оценки и бизнес планиране',
     about_label: 'За нас', about_title: 'Над 30 години професионализъм',
-    about_desc: 'От 1992 г. „Одиторска кантора Узунова" е синоним на качество и доверие в одиторските и счетоводни услуги в Пловдив.',
-    tl_1992: '1992', tl_1992_text: 'Валентина Узунова получава одиторска диплома N058 и стартира кантората',
-    tl_2002: '2002', tl_2002_text: 'Преобразуване в ЕООД — разширяване на дейността и екипа',
+    about_desc: '„Одиторска кантора Узунова" ЕООД е регистрирана през 2002 г. като дружество, продължаващо дейността на ЕТ „ОДИТОР Валентина Узунова", стартирала през 1992 г. Едноличен собственик и управител е Валентина Узунова – Регистриран одитор с диплома N 058/1992.',
+    google_reviews: 'в Google',
+    tl_1992: '1992', tl_1992_text: 'Валентина Узунова получава одиторска диплома N058 и стартира кантората като едно от първите одиторски дружества в Пловдив',
+    tl_2002: '2002', tl_2002_text: 'Преобразуване в ЕООД — разширяване на дейността с 4 специализирани отдела',
     tl_intl: 'Международен опит', tl_intl_text: 'Обслужване на чуждестранни клиенти, основно от Италия — комуникация на 3 езика',
-    tl_today: 'Днес', tl_today_text: '14 квалифицирани специалисти и опитни адвокати, 4 специализирани отдела',
-    val_1_title: 'Професионализъм', val_1_text: 'Стриктно спазване на нормативната база и Етичния кодекс на професионалните счетоводители',
-    val_2_title: 'Уважение към клиента', val_2_text: 'Професионално отношение и приоритизиране на клиентските изисквания',
-    val_3_title: 'Конфиденциалност', val_3_text: 'Пълна защита на клиентската информация и бизнес данни',
-    val_4_title: 'Многоезичност', val_4_text: 'Обслужване на български, английски и италиански език',
+    tl_today: 'Днес', tl_today_text: '14 квалифицирани специалисти — счетоводители, помощник одитори, данъчни консултанти и опитни адвокати',
+    val_1_title: 'Честност и обективност', val_1_text: 'Стриктно спазване на Етичния кодекс на професионалните счетоводители',
+    val_2_title: 'Професионална компетентност', val_2_text: 'Задълбочени познания в одита, счетоводството, данъците и управлението',
+    val_3_title: 'Конфиденциалност', val_3_text: 'Пълна защита на клиентската информация, коректно съхранение на лични данни',
+    val_4_title: 'Независимост', val_4_text: 'Обективни и безпристрастни одиторски заключения, спазване на международни стандарти',
+    photo_1: 'Офис на управителя', photo_2: 'Счетоводен отдел', photo_3: 'Работна среда',
+    structure_title: 'Структура на кантората', structure_desc: 'Четири специализирани отдела, всеки с екип от експерти в съответната област.',
+    str_audit_title: 'Одиторски отдел', str_audit_text: 'Едно от първите одиторски дружества в Пловдив. Основната част от персонала работи от стартирането на дейността. Задълбочено познаване на различни сфери на икономиката гарантира придобиване на професионален опит.',
+    str_acc_title: 'Счетоводен отдел', str_acc_text: '5 млади специалисти с необходимата образователна и професионална квалификация. Подходящо прилагане на счетоводното и данъчно законодателство за подпомагане на бизнес целите на клиентите.',
+    str_hr_title: 'ТРЗ отдел', str_hr_text: '2 специалисти, ангажирани с точна обработка на информацията за персонала, осигуряване на конфиденциалност и коректност на съхранение на личните данни.',
+    str_tax_title: 'Данъчен отдел', str_tax_text: 'Професионалисти с богат опит, специализирани в предвиждането и решаването на данъчни проблеми във връзка с данъчното законодателство.',
     contact_label: 'Свържете се с нас', contact_title: 'Контакти по отдели',
     contact_desc: 'Обадете се директно на отдела, от който имате нужда. Работим за вас от понеделник до петък.',
     dept_central: 'Централа', dept_hr: 'ТРЗ', dept_acc: 'Счетоводство', dept_email: 'Имейл и факс',
@@ -806,7 +916,14 @@ const translations = {
     svc_hr_title: 'Payroll Services', svc_hr_1: 'Full payroll management', svc_hr_2: 'Employment contracts and amendments', svc_hr_3: 'Salary and social security processing',
     svc_con_title: 'Management Consulting', svc_con_1: 'Management analysis and forecasting', svc_con_2: 'Training and qualification', svc_con_3: 'Valuations and business planning',
     about_label: 'About Us', about_title: 'Over 30 Years of Excellence',
-    about_desc: 'Since 1992, "Audit Office Uzunova" has been a synonym for quality and trust in audit and accounting services in Plovdiv.',
+    about_desc: '"Audit Office Uzunova" Ltd was registered in 2002 as a company continuing the activity of sole trader "AUDITOR Valentina Uzunova" started in 1992. Owner and manager is Valentina Uzunova – Registered Auditor with diploma N 058/1992.',
+    google_reviews: 'on Google',
+    photo_1: "Managing Director's Office", photo_2: 'Accounting Department', photo_3: 'Work Environment',
+    structure_title: 'Company Structure', structure_desc: 'Four specialized departments, each with a team of experts in their respective field.',
+    str_audit_title: 'Audit Department', str_audit_text: 'One of the first audit firms in Plovdiv. The core staff has been working since the start of operations. In-depth knowledge of various sectors of the economy guarantees professional experience.',
+    str_acc_title: 'Accounting Department', str_acc_text: '5 young specialists with the necessary educational and professional qualifications. Proper application of accounting and tax legislation to support clients\' business goals.',
+    str_hr_title: 'Payroll Department', str_hr_text: '2 specialists committed to accurate processing of personnel information, ensuring confidentiality and correctness of personal data storage.',
+    str_tax_title: 'Tax Department', str_tax_text: 'Professionals with extensive experience, specialized in anticipating and resolving tax issues related to tax legislation.',
     tl_1992: '1992', tl_1992_text: 'Valentina Uzunova receives auditor diploma N058 and establishes the firm',
     tl_2002: '2002', tl_2002_text: 'Transformation to LLC — expansion of activities and team',
     tl_intl: 'International Experience', tl_intl_text: 'Serving foreign clients, primarily from Italy — communication in 3 languages',
@@ -848,7 +965,14 @@ const translations = {
     svc_hr_title: 'Buste Paga', svc_hr_1: 'Gestione completa delle buste paga', svc_hr_2: 'Contratti di lavoro e integrazioni', svc_hr_3: 'Elaborazione stipendi e contributi',
     svc_con_title: 'Consulenza Gestionale', svc_con_1: 'Analisi gestionali e previsioni', svc_con_2: 'Formazione e qualificazione', svc_con_3: 'Valutazioni e pianificazione aziendale',
     about_label: 'Chi Siamo', about_title: 'Oltre 30 Anni di Eccellenza',
-    about_desc: 'Dal 1992, lo "Studio di Revisione Uzunova" è sinonimo di qualità e fiducia nei servizi di revisione e contabilità a Plovdiv.',
+    about_desc: '"Studio di Revisione Uzunova" SRL è stata registrata nel 2002 come continuazione dell\'attività della ditta individuale "REVISORE Valentina Uzunova" iniziata nel 1992. Proprietaria e direttrice è Valentina Uzunova – Revisore Registrato con diploma N 058/1992.',
+    google_reviews: 'su Google',
+    photo_1: 'Ufficio del direttore', photo_2: 'Reparto contabilità', photo_3: 'Ambiente di lavoro',
+    structure_title: 'Struttura aziendale', structure_desc: 'Quattro dipartimenti specializzati, ognuno con un team di esperti nel rispettivo campo.',
+    str_audit_title: 'Reparto Revisione', str_audit_text: 'Una delle prime società di revisione a Plovdiv. Il personale principale lavora dall\'inizio dell\'attività. La conoscenza approfondita di vari settori dell\'economia garantisce esperienza professionale.',
+    str_acc_title: 'Reparto Contabilità', str_acc_text: '5 giovani specialisti con le qualifiche educative e professionali necessarie per supportare gli obiettivi aziendali dei clienti.',
+    str_hr_title: 'Reparto Buste Paga', str_hr_text: '2 specialisti impegnati nell\'elaborazione accurata delle informazioni sul personale, garantendo riservatezza e correttezza.',
+    str_tax_title: 'Reparto Fiscale', str_tax_text: 'Professionisti con vasta esperienza, specializzati nell\'anticipare e risolvere problemi fiscali relativi alla legislazione tributaria.',
     tl_1992: '1992', tl_1992_text: 'Valentina Uzunova ottiene il diploma di revisore N058 e fonda lo studio',
     tl_2002: '2002', tl_2002_text: 'Trasformazione in SRL — espansione delle attività e del team',
     tl_intl: 'Esperienza Internazionale', tl_intl_text: 'Servizio a clienti stranieri, principalmente italiani — comunicazione in 3 lingue',
