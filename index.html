@@ -610,7 +610,7 @@ async function saveToGH() {
     const rawPath = `data/${currentSlug}.json`;
     const body = { message: `[${currentProject.status}] ${currentProject.name}`, content, path: rawPath };
     if (sha) body.sha = sha;
-    const res = await fetch(`${GH_API}/data/${slug}.json`, {headers: ghHeaders(), method:'PUT', headers:{'Content-Type':'application/json'}, body: JSON.stringify(body) });
+    const res = await fetch(`${GH_API}/data/${slug}.json`, {method:'PUT', headers:{...ghHeaders(), 'Content-Type':'application/json'}, body: JSON.stringify(body) });
     if (!res.ok) throw new Error('Save failed: ' + res.status);
     const saved = await res.json();
     lastServerHash = saved.content?.sha || null;
