@@ -659,9 +659,8 @@ async function pollServer() {
     if (data.sha === lastServerHash) return; // no change
     lastServerHash = data.sha;
     const content = JSON.parse(decodeURIComponent(escape(atob(data.content))));
-    // Only update if server has newer data
-    if (content.updatedAt && currentProject.updatedAt &&
-        new Date(content.updatedAt) > new Date(currentProject.updatedAt)) {
+    // GitHub is ALWAYS source of truth — overwrite local if different
+    if (JSON.stringify(content) !== JSON.stringify(currentProject)) {
       const all = db();
       all[currentSlug] = content;
       currentProject = content;
