@@ -294,8 +294,6 @@ textarea { resize: vertical; min-height: 100px; }
 
 <script>
 const STORAGE_KEY = 'demoSitesProjects_v2';
-// Token injected by GitHub Actions at deploy time (scoped to this repo only)
-window._GH_TOKEN = '__GH_API_TOKEN__'==='__GH_API_TOKEN__' ? null : '__GH_API_TOKEN__';
 const TYPE_LABELS = { redesign:'🔄 Редизайн', new:'🆕 Нов сайт', ecommerce:'🛒 Онлайн магазин', other:'📋 Друго' };
 const STATUS_LABELS = {
   created:'Създаден', briefing:'Koi анализира...', brief_ready:'Задание готово',
@@ -771,31 +769,10 @@ async function saveToGH() {
     } catch(e) {}
 
     if (!proxyOk) {
-      // Fallback: use GitHub API with injected token (set during GitHub Actions deploy)
-      const token = window._GH_TOKEN;
-      if (!token) {
-        // No proxy, no token — save locally only, Koi will sync
-        console.log('No write access — saved locally only');
-        toast('Запазено локално. Koi ще синхронизира.', 'info');
-        return;
-      }
-      // Get SHA from GitHub API
-      let sha = null;
-      try {
-        const r = await fetch(`${GH_API}/${slug}.json`, { headers: { 'Authorization': `token ${token}`, 'Accept': 'application/vnd.github.v3+json' } });
-        if (r.ok) sha = (await r.json()).sha;
-      } catch(e) {}
-      const rawPath = `data/${currentSlug}.json`;
-      const body = { message: `[${currentProject.status}] ${currentProject.name}`, content, path: rawPath };
-      if (sha) body.sha = sha;
-      const res = await fetch(`${GH_API}/${slug}.json`, {
-        method: 'PUT',
-        headers: { 'Authorization': `token ${token}`, 'Content-Type': 'application/json', 'Accept': 'application/vnd.github.v3+json' },
-        body: JSON.stringify(body)
-      });
-      if (!res.ok) throw new Error('GitHub save failed: ' + res.status);
-      const saved = await res.json();
-      lastServerHash = saved.content?.sha || null;
+      // No proxy available — save locally, Koi syncs from Telegram notifications
+      console.log('No write access — saved locally only');
+      toast('Запазено. Koi ще синхронизира.', 'info');
+      return;
     }
   } catch(e) { toast('Грешка: '+e.message,'error'); }
 }
