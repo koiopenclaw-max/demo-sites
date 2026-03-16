@@ -47,7 +47,7 @@
   ],
   "demoUrl": "https://koiopenclaw-max.github.io/demo-sites/demos/uspeh-konsult/",
   "createdAt": "2026-03-16T11:01:51.536Z",
-  "updatedAt": "2026-03-16T13:48:21.509Z",
+  "updatedAt": "2026-03-16T13:49:06.174Z",
   "revisionHistory": [
     {
       "issues": "логото във футър и хедър да се увеличи с 50%\nпод футър да се смени 2025 на 2026",
@@ -56,5 +56,6 @@
       "resolvedAt": "2026-03-16T13:45:58.000Z"
     }
   ],
-  "currentRevision": null
+  "currentRevision": null,
+  "deployDomain": "demo53.add.bg"
 }
