@@ -555,9 +555,11 @@ function renderQa(p) {
   const a = document.getElementById('qaArea');
   if (!p.qa?.length) { a.innerHTML = ''; return; }
   const canEdit = ['brief_ready'].includes(p.status);
+  // Normalize: support both string[] and {question,answer}[] formats
+  const items = p.qa.map(q => typeof q === 'string' ? { question: q, answer: '' } : q);
   a.innerHTML = `<div class="qa-section"><h3>❓ Въпроси</h3>
-    ${p.qa.map((q,i) => `<div class="qa-item">
-      <div class="qa-question">${i+1}. ${esc(q.question)}</div>
+    ${items.map((q,i) => `<div class="qa-item">
+      <div class="qa-question">${i+1}. ${esc(q.question||'')}</div>
       ${canEdit
         ? `<div class="qa-answer"><textarea id="qa_${i}" placeholder="Отговор...">${esc(q.answer||'')}</textarea></div>`
         : q.answer
@@ -661,9 +663,11 @@ function doAction(newStatus) {
   if (!currentProject) return;
   // Collect QA answers before submitting
   if (newStatus === 'qa_submitted' && currentProject.qa) {
-    currentProject.qa.forEach((q,i) => {
+    currentProject.qa = currentProject.qa.map((q,i) => {
+      const item = typeof q === 'string' ? { question: q, answer: '' } : q;
       const el = document.getElementById(`qa_${i}`);
-      if (el) q.answer = el.value.trim();
+      if (el) item.answer = el.value.trim();
+      return item;
     });
   }
   currentProject.status = newStatus;
