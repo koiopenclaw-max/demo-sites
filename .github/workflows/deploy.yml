@@ -22,17 +22,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Inject API token
-        env:
-          GH_API_TOKEN: ${{ secrets.GH_API_TOKEN }}
-        run: |
-          sed -i "s|__GH_API_TOKEN__|${GH_API_TOKEN}|g" index.html
-          # Verify injection
-          if grep -q "__GH_API_TOKEN__" index.html; then
-            echo "ERROR: Token injection failed!"
-            exit 1
-          fi
-
       - name: Setup Pages
         uses: actions/configure-pages@v4
 
