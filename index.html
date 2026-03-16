@@ -1,11 +1,701 @@
 <!DOCTYPE html>
-<html>
+<html lang="bg">
 <head>
 <meta charset="UTF-8">
-<meta http-equiv="refresh" content="0;url=http://161.35.19.170:8090/">
-<title>Demo Sites Platform</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Demo Sites — Мениджър на проекти</title>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg-deep: #0d0d1a;
+  --bg-main: #1a1a2e;
+  --bg-card: #16213e;
+  --bg-card-hover: #1c2a4a;
+  --bg-input: #0f1b33;
+  --accent: #F0A500;
+  --accent-dim: #c48800;
+  --accent-glow: rgba(240, 165, 0, 0.15);
+  --text: #e8e8f0;
+  --text-dim: #8888a0;
+  --text-muted: #555570;
+  --success: #2ecc71;
+  --danger: #e74c3c;
+  --info: #3498db;
+  --purple: #9b59b6;
+  --border: #2a2a4a;
+  --radius: 12px;
+  --radius-sm: 8px;
+  --shadow: 0 4px 24px rgba(0,0,0,0.4);
+  --shadow-lg: 0 8px 48px rgba(0,0,0,0.6);
+  --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+html { font-size: 16px; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  background: var(--bg-deep); color: var(--text);
+  min-height: 100vh; line-height: 1.6; -webkit-font-smoothing: antialiased;
+}
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg-deep); }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+.header {
+  background: linear-gradient(135deg, var(--bg-main) 0%, #0e1628 100%);
+  border-bottom: 1px solid var(--border);
+  padding: 1rem 1.5rem; display: flex; align-items: center; justify-content: space-between;
+  position: sticky; top: 0; z-index: 100; backdrop-filter: blur(12px);
+}
+.header-brand { display: flex; align-items: center; gap: 0.75rem; cursor: pointer; }
+.header-logo {
+  width: 36px; height: 36px; background: var(--accent); border-radius: var(--radius-sm);
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 900; font-size: 1.1rem; color: var(--bg-deep);
+  box-shadow: 0 0 20px var(--accent-glow);
+}
+.header-title { font-size: 1.15rem; font-weight: 700; letter-spacing: -0.02em; }
+.header-title span { color: var(--accent); }
+.poll-indicator { font-size: 0.7rem; color: var(--text-muted); display: flex; align-items: center; gap: 0.35rem; }
+.poll-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--success); animation: pulse 2s infinite; }
+@keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.3; } }
+
+.container { max-width: 900px; margin: 0 auto; padding: 1.5rem; }
+.view { display: none; animation: fadeIn 0.35s ease; }
+.view.active { display: block; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+
+.btn {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  padding: 0.65rem 1.25rem; border: none; border-radius: var(--radius-sm);
+  font-size: 0.9rem; font-weight: 600; cursor: pointer;
+  transition: all var(--transition); text-decoration: none; white-space: nowrap;
+}
+.btn:active { transform: scale(0.97); }
+.btn:disabled { opacity: 0.4; cursor: not-allowed; }
+.btn-primary { background: var(--accent); color: var(--bg-deep); box-shadow: 0 2px 12px rgba(240,165,0,0.3); }
+.btn-primary:hover:not(:disabled) { background: #ffb920; box-shadow: 0 4px 20px rgba(240,165,0,0.45); transform: translateY(-1px); }
+.btn-secondary { background: var(--bg-card); color: var(--text); border: 1px solid var(--border); }
+.btn-secondary:hover { background: var(--bg-card-hover); border-color: var(--accent-dim); }
+.btn-ghost { background: transparent; color: var(--text-dim); padding: 0.5rem 0.75rem; }
+.btn-ghost:hover { color: var(--accent); }
+.btn-danger { background: rgba(231,76,60,0.15); color: var(--danger); border: 1px solid rgba(231,76,60,0.3); }
+.btn-danger:hover { background: rgba(231,76,60,0.25); }
+.btn-success { background: var(--success); color: #fff; box-shadow: 0 2px 12px rgba(46,204,113,0.3); }
+.btn-success:hover:not(:disabled) { background: #27ae60; }
+.btn-sm { padding: 0.4rem 0.85rem; font-size: 0.82rem; }
+.btn-lg { padding: 0.85rem 2rem; font-size: 1rem; }
+.btn-xl { padding: 1rem 2.5rem; font-size: 1.1rem; border-radius: var(--radius); }
+
+.card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.25rem; transition: all var(--transition); }
+.card:hover { border-color: rgba(240,165,0,0.3); box-shadow: 0 4px 20px rgba(0,0,0,0.3); }
+
+.form-group { margin-bottom: 1.25rem; }
+.form-label { display: block; margin-bottom: 0.4rem; font-size: 0.85rem; color: var(--text-dim); font-weight: 600; }
+.form-hint { font-size: 0.75rem; color: var(--text-muted); margin-top: 0.25rem; }
+
+input[type="text"], input[type="url"], textarea, select {
+  width: 100%; padding: 0.75rem 1rem; background: var(--bg-input);
+  border: 1px solid var(--border); border-radius: var(--radius-sm);
+  color: var(--text); font-size: 0.95rem; font-family: inherit;
+  transition: all var(--transition); outline: none;
+}
+input:focus, textarea:focus, select:focus { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-glow); }
+select { cursor: pointer; }
+select option { background: var(--bg-main); color: var(--text); }
+textarea { resize: vertical; min-height: 100px; }
+
+.dashboard-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem; }
+.dashboard-header h2 { font-size: 1.4rem; font-weight: 700; }
+.projects-grid { display: grid; gap: 1rem; }
+.project-card { cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 1rem; }
+.project-card:hover { transform: translateY(-2px); }
+.project-info { flex: 1; min-width: 0; }
+.project-name { font-size: 1.05rem; font-weight: 700; margin-bottom: 0.25rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.project-meta { font-size: 0.8rem; color: var(--text-dim); display: flex; gap: 1rem; flex-wrap: wrap; }
+.project-type-badge { font-size: 0.75rem; padding: 0.15rem 0.5rem; border-radius: 10px; background: rgba(52,152,219,0.15); color: var(--info); font-weight: 600; }
+
+.status-badge { padding: 0.3rem 0.75rem; border-radius: 20px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.03em; }
+.status-created { background: rgba(52,152,219,0.15); color: var(--info); }
+.status-briefing { background: var(--accent-glow); color: var(--accent); }
+.status-brief_ready { background: rgba(46,204,113,0.15); color: var(--success); }
+.status-qa_submitted { background: rgba(155,89,182,0.15); color: var(--purple); }
+.status-brief_final { background: rgba(46,204,113,0.25); color: var(--success); }
+.status-building { background: var(--accent-glow); color: var(--accent); }
+.status-done { background: rgba(46,204,113,0.3); color: var(--success); }
+
+.empty-state { text-align: center; padding: 4rem 2rem; color: var(--text-dim); }
+.empty-state-icon { font-size: 3rem; margin-bottom: 1rem; opacity: 0.4; }
+.empty-state h3 { font-size: 1.2rem; margin-bottom: 0.5rem; color: var(--text); }
+.empty-state p { margin-bottom: 1.5rem; }
+
+.modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.7); backdrop-filter: blur(4px); z-index: 200; display: flex; align-items: flex-start; justify-content: center; padding: 2rem 1rem; overflow-y: auto; animation: fadeIn 0.2s ease; }
+.modal { background: var(--bg-main); border: 1px solid var(--border); border-radius: var(--radius); padding: 2rem; width: 100%; max-width: 520px; box-shadow: var(--shadow-lg); margin-top: 2rem; }
+.modal h3 { font-size: 1.2rem; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.5rem; }
+.modal-actions { display: flex; gap: 0.75rem; justify-content: flex-end; margin-top: 1.75rem; }
+
+.detail-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 0.75rem; }
+.detail-header-left { display: flex; align-items: center; gap: 0.75rem; }
+.detail-header h2 { font-size: 1.3rem; font-weight: 700; }
+
+.info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem; }
+.info-item { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 1rem; }
+.info-item-label { font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.35rem; }
+.info-item-value { font-size: 0.95rem; word-break: break-all; }
+.info-item-value a { color: var(--accent); text-decoration: none; }
+.info-item-value a:hover { text-decoration: underline; }
+.info-item.full { grid-column: 1 / -1; }
+
+.status-flow { display: flex; align-items: center; gap: 0.35rem; margin-bottom: 2rem; flex-wrap: wrap; }
+.status-step { display: flex; align-items: center; gap: 0.25rem; font-size: 0.75rem; font-weight: 600; color: var(--text-muted); padding: 0.35rem 0.6rem; border-radius: 20px; background: var(--bg-card); border: 1px solid var(--border); }
+.status-step.active { color: var(--accent); border-color: var(--accent); background: var(--accent-glow); }
+.status-step.done { color: var(--success); border-color: rgba(46,204,113,0.3); background: rgba(46,204,113,0.1); }
+.status-arrow { color: var(--text-muted); font-size: 0.7rem; }
+
+.action-section { text-align: center; padding: 2rem; border: 2px dashed var(--border); border-radius: var(--radius); margin-bottom: 1.5rem; }
+.action-section.highlight { border-color: var(--accent); background: var(--accent-glow); }
+.action-section.waiting { border-color: var(--purple); background: rgba(155,89,182,0.08); }
+.action-section p { color: var(--text-dim); margin-bottom: 1rem; font-size: 0.95rem; }
+
+.brief-section { margin-bottom: 1.5rem; }
+.brief-section h3 { font-size: 1.1rem; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem; }
+.brief-content { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.5rem; line-height: 1.8; font-size: 0.92rem; }
+.brief-content h1 { font-size: 1.3rem; color: var(--accent); margin: 1.5rem 0 0.5rem 0; }
+.brief-content h2 { font-size: 1.1rem; color: var(--accent); margin: 1.25rem 0 0.5rem 0; }
+.brief-content h3 { font-size: 1rem; color: var(--accent); margin: 1rem 0 0.4rem 0; }
+.brief-content ul, .brief-content ol { padding-left: 1.5rem; margin: 0.5rem 0; }
+.brief-content li { margin: 0.25rem 0; }
+.brief-content p { margin: 0.5rem 0; }
+.brief-content strong { color: var(--accent); }
+
+.qa-section { margin-bottom: 1.5rem; }
+.qa-section h3 { font-size: 1.1rem; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem; }
+.qa-item { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 1rem; margin-bottom: 0.75rem; }
+.qa-question { font-weight: 700; margin-bottom: 0.5rem; color: var(--accent); font-size: 0.95rem; }
+.qa-answer { margin-top: 0.5rem; }
+.qa-answer textarea { min-height: 60px; }
+
+.demo-link-section { text-align: center; padding: 2rem; background: rgba(46,204,113,0.1); border: 2px solid rgba(46,204,113,0.3); border-radius: var(--radius); margin-bottom: 1.5rem; }
+.demo-link-section h3 { color: var(--success); margin-bottom: 1rem; }
+.demo-link { font-size: 1.1rem; color: var(--accent); text-decoration: none; word-break: break-all; }
+.demo-link:hover { text-decoration: underline; }
+
+.toast-container { position: fixed; bottom: 1.5rem; right: 1.5rem; z-index: 300; display: flex; flex-direction: column; gap: 0.5rem; }
+.toast { padding: 0.75rem 1.25rem; border-radius: var(--radius-sm); font-size: 0.85rem; font-weight: 600; animation: slideUp 0.3s ease, fadeOut 0.3s ease 2.5s forwards; box-shadow: var(--shadow); }
+.toast-success { background: rgba(46,204,113,0.9); color: #fff; }
+.toast-error { background: rgba(231,76,60,0.9); color: #fff; }
+.toast-info { background: rgba(52,152,219,0.9); color: #fff; }
+@keyframes slideUp { from { transform: translateY(20px); opacity: 0; } }
+@keyframes fadeOut { to { opacity: 0; transform: translateY(-10px); } }
+
+.spinner { display: inline-block; width: 24px; height: 24px; border: 3px solid var(--border); border-top-color: var(--accent); border-radius: 50%; animation: spin 0.8s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+@media (max-width: 640px) {
+  .container { padding: 1rem; }
+  .header { padding: 0.75rem 1rem; }
+  .info-grid { grid-template-columns: 1fr; }
+  .modal { padding: 1.5rem; }
+  .status-step { font-size: 0.65rem; padding: 0.25rem 0.45rem; }
+  .btn-xl { padding: 0.85rem 1.5rem; font-size: 1rem; }
+}
+</style>
 </head>
 <body>
-<p>Redirecting to <a href="http://161.35.19.170:8090/">Demo Sites Platform</a>...</p>
+
+<header class="header">
+  <div class="header-brand" onclick="navigateTo('dashboard')">
+    <div class="header-logo">DS</div>
+    <div class="header-title">Demo <span>Sites</span></div>
+  </div>
+  <div class="poll-indicator" id="pollIndicator">
+    <span class="poll-dot"></span>
+    <span>Live</span>
+  </div>
+</header>
+
+<div class="toast-container" id="toastContainer"></div>
+
+<div class="container">
+  <!-- DASHBOARD -->
+  <div id="dashboardView" class="view active">
+    <div class="dashboard-header">
+      <h2>Проекти</h2>
+      <button class="btn btn-primary" onclick="showNewProjectModal()">+ Нов проект</button>
+    </div>
+    <div id="projectsList" class="projects-grid"></div>
+  </div>
+
+  <!-- PROJECT DETAIL -->
+  <div id="detailView" class="view">
+    <div class="detail-header">
+      <div class="detail-header-left">
+        <button class="btn btn-ghost" onclick="stopPolling();navigateTo('dashboard')">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3L6 9l6 6"/></svg>
+        </button>
+        <h2 id="detailTitle"></h2>
+      </div>
+      <div style="display:flex;gap:0.5rem;align-items:center">
+        <span class="status-badge" id="detailStatusBadge"></span>
+        <button class="btn btn-danger btn-sm" onclick="confirmDeleteProject()">Изтрий</button>
+      </div>
+    </div>
+    <div class="status-flow" id="statusFlow"></div>
+    <div class="info-grid" id="projectInfo"></div>
+    <div id="actionArea"></div>
+    <div id="briefArea"></div>
+    <div id="qaArea"></div>
+    <div id="demoArea"></div>
+  </div>
+</div>
+
+<!-- NEW PROJECT MODAL -->
+<div class="modal-overlay" id="newProjectModal" style="display:none" onclick="event.target===this&&closeModal()">
+  <div class="modal">
+    <h3>🆕 Нов проект</h3>
+    <div class="form-group">
+      <label class="form-label">Име на бизнеса / проекта *</label>
+      <input type="text" id="npName" placeholder="напр. Автоморга Петров">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Тип проект *</label>
+      <select id="npType">
+        <option value="">— Избери —</option>
+        <option value="redesign">🔄 Редизайн на съществуващ сайт</option>
+        <option value="new">🆕 Нов сайт от нулата</option>
+        <option value="ecommerce">🛒 Онлайн магазин</option>
+        <option value="other">📋 Друго</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label class="form-label">URL на текущ сайт</label>
+      <input type="url" id="npWebsiteUrl" placeholder="https://example.com">
+      <div class="form-hint">Ако бизнесът има съществуващ сайт</div>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Facebook / Instagram страница</label>
+      <input type="url" id="npFacebookUrl" placeholder="https://facebook.com/...">
+      <div class="form-hint">Ако бизнесът има социална страница</div>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Допълнителна информация</label>
+      <textarea id="npNotes" placeholder="Какво иска клиентът? Специални изисквания, бележки от разговора, желания..."></textarea>
+      <div class="form-hint">Всичко, което ще помогне при подготовката на заданието</div>
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-secondary" onclick="closeModal()">Отказ</button>
+      <button class="btn btn-primary btn-lg" onclick="createProject()">🚀 Създай проекта</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const STORAGE_KEY = 'demoSitesProjects_v2';
+const TYPE_LABELS = { redesign:'🔄 Редизайн', new:'🆕 Нов сайт', ecommerce:'🛒 Онлайн магазин', other:'📋 Друго' };
+const STATUS_LABELS = {
+  created:'Създаден', briefing:'Koi анализира...', brief_ready:'Задание готово',
+  qa_submitted:'Koi обработва...', brief_final:'Финално задание',
+  building:'Билд...', done:'Готово ✓'
+};
+const STATUS_FLOW = ['created','briefing','brief_ready','qa_submitted','brief_final','building','done'];
+const STATUS_ICONS = { created:'📝', briefing:'🔍', brief_ready:'📋', qa_submitted:'💬', brief_final:'✅', building:'🔨', done:'🎉' };
+// Statuses where Koi works (show spinner)
+const KOI_WORKING = ['briefing','qa_submitted','building'];
+// Statuses where user acts
+const USER_ACTION = ['created','brief_ready','brief_final'];
+
+// ===== STORAGE =====
+function db() { try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}; } catch { return {}; } }
+function dbSave(d) { localStorage.setItem(STORAGE_KEY, JSON.stringify(d)); }
+function makeSlug(name) {
+  const base = name.toLowerCase().replace(/[^a-zа-яё0-9]+/gi,'-').replace(/^-|-$/g,'') || 'project';
+  const all = db(); let slug = base, i = 1;
+  while (all[slug]) { slug = `${base}-${i++}`; }
+  return slug;
+}
+
+let currentSlug = null;
+let currentProject = null;
+let pollTimer = null;
+let lastServerHash = null;
+
+// ===== MIGRATE =====
+(function migrate() {
+  const oldData = localStorage.getItem('demoSitesProjects');
+  if (!oldData) return;
+  try {
+    const old = JSON.parse(oldData);
+    const newDb = db();
+    for (const [slug, p] of Object.entries(old)) {
+      if (newDb[slug]) continue;
+      const a = p.answers || {};
+      newDb[slug] = {
+        name: p.name, slug: p.slug, type:'redesign',
+        websiteUrl: a.current_url?.value||'', facebookUrl: a.social_pages?.value||'',
+        notes: [a.niche?.value?`Ниша: ${a.niche.value}`:'', a.city?.value?`Град: ${a.city.value}`:'',
+          a.site_condition?.value?`Състояние: ${a.site_condition.value}`:'',
+          a.main_problems?.value?`Проблеми: ${a.main_problems.value}`:''].filter(Boolean).join('\n'),
+        status: p.plan?'brief_ready':'created', brief: p.plan||null, qa:[], demoUrl:null,
+        createdAt: p.createdAt, updatedAt: p.updatedAt
+      };
+    }
+    dbSave(newDb);
+  } catch(e) {}
+})();
+
+// ===== TOAST =====
+function toast(msg, type='success') {
+  const el = document.createElement('div');
+  el.className = `toast toast-${type}`; el.textContent = msg;
+  document.getElementById('toastContainer').appendChild(el);
+  setTimeout(() => el.remove(), 3000);
+}
+
+// ===== NAV =====
+function navigateTo(view) {
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+  if (view === 'dashboard') { stopPolling(); document.getElementById('dashboardView').classList.add('active'); renderDashboard(); }
+  else if (view === 'detail') { document.getElementById('detailView').classList.add('active'); renderDetail(); startPolling(); }
+}
+
+// ===== DASHBOARD =====
+function renderDashboard() {
+  const all = db();
+  const list = document.getElementById('projectsList');
+  const slugs = Object.keys(all).sort((a,b) => new Date(all[b].updatedAt)-new Date(all[a].updatedAt));
+  if (!slugs.length) {
+    list.innerHTML = `<div class="empty-state"><div class="empty-state-icon">📋</div><h3>Няма проекти</h3><p>Създай първия проект</p><button class="btn btn-primary btn-lg" onclick="showNewProjectModal()">+ Нов проект</button></div>`;
+    return;
+  }
+  list.innerHTML = slugs.map(slug => {
+    const p = all[slug];
+    return `<div class="card project-card" onclick="openProject('${slug}')">
+      <div class="project-info">
+        <div class="project-name">${esc(p.name)}</div>
+        <div class="project-meta">
+          <span class="project-type-badge">${TYPE_LABELS[p.type]||p.type}</span>
+          <span>${timeAgo(p.updatedAt)}</span>
+          ${p.websiteUrl?`<span>🌐 ${truncUrl(p.websiteUrl)}</span>`:''}
+        </div>
+      </div>
+      <span class="status-badge status-${p.status}">${STATUS_LABELS[p.status]||p.status}</span>
+    </div>`;
+  }).join('');
+}
+
+// ===== NEW PROJECT =====
+function showNewProjectModal() {
+  document.getElementById('newProjectModal').style.display = 'flex';
+  ['npName','npType','npWebsiteUrl','npFacebookUrl','npNotes'].forEach(id => {
+    const el = document.getElementById(id);
+    el.value = '';
+  });
+  setTimeout(() => document.getElementById('npName').focus(), 100);
+}
+function closeModal() { document.getElementById('newProjectModal').style.display = 'none'; }
+
+function createProject() {
+  const name = document.getElementById('npName').value.trim();
+  const type = document.getElementById('npType').value;
+  if (!name) { toast('Въведете име','error'); return; }
+  if (!type) { toast('Изберете тип','error'); return; }
+  const slug = makeSlug(name);
+  const all = db();
+  all[slug] = {
+    name, slug, type,
+    websiteUrl: document.getElementById('npWebsiteUrl').value.trim(),
+    facebookUrl: document.getElementById('npFacebookUrl').value.trim(),
+    notes: document.getElementById('npNotes').value.trim(),
+    status:'created', brief:null, qa:[], demoUrl:null,
+    createdAt: new Date().toISOString(), updatedAt: new Date().toISOString()
+  };
+  dbSave(all); closeModal(); toast('Проектът е създаден! 🎉');
+  openProject(slug);
+}
+
+function openProject(slug) {
+  currentSlug = slug; currentProject = db()[slug];
+  if (!currentProject) { toast('Не е намерен','error'); return; }
+  lastServerHash = null;
+  navigateTo('detail');
+}
+
+// ===== DETAIL =====
+function renderDetail() {
+  if (!currentProject) return;
+  const p = currentProject;
+  document.getElementById('detailTitle').textContent = p.name;
+  const badge = document.getElementById('detailStatusBadge');
+  badge.textContent = STATUS_LABELS[p.status]||p.status;
+  badge.className = `status-badge status-${p.status}`;
+
+  const si = STATUS_FLOW.indexOf(p.status);
+  document.getElementById('statusFlow').innerHTML = STATUS_FLOW.map((s,i) => {
+    const cls = i<si?'done':i===si?'active':'';
+    const arrow = i<STATUS_FLOW.length-1?'<span class="status-arrow">→</span>':'';
+    return `<span class="status-step ${cls}">${STATUS_ICONS[s]} ${STATUS_LABELS[s]}</span>${arrow}`;
+  }).join('');
+
+  let info = `
+    <div class="info-item"><div class="info-item-label">Тип</div><div class="info-item-value">${TYPE_LABELS[p.type]||p.type}</div></div>
+    <div class="info-item"><div class="info-item-label">Създаден</div><div class="info-item-value">${new Date(p.createdAt).toLocaleDateString('bg-BG')}</div></div>`;
+  if (p.websiteUrl) info += `<div class="info-item"><div class="info-item-label">Уебсайт</div><div class="info-item-value"><a href="${esc(p.websiteUrl)}" target="_blank">${esc(p.websiteUrl)}</a></div></div>`;
+  if (p.facebookUrl) info += `<div class="info-item"><div class="info-item-label">Facebook</div><div class="info-item-value"><a href="${esc(p.facebookUrl)}" target="_blank">${esc(p.facebookUrl)}</a></div></div>`;
+  if (p.notes) info += `<div class="info-item full"><div class="info-item-label">Бележки</div><div class="info-item-value">${esc(p.notes).replace(/\n/g,'<br>')}</div></div>`;
+  document.getElementById('projectInfo').innerHTML = info;
+
+  renderAction(p);
+  renderBrief(p);
+  renderQa(p);
+  renderBottomActions(p);
+  renderDemo(p);
+}
+
+function renderAction(p) {
+  const a = document.getElementById('actionArea');
+  if (p.status === 'created') {
+    a.innerHTML = `<div class="action-section highlight">
+      <p>Проектът е готов. Натисни бутона и Koi ще анализира и подготви задание.</p>
+      <button class="btn btn-primary btn-xl" onclick="doAction('briefing')">🚀 Пусни за задание</button></div>`;
+  } else if (KOI_WORKING.includes(p.status)) {
+    const msgs = { briefing:'Koi анализира и подготвя задание...', qa_submitted:'Koi обработва отговорите и обогатява заданието...', building:'Koi билдва демо сайта...' };
+    a.innerHTML = `<div class="action-section waiting">
+      <div class="spinner"></div>
+      <p style="margin-top:1rem">${msgs[p.status]}</p>
+      <p style="font-size:0.8rem;color:var(--text-muted)">Страницата се обновява автоматично на всеки 10 сек</p></div>`;
+  } else if (p.status === 'brief_ready') {
+    a.innerHTML = `<div class="action-section" style="border:none;padding:0.5rem">
+      <p style="font-size:0.85rem">👇 Прегледай заданието и отговори на въпросите по-долу</p></div>`;
+  } else if (p.status === 'brief_final') {
+    a.innerHTML = `<div class="action-section" style="border:none;padding:0.5rem">
+      <p style="font-size:0.85rem">👇 Прегледай финалното задание и потвърди билда долу</p></div>`;
+  } else if (p.status === 'done') {
+    a.innerHTML = '';
+  } else {
+    a.innerHTML = '';
+  }
+}
+
+function renderBrief(p) {
+  const a = document.getElementById('briefArea');
+  if (!p.brief) { a.innerHTML = ''; return; }
+  a.innerHTML = `<div class="brief-section"><h3>📋 Задание</h3>
+    <div class="brief-content">${renderMd(p.brief)}</div></div>`;
+}
+
+function renderQa(p) {
+  const a = document.getElementById('qaArea');
+  if (!p.qa?.length) { a.innerHTML = ''; return; }
+  const canEdit = ['brief_ready'].includes(p.status);
+  a.innerHTML = `<div class="qa-section"><h3>❓ Въпроси</h3>
+    ${p.qa.map((q,i) => `<div class="qa-item">
+      <div class="qa-question">${i+1}. ${esc(q.question)}</div>
+      ${canEdit
+        ? `<div class="qa-answer"><textarea id="qa_${i}" placeholder="Отговор...">${esc(q.answer||'')}</textarea></div>`
+        : q.answer
+          ? `<div style="color:var(--text);padding:0.5rem 0">${esc(q.answer)}</div>`
+          : `<div style="color:var(--text-muted);font-style:italic;padding:0.5rem 0">—</div>`
+      }
+    </div>`).join('')}
+  </div>`;
+}
+
+function renderBottomActions(p) {
+  let el = document.getElementById('bottomActions');
+  if (!el) {
+    el = document.createElement('div');
+    el.id = 'bottomActions';
+    document.getElementById('qaArea').after(el);
+  }
+  if (p.status === 'brief_ready') {
+    el.innerHTML = `<div class="action-section highlight" style="margin-top:1.5rem">
+      <p>Готов с отговорите? Изпрати ги или премини директно към билд.</p>
+      <button class="btn btn-primary btn-xl" onclick="doAction('qa_submitted')">📨 Изпрати отговори</button>
+      <div style="margin-top:0.75rem"><button class="btn btn-success btn-lg" onclick="doAction('building')">🔨 Директно към Билд</button></div></div>`;
+  } else if (p.status === 'brief_final') {
+    el.innerHTML = `<div class="action-section highlight" style="margin-top:1.5rem">
+      <p>Финалното задание е готово. Потвърди билда.</p>
+      <button class="btn btn-success btn-xl" onclick="doAction('building')">🔨 Потвърди → Билд</button></div>`;
+  } else {
+    el.innerHTML = '';
+  }
+}
+
+function renderDemo(p) {
+  const a = document.getElementById('demoArea');
+  if (!p.demoUrl) { a.innerHTML = ''; return; }
+  a.innerHTML = `<div class="demo-link-section">
+    <h3>🎉 Демо сайтът е готов!</h3>
+    <a href="${esc(p.demoUrl)}" target="_blank" class="demo-link">${esc(p.demoUrl)}</a>
+    <div style="margin-top:1rem"><a href="${esc(p.demoUrl)}" target="_blank" class="btn btn-primary btn-lg">🌐 Отвори</a></div></div>`;
+}
+
+// ===== ACTIONS =====
+function doAction(newStatus) {
+  if (!currentProject) return;
+  // Collect QA answers before submitting
+  if (newStatus === 'qa_submitted' && currentProject.qa) {
+    currentProject.qa.forEach((q,i) => {
+      const el = document.getElementById(`qa_${i}`);
+      if (el) q.answer = el.value.trim();
+    });
+  }
+  currentProject.status = newStatus;
+  currentProject.updatedAt = new Date().toISOString();
+  const all = db(); all[currentSlug] = currentProject; dbSave(all);
+  const msgs = { briefing:'Изпратено за задание!', qa_submitted:'Отговори изпратени!', building:'Билдът започва!' };
+  toast(msgs[newStatus]||'Обновено', 'info');
+  saveToGH();
+  renderDetail();
+}
+
+// ===== AUTO-POLLING =====
+function startPolling() {
+  stopPolling();
+  if (!currentSlug) return;
+  pollTimer = setInterval(() => pollServer(), 10000);
+  console.log('Polling started for', currentSlug);
+}
+function stopPolling() {
+  if (pollTimer) { clearInterval(pollTimer); pollTimer = null; }
+}
+
+async function pollServer() {
+  if (!currentSlug) return;
+  try {
+    const encodedSlug = encodeURIComponent(currentSlug);
+    const res = await fetch(`http://161.35.19.170:8090/api/data/${encodedSlug}.json`, { cache: 'no-store' });
+    if (!res.ok) return;
+    const data = await res.json();
+    if (data.sha === lastServerHash) return; // no change
+    lastServerHash = data.sha;
+    const content = JSON.parse(decodeURIComponent(escape(atob(data.content))));
+    // Only update if server has newer data
+    if (content.updatedAt && currentProject.updatedAt &&
+        new Date(content.updatedAt) > new Date(currentProject.updatedAt)) {
+      const all = db();
+      all[currentSlug] = content;
+      currentProject = content;
+      dbSave(all);
+      toast('🔄 Обновено от Koi', 'info');
+      renderDetail();
+    }
+  } catch(e) { console.log('Poll error:', e); }
+}
+
+function confirmDeleteProject() {
+  if (!confirm(`Изтриване на "${currentProject?.name}"?`)) return;
+  stopPolling();
+  const all = db(); delete all[currentSlug]; dbSave(all);
+  currentSlug = null; currentProject = null;
+  toast('Изтрит'); navigateTo('dashboard');
+}
+
+// ===== GITHUB =====
+// Token handled server-side via proxy
+
+async function saveToGH() {
+  if (!currentProject) return;
+  try {
+    const slug = encodeURIComponent(currentSlug);
+    const content = btoa(unescape(encodeURIComponent(JSON.stringify(currentProject, null, 2))));
+    // Get current SHA
+    let sha = null;
+    try { const r = await fetch(`http://161.35.19.170:8090/api/data/${slug}.json`); if (r.ok) sha = (await r.json()).sha; } catch(e) {}
+    const rawPath = `data/${currentSlug}.json`;
+    const body = { message: `[${currentProject.status}] ${currentProject.name}`, content, path: rawPath };
+    if (sha) body.sha = sha;
+    const res = await fetch(`http://161.35.19.170:8090/api/data/${slug}.json`, { method:'PUT', headers:{'Content-Type':'application/json'}, body: JSON.stringify(body) });
+    if (!res.ok) throw new Error('Save failed: ' + res.status);
+    const saved = await res.json();
+    lastServerHash = saved.content?.sha || null;
+  } catch(e) { toast('Грешка: '+e.message,'error'); }
+}
+
+// ===== UTILS =====
+function esc(s) { if(!s)return''; const d=document.createElement('div'); d.textContent=s; return d.innerHTML; }
+function truncUrl(u) { try{return new URL(u).hostname;}catch{return u.substring(0,30);} }
+function timeAgo(ds) {
+  const d=Date.now()-new Date(ds).getTime(), m=Math.floor(d/60000);
+  if(m<1)return'току-що'; if(m<60)return`преди ${m} мин`;
+  const h=Math.floor(m/60); if(h<24)return`преди ${h} ч`;
+  const dd=Math.floor(h/24); return dd<30?`преди ${dd} дни`:new Date(ds).toLocaleDateString('bg-BG');
+}
+function renderMd(md) {
+  if(!md)return'';
+  return md.replace(/^### (.+)$/gm,'<h3>$1</h3>').replace(/^## (.+)$/gm,'<h2>$1</h2>')
+    .replace(/^# (.+)$/gm,'<h1>$1</h1>').replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>')
+    .replace(/\*(.+?)\*/g,'<em>$1</em>').replace(/^- (.+)$/gm,'<li>$1</li>')
+    .replace(/\n\n/g,'</p><p>').replace(/\n/g,'<br>');
+}
+
+// ===== MIGRATE OLD FORMAT =====
+function migrateProject(content) {
+  // Old v2 format has 'answers' and 'plan' but no type/status
+  if (!content.status && content.answers) {
+    const a = content.answers || {};
+    content.type = 'redesign';
+    content.websiteUrl = content.websiteUrl || a.current_url?.value || '';
+    content.facebookUrl = content.facebookUrl || a.social_pages?.value || '';
+    if (!content.notes) {
+      content.notes = [
+        a.niche?.value ? `Ниша: ${a.niche.value}` : '',
+        a.city?.value ? `Град: ${a.city.value}` : '',
+        a.site_condition?.value ? `Състояние: ${a.site_condition.value}` : '',
+        a.main_problems?.value ? `Проблеми: ${a.main_problems.value}` : ''
+      ].filter(Boolean).join('\n');
+    }
+    content.status = content.plan ? 'brief_ready' : 'created';
+    content.brief = content.brief || content.plan || null;
+    content.qa = content.qa || [];
+    content.demoUrl = content.demoUrl || null;
+  }
+  // Ensure minimum fields
+  if (!content.type) content.type = 'other';
+  if (!content.status) content.status = 'created';
+  return content;
+}
+
+// ===== SYNC FROM GITHUB ON LOAD =====
+async function syncFromGH() {
+  try {
+    const res = await fetch('http://161.35.19.170:8090/api/data', { cache: 'no-store' });
+    if (!res.ok) { console.log('GH sync failed:', res.status); return; }
+    const files = await res.json();
+    const jsonFiles = files.filter(f => f.name.endsWith('.json') && !f.name.endsWith('-plan.md'));
+    if (!jsonFiles.length) return;
+
+    const all = db();
+    let updated = false;
+
+    await Promise.all(jsonFiles.map(async (f) => {
+      try {
+        const r = await fetch(`http://161.35.19.170:8090/api/data/${encodeURIComponent(f.name)}`, { cache: 'no-store' });
+        if (!r.ok) return;
+        const fileData = await r.json();
+        const content = migrateProject(JSON.parse(decodeURIComponent(escape(atob(fileData.content)))));
+        const slug = content.slug;
+        if (!slug) return;
+
+        const local = all[slug];
+        // GitHub is always source of truth — overwrite local
+        if (!local || JSON.stringify(local) !== JSON.stringify(content)) {
+          all[slug] = content;
+          updated = true;
+        }
+      } catch(e) { console.log('Sync file error:', f.name, e); }
+    }));
+
+    if (updated) {
+      dbSave(all);
+      renderDashboard();
+      console.log('Synced from GitHub');
+    }
+  } catch(e) { console.log('GH sync error:', e); }
+}
+
+renderDashboard();
+syncFromGH(); // Load latest from GitHub after initial render
+</script>
 </body>
 </html>
