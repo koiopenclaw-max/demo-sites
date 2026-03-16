@@ -126,6 +126,9 @@ textarea { resize: vertical; min-height: 100px; }
 .status-revisions { background: rgba(243,156,18,0.3); color: #f39c12; }
 .status-review { background: rgba(155,89,182,0.3); color: #9b59b6; }
 .status-approved { background: rgba(46,204,113,0.4); color: #2ecc71; }
+.status-dns_setup { background: rgba(52,152,219,0.3); color: var(--info); }
+.status-deploying { background: var(--accent-glow); color: var(--accent); }
+.status-live { background: rgba(46,204,113,0.5); color: #fff; }
 
 .empty-state { text-align: center; padding: 4rem 2rem; color: var(--text-dim); }
 .empty-state-icon { font-size: 3rem; margin-bottom: 1rem; opacity: 0.4; }
@@ -298,18 +301,19 @@ const TYPE_LABELS = { redesign:'🔄 Редизайн', new:'🆕 Нов сай�
 const STATUS_LABELS = {
   created:'Създаден', briefing:'Koi анализира...', brief_ready:'Задание готово',
   qa_submitted:'Koi обработва...', brief_final:'Финално задание',
-  building:'Билд...', done:'Готово ✓',
-  revisions:'Koi коригира...', review:'За преглед', approved:'Одобрено ✓'
+  building:'Билд...', done:'Билд готов ✓',
+  revisions:'Koi коригира...', review:'За преглед',
+  approved:'Одобрено', dns_setup:'DNS настройка', deploying:'Koi качва...', live:'На живо 🌐'
 };
 const STATUS_FLOW_MAIN = ['created','briefing','brief_ready','qa_submitted','brief_final','building','done'];
-const STATUS_FLOW_REVISIONS = ['done','revisions','review','approved'];
-const STATUS_ICONS = { created:'📝', briefing:'🔍', brief_ready:'📋', qa_submitted:'💬', brief_final:'✅', building:'🔨', done:'🎉', revisions:'🔧', review:'👀', approved:'🚀' };
+const STATUS_FLOW_POST_BUILD = ['done','revisions','review','approved','dns_setup','deploying','live'];
+const STATUS_ICONS = { created:'📝', briefing:'🔍', brief_ready:'📋', qa_submitted:'💬', brief_final:'✅', building:'🔨', done:'🎉', revisions:'🔧', review:'👀', approved:'🚀', dns_setup:'🌐', deploying:'📡', live:'✅' };
 // Statuses where Koi works (show spinner)
-const KOI_WORKING = ['briefing','qa_submitted','building','revisions'];
+const KOI_WORKING = ['briefing','qa_submitted','building','revisions','deploying'];
 // Statuses where user acts
-const USER_ACTION = ['created','brief_ready','brief_final','review','done','approved'];
-// Revision cycle statuses
-const REVISION_CYCLE = ['revisions','review','approved'];
+const USER_ACTION = ['created','brief_ready','brief_final','review','done','approved','dns_setup'];
+// Post-build cycle statuses
+const POST_BUILD = ['revisions','review','approved','dns_setup','deploying','live'];
 
 // ===== STORAGE =====
 function db() { try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}; } catch { return {}; } }
@@ -437,14 +441,14 @@ function renderDetail() {
   badge.className = `status-badge status-${p.status}`;
 
   // Determine which flow to show
-  const inRevisionCycle = REVISION_CYCLE.includes(p.status);
-  const flowToShow = inRevisionCycle ? STATUS_FLOW_REVISIONS : STATUS_FLOW_MAIN;
+  const inPostBuild = POST_BUILD.includes(p.status);
+  const flowToShow = inPostBuild ? STATUS_FLOW_POST_BUILD : STATUS_FLOW_MAIN;
   const si = flowToShow.indexOf(p.status);
   document.getElementById('statusFlow').innerHTML = flowToShow.map((s,i) => {
     const cls = i<si?'done':i===si?'active':'';
     const arrow = i<flowToShow.length-1?'<span class="status-arrow">→</span>':'';
     return `<span class="status-step ${cls}">${STATUS_ICONS[s]} ${STATUS_LABELS[s]}</span>${arrow}`;
-  }).join('') + (inRevisionCycle ? '<div style="font-size:0.7rem;color:var(--text-muted);width:100%;margin-top:0.5rem">↻ Корекциите може да се завъртят няколко пъти</div>' : '');
+  }).join('') + (inPostBuild ? '<div style="font-size:0.7rem;color:var(--text-muted);width:100%;margin-top:0.5rem">↻ Корекции може на всеки етап</div>' : '');
 
   let info = `
     <div class="info-item"><div class="info-item-label">Тип</div><div class="info-item-value">${TYPE_LABELS[p.type]||p.type}</div></div>
@@ -500,7 +504,40 @@ function renderAction(p) {
           style="text-align:center;font-size:1.1rem">
         <div class="form-hint" style="margin-top:0.25rem">Домейнът, на който клиентът иска сайта</div>
       </div>
-      <button class="btn btn-success btn-xl" onclick="saveDomain()" style="margin-top:1rem">💾 Запази домейн</button>
+      <button class="btn btn-success btn-xl" onclick="saveDomain()" style="margin-top:1rem">🌐 Запази и поискай DNS данни</button>
+    </div>`;
+  } else if (p.status === 'dns_setup') {
+    a.innerHTML = `<div class="action-section highlight">
+      <h3 style="color:var(--info);margin-bottom:1rem">🌐 DNS настройка за ${esc(p.deployDomain)}</h3>
+      ${p.dnsRecords ? `
+        <div style="text-align:left;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:1.5rem;margin:1rem 0">
+          <p style="margin-bottom:1rem;font-weight:700">Настрой следните DNS записи:</p>
+          <div style="font-family:monospace;font-size:0.9rem;line-height:2">
+            ${p.dnsRecords.map(r => `<div style="padding:0.5rem;background:var(--bg-input);border-radius:4px;margin-bottom:0.5rem">
+              <span style="color:var(--accent)">${esc(r.type)}</span> 
+              <span style="color:var(--text-dim)">${esc(r.name)}</span> → 
+              <span style="color:var(--success)">${esc(r.value)}</span>
+              ${r.note ? `<div style="font-size:0.8rem;color:var(--text-muted);margin-top:0.25rem">${esc(r.note)}</div>` : ''}
+            </div>`).join('')}
+          </div>
+        </div>
+        <p style="font-size:0.85rem;color:var(--text-dim);margin-bottom:1rem">След като настроиш DNS записите, натисни бутона.</p>
+        <button class="btn btn-success btn-xl" onclick="confirmDns()">✅ DNS е настроен</button>
+      ` : `
+        <div class="spinner"></div>
+        <p style="margin-top:1rem">Koi подготвя DNS данните...</p>
+      `}
+    </div>`;
+  } else if (p.status === 'deploying') {
+    a.innerHTML = `<div class="action-section waiting">
+      <div class="spinner"></div>
+      <p style="margin-top:1rem">Koi качва сайта на ${esc(p.deployDomain)}...</p>
+      <p style="font-size:0.8rem;color:var(--text-muted)">Страницата се обновява автоматично</p></div>`;
+  } else if (p.status === 'live') {
+    a.innerHTML = `<div class="demo-link-section" style="border-color:var(--success);background:rgba(46,204,113,0.15)">
+      <h3 style="color:var(--success)">🎉 Сайтът е на живо!</h3>
+      <a href="https://${esc(p.deployDomain)}" target="_blank" class="demo-link" style="font-size:1.3rem">https://${esc(p.deployDomain)}</a>
+      <div style="margin-top:1rem"><a href="https://${esc(p.deployDomain)}" target="_blank" class="btn btn-success btn-lg">🌐 Отвори</a></div>
     </div>`;
   } else {
     a.innerHTML = '';
@@ -578,7 +615,7 @@ function renderRevisions(p) {
     </div>`;
   }
 
-  if (p.status === 'done' || p.status === 'review') {
+  if (['done','review','dns_setup','live'].includes(p.status)) {
     el.innerHTML = `<div class="qa-section" style="margin-top:1.5rem">
       <h3>🔧 Корекции</h3>
       <textarea id="revisionInput" placeholder="Опиши проблемите за отстраняване...&#10;&#10;Например:&#10;- Телефонът не е кликабилен&#10;- Цветът на бутона да е по-тъмен&#10;- Добави работно време" 
@@ -722,11 +759,23 @@ function saveDomain() {
   const input = document.getElementById('deployDomain');
   if (!input || !input.value.trim()) { toast('Въведи домейн','error'); return; }
   currentProject.deployDomain = input.value.trim();
+  currentProject.status = 'dns_setup';
   currentProject.updatedAt = new Date().toISOString();
   
   const all = db(); all[currentSlug] = currentProject; dbSave(all);
   saveToGH();
-  toast('Домейнът е запазен! 💾');
+  renderDetail();
+  toast('Домейн запазен! Koi подготвя DNS данни... 🌐');
+}
+
+function confirmDns() {
+  currentProject.status = 'deploying';
+  currentProject.updatedAt = new Date().toISOString();
+  
+  const all = db(); all[currentSlug] = currentProject; dbSave(all);
+  saveToGH();
+  renderDetail();
+  toast('DNS потвърден! Koi качва сайта... 📡');
 }
 
 // Writes go through VPS proxy (token stays server-side, never in client code)
