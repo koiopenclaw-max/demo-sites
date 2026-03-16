@@ -123,6 +123,8 @@ textarea { resize: vertical; min-height: 100px; }
 .status-brief_final { background: rgba(46,204,113,0.25); color: var(--success); }
 .status-building { background: var(--accent-glow); color: var(--accent); }
 .status-done { background: rgba(46,204,113,0.3); color: var(--success); }
+.status-revisions { background: rgba(243,156,18,0.3); color: #f39c12; }
+.status-review { background: rgba(155,89,182,0.3); color: #9b59b6; }
 
 .empty-state { text-align: center; padding: 4rem 2rem; color: var(--text-dim); }
 .empty-state-icon { font-size: 3rem; margin-bottom: 1rem; opacity: 0.4; }
@@ -290,24 +292,20 @@ textarea { resize: vertical; min-height: 100px; }
 </div>
 
 <script>
-// === API CONFIG (token injected at deploy time) ===
-const GH_TOKEN = '__GH_API_TOKEN__';
-const GH_API = 'https://api.github.com/repos/koiopenclaw-max/demo-sites/contents';
-const ghHeaders = () => ({'Authorization': 'token ' + GH_TOKEN, 'Accept': 'application/vnd.github.v3+json'});
-
 const STORAGE_KEY = 'demoSitesProjects_v2';
 const TYPE_LABELS = { redesign:'🔄 Редизайн', new:'🆕 Нов сайт', ecommerce:'🛒 Онлайн магазин', other:'📋 Друго' };
 const STATUS_LABELS = {
   created:'Създаден', briefing:'Koi анализира...', brief_ready:'Задание готово',
   qa_submitted:'Koi обработва...', brief_final:'Финално задание',
-  building:'Билд...', done:'Готово ✓'
+  building:'Билд...', done:'Готово ✓',
+  revisions:'Koi коригира...', review:'За преглед'
 };
 const STATUS_FLOW = ['created','briefing','brief_ready','qa_submitted','brief_final','building','done'];
-const STATUS_ICONS = { created:'📝', briefing:'🔍', brief_ready:'📋', qa_submitted:'💬', brief_final:'✅', building:'🔨', done:'🎉' };
+const STATUS_ICONS = { created:'📝', briefing:'🔍', brief_ready:'📋', qa_submitted:'💬', brief_final:'✅', building:'🔨', done:'🎉', revisions:'🔧', review:'👀' };
 // Statuses where Koi works (show spinner)
-const KOI_WORKING = ['briefing','qa_submitted','building'];
+const KOI_WORKING = ['briefing','qa_submitted','building','revisions'];
 // Statuses where user acts
-const USER_ACTION = ['created','brief_ready','brief_final'];
+const USER_ACTION = ['created','brief_ready','brief_final','review'];
 
 // ===== STORAGE =====
 function db() { try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}; } catch { return {}; } }
@@ -454,6 +452,7 @@ function renderDetail() {
   renderQa(p);
   renderBottomActions(p);
   renderDemo(p);
+  renderRevisions(p);
 }
 
 function renderAction(p) {
@@ -475,7 +474,16 @@ function renderAction(p) {
     a.innerHTML = `<div class="action-section" style="border:none;padding:0.5rem">
       <p style="font-size:0.85rem">👇 Прегледай финалното задание и потвърди билда долу</p></div>`;
   } else if (p.status === 'done') {
-    a.innerHTML = '';
+    a.innerHTML = `<div class="action-section" style="border:none;padding:0.5rem">
+      <p style="font-size:0.85rem">👇 Ако има нужда от корекции — опиши ги по-долу</p></div>`;
+  } else if (p.status === 'revisions') {
+    a.innerHTML = `<div class="action-section waiting">
+      <div class="spinner"></div>
+      <p style="margin-top:1rem">Koi работи по корекциите...</p>
+      <p style="font-size:0.8rem;color:var(--text-muted)">Страницата се обновява автоматично на всеки 10 сек</p></div>`;
+  } else if (p.status === 'review') {
+    a.innerHTML = `<div class="action-section" style="border:none;padding:0.5rem">
+      <p style="font-size:0.85rem">👇 Корекциите са направени. Прегледай и одобри или добави нови</p></div>`;
   } else {
     a.innerHTML = '';
   }
@@ -526,6 +534,56 @@ function renderBottomActions(p) {
   }
 }
 
+function renderRevisions(p) {
+  let el = document.getElementById('revisionsArea');
+  if (!el) {
+    el = document.createElement('div');
+    el.id = 'revisionsArea';
+    const demoArea = document.getElementById('demoArea');
+    demoArea.after(el);
+  }
+
+  // Show revision history if exists
+  let historyHtml = '';
+  if (p.revisionHistory?.length) {
+    historyHtml = `<div style="margin-top:1.5rem">
+      <h4 style="font-size:0.9rem;color:var(--text-muted);margin-bottom:0.75rem">📜 История на корекциите</h4>
+      ${p.revisionHistory.map((r,i) => `<div style="background:var(--card-bg);border:1px solid var(--border);border-radius:8px;padding:1rem;margin-bottom:0.75rem">
+        <div style="font-size:0.75rem;color:var(--text-muted);margin-bottom:0.5rem">Корекция #${i+1} — ${new Date(r.createdAt).toLocaleString('bg-BG')}</div>
+        <div style="margin-bottom:0.5rem"><strong>Проблеми:</strong></div>
+        <div style="white-space:pre-wrap;font-size:0.9rem">${esc(r.issues)}</div>
+        ${r.resolution ? `<div style="margin-top:0.75rem;padding-top:0.75rem;border-top:1px solid var(--border)">
+          <strong style="color:var(--success)">✅ Решение:</strong>
+          <div style="white-space:pre-wrap;font-size:0.9rem;margin-top:0.25rem">${esc(r.resolution)}</div>
+        </div>` : ''}
+      </div>`).join('')}
+    </div>`;
+  }
+
+  if (p.status === 'done' || p.status === 'review') {
+    el.innerHTML = `<div class="qa-section" style="margin-top:1.5rem">
+      <h3>🔧 Корекции</h3>
+      <textarea id="revisionInput" placeholder="Опиши проблемите за отстраняване...&#10;&#10;Например:&#10;- Телефонът не е кликабилен&#10;- Цветът на бутона да е по-тъмен&#10;- Добави работно време" 
+        style="width:100%;min-height:120px;padding:0.75rem;border:1px solid var(--border);border-radius:8px;background:var(--card-bg);color:var(--text);font-size:0.95rem;resize:vertical">${esc(p.currentRevision || '')}</textarea>
+      <div style="margin-top:0.75rem">
+        <button class="btn btn-warning btn-lg" onclick="submitRevisions()" style="background:rgba(243,156,18,0.8);width:100%">🔧 Изпрати за корекция</button>
+      </div>
+      ${p.status === 'review' ? `<div style="margin-top:0.75rem">
+        <button class="btn btn-success btn-lg" onclick="approveRevisions()" style="width:100%">✅ Всичко е наред — одобрявам</button>
+      </div>` : ''}
+      ${historyHtml}
+    </div>`;
+  } else if (p.status === 'revisions') {
+    el.innerHTML = `<div class="qa-section" style="margin-top:1.5rem">
+      <h3>🔧 Текущи корекции</h3>
+      <div style="background:var(--card-bg);border:1px solid var(--border);border-radius:8px;padding:1rem;white-space:pre-wrap">${esc(p.currentRevision || '')}</div>
+      ${historyHtml}
+    </div>`;
+  } else {
+    el.innerHTML = historyHtml ? `<div class="qa-section" style="margin-top:1.5rem">${historyHtml}</div>` : '';
+  }
+}
+
 function renderDemo(p) {
   const a = document.getElementById('demoArea');
   if (!p.demoUrl) { a.innerHTML = ''; return; }
@@ -569,7 +627,7 @@ async function pollServer() {
   if (!currentSlug) return;
   try {
     const encodedSlug = encodeURIComponent(currentSlug);
-    const res = await fetch(`${GH_API}/data/${encodedSlug}.json`, {headers: ghHeaders(), cache: 'no-store' });
+    const res = await fetch(`/api/data/${encodedSlug}.json`, { cache: 'no-store' });
     if (!res.ok) return;
     const data = await res.json();
     if (data.sha === lastServerHash) return; // no change
@@ -597,6 +655,40 @@ function confirmDeleteProject() {
 }
 
 // ===== GITHUB =====
+// ===== REVISIONS =====
+function submitRevisions() {
+  const input = document.getElementById('revisionInput');
+  if (!input || !input.value.trim()) { toast('Опиши проблемите','error'); return; }
+  const issues = input.value.trim();
+  
+  // Save to revision history
+  if (!currentProject.revisionHistory) currentProject.revisionHistory = [];
+  currentProject.revisionHistory.push({
+    issues,
+    resolution: null,
+    createdAt: new Date().toISOString()
+  });
+  currentProject.currentRevision = issues;
+  currentProject.status = 'revisions';
+  currentProject.updatedAt = new Date().toISOString();
+  
+  const all = db(); all[currentSlug] = currentProject; dbSave(all);
+  saveToGH();
+  renderDetail();
+  toast('Корекциите са изпратени! Koi работи по тях... 🔧');
+}
+
+function approveRevisions() {
+  currentProject.status = 'done';
+  currentProject.currentRevision = null;
+  currentProject.updatedAt = new Date().toISOString();
+  
+  const all = db(); all[currentSlug] = currentProject; dbSave(all);
+  saveToGH();
+  renderDetail();
+  toast('Одобрено! ✅');
+}
+
 // Token handled server-side via proxy
 
 async function saveToGH() {
@@ -606,11 +698,11 @@ async function saveToGH() {
     const content = btoa(unescape(encodeURIComponent(JSON.stringify(currentProject, null, 2))));
     // Get current SHA
     let sha = null;
-    try { const r = await fetch(`${GH_API}/data/${slug}.json`, {headers: ghHeaders()}); if (r.ok) sha = (await r.json()).sha; } catch(e) {}
+    try { const r = await fetch(`/api/data/${slug}.json`); if (r.ok) sha = (await r.json()).sha; } catch(e) {}
     const rawPath = `data/${currentSlug}.json`;
     const body = { message: `[${currentProject.status}] ${currentProject.name}`, content, path: rawPath };
     if (sha) body.sha = sha;
-    const res = await fetch(`${GH_API}/data/${slug}.json`, {method:'PUT', headers:{...ghHeaders(), 'Content-Type':'application/json'}, body: JSON.stringify(body) });
+    const res = await fetch(`/api/data/${slug}.json`, { method:'PUT', headers:{'Content-Type':'application/json'}, body: JSON.stringify(body) });
     if (!res.ok) throw new Error('Save failed: ' + res.status);
     const saved = await res.json();
     lastServerHash = saved.content?.sha || null;
@@ -664,7 +756,7 @@ function migrateProject(content) {
 // ===== SYNC FROM GITHUB ON LOAD =====
 async function syncFromGH() {
   try {
-    const res = await fetch(GH_API + '/data', {headers: ghHeaders(), cache: 'no-store' });
+    const res = await fetch('/api/data', { cache: 'no-store' });
     if (!res.ok) { console.log('GH sync failed:', res.status); return; }
     const files = await res.json();
     const jsonFiles = files.filter(f => f.name.endsWith('.json') && !f.name.endsWith('-plan.md'));
@@ -675,7 +767,7 @@ async function syncFromGH() {
 
     await Promise.all(jsonFiles.map(async (f) => {
       try {
-        const r = await fetch(`${GH_API}/data/${encodeURIComponent(f.name)}`, {headers: ghHeaders(), cache: 'no-store' });
+        const r = await fetch(`/api/data/${encodeURIComponent(f.name)}`, { cache: 'no-store' });
         if (!r.ok) return;
         const fileData = await r.json();
         const content = migrateProject(JSON.parse(decodeURIComponent(escape(atob(fileData.content)))));
