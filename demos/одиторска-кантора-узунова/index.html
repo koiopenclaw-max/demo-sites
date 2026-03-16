@@ -63,6 +63,12 @@
       "recognizedBy": {"@type":"Organization","name":"ИДЕС"},
       "identifier": "N058/1992"
     }
+  },
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "5.0",
+    "bestRating": "5",
+    "ratingCount": "1"
   }
 }
 </script>
@@ -130,6 +136,14 @@ ul{list-style:none}
 .hero-cta:hover{background:var(--gold-light);transform:translateY(-2px);box-shadow:0 6px 20px rgba(212,168,67,.45)}
 .hero-cta svg{width:20px;height:20px}
 
+/* ─── GOOGLE REVIEW BADGE ─── */
+.google-badge{display:inline-flex;align-items:center;gap:.75rem;background:rgba(255,255,255,.1);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.15);border-radius:50px;padding:.6rem 1.4rem;margin-top:1.5rem;transition:all .3s;cursor:pointer}
+.google-badge:hover{background:rgba(255,255,255,.18);transform:translateY(-2px)}
+.google-badge-icon{width:24px;height:24px;flex-shrink:0}
+.google-badge-stars{color:#FBBC04;font-size:1rem;letter-spacing:1px}
+.google-badge-text{font-size:.8rem;color:rgba(255,255,255,.7);font-weight:500}
+.google-badge-rating{font-size:1.1rem;font-weight:700;color:var(--white)}
+
 /* ─── SECTIONS ─── */
 section{padding:5rem 1.5rem}
 .section-inner{max-width:1100px;margin:0 auto}
@@ -166,6 +180,31 @@ section{padding:5rem 1.5rem}
 @media(max-width:768px){
   .about-content{grid-template-columns:1fr}
 }
+
+/* ─── GALLERY ─── */
+.gallery{background:var(--off-white)}
+.gallery-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
+.gallery-grid img{width:100%;height:260px;object-fit:cover;border-radius:12px;border:1px solid var(--grey-200);transition:all .4s;box-shadow:var(--shadow-sm)}
+.gallery-grid img:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg)}
+@media(max-width:768px){
+  .gallery-grid{grid-template-columns:1fr}
+  .gallery-grid img{height:220px}
+}
+
+/* ─── STRUCTURE ─── */
+.structure{background:var(--white)}
+.structure-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1.5rem}
+.structure-card{background:var(--off-white);border-radius:12px;padding:2rem 1.5rem;border:1px solid var(--grey-200);transition:all .35s;position:relative;overflow:hidden}
+.structure-card::before{content:'';position:absolute;top:0;left:0;width:3px;height:100%;background:linear-gradient(180deg,var(--red),var(--gold));transform:scaleY(0);transform-origin:top;transition:transform .4s}
+.structure-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg)}
+.structure-card:hover::before{transform:scaleY(1)}
+.structure-icon{width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;margin-bottom:1rem;font-size:1.3rem}
+.structure-icon.dept-audit{background:rgba(185,28,28,.08);color:var(--red)}
+.structure-icon.dept-accounting{background:rgba(212,168,67,.12);color:var(--gold-dark)}
+.structure-icon.dept-payroll{background:rgba(185,28,28,.08);color:var(--red)}
+.structure-icon.dept-tax{background:rgba(212,168,67,.12);color:var(--gold-dark)}
+.structure-card h3{font-size:1.05rem;color:var(--grey-900);margin-bottom:.5rem}
+.structure-card p{font-size:.88rem;color:var(--grey-600);line-height:1.6}
 
 /* ─── CONTACTS ─── */
 .contacts{background:var(--grey-900);color:var(--white)}
@@ -221,6 +260,7 @@ section{padding:5rem 1.5rem}
     <div class="nav-links" id="navLinks">
       <a href="#services" data-lang-bg="Услуги" data-lang-en="Services" data-lang-it="Servizi">Услуги</a>
       <a href="#about" data-lang-bg="За нас" data-lang-en="About" data-lang-it="Chi siamo">За нас</a>
+      <a href="#structure" data-lang-bg="Структура" data-lang-en="Structure" data-lang-it="Struttura">Структура</a>
       <a href="#contacts" data-lang-bg="Контакти" data-lang-en="Contacts" data-lang-it="Contatti">Контакти</a>
       <div class="lang-switcher">
         <button class="lang-btn active" data-lang="bg">BG</button>
@@ -246,6 +286,15 @@ section{padding:5rem 1.5rem}
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
       <span data-lang-bg="Обадете се" data-lang-en="Call us" data-lang-it="Chiamaci">Обадете се</span>
     </a>
+    <!-- GOOGLE REVIEW BADGE -->
+    <div style="margin-top:1.5rem">
+      <a href="https://share.google/uIfwTG8DYhe4kuYVj" target="_blank" rel="noopener" class="google-badge">
+        <svg class="google-badge-icon" viewBox="0 0 24 24"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 01-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18A10.96 10.96 0 001 12c0 1.77.42 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+        <span class="google-badge-rating">5.0</span>
+        <span class="google-badge-stars">★★★★★</span>
+        <span class="google-badge-text" data-lang-bg="Google отзиви" data-lang-en="Google Reviews" data-lang-it="Recensioni Google">Google отзиви</span>
+      </a>
+    </div>
   </div>
 </section>
 
@@ -300,9 +349,9 @@ section{padding:5rem 1.5rem}
     <h2 class="section-title reveal" data-lang-bg="За кантората" data-lang-en="About Us" data-lang-it="Lo studio">За кантората</h2>
     <div class="about-content">
       <div class="about-text reveal">
-        <p data-lang-bg="<strong>Одиторска кантора Узунова</strong> работи от <strong>1992 г.</strong>, а като ЕООД — от 2002 г. Ръководител е <strong>Валентина Узунова</strong>, дипломиран експерт-счетоводител и регистриран одитор (диплом №058/1992 г.)." data-lang-en="<strong>Uzunova Audit Office</strong> has been operating since <strong>1992</strong>, and as a limited company since 2002. It is led by <strong>Valentina Uzunova</strong>, a certified public accountant and registered auditor (diploma N058/1992)." data-lang-it="<strong>Studio di Revisione Uzunova</strong> opera dal <strong>1992</strong> e come società a responsabilità limitata dal 2002. È diretto da <strong>Valentina Uzunova</strong>, dottore commercialista e revisore contabile registrato (diploma N058/1992)."><strong>Одиторска кантора Узунова</strong> работи от <strong>1992 г.</strong>, а като ЕООД — от 2002 г. Ръководител е <strong>Валентина Узунова</strong>, дипломиран експерт-счетоводител и регистриран одитор (диплом №058/1992 г.).</p>
-        <p data-lang-bg="Екипът ни включва <strong>14 квалифицирани специалисти</strong> и опитни юристи. Обслужваме както български, така и чуждестранни клиенти — предимно от Италия." data-lang-en="Our team consists of <strong>14 qualified specialists</strong> and experienced lawyers. We serve both Bulgarian and foreign clients — mainly from Italy." data-lang-it="Il nostro team è composto da <strong>14 specialisti qualificati</strong> e avvocati esperti. Serviamo clienti bulgari e stranieri — principalmente dall'Italia.">Екипът ни включва <strong>14 квалифицирани специалисти</strong> и опитни юристи. Обслужваме както български, така и чуждестранни клиенти — предимно от Италия.</p>
-        <p data-lang-bg="С над <strong>30 години опит</strong> предлагаме надеждни, професионални и персонализирани решения за бизнеса." data-lang-en="With over <strong>30 years of experience</strong>, we provide reliable, professional, and personalized business solutions." data-lang-it="Con oltre <strong>30 anni di esperienza</strong>, offriamo soluzioni aziendali affidabili, professionali e personalizzate.">С над <strong>30 години опит</strong> предлагаме надеждни, професионални и персонализирани решения за бизнеса.</p>
+        <p data-lang-bg="<strong>„ОДИТОРСКА КАНТОРА УЗУНОВА" ЕООД</strong> е регистрирана през <strong>2002 г.</strong> като дружество, продължаващо дейността на ЕТ &bdquo;ОДИТОР Валентина Узунова&ldquo;, стартирала през <strong>1992 г.</strong> с основен предмет на дейност одит на ГФО и счетоводни услуги." data-lang-en="<strong>&ldquo;AUDITING OFFICE UZUNOVA&rdquo; Ltd</strong> was registered in <strong>2002</strong>, continuing the activities of ET &ldquo;AUDITOR Valentina Uzunova&rdquo; started in <strong>1992</strong>. The main activity is audit of annual financial statements and accounting services." data-lang-it="<strong>&ldquo;STUDIO DI REVISIONE UZUNOVA&rdquo; Srl</strong> è stata registrata nel <strong>2002</strong>, continuando l'attività di ET &ldquo;REVISORE Valentina Uzunova&rdquo; iniziata nel <strong>1992</strong>. L'attività principale è la revisione dei bilanci annuali e servizi contabili."><strong>„ОДИТОРСКА КАНТОРА УЗУНОВА" ЕООД</strong> е регистрирана през <strong>2002 г.</strong> като дружество, продължаващо дейността на ЕТ „ОДИТОР Валентина Узунова", стартирала през <strong>1992 г.</strong> с основен предмет на дейност одит на ГФО и счетоводни услуги.</p>
+        <p data-lang-bg="Едноличен собственик и управител на дружеството е <strong>Валентина Узунова</strong> – Регистриран одитор с диплома <strong>N 058/1992 г.</strong> За дружеството работят <strong>14 квалифицирани специалисти</strong> – счетоводители, помощник одитори и данъчни консултанти. Разполагаме с опитни адвокати." data-lang-en="The sole owner and manager is <strong>Valentina Uzunova</strong> – Registered Auditor with diploma <strong>N 058/1992</strong>. The company employs <strong>14 qualified specialists</strong> – accountants, assistant auditors and tax consultants. We have experienced lawyers complementing our services." data-lang-it="Titolare e amministratore unico è <strong>Valentina Uzunova</strong> – Revisore dei Conti registrato, diploma <strong>N 058/1992</strong>. L'azienda impiega <strong>14 specialisti qualificati</strong> – contabili, revisori assistenti e consulenti fiscali. Disponiamo di avvocati esperti.">Едноличен собственик и управител на дружеството е <strong>Валентина Узунова</strong> – Регистриран одитор с диплома <strong>N 058/1992 г.</strong> За дружеството работят <strong>14 квалифицирани специалисти</strong> – счетоводители, помощник одитори и данъчни консултанти. Разполагаме с опитни адвокати.</p>
+        <p data-lang-bg="Дейността си подчиняваме на <strong>Етичния кодекс</strong>: честност и обективност, професионална компетентност, конфиденциалност, данъчна практика, независимост." data-lang-en="We follow the <strong>Code of Ethics</strong>: integrity and objectivity, professional competence, confidentiality, tax practice, independence." data-lang-it="Seguiamo il <strong>Codice Etico</strong>: integrità e obiettività, competenza professionale, riservatezza, pratica fiscale, indipendenza.">Дейността си подчиняваме на <strong>Етичния кодекс</strong>: честност и обективност, професионална компетентност, конфиденциалност, данъчна практика, независимост.</p>
       </div>
       <div class="about-stats reveal">
         <div class="stat-card">
@@ -322,6 +371,63 @@ section{padding:5rem 1.5rem}
           <div class="stat-label" data-lang-bg="Международни клиенти" data-lang-en="International clients" data-lang-it="Clienti internazionali">Международни клиенти</div>
         </div>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section class="gallery" id="gallery">
+  <div class="section-inner">
+    <p class="section-label reveal" data-lang-bg="Нашият офис" data-lang-en="Our Office" data-lang-it="Il nostro ufficio">Нашият офис</p>
+    <h2 class="section-title reveal" data-lang-bg="Офис" data-lang-en="Office" data-lang-it="Ufficio">Офис</h2>
+    <div class="gallery-grid">
+      <img class="reveal reveal-delay-1" src="https://uzunova.net/images/upload/38e2e96539d02e3789c3619b9b700dc8ce7732ed.jpg" alt="Офис на Одиторска кантора Узунова" loading="lazy">
+      <img class="reveal reveal-delay-2" src="https://uzunova.net/images/upload/80afc90ec0857e5d81d9cdabf54f95c878777685.jpg" alt="Офис на Одиторска кантора Узунова" loading="lazy">
+      <img class="reveal reveal-delay-3" src="https://uzunova.net/images/upload/43933a84c80cad40357b3182773a588b2b1a54f5.jpg" alt="Офис на Одиторска кантора Узунова" loading="lazy">
+    </div>
+  </div>
+</section>
+
+<!-- STRUCTURE -->
+<section class="structure" id="structure">
+  <div class="section-inner">
+    <p class="section-label reveal" data-lang-bg="Нашият екип" data-lang-en="Our Team" data-lang-it="Il nostro team">Нашият екип</p>
+    <h2 class="section-title reveal" data-lang-bg="Структура" data-lang-en="Structure" data-lang-it="Struttura">Структура</h2>
+    <p class="section-subtitle reveal" data-lang-bg="Квалифицирани отдели, обслужващи всяка нужда на вашия бизнес." data-lang-en="Qualified departments serving every need of your business." data-lang-it="Dipartimenti qualificati al servizio di ogni esigenza della vostra azienda.">Квалифицирани отдели, обслужващи всяка нужда на вашия бизнес.</p>
+    <div class="structure-grid">
+
+      <div class="structure-card reveal reveal-delay-0">
+        <div class="structure-icon dept-audit">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+        </div>
+        <h3 data-lang-bg="Одиторски отдел" data-lang-en="Audit Department" data-lang-it="Dipartimento Revisione">Одиторски отдел</h3>
+        <p data-lang-bg="Едно от първите одиторски дружества в региона на Пловдив. Специалисти със задълбочени познания в одита, счетоводството, данъците и управлението." data-lang-en="One of the first audit firms in the Plovdiv region. Specialists with in-depth knowledge of auditing, accounting, taxation, and management." data-lang-it="Una delle prime società di revisione nella regione di Plovdiv. Specialisti con conoscenze approfondite in revisione, contabilità, fiscalità e gestione.">Едно от първите одиторски дружества в региона на Пловдив. Специалисти със задълбочени познания в одита, счетоводството, данъците и управлението.</p>
+      </div>
+
+      <div class="structure-card reveal reveal-delay-1">
+        <div class="structure-icon dept-accounting">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8"/><path d="M12 17v4"/></svg>
+        </div>
+        <h3 data-lang-bg="Счетоводен отдел" data-lang-en="Accounting Department" data-lang-it="Dipartimento Contabilità">Счетоводен отдел</h3>
+        <p data-lang-bg="5 млади специалисти с необходимата образователна и професионална квалификация." data-lang-en="5 young specialists with the necessary educational and professional qualifications." data-lang-it="5 giovani specialisti con le necessarie qualifiche formative e professionali.">5 млади специалисти с необходимата образователна и професионална квалификация.</p>
+      </div>
+
+      <div class="structure-card reveal reveal-delay-2">
+        <div class="structure-icon dept-payroll">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/></svg>
+        </div>
+        <h3 data-lang-bg="ТРЗ отдел" data-lang-en="Payroll Department" data-lang-it="Dipartimento Buste Paga">ТРЗ отдел</h3>
+        <p data-lang-bg="2 специалисти за обработка на възнаграждения и осигуровки, гарантиращи конфиденциалност." data-lang-en="2 specialists handling remuneration and insurance processing, ensuring confidentiality." data-lang-it="2 specialisti per l'elaborazione delle retribuzioni e dei contributi, garantendo la riservatezza.">2 специалисти за обработка на възнаграждения и осигуровки, гарантиращи конфиденциалност.</p>
+      </div>
+
+      <div class="structure-card reveal reveal-delay-3">
+        <div class="structure-icon dept-tax">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+        </div>
+        <h3 data-lang-bg="Данъчен отдел" data-lang-en="Tax Department" data-lang-it="Dipartimento Fiscale">Данъчен отдел</h3>
+        <p data-lang-bg="Професионалисти с богат опит, специализирани в данъчни проблеми." data-lang-en="Experienced professionals specializing in tax matters." data-lang-it="Professionisti esperti, specializzati in questioni fiscali.">Професионалисти с богат опит, специализирани в данъчни проблеми.</p>
+      </div>
+
     </div>
   </div>
 </section>
@@ -398,6 +504,7 @@ section{padding:5rem 1.5rem}
     <div class="footer-links">
       <a href="#services" data-lang-bg="Услуги" data-lang-en="Services" data-lang-it="Servizi">Услуги</a>
       <a href="#about" data-lang-bg="За нас" data-lang-en="About" data-lang-it="Chi siamo">За нас</a>
+      <a href="#structure" data-lang-bg="Структура" data-lang-en="Structure" data-lang-it="Struttura">Структура</a>
       <a href="#contacts" data-lang-bg="Контакти" data-lang-en="Contacts" data-lang-it="Contatti">Контакти</a>
     </div>
   </div>
