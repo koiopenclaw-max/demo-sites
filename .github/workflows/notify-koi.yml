@@ -27,7 +27,9 @@ jobs:
           triggers = {
               "briefing": "🔔 Пусни за задание!",
               "qa_submitted": "💬 Нови отговори на въпроси!",
-              "building": "🔨 Одобрено за билд!"
+              "building": "🔨 Одобрено за билд!",
+              "revisions": "🔧 Нови корекции за изпълнение!",
+              "approved": "✅ Проектът е одобрен!"
           }
 
           for fpath in glob.glob("data/*.json"):
@@ -43,6 +45,9 @@ jobs:
                   continue
 
               msg = f"{triggers[status]} Проект: {name} | Status: {status}"
+              if status == "revisions" and d.get("currentRevision"):
+                  msg += f"\n\n📝 Корекции:\n{d['currentRevision']}"
+
               payload = json.dumps({
                   "chat_id": chat_id,
                   "message_thread_id": topic_id,
