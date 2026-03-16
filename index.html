@@ -294,6 +294,8 @@ textarea { resize: vertical; min-height: 100px; }
 
 <script>
 const STORAGE_KEY = 'demoSitesProjects_v2';
+// Token injected by GitHub Actions at deploy time (scoped to this repo only)
+window._GH_TOKEN = '__GH_API_TOKEN__'==='__GH_API_TOKEN__' ? null : '__GH_API_TOKEN__';
 const TYPE_LABELS = { redesign:'🔄 Редизайн', new:'🆕 Нов сайт', ecommerce:'🛒 Онлайн магазин', other:'📋 Друго' };
 const STATUS_LABELS = {
   created:'Създаден', briefing:'Koi анализира...', brief_ready:'Задание готово',
@@ -653,12 +655,26 @@ async function pollServer() {
   if (!currentSlug) return;
   try {
     const encodedSlug = encodeURIComponent(currentSlug);
-    const res = await fetch(`/api/data/${encodedSlug}.json`, { cache: 'no-store' });
-    if (!res.ok) return;
-    const data = await res.json();
-    if (data.sha === lastServerHash) return; // no change
-    lastServerHash = data.sha;
-    const content = JSON.parse(decodeURIComponent(escape(atob(data.content))));
+    let content;
+
+    // Try proxy first
+    try {
+      const res = await fetch(`/api/data/${encodedSlug}.json`, { cache: 'no-store' });
+      if (res.ok) {
+        const data = await res.json();
+        if (data.sha === lastServerHash) return;
+        lastServerHash = data.sha;
+        content = JSON.parse(decodeURIComponent(escape(atob(data.content))));
+      }
+    } catch(e) {}
+
+    if (!content) {
+      // Fallback: raw GitHub directly
+      const res = await fetch(`${GH_RAW}/${encodedSlug}.json?t=${Date.now()}`, { cache: 'no-store' });
+      if (!res.ok) return;
+      content = await res.json();
+    }
+
     // GitHub is ALWAYS source of truth — overwrite local if different
     if (JSON.stringify(content) !== JSON.stringify(currentProject)) {
       const all = db();
@@ -737,16 +753,50 @@ async function saveToGH() {
   try {
     const slug = encodeURIComponent(currentSlug);
     const content = btoa(unescape(encodeURIComponent(JSON.stringify(currentProject, null, 2))));
-    // Get current SHA
-    let sha = null;
-    try { const r = await fetch(`/api/data/${slug}.json`); if (r.ok) sha = (await r.json()).sha; } catch(e) {}
-    const rawPath = `data/${currentSlug}.json`;
-    const body = { message: `[${currentProject.status}] ${currentProject.name}`, content, path: rawPath };
-    if (sha) body.sha = sha;
-    const res = await fetch(`/api/data/${slug}.json`, { method:'PUT', headers:{'Content-Type':'application/json'}, body: JSON.stringify(body) });
-    if (!res.ok) throw new Error('Save failed: ' + res.status);
-    const saved = await res.json();
-    lastServerHash = saved.content?.sha || null;
+
+    // Try proxy first (has write access)
+    let proxyOk = false;
+    try {
+      let sha = null;
+      try { const r = await fetch(`/api/data/${slug}.json`); if (r.ok) sha = (await r.json()).sha; } catch(e) {}
+      const rawPath = `data/${currentSlug}.json`;
+      const body = { message: `[${currentProject.status}] ${currentProject.name}`, content, path: rawPath };
+      if (sha) body.sha = sha;
+      const res = await fetch(`/api/data/${slug}.json`, { method:'PUT', headers:{'Content-Type':'application/json'}, body: JSON.stringify(body) });
+      if (res.ok) {
+        const saved = await res.json();
+        lastServerHash = saved.content?.sha || null;
+        proxyOk = true;
+      }
+    } catch(e) {}
+
+    if (!proxyOk) {
+      // Fallback: use GitHub API with injected token (set during GitHub Actions deploy)
+      const token = window._GH_TOKEN;
+      if (!token) {
+        // No proxy, no token — save locally only, Koi will sync
+        console.log('No write access — saved locally only');
+        toast('Запазено локално. Koi ще синхронизира.', 'info');
+        return;
+      }
+      // Get SHA from GitHub API
+      let sha = null;
+      try {
+        const r = await fetch(`${GH_API}/${slug}.json`, { headers: { 'Authorization': `token ${token}`, 'Accept': 'application/vnd.github.v3+json' } });
+        if (r.ok) sha = (await r.json()).sha;
+      } catch(e) {}
+      const rawPath = `data/${currentSlug}.json`;
+      const body = { message: `[${currentProject.status}] ${currentProject.name}`, content, path: rawPath };
+      if (sha) body.sha = sha;
+      const res = await fetch(`${GH_API}/${slug}.json`, {
+        method: 'PUT',
+        headers: { 'Authorization': `token ${token}`, 'Content-Type': 'application/json', 'Accept': 'application/vnd.github.v3+json' },
+        body: JSON.stringify(body)
+      });
+      if (!res.ok) throw new Error('GitHub save failed: ' + res.status);
+      const saved = await res.json();
+      lastServerHash = saved.content?.sha || null;
+    }
   } catch(e) { toast('Грешка: '+e.message,'error'); }
 }
 
@@ -795,11 +845,25 @@ function migrateProject(content) {
 }
 
 // ===== SYNC FROM GITHUB ON LOAD =====
+const GH_API = 'https://api.github.com/repos/koiopenclaw-max/demo-sites/contents/data';
+const GH_RAW = 'https://raw.githubusercontent.com/koiopenclaw-max/demo-sites/main/data';
+
 async function syncFromGH() {
   try {
-    const res = await fetch('/api/data', { cache: 'no-store' });
-    if (!res.ok) { console.log('GH sync failed:', res.status); return; }
-    const files = await res.json();
+    // Try proxy first (for save operations), fallback to GitHub API directly (read-only, public repo)
+    let files;
+    try {
+      const proxyRes = await fetch('/api/data', { cache: 'no-store' });
+      if (proxyRes.ok) { files = await proxyRes.json(); }
+    } catch(e) {}
+
+    if (!files) {
+      // Fallback: GitHub API directly (works on GitHub Pages, any browser)
+      const ghRes = await fetch(GH_API, { cache: 'no-store', headers: { 'Accept': 'application/vnd.github.v3+json' } });
+      if (!ghRes.ok) { console.log('GH API sync failed:', ghRes.status); return; }
+      files = await ghRes.json();
+    }
+
     const jsonFiles = files.filter(f => f.name.endsWith('.json') && !f.name.endsWith('-plan.md'));
     if (!jsonFiles.length) return;
 
@@ -808,10 +872,24 @@ async function syncFromGH() {
 
     await Promise.all(jsonFiles.map(async (f) => {
       try {
-        const r = await fetch(`/api/data/${encodeURIComponent(f.name)}`, { cache: 'no-store' });
-        if (!r.ok) return;
-        const fileData = await r.json();
-        const content = migrateProject(JSON.parse(decodeURIComponent(escape(atob(fileData.content)))));
+        let content;
+        // Try proxy first
+        try {
+          const r = await fetch(`/api/data/${encodeURIComponent(f.name)}`, { cache: 'no-store' });
+          if (r.ok) {
+            const fileData = await r.json();
+            content = JSON.parse(decodeURIComponent(escape(atob(fileData.content))));
+          }
+        } catch(e) {}
+
+        if (!content) {
+          // Fallback: raw GitHub (no base64, direct JSON)
+          const r = await fetch(`${GH_RAW}/${encodeURIComponent(f.name)}?t=${Date.now()}`, { cache: 'no-store' });
+          if (!r.ok) return;
+          content = await r.json();
+        }
+
+        content = migrateProject(content);
         const slug = content.slug;
         if (!slug) return;
 
@@ -827,6 +905,11 @@ async function syncFromGH() {
     if (updated) {
       dbSave(all);
       renderDashboard();
+      // If currently viewing a project, refresh it too
+      if (currentSlug && all[currentSlug]) {
+        currentProject = all[currentSlug];
+        if (document.getElementById('detailView').classList.contains('active')) renderDetail();
+      }
       console.log('Synced from GitHub');
     }
   } catch(e) { console.log('GH sync error:', e); }
