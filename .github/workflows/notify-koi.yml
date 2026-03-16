@@ -10,19 +10,29 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
 
-      - name: Check and notify
+      - name: Check changed files only
         env:
           BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           CHAT_ID: "-1003818348002"
           TOPIC_ID: "49"
         run: |
-          python3 << 'PYEOF'
-          import json, os, glob, urllib.request
+          # Get only the files that changed in THIS commit
+          CHANGED=$(git diff --name-only HEAD~1 HEAD -- 'data/*.json' 2>/dev/null || echo "")
+          if [ -z "$CHANGED" ]; then
+            echo "No data files changed"
+            exit 0
+          fi
+
+          python3 << PYEOF
+          import json, os, urllib.request
 
           bot_token = os.environ["BOT_TOKEN"]
           chat_id = os.environ["CHAT_ID"]
           topic_id = int(os.environ["TOPIC_ID"])
+          changed_files = """$CHANGED""".strip().split('\n')
 
           triggers = {
               "briefing": "🔔 Пусни за задание!",
@@ -34,7 +44,10 @@ jobs:
               "deploying": "📡 DNS потвърден — качвай на домейна!",
           }
 
-          for fpath in glob.glob("data/*.json"):
+          for fpath in changed_files:
+              fpath = fpath.strip()
+              if not fpath or not fpath.endswith('.json'):
+                  continue
               try:
                   with open(fpath) as f:
                       d = json.load(f)
