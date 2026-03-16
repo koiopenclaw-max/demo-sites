@@ -125,6 +125,7 @@ textarea { resize: vertical; min-height: 100px; }
 .status-done { background: rgba(46,204,113,0.3); color: var(--success); }
 .status-revisions { background: rgba(243,156,18,0.3); color: #f39c12; }
 .status-review { background: rgba(155,89,182,0.3); color: #9b59b6; }
+.status-approved { background: rgba(46,204,113,0.4); color: #2ecc71; }
 
 .empty-state { text-align: center; padding: 4rem 2rem; color: var(--text-dim); }
 .empty-state-icon { font-size: 3rem; margin-bottom: 1rem; opacity: 0.4; }
@@ -298,14 +299,17 @@ const STATUS_LABELS = {
   created:'Създаден', briefing:'Koi анализира...', brief_ready:'Задание готово',
   qa_submitted:'Koi обработва...', brief_final:'Финално задание',
   building:'Билд...', done:'Готово ✓',
-  revisions:'Koi коригира...', review:'За преглед'
+  revisions:'Koi коригира...', review:'За преглед', approved:'Одобрено ✓'
 };
-const STATUS_FLOW = ['created','briefing','brief_ready','qa_submitted','brief_final','building','done'];
-const STATUS_ICONS = { created:'📝', briefing:'🔍', brief_ready:'📋', qa_submitted:'💬', brief_final:'✅', building:'🔨', done:'🎉', revisions:'🔧', review:'👀' };
+const STATUS_FLOW_MAIN = ['created','briefing','brief_ready','qa_submitted','brief_final','building','done'];
+const STATUS_FLOW_REVISIONS = ['done','revisions','review','approved'];
+const STATUS_ICONS = { created:'📝', briefing:'🔍', brief_ready:'📋', qa_submitted:'💬', brief_final:'✅', building:'🔨', done:'🎉', revisions:'🔧', review:'👀', approved:'🚀' };
 // Statuses where Koi works (show spinner)
 const KOI_WORKING = ['briefing','qa_submitted','building','revisions'];
 // Statuses where user acts
-const USER_ACTION = ['created','brief_ready','brief_final','review'];
+const USER_ACTION = ['created','brief_ready','brief_final','review','done','approved'];
+// Revision cycle statuses
+const REVISION_CYCLE = ['revisions','review','approved'];
 
 // ===== STORAGE =====
 function db() { try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}; } catch { return {}; } }
@@ -432,12 +436,15 @@ function renderDetail() {
   badge.textContent = STATUS_LABELS[p.status]||p.status;
   badge.className = `status-badge status-${p.status}`;
 
-  const si = STATUS_FLOW.indexOf(p.status);
-  document.getElementById('statusFlow').innerHTML = STATUS_FLOW.map((s,i) => {
+  // Determine which flow to show
+  const inRevisionCycle = REVISION_CYCLE.includes(p.status);
+  const flowToShow = inRevisionCycle ? STATUS_FLOW_REVISIONS : STATUS_FLOW_MAIN;
+  const si = flowToShow.indexOf(p.status);
+  document.getElementById('statusFlow').innerHTML = flowToShow.map((s,i) => {
     const cls = i<si?'done':i===si?'active':'';
-    const arrow = i<STATUS_FLOW.length-1?'<span class="status-arrow">→</span>':'';
+    const arrow = i<flowToShow.length-1?'<span class="status-arrow">→</span>':'';
     return `<span class="status-step ${cls}">${STATUS_ICONS[s]} ${STATUS_LABELS[s]}</span>${arrow}`;
-  }).join('');
+  }).join('') + (inRevisionCycle ? '<div style="font-size:0.7rem;color:var(--text-muted);width:100%;margin-top:0.5rem">↻ Корекциите може да се завъртят няколко пъти</div>' : '');
 
   let info = `
     <div class="info-item"><div class="info-item-label">Тип</div><div class="info-item-value">${TYPE_LABELS[p.type]||p.type}</div></div>
@@ -475,7 +482,7 @@ function renderAction(p) {
       <p style="font-size:0.85rem">👇 Прегледай финалното задание и потвърди билда долу</p></div>`;
   } else if (p.status === 'done') {
     a.innerHTML = `<div class="action-section" style="border:none;padding:0.5rem">
-      <p style="font-size:0.85rem">👇 Ако има нужда от корекции — опиши ги по-долу</p></div>`;
+      <p style="font-size:0.85rem">👇 Прегледай демото. Ако има нужда от корекции — опиши ги по-долу. Ако всичко е наред — одобри.</p></div>`;
   } else if (p.status === 'revisions') {
     a.innerHTML = `<div class="action-section waiting">
       <div class="spinner"></div>
@@ -484,6 +491,17 @@ function renderAction(p) {
   } else if (p.status === 'review') {
     a.innerHTML = `<div class="action-section" style="border:none;padding:0.5rem">
       <p style="font-size:0.85rem">👇 Корекциите са направени. Прегледай и одобри или добави нови</p></div>`;
+  } else if (p.status === 'approved') {
+    a.innerHTML = `<div class="action-section highlight">
+      <h3 style="color:var(--success);margin-bottom:1rem">🚀 Сайтът е одобрен!</h3>
+      <p>Въведи домейн, на който да качим финалния сайт:</p>
+      <div style="max-width:400px;margin:1rem auto">
+        <input type="text" id="deployDomain" placeholder="напр. example.bg" value="${esc(p.deployDomain||'')}"
+          style="text-align:center;font-size:1.1rem">
+        <div class="form-hint" style="margin-top:0.25rem">Домейнът, на който клиентът иска сайта</div>
+      </div>
+      <button class="btn btn-success btn-xl" onclick="saveDomain()" style="margin-top:1rem">💾 Запази домейн</button>
+    </div>`;
   } else {
     a.innerHTML = '';
   }
@@ -564,12 +582,15 @@ function renderRevisions(p) {
     el.innerHTML = `<div class="qa-section" style="margin-top:1.5rem">
       <h3>🔧 Корекции</h3>
       <textarea id="revisionInput" placeholder="Опиши проблемите за отстраняване...&#10;&#10;Например:&#10;- Телефонът не е кликабилен&#10;- Цветът на бутона да е по-тъмен&#10;- Добави работно време" 
-        style="width:100%;min-height:120px;padding:0.75rem;border:1px solid var(--border);border-radius:8px;background:var(--card-bg);color:var(--text);font-size:0.95rem;resize:vertical">${esc(p.currentRevision || '')}</textarea>
+        style="width:100%;min-height:120px;padding:0.75rem;border:1px solid var(--border);border-radius:8px;background:var(--bg-input);color:var(--text);font-size:0.95rem;resize:vertical">${esc(p.currentRevision || '')}</textarea>
       <div style="margin-top:0.75rem">
         <button class="btn btn-warning btn-lg" onclick="submitRevisions()" style="background:rgba(243,156,18,0.8);width:100%">🔧 Изпрати за корекция</button>
       </div>
       ${p.status === 'review' ? `<div style="margin-top:0.75rem">
         <button class="btn btn-success btn-lg" onclick="approveRevisions()" style="width:100%">✅ Всичко е наред — одобрявам</button>
+      </div>` : ''}
+      ${p.status === 'done' && !p.revisionHistory?.length ? `<div style="margin-top:0.75rem">
+        <button class="btn btn-success btn-lg" onclick="approveRevisions()" style="width:100%">✅ Няма корекции — одобрявам директно</button>
       </div>` : ''}
       ${historyHtml}
     </div>`;
@@ -577,6 +598,11 @@ function renderRevisions(p) {
     el.innerHTML = `<div class="qa-section" style="margin-top:1.5rem">
       <h3>🔧 Текущи корекции</h3>
       <div style="background:var(--card-bg);border:1px solid var(--border);border-radius:8px;padding:1rem;white-space:pre-wrap">${esc(p.currentRevision || '')}</div>
+      ${historyHtml}
+    </div>`;
+  } else if (p.status === 'approved') {
+    el.innerHTML = `<div class="qa-section" style="margin-top:1.5rem">
+      ${p.deployDomain ? `<div class="info-item" style="margin-bottom:1rem"><div class="info-item-label">🌐 Домейн за деплой</div><div class="info-item-value" style="font-size:1.1rem;color:var(--accent)">${esc(p.deployDomain)}</div></div>` : ''}
       ${historyHtml}
     </div>`;
   } else {
@@ -679,14 +705,30 @@ function submitRevisions() {
 }
 
 function approveRevisions() {
-  currentProject.status = 'done';
+  // Mark last revision as resolved
+  if (currentProject.revisionHistory?.length) {
+    const last = currentProject.revisionHistory[currentProject.revisionHistory.length - 1];
+    if (!last.resolution) last.resolution = 'Одобрено от клиента';
+  }
+  currentProject.status = 'approved';
   currentProject.currentRevision = null;
   currentProject.updatedAt = new Date().toISOString();
   
   const all = db(); all[currentSlug] = currentProject; dbSave(all);
   saveToGH();
   renderDetail();
-  toast('Одобрено! ✅');
+  toast('Одобрено! 🚀');
+}
+
+function saveDomain() {
+  const input = document.getElementById('deployDomain');
+  if (!input || !input.value.trim()) { toast('Въведи домейн','error'); return; }
+  currentProject.deployDomain = input.value.trim();
+  currentProject.updatedAt = new Date().toISOString();
+  
+  const all = db(); all[currentSlug] = currentProject; dbSave(all);
+  saveToGH();
+  toast('Домейнът е запазен! 💾');
 }
 
 // Token handled server-side via proxy
