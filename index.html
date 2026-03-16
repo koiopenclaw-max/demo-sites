@@ -652,12 +652,11 @@ function stopPolling() {
 async function pollServer() {
   if (!currentSlug) return;
   try {
-    // Fetch project directly from raw GitHub (cache-busted)
     const encodedSlug = encodeURIComponent(currentSlug);
-    const rawUrl = `https://raw.githubusercontent.com/koiopenclaw-max/demo-sites/main/data/${encodedSlug}.json?t=${Date.now()}`;
-    const res = await fetch(rawUrl, { cache: 'no-store' });
+    const res = await fetch(`${PROXY_URL}/api/data/${encodedSlug}.json`, { cache: 'no-store' });
     if (!res.ok) return;
-    const content = await res.json();
+    const data = await res.json();
+    const content = JSON.parse(decodeURIComponent(escape(atob(data.content))));
 
     // GitHub is ALWAYS source of truth
     if (JSON.stringify(content) !== JSON.stringify(currentProject)) {
@@ -730,28 +729,32 @@ function saveDomain() {
   toast('Домейнът е запазен! 💾');
 }
 
-// Token handled server-side via proxy
+// Writes go through VPS proxy (token stays server-side, never in client code)
+const PROXY_URL = 'http://161.35.19.170:3847';
 
 async function saveToGH() {
   if (!currentProject) return;
-  // Write goes through VPS proxy (has GitHub token server-side)
-  // If proxy unavailable — saved locally, GitHub syncs on next Koi action
   try {
     const slug = encodeURIComponent(currentSlug);
     const content = btoa(unescape(encodeURIComponent(JSON.stringify(currentProject, null, 2))));
+    // Get current SHA
     let sha = null;
-    try { const r = await fetch(`/api/data/${slug}.json`); if (r.ok) sha = (await r.json()).sha; } catch(e) {}
+    try {
+      const r = await fetch(`${PROXY_URL}/api/data/${slug}.json`);
+      if (r.ok) sha = (await r.json()).sha;
+    } catch(e) {}
     const rawPath = `data/${currentSlug}.json`;
     const body = { message: `[${currentProject.status}] ${currentProject.name}`, content, path: rawPath };
     if (sha) body.sha = sha;
-    const res = await fetch(`/api/data/${slug}.json`, { method:'PUT', headers:{'Content-Type':'application/json'}, body: JSON.stringify(body) });
-    if (!res.ok) throw new Error(res.status);
-    const saved = await res.json();
-    lastServerHash = saved.content?.sha || null;
+    const res = await fetch(`${PROXY_URL}/api/data/${slug}.json`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(body)
+    });
+    if (!res.ok) throw new Error('Save failed: ' + res.status);
   } catch(e) {
-    // Proxy unavailable (e.g. opened from GitHub Pages directly) — save locally
-    console.log('Proxy unavailable, saved locally');
-    toast('Запазено локално. Промените ще се синхронизират.', 'info');
+    console.log('Save error:', e);
+    toast('Грешка при запис: ' + e.message, 'error');
   }
 }
 
@@ -804,8 +807,8 @@ const GH_API = 'https://api.github.com/repos/koiopenclaw-max/demo-sites/contents
 
 async function syncFromGH() {
   try {
-    // Public GitHub API — works everywhere, no auth needed
-    const ghRes = await fetch(GH_API, { cache: 'no-store', headers: { 'Accept': 'application/vnd.github.v3+json' } });
+    // Fetch via VPS proxy (faster, no rate limits, has auth)
+    const ghRes = await fetch(`${PROXY_URL}/api/data`, { cache: 'no-store' });
     if (!ghRes.ok) { console.log('GH sync failed:', ghRes.status); return; }
     const files = await ghRes.json();
     const jsonFiles = files.filter(f => f.name.endsWith('.json'));
