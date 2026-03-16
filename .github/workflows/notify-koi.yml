@@ -29,7 +29,9 @@ jobs:
               "qa_submitted": "💬 Нови отговори на въпроси!",
               "building": "🔨 Одобрено за билд!",
               "revisions": "🔧 Нови корекции за изпълнение!",
-              "approved": "✅ Проектът е одобрен!"
+              "approved": "✅ Проектът е одобрен!",
+              "dns_setup": "🌐 Домейн зададен — подготви DNS данни!",
+              "deploying": "📡 DNS потвърден — качвай на домейна!",
           }
 
           for fpath in glob.glob("data/*.json"):
@@ -44,9 +46,13 @@ jobs:
               if status not in triggers:
                   continue
 
-              msg = f"{triggers[status]} Проект: {name} | Status: {status}"
+              msg = f"{triggers[status]}\nПроект: {name}"
               if status == "revisions" and d.get("currentRevision"):
                   msg += f"\n\n📝 Корекции:\n{d['currentRevision']}"
+              if status == "dns_setup" and d.get("deployDomain"):
+                  msg += f"\n🌐 Домейн: {d['deployDomain']}"
+              if status == "approved" and d.get("deployDomain"):
+                  msg += f"\n🌐 Домейн: {d['deployDomain']}"
 
               payload = json.dumps({
                   "chat_id": chat_id,
