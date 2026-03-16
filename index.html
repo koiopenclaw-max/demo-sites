@@ -566,7 +566,7 @@ async function pollServer() {
     const encodedSlug = encodeURIComponent(currentSlug);
     const ghUrl = `https://api.github.com/repos/koiopenclaw-max/demo-sites/contents/data/${encodedSlug}.json`;
     const res = await fetch(ghUrl, {
-      headers: { 'Authorization': `token ${_t()}`, 'If-None-Match': '' },
+      headers: { 'Authorization': `token ${_t() || 'none'}`, 'If-None-Match': '' },
       cache: 'no-store'
     });
     if (!res.ok) return;
@@ -596,8 +596,15 @@ function confirmDeleteProject() {
 }
 
 // ===== GITHUB =====
-const _p = ['__REDACTED__'];
-function _t() { return _p.map(p => atob(p)).join(''); }
+function _t() {
+  let tk = localStorage.getItem('gh_token');
+  if (!tk) {
+    tk = prompt('GitHub Personal Access Token (нужен е за запис):');
+    if (tk && tk.startsWith('ghp_')) { localStorage.setItem('gh_token', tk); }
+    else { toast('Невалиден token — трябва да започва с ghp_', 'error'); return null; }
+  }
+  return tk;
+}
 
 async function saveToGH() {
   if (!currentProject) return;
@@ -606,13 +613,14 @@ async function saveToGH() {
     const content = btoa(unescape(encodeURIComponent(JSON.stringify(currentProject, null, 2))));
     const ghUrl = `https://api.github.com/repos/koiopenclaw-max/demo-sites/contents/${fp}`;
     const tk = _t();
+    if (!tk) return;
     let sha = null;
     try { const r = await fetch(ghUrl, {headers:{'Authorization':`token ${tk}`}}); if (r.ok) sha = (await r.json()).sha; } catch(e) {}
     const rawPath = `data/${currentSlug}.json`;
     const body = { message: `[${currentProject.status}] ${currentProject.name}`, content, path: rawPath };
     if (sha) body.sha = sha;
     const res = await fetch(ghUrl, { method:'PUT', headers:{'Authorization':`token ${tk}`,'Content-Type':'application/json'}, body: JSON.stringify(body) });
-    if (!res.ok) throw new Error('Save failed');
+    if (!res.ok) { if (res.status === 401) { localStorage.removeItem('gh_token'); toast('Token изтекъл — презареди страницата','error'); } throw new Error('Save failed'); }
     const saved = await res.json();
     lastServerHash = saved.content?.sha || null;
   } catch(e) { toast('Грешка: '+e.message,'error'); }
@@ -666,6 +674,7 @@ function migrateProject(content) {
 async function syncFromGH() {
   try {
     const tk = _t();
+    if (!tk) return;
     const res = await fetch('https://api.github.com/repos/koiopenclaw-max/demo-sites/contents/data', {
       headers: { 'Authorization': `token ${tk}`, 'Accept': 'application/vnd.github.v3+json' },
       cache: 'no-store'
