@@ -19,75 +19,75 @@ jobs:
           CHAT_ID: "-1003818348002"
           TOPIC_ID: "49"
         run: |
-          CHANGED=$(git diff --name-only HEAD~1 HEAD -- 'data/*.json' 2>/dev/null || echo "")
-          if [ -z "$CHANGED" ]; then
-            echo "No data files changed"
-            exit 0
-          fi
-
-          python3 << 'PYEOF'
-          import json, os, urllib.request
+          python3 - <<'SCRIPT'
+          import json, os, subprocess, urllib.request, glob
 
           bot_token = os.environ["BOT_TOKEN"]
           chat_id = os.environ["CHAT_ID"]
           topic_id = int(os.environ["TOPIC_ID"])
 
-          import subprocess
-          changed = subprocess.check_output(
-              ["git", "diff", "--name-only", "HEAD~1", "HEAD", "--", "data/*.json"],
-              text=True
-          ).strip().split('\n')
+          # Find changed data files
+          try:
+              changed = subprocess.check_output(
+                  ["git", "diff", "--name-only", "HEAD~1", "HEAD"],
+                  text=True, stderr=subprocess.DEVNULL
+              ).strip().split('\n')
+          except:
+              changed = []
+
+          data_files = [f for f in changed if f.startswith('data/') and f.endswith('.json')]
+          
+          if not data_files:
+              print("No data JSON files changed")
+              exit(0)
+
+          print(f"Changed data files: {data_files}")
 
           actionable = {
-              "briefing": ("🔍", "Нов проект за задание"),
+              "briefing":     ("🔍", "Нов проект за задание"),
               "qa_submitted": ("💬", "Нови QA отговори — обогати заданието"),
-              "building": ("🔨", "Одобрено — билдвай демо сайта"),
-              "revisions": ("🔧", "Нови корекции — оправи и deploy-ни"),
-              "approved": ("✅", "Одобрено — подготви DNS записи"),
-              "dns_setup": ("🌐", "Домейн зададен — deploy-ни на живо"),
-              "deploying": ("📡", "DNS потвърден — финален deploy"),
+              "building":     ("🔨", "Одобрено — билдвай демо сайта"),
+              "revisions":    ("🔧", "Нови корекции — оправи и deploy-ни"),
+              "approved":     ("✅", "Одобрено — подготви DNS записи"),
+              "dns_setup":    ("🌐", "Домейн зададен — deploy-ни на живо"),
+              "deploying":    ("📡", "DNS потвърден — финален deploy"),
           }
 
-          for fpath in changed:
-              fpath = fpath.strip()
-              if not fpath or not fpath.endswith('.json'):
-                  continue
+          for fpath in data_files:
               try:
-                  with open(fpath) as f:
+                  with open(fpath, encoding='utf-8') as f:
                       d = json.load(f)
-                  status = d.get("status", "")
-                  name = d.get("name", "?")
-                  slug = d.get("slug", "?")
-              except:
+              except Exception as e:
+                  print(f"  Error reading {fpath}: {e}")
                   continue
 
+              status = d.get("status", "")
+              name = d.get("name", "?")
+              slug = d.get("slug", "?")
+
+              print(f"  {fpath}: status={status}, name={name}")
+
               if status not in actionable:
+                  print(f"  Not actionable, skipping")
                   continue
 
               icon, action = actionable[status]
-              lines = [
-                  f"{icon} **{action}**",
-                  f"Проект: {name}",
-                  f"Статус: {status}",
-                  f"Slug: {slug}",
-              ]
+              lines = [f"{icon} {action}", f"Проект: {name}", f"Статус: {status}", f"Slug: {slug}"]
 
               if status == "revisions" and d.get("currentRevision"):
-                  lines.append(f"\n📝 Какво да се коригира:\n{d['currentRevision']}")
+                  lines.append(f"\n📝 Корекции:\n{d['currentRevision'][:500]}")
               if d.get("demoUrl"):
                   lines.append(f"🔗 Демо: {d['demoUrl']}")
-              if d.get("deployDomain"):
-                  lines.append(f"🌐 Домейн: {d['deployDomain']}")
 
               lines.append(f"\nKoi, обработи: data/{slug}.json")
-
               msg = "\n".join(lines)
+
               payload = json.dumps({
                   "chat_id": chat_id,
                   "message_thread_id": topic_id,
-                  "text": msg,
-                  "parse_mode": "Markdown"
+                  "text": msg
               }).encode()
+
               req = urllib.request.Request(
                   f"https://api.telegram.org/bot{bot_token}/sendMessage",
                   data=payload,
@@ -95,7 +95,7 @@ jobs:
               )
               try:
                   resp = urllib.request.urlopen(req)
-                  print(f"Notified: {name} ({status}) -> {resp.status}")
+                  print(f"  ✅ Notified: {name} ({status}) -> HTTP {resp.status}")
               except Exception as e:
-                  print(f"ERROR: {name} -> {e}")
-          PYEOF
+                  print(f"  ❌ ERROR: {name} -> {e}")
+          SCRIPT
