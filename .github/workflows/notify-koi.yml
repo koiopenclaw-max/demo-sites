@@ -13,38 +13,42 @@ jobs:
         with:
           fetch-depth: 2
 
-      - name: Check changed files only
+      - name: Notify via Demo Bot
         env:
-          BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          BOT_TOKEN: ${{ secrets.DEMO_BOT_TOKEN }}
           CHAT_ID: "-1003818348002"
           TOPIC_ID: "49"
         run: |
-          # Get only the files that changed in THIS commit
           CHANGED=$(git diff --name-only HEAD~1 HEAD -- 'data/*.json' 2>/dev/null || echo "")
           if [ -z "$CHANGED" ]; then
             echo "No data files changed"
             exit 0
           fi
 
-          python3 << PYEOF
+          python3 << 'PYEOF'
           import json, os, urllib.request
 
           bot_token = os.environ["BOT_TOKEN"]
           chat_id = os.environ["CHAT_ID"]
           topic_id = int(os.environ["TOPIC_ID"])
-          changed_files = """$CHANGED""".strip().split('\n')
 
-          triggers = {
-              "briefing": "🔔 Пусни за задание!",
-              "qa_submitted": "💬 Нови отговори на въпроси!",
-              "building": "🔨 Одобрено за билд!",
-              "revisions": "🔧 Нови корекции за изпълнение!",
-              "approved": "✅ Проектът е одобрен!",
-              "dns_setup": "🌐 Домейн зададен — подготви DNS данни!",
-              "deploying": "📡 DNS потвърден — качвай на домейна!",
+          import subprocess
+          changed = subprocess.check_output(
+              ["git", "diff", "--name-only", "HEAD~1", "HEAD", "--", "data/*.json"],
+              text=True
+          ).strip().split('\n')
+
+          actionable = {
+              "briefing": ("🔍", "Нов проект за задание"),
+              "qa_submitted": ("💬", "Нови QA отговори — обогати заданието"),
+              "building": ("🔨", "Одобрено — билдвай демо сайта"),
+              "revisions": ("🔧", "Нови корекции — оправи и deploy-ни"),
+              "approved": ("✅", "Одобрено — подготви DNS записи"),
+              "dns_setup": ("🌐", "Домейн зададен — deploy-ни на живо"),
+              "deploying": ("📡", "DNS потвърден — финален deploy"),
           }
 
-          for fpath in changed_files:
+          for fpath in changed:
               fpath = fpath.strip()
               if not fpath or not fpath.endswith('.json'):
                   continue
@@ -52,25 +56,37 @@ jobs:
                   with open(fpath) as f:
                       d = json.load(f)
                   status = d.get("status", "")
-                  name = d.get("name", "unknown")
+                  name = d.get("name", "?")
+                  slug = d.get("slug", "?")
               except:
                   continue
 
-              if status not in triggers:
+              if status not in actionable:
                   continue
 
-              msg = f"{triggers[status]}\nПроект: {name}"
-              if status == "revisions" and d.get("currentRevision"):
-                  msg += f"\n\n📝 Корекции:\n{d['currentRevision']}"
-              if status == "dns_setup" and d.get("deployDomain"):
-                  msg += f"\n🌐 Домейн: {d['deployDomain']}"
-              if status == "approved" and d.get("deployDomain"):
-                  msg += f"\n🌐 Домейн: {d['deployDomain']}"
+              icon, action = actionable[status]
+              lines = [
+                  f"{icon} **{action}**",
+                  f"Проект: {name}",
+                  f"Статус: {status}",
+                  f"Slug: {slug}",
+              ]
 
+              if status == "revisions" and d.get("currentRevision"):
+                  lines.append(f"\n📝 Какво да се коригира:\n{d['currentRevision']}")
+              if d.get("demoUrl"):
+                  lines.append(f"🔗 Демо: {d['demoUrl']}")
+              if d.get("deployDomain"):
+                  lines.append(f"🌐 Домейн: {d['deployDomain']}")
+
+              lines.append(f"\nKoi, обработи: data/{slug}.json")
+
+              msg = "\n".join(lines)
               payload = json.dumps({
                   "chat_id": chat_id,
                   "message_thread_id": topic_id,
-                  "text": msg
+                  "text": msg,
+                  "parse_mode": "Markdown"
               }).encode()
               req = urllib.request.Request(
                   f"https://api.telegram.org/bot{bot_token}/sendMessage",
@@ -79,7 +95,7 @@ jobs:
               )
               try:
                   resp = urllib.request.urlopen(req)
-                  print(f"OK: {name} ({status}) -> {resp.status}")
+                  print(f"Notified: {name} ({status}) -> {resp.status}")
               except Exception as e:
                   print(f"ERROR: {name} -> {e}")
           PYEOF
