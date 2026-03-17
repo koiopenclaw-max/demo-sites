@@ -9,8 +9,8 @@
     <meta property="og:description" content="Счетоводство, одит, ТРЗ и данъчни консултации в Пловдив от 1992 г.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://uzunova.net/">
-    <meta property="og:image" content="https://uzunova.net/images/logo.jpg">
-    <link rel="icon" href="https://uzunova.net/images/logo.jpg" type="image/jpeg">
+    <meta property="og:image" content="logo.jpg">
+    <link rel="icon" href="logo.jpg" type="image/jpeg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,700;0,6..96,900;1,6..96,400&family=Raleway:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -22,8 +22,8 @@
       "name": "Одиторска кантора Узунова ЕООД",
       "alternateName": "Uzunova Audit Office",
       "url": "https://uzunova.net",
-      "logo": "https://uzunova.net/images/logo.jpg",
-      "image": "https://uzunova.net/images/logo.jpg",
+      "logo": "logo.jpg",
+      "image": "logo.jpg",
       "description": "Счетоводни услуги, одит, ТРЗ и данъчни консултации в Пловдив от 1992 г.",
       "foundingDate": "1992",
       "address": {
@@ -287,9 +287,11 @@
             gap: 10px;
         }
         .navbar-logo img {
-            width: 60px;
-            height: 60px;
+            height: 48px;
+            width: auto;
             border-radius: 4px;
+            image-rendering: -webkit-optimize-contrast;
+            image-rendering: crisp-edges;
         }
         .navbar-logo-text {
             font-family: 'Bodoni Moda', serif;
@@ -443,7 +445,7 @@
         }
         .hero-bg {
             background-image: linear-gradient(160deg, rgba(26,0,0,0.75) 0%, rgba(80,10,20,0.65) 40%, rgba(61,0,0,0.75) 100%),
-                url("https://upload.wikimedia.org/wikipedia/commons/6/63/Panorama_Plovdiv.jpg");
+                url("plovdiv-hero.jpg");
             background-size: cover;
             background-position: center;
             position: absolute;
@@ -521,13 +523,14 @@
             max-width: 800px;
         }
         .hero-logo {
-            width: 120px;
-            height: 120px;
-            border-radius: 16px;
+            max-width: 280px;
+            height: auto;
+            border-radius: 8px;
             margin: 0 auto 24px;
             box-shadow: 0 8px 30px rgba(0,0,0,0.4);
-            object-fit: cover;
             border: 2px solid rgba(212, 175, 55, 0.4);
+            image-rendering: -webkit-optimize-contrast;
+            image-rendering: crisp-edges;
         }
         .hero-subtitle-top {
             font-family: 'Raleway', sans-serif;
@@ -1099,7 +1102,10 @@
         }
         .footer-left img {
             height: 32px;
+            width: auto;
             border-radius: 4px;
+            image-rendering: -webkit-optimize-contrast;
+            image-rendering: crisp-edges;
         }
         .footer-copy {
             font-size: 0.8rem;
@@ -1153,7 +1159,7 @@
     <nav class="navbar">
         <div class="navbar-inner">
             <a href="#hero" class="navbar-logo">
-                <img src="https://uzunova.net/images/logo.jpg" alt="Узунова лого" style="height:48px;width:auto;">
+                <img src="logo.jpg" alt="Узунова лого" style="height:48px;width:auto;">
                 
             </a>
             <ul class="navbar-links">
@@ -1468,7 +1474,7 @@
     <footer class="footer">
         <div class="footer-inner">
             <div class="footer-left">
-                <img src="https://uzunova.net/images/logo.jpg" alt="Узунова" style="height:40px;width:auto;">
+                <img src="logo.jpg" alt="Узунова" style="height:40px;width:auto;">
                 <span class="footer-copy">&copy; 2026 Одиторска кантора Узунова ЕООД</span>
             </div>
             <div class="footer-links">
