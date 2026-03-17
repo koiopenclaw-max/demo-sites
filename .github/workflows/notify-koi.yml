@@ -20,16 +20,16 @@ jobs:
           TOPIC_ID: "49"
         run: |
           python3 - <<'SCRIPT'
-          import json, os, subprocess, urllib.request, glob
+          import json, os, subprocess, urllib.request
 
           bot_token = os.environ["BOT_TOKEN"]
           chat_id = os.environ["CHAT_ID"]
           topic_id = int(os.environ["TOPIC_ID"])
 
-          # Find changed data files
+          # Find changed data files — core.quotePath=false for Cyrillic filenames!
           try:
               changed = subprocess.check_output(
-                  ["git", "diff", "--name-only", "HEAD~1", "HEAD"],
+                  ["git", "-c", "core.quotePath=false", "diff", "--name-only", "HEAD~1", "HEAD"],
                   text=True, stderr=subprocess.DEVNULL
               ).strip().split('\n')
           except:
