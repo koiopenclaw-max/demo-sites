@@ -22,12 +22,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Inject secrets
-        env:
-          DEMO_PROXY_API_KEY: ${{ secrets.DEMO_PROXY_API_KEY }}
-        run: |
-          sed -i "s|%%DEMO_PROXY_API_KEY%%|${DEMO_PROXY_API_KEY}|g" index.html
-
       - name: Setup Pages
         uses: actions/configure-pages@v4
 

@@ -218,6 +218,7 @@ textarea { resize: vertical; min-height: 100px; }
   </div>
   <div style="display:flex;align-items:center;gap:1rem">
     <button class="btn btn-secondary btn-sm" onclick="toggleQueue()" id="queueBtn" style="font-size:0.8rem">⚡ Задачи <span id="queueBadge" style="background:var(--accent);color:var(--bg-deep);padding:0.1rem 0.4rem;border-radius:10px;font-size:0.7rem;font-weight:800;margin-left:0.3rem;display:none">0</span></button>
+    <button id="auth-btn" class="btn btn-secondary btn-sm" onclick="toggleAuth()" style="font-size:0.8rem">🔒 Влез</button>
     <div class="poll-indicator" id="pollIndicator">
       <span class="poll-dot"></span>
       <span>Live</span>
@@ -931,8 +932,7 @@ function confirmDns() {
 
 // Writes go through VPS proxy (token stays server-side, never in client code)
 const PROXY_URL = 'https://alto-postings-respond-elevation.trycloudflare.com';
-// API key for write operations — injected at build time, never in source
-const PROXY_API_KEY = '%%DEMO_PROXY_API_KEY%%';
+// Auth: cookie-based session, no secrets in client code
 
 async function saveToGH() {
   if (!currentProject) return;
@@ -950,14 +950,97 @@ async function saveToGH() {
     if (sha) body.sha = sha;
     const res = await fetch(`${PROXY_URL}/api/data/${slug}.json`, {
       method: 'PUT',
-      headers: { 'Content-Type': 'application/json', 'X-API-Key': PROXY_API_KEY },
+      headers: { 'Content-Type': 'application/json' },
+      credentials: 'include',
       body: JSON.stringify(body)
     });
-    if (!res.ok) throw new Error('Save failed: ' + res.status);
+    if (!res.ok) {
+      if (res.status === 401) {
+        showLoginModal();
+        return;
+      }
+      throw new Error('Save failed: ' + res.status);
+    }
   } catch(e) {
     console.log('Save error:', e);
     toast('Грешка при запис: ' + e.message, 'error');
   }
+}
+
+// ===== AUTH =====
+let _isLoggedIn = false;
+
+async function checkAuth() {
+  try {
+    const r = await fetch(`${PROXY_URL}/api/auth-check`, { credentials: 'include' });
+    const d = await r.json();
+    _isLoggedIn = d.authenticated;
+    updateAuthUI();
+  } catch { _isLoggedIn = false; }
+}
+
+function updateAuthUI() {
+  const btn = document.getElementById('auth-btn');
+  if (btn) btn.textContent = _isLoggedIn ? '🔓 Излез' : '🔒 Влез';
+}
+
+function showLoginModal() {
+  if (document.getElementById('login-modal')) return;
+  const modal = document.createElement('div');
+  modal.id = 'login-modal';
+  modal.innerHTML = `
+    <div style="position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:10000;display:flex;align-items:center;justify-content:center" onclick="if(event.target===this)this.remove()">
+      <div style="background:var(--card,#1e1e2e);border-radius:16px;padding:2rem;max-width:340px;width:90%;box-shadow:0 20px 60px rgba(0,0,0,0.4)">
+        <h3 style="margin:0 0 0.5rem;color:var(--text,#fff)">🔒 Вход в системата</h3>
+        <p style="color:var(--dim,#888);font-size:0.85rem;margin:0 0 1.2rem">Въведете паролата за достъп до редактиране</p>
+        <input id="login-pwd" type="password" placeholder="Парола" autofocus
+          style="width:100%;padding:0.7rem 1rem;border:1px solid var(--border,#333);border-radius:8px;background:var(--bg,#111);color:var(--text,#fff);font-size:1rem;margin-bottom:1rem;box-sizing:border-box"
+          onkeydown="if(event.key==='Enter')doLogin()">
+        <div id="login-error" style="color:#e74c3c;font-size:0.85rem;margin-bottom:0.5rem;display:none"></div>
+        <button onclick="doLogin()" style="width:100%;padding:0.7rem;border:none;border-radius:8px;background:var(--accent,#6c5ce7);color:#fff;font-size:1rem;font-weight:600;cursor:pointer">Влез</button>
+      </div>
+    </div>`;
+  document.body.appendChild(modal);
+  setTimeout(() => document.getElementById('login-pwd')?.focus(), 100);
+}
+
+async function doLogin() {
+  const pwd = document.getElementById('login-pwd')?.value;
+  const errEl = document.getElementById('login-error');
+  if (!pwd) return;
+  try {
+    const r = await fetch(`${PROXY_URL}/api/login`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      credentials: 'include',
+      body: JSON.stringify({ password: pwd })
+    });
+    const d = await r.json();
+    if (r.ok && d.ok) {
+      _isLoggedIn = true;
+      updateAuthUI();
+      document.getElementById('login-modal')?.remove();
+      toast('✅ Влязохте успешно', 'success');
+      // Retry save
+      saveToGH();
+    } else {
+      if (errEl) { errEl.textContent = d.error || 'Грешна парола'; errEl.style.display = 'block'; }
+    }
+  } catch(e) {
+    if (errEl) { errEl.textContent = 'Грешка при свързване'; errEl.style.display = 'block'; }
+  }
+}
+
+async function doLogout() {
+  await fetch(`${PROXY_URL}/api/logout`, { method: 'POST', credentials: 'include' });
+  _isLoggedIn = false;
+  updateAuthUI();
+  toast('Излязохте', 'info');
+}
+
+function toggleAuth() {
+  if (_isLoggedIn) doLogout();
+  else showLoginModal();
 }
 
 // ===== UTILS =====
@@ -1163,6 +1246,7 @@ setInterval(loadQueueData, 30000);
 renderDashboard();
 loadQueueData(); // Load queue badge on start
 syncFromGH(); // Load latest from GitHub after initial render
+checkAuth(); // Check login status
 </script>
 </body>
 </html>
