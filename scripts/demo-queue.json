@@ -1,18 +1,5 @@
 {
-  "tasks": [
-    {
-      "id": 1773822002681,
-      "slug": "активи-консулт-бургас",
-      "name": "АКТИВИ КОНСУЛТ - Бургас",
-      "action": "briefing",
-      "status": "in_progress",
-      "createdAt": "2026-03-18T08:20:02.681Z",
-      "startedAt": "2026-03-18T08:20:10.936Z",
-      "completedAt": null,
-      "error": null,
-      "result": null
-    }
-  ],
+  "tasks": [],
   "completed": [
     {
       "id": 1773819482814,
@@ -97,6 +84,18 @@
       "completedAt": "2026-03-18T08:17:36.682Z",
       "error": null,
       "result": "Deployed to demo54.add.bg (repo: demo54-add-bg)"
+    },
+    {
+      "id": 1773822002681,
+      "slug": "активи-консулт-бургас",
+      "name": "АКТИВИ КОНСУЛТ - Бургас",
+      "action": "briefing",
+      "status": "done",
+      "createdAt": "2026-03-18T08:20:02.681Z",
+      "startedAt": "2026-03-18T08:20:10.936Z",
+      "completedAt": "2026-03-18T08:20:33.433Z",
+      "error": null,
+      "result": "Brief готов. Ниша: друго. 6 въпроса."
     }
   ],
   "version": 1
