@@ -216,9 +216,12 @@ textarea { resize: vertical; min-height: 100px; }
     <div class="header-logo">DS</div>
     <div class="header-title">Demo <span>Sites</span></div>
   </div>
-  <div class="poll-indicator" id="pollIndicator">
-    <span class="poll-dot"></span>
-    <span>Live</span>
+  <div style="display:flex;align-items:center;gap:1rem">
+    <button class="btn btn-secondary btn-sm" onclick="toggleQueue()" id="queueBtn" style="font-size:0.8rem">⚡ Задачи <span id="queueBadge" style="background:var(--accent);color:var(--bg-deep);padding:0.1rem 0.4rem;border-radius:10px;font-size:0.7rem;font-weight:800;margin-left:0.3rem;display:none">0</span></button>
+    <div class="poll-indicator" id="pollIndicator">
+      <span class="poll-dot"></span>
+      <span>Live</span>
+    </div>
   </div>
 </header>
 
@@ -232,6 +235,27 @@ textarea { resize: vertical; min-height: 100px; }
       <button class="btn btn-primary" onclick="showNewProjectModal()">+ Нов проект</button>
     </div>
     <div id="projectsList" class="projects-grid"></div>
+  </div>
+
+  <!-- TASK QUEUE -->
+  <div id="queueView" class="view">
+    <div class="dashboard-header">
+      <div style="display:flex;align-items:center;gap:0.75rem">
+        <button class="btn btn-ghost" onclick="navigateTo('dashboard')">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3L6 9l6 6"/></svg>
+        </button>
+        <h2>⚡ Task Queue</h2>
+      </div>
+    </div>
+    <div id="queueStats" style="display:flex;gap:0.75rem;margin-bottom:1.5rem;flex-wrap:wrap"></div>
+    <div style="margin-bottom:1.5rem">
+      <h3 style="font-size:0.9rem;color:var(--text-dim);margin-bottom:0.75rem">🔄 Активни / Чакащи</h3>
+      <div id="queueActive"></div>
+    </div>
+    <div>
+      <h3 style="font-size:0.9rem;color:var(--text-dim);margin-bottom:0.75rem">✅ Завършени (последни 20)</h3>
+      <div id="queueDone"></div>
+    </div>
   </div>
 
   <!-- PROJECT DETAIL -->
@@ -375,19 +399,21 @@ function navigateTo(view) {
 function renderDashboard() {
   const all = db();
   const list = document.getElementById('projectsList');
-  const slugs = Object.keys(all).sort((a,b) => new Date(all[b].updatedAt)-new Date(all[a].updatedAt));
+  const slugs = Object.keys(all).sort((a,b) => new Date(all[b].createdAt||all[b].updatedAt)-new Date(all[a].createdAt||all[a].updatedAt));
   if (!slugs.length) {
     list.innerHTML = `<div class="empty-state"><div class="empty-state-icon">📋</div><h3>Няма проекти</h3><p>Създай първия проект</p><button class="btn btn-primary btn-lg" onclick="showNewProjectModal()">+ Нов проект</button></div>`;
     return;
   }
   list.innerHTML = slugs.map(slug => {
     const p = all[slug];
+    const created = p.createdAt ? new Date(p.createdAt) : null;
+    const dateStr = created ? created.toLocaleDateString('bg-BG', {day:'2-digit',month:'2-digit',year:'numeric'}) + ' ' + created.toLocaleTimeString('bg-BG', {hour:'2-digit',minute:'2-digit'}) : '';
     return `<div class="card project-card" onclick="openProject('${slug}')">
       <div class="project-info">
         <div class="project-name">${esc(p.name)}</div>
         <div class="project-meta">
           <span class="project-type-badge">${TYPE_LABELS[p.type]||p.type}</span>
-          <span>${timeAgo(p.updatedAt)}</span>
+          <span>📅 ${dateStr}</span>
           ${p.websiteUrl?`<span>🌐 ${truncUrl(p.websiteUrl)}</span>`:''}
         </div>
       </div>
@@ -1039,7 +1065,101 @@ setInterval(() => {
   }
 }, 15000);
 
+// ===== TASK QUEUE =====
+const QUEUE_URL_RAW = 'https://raw.githubusercontent.com/koiopenclaw-max/demo-sites/main/scripts/demo-queue.json';
+const Q_ACTION_ICONS = { briefing:'📋', qa_submitted:'💬', building:'🔨', revisions:'🔧', dns_setup:'🌐', deploying:'🚀' };
+const Q_ACTION_LABELS = { briefing:'Briefing', qa_submitted:'QA обработка', building:'Билд', revisions:'Корекции', dns_setup:'DNS', deploying:'Деплой' };
+
+function toggleQueue() {
+  if (document.getElementById('queueView').classList.contains('active')) {
+    navigateTo('dashboard');
+  } else {
+    stopPolling();
+    document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+    document.getElementById('queueView').classList.add('active');
+    loadQueueData();
+  }
+}
+
+function queueTimeAgo(ds) {
+  if (!ds) return '—';
+  const m = Math.floor((Date.now() - new Date(ds).getTime()) / 60000);
+  if (m < 1) return 'сега';
+  if (m < 60) return `${m} мин`;
+  const h = Math.floor(m / 60);
+  if (h < 24) return `${h} ч`;
+  return `${Math.floor(h / 24)} дни`;
+}
+
+function queueDuration(s, e) {
+  if (!s || !e) return '—';
+  const sec = Math.floor((new Date(e) - new Date(s)) / 1000);
+  if (sec < 60) return `${sec}s`;
+  return `${Math.floor(sec / 60)}m ${sec % 60}s`;
+}
+
+function renderQueueTask(t) {
+  const icon = Q_ACTION_ICONS[t.action] || '📝';
+  const label = Q_ACTION_LABELS[t.action] || t.action;
+  const statusClass = t.status === 'in_progress' ? 'status-building' : t.status === 'error' ? 'status-revisions' : t.status === 'done' ? 'status-done' : 'status-briefing';
+  const statusText = t.status === 'in_progress' ? '⚙️ работи' : t.status === 'error' ? '❌ грешка' : t.status === 'done' ? '✅ готово' : '⏳ чака';
+  return `<div class="card" style="margin-bottom:0.75rem;display:flex;align-items:center;gap:1rem">
+    <div style="font-size:1.3rem;width:36px;text-align:center">${icon}</div>
+    <div style="flex:1;min-width:0">
+      <div style="font-weight:700;font-size:0.95rem">${esc(t.name)}</div>
+      <div style="font-size:0.8rem;color:var(--text-dim);display:flex;gap:0.75rem;flex-wrap:wrap">
+        <span>${label}</span>
+        <span>⏱ ${t.status === 'in_progress' ? 'от ' + queueTimeAgo(t.startedAt) : t.status === 'done' || t.status === 'error' ? queueDuration(t.startedAt, t.completedAt) : 'чака ' + queueTimeAgo(t.createdAt)}</span>
+      </div>
+      ${t.error ? `<div style="font-size:0.8rem;color:var(--danger);margin-top:0.3rem;padding:0.4rem;background:rgba(231,76,60,0.1);border-radius:6px">❌ ${esc(t.error)}</div>` : ''}
+      ${t.result ? `<div style="font-size:0.8rem;color:var(--success);margin-top:0.3rem">✅ ${esc(t.result)}</div>` : ''}
+    </div>
+    <span class="status-badge ${statusClass}">${statusText}</span>
+  </div>`;
+}
+
+async function loadQueueData() {
+  try {
+    const res = await fetch(QUEUE_URL_RAW + '?t=' + Date.now(), { cache: 'no-store' });
+    if (!res.ok) return;
+    const data = await res.json();
+
+    const pending = (data.tasks || []).filter(t => t.status === 'pending');
+    const active = (data.tasks || []).filter(t => t.status === 'in_progress');
+    const allActive = [...active, ...pending];
+    const done = (data.completed || []).slice(-20).reverse();
+    const errors = (data.completed || []).filter(t => t.status === 'error');
+
+    // Stats
+    document.getElementById('queueStats').innerHTML = `
+      <div class="card" style="padding:0.75rem 1rem;text-align:center"><div style="font-size:1.4rem;font-weight:800;color:var(--accent)">${pending.length}</div><div style="font-size:0.7rem;color:var(--text-dim)">ЧАКАЩИ</div></div>
+      <div class="card" style="padding:0.75rem 1rem;text-align:center"><div style="font-size:1.4rem;font-weight:800;color:var(--info)">${active.length}</div><div style="font-size:0.7rem;color:var(--text-dim)">АКТИВНИ</div></div>
+      <div class="card" style="padding:0.75rem 1rem;text-align:center"><div style="font-size:1.4rem;font-weight:800;color:var(--success)">${(data.completed||[]).filter(t=>t.status==='done').length}</div><div style="font-size:0.7rem;color:var(--text-dim)">ГОТОВИ</div></div>
+      <div class="card" style="padding:0.75rem 1rem;text-align:center"><div style="font-size:1.4rem;font-weight:800;color:var(--danger)">${errors.length}</div><div style="font-size:0.7rem;color:var(--text-dim)">ГРЕШКИ</div></div>
+    `;
+
+    document.getElementById('queueActive').innerHTML = allActive.length
+      ? allActive.map(renderQueueTask).join('')
+      : '<div style="text-align:center;padding:2rem;color:var(--text-dim)">✨ Няма чакащи задачи</div>';
+
+    document.getElementById('queueDone').innerHTML = done.length
+      ? done.map(renderQueueTask).join('')
+      : '<div style="text-align:center;padding:2rem;color:var(--text-dim)">📭 Няма завършени</div>';
+
+    // Update badge in header
+    const badge = document.getElementById('queueBadge');
+    const total = pending.length + active.length;
+    if (total > 0) { badge.textContent = total; badge.style.display = 'inline'; }
+    else { badge.style.display = 'none'; }
+
+  } catch (e) { console.log('Queue load error:', e); }
+}
+
+// Poll queue badge every 30s
+setInterval(loadQueueData, 30000);
+
 renderDashboard();
+loadQueueData(); // Load queue badge on start
 syncFromGH(); // Load latest from GitHub after initial render
 </script>
 </body>
