@@ -46,9 +46,16 @@ nav.scrolled{background:rgba(255,255,255,.97);box-shadow:0 2px 20px rgba(0,0,0,.
 .nav-links a{font-size:.85rem;font-weight:500;color:var(--dark);transition:color .3s}
 .nav-links a:hover{color:var(--teal)}
 .nav-cta-btn{background:linear-gradient(135deg,var(--teal),var(--coral));color:var(--white)!important;padding:.6rem 1.5rem;border-radius:50px;font-weight:600;-webkit-text-fill-color:var(--white)!important}
-.hamburger{display:none;cursor:pointer}
-.nav-close{display:none}
-.hamburger span{display:block;width:24px;height:2.5px;background:var(--dark);margin:5px 0;border-radius:2px}
+.hamburger{display:none;cursor:pointer;z-index:301;position:relative;width:30px;height:24px;flex-shrink:0}
+.hamburger span{display:block;width:24px;height:2.5px;background:var(--dark);border-radius:2px;position:absolute;left:3px;transition:all .3s ease}
+.hamburger span:nth-child(1){top:0}
+.hamburger span:nth-child(2){top:8px}
+.hamburger span:nth-child(3){top:16px}
+.hamburger.active span:nth-child(1){transform:rotate(45deg);top:8px}
+.hamburger.active span:nth-child(2){opacity:0}
+.hamburger.active span:nth-child(3){transform:rotate(-45deg);top:8px}
+.mobile-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:199;opacity:0;transition:opacity .3s}
+.mobile-overlay.show{display:block;opacity:1}
 .hero{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;background:var(--white)}
 .hero-left{display:flex;flex-direction:column;justify-content:center;padding:4rem 3rem 4rem 6vw}
 .hero-badge{display:inline-flex;align-items:center;gap:.5rem;background:rgba(0,180,216,.08);color:var(--teal);padding:.4rem 1rem;border-radius:50px;font-size:.75rem;font-weight:600;letter-spacing:.5px;text-transform:uppercase;margin-bottom:2rem;width:fit-content}
@@ -133,10 +140,13 @@ footer a{color:var(--teal)}
   .hero{grid-template-columns:1fr}
   .hero-right{height:300px}
   .hero-left{padding:6rem 1.5rem 3rem}
-  .nav-links{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(255,255,255,.98);flex-direction:column;justify-content:center;align-items:center;gap:2rem;z-index:200}
-  .nav-links.open{display:flex}
-  .nav-links.open .nav-close{display:block;position:absolute;top:1.5rem;right:1.5rem;font-size:2rem;cursor:pointer;color:var(--dark);background:none;border:none;font-family:inherit;z-index:201}
-  .hamburger{display:block;z-index:101}
+  .nav-links{position:fixed;top:0;right:0;width:280px;height:100vh;background:var(--white);flex-direction:column;justify-content:flex-start;align-items:stretch;gap:0;z-index:200;padding:5rem 0 2rem;box-shadow:-4px 0 30px rgba(0,0,0,.1);transform:translateX(100%);transition:transform .3s ease;display:flex!important}
+  .nav-links.open{transform:translateX(0)}
+  .nav-links li{border-bottom:1px solid var(--gray)}
+  .nav-links a{display:block;padding:1rem 2rem;font-size:1rem;font-weight:500;color:var(--dark);transition:background .2s,color .2s}
+  .nav-links a:hover,.nav-links a:active{background:var(--gray);color:var(--teal)}
+  .nav-links .nav-cta-btn{margin:1.5rem 2rem;text-align:center;border-radius:50px;padding:.8rem 1.5rem}
+  .hamburger{display:block}
   .bento-grid{grid-template-columns:1fr}
   .bento-item.large{grid-column:span 1}
   .bento-item.tall{grid-row:span 1}
@@ -273,16 +283,16 @@ footer a{color:var(--teal)}
 <nav id="nav">
   <a href="#" class="nav-logo"><img src="https://aktivibs.com/wp-content/uploads/2018/11/cropped-Aktivi_Konsult_PNG.png" alt="АКТИВИ КОНСУЛТ"></a>
   <ul class="nav-links" id="navLinks">
-    <button class="nav-close" onclick="document.getElementById('navLinks').classList.remove('open')">&times;</button>
-    <li><a href="#services" onclick="document.getElementById('navLinks').classList.remove('open')">Услуги</a></li>
-    <li><a href="#process" onclick="document.getElementById('navLinks').classList.remove('open')">Как работим</a></li>
-    <li><a href="#faq" onclick="document.getElementById('navLinks').classList.remove('open')">Въпроси</a></li>
-    <li><a href="#contact" class="nav-cta-btn" onclick="document.getElementById('navLinks').classList.remove('open')">Свържи се</a></li>
+    <li><a href="#services">Услуги</a></li>
+    <li><a href="#process">Как работим</a></li>
+    <li><a href="#faq">Въпроси</a></li>
+    <li><a href="#contact" class="nav-cta-btn">Свържи се</a></li>
   </ul>
-  <div class="hamburger" onclick="document.getElementById('navLinks').classList.toggle('open')">
+  <div class="hamburger" id="hamburger">
     <span></span><span></span><span></span>
   </div>
 </nav>
+<div class="mobile-overlay" id="mobileOverlay"></div>
 
 <section class="hero">
   <div class="hero-left">
@@ -478,6 +488,20 @@ footer a{color:var(--teal)}
 window.addEventListener('scroll',()=>{document.getElementById('nav').classList.toggle('scrolled',window.scrollY>50)});
 const obs=new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target)}})},{threshold:.12});
 document.querySelectorAll('.reveal,.reveal-left,.reveal-right').forEach(el=>obs.observe(el));
+
+// Mobile menu
+(function(){
+  const hamburger=document.getElementById('hamburger');
+  const navLinks=document.getElementById('navLinks');
+  const overlay=document.getElementById('mobileOverlay');
+  const links=navLinks.querySelectorAll('a');
+  function openMenu(){navLinks.classList.add('open');hamburger.classList.add('active');overlay.classList.add('show');document.body.style.overflow='hidden'}
+  function closeMenu(){navLinks.classList.remove('open');hamburger.classList.remove('active');overlay.classList.remove('show');document.body.style.overflow=''}
+  function toggleMenu(){navLinks.classList.contains('open')?closeMenu():openMenu()}
+  hamburger.addEventListener('click',toggleMenu);
+  overlay.addEventListener('click',closeMenu);
+  links.forEach(link=>link.addEventListener('click',closeMenu));
+})();
 </script>
 </body>
 </html>
