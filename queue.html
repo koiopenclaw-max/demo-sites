@@ -84,7 +84,7 @@ body{font-family:-apple-system,system-ui,sans-serif;background:var(--bg);color:v
 <button class="refresh" onclick="loadQueue()" title="Обнови">🔄</button>
 
 <script>
-const QUEUE_URL = 'https://raw.githubusercontent.com/koiopenclaw-max/demo-sites/main/scripts/demo-queue.json';
+const QUEUE_URL = 'https://raw.githubusercontent.com/koiopenclaw-max/demo-sites/main/scripts/demo-queue.json?t=' + Date.now();
 
 // Hmm, queue file is on the VPS, not in the repo. Use proxy or direct fetch.
 // Actually queue.json is at workspace/scripts/ — we need to serve it.
