@@ -31,9 +31,10 @@ a{text-decoration:none;color:inherit}
 .reveal-left.visible{opacity:1;transform:translateX(0)}
 .reveal-right{opacity:0;transform:translateX(40px);transition:opacity .6s ease,transform .6s ease}
 .reveal-right.visible{opacity:1;transform:translateX(0)}
-nav{position:fixed;top:0;width:100%;z-index:100;padding:1.2rem 2rem;display:flex;justify-content:space-between;align-items:center;transition:all .3s}
-nav.scrolled{background:rgba(255,255,255,.95);backdrop-filter:blur(10px);box-shadow:0 2px 20px rgba(0,0,0,.06)}
-.nav-logo{font-family:'Syne',sans-serif;font-size:1.4rem;font-weight:800;background:linear-gradient(135deg,var(--teal),var(--coral));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+nav{position:fixed;top:0;width:100%;z-index:100;padding:1.2rem 2rem;display:flex;justify-content:space-between;align-items:center;transition:all .3s;background:rgba(255,255,255,.92);backdrop-filter:blur(10px);box-shadow:0 2px 20px rgba(0,0,0,.04)}
+nav.scrolled{background:rgba(255,255,255,.97);box-shadow:0 2px 20px rgba(0,0,0,.08)}
+.nav-logo{display:flex;align-items:center}
+.nav-logo img{height:40px;width:auto}
 .nav-links{display:flex;gap:2rem;list-style:none;align-items:center}
 .nav-links a{font-size:.85rem;font-weight:500;color:var(--dark);transition:color .3s}
 .nav-links a:hover{color:var(--teal)}
@@ -183,7 +184,7 @@ footer a{color:var(--teal)}
 <body>
 
 <nav id="nav">
-  <a href="#" class="nav-logo">АКТИВИ КОНСУЛТ</a>
+  <a href="#" class="nav-logo"><img src="https://aktivibs.com/wp-content/uploads/2018/11/cropped-Aktivi_Konsult_PNG.png" alt="АКТИВИ КОНСУЛТ"></a>
   <ul class="nav-links" id="navLinks">
     <li><a href="#services">Услуги</a></li>
     <li><a href="#process">Как работим</a></li>
