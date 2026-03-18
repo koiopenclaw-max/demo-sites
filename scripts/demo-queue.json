@@ -1,18 +1,5 @@
 {
-  "tasks": [
-    {
-      "id": 1773819783140,
-      "slug": "одиторска-кантора-узунова",
-      "name": "Одиторска кантора Узунова",
-      "action": "deploying",
-      "status": "in_progress",
-      "createdAt": "2026-03-18T07:43:03.140Z",
-      "startedAt": "2026-03-18T07:43:22.323Z",
-      "completedAt": null,
-      "error": null,
-      "result": null
-    }
-  ],
+  "tasks": [],
   "completed": [
     {
       "id": 1773819482814,
@@ -25,6 +12,18 @@
       "completedAt": "2026-03-18T07:38:10.868Z",
       "error": null,
       "result": "Deployed to demo55.add.bg"
+    },
+    {
+      "id": 1773819783140,
+      "slug": "одиторска-кантора-узунова",
+      "name": "Одиторска кантора Узунова",
+      "action": "deploying",
+      "status": "error",
+      "createdAt": "2026-03-18T07:43:03.140Z",
+      "startedAt": "2026-03-18T07:43:22.323Z",
+      "completedAt": "2026-03-18T07:43:25.627Z",
+      "error": "Deploy failed: Command failed: cd \"/tmp/deploy-одиторска-кантора-узунова-1773819804936\" && git add -A && git commit -m \"Deploy Одиторска кантора Узунова to demo55.add.bg\" && git branch -M main && git push -u origin ",
+      "result": null
     }
   ],
   "version": 1
