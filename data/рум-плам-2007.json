@@ -54,7 +54,7 @@
   ],
   "demoUrl": "https://koiopenclaw-max.github.io/demo-sites/demos/%D1%80%D1%83%D0%BC-%D0%BF%D0%BB%D0%B0%D0%BC-2007/",
   "createdAt": "2026-03-17T19:05:23.342Z",
-  "updatedAt": "2026-03-18T08:13:21.641Z",
+  "updatedAt": "2026-03-18T08:13:26.424Z",
   "revisionHistory": [
     {
       "issues": "Долу трябва да пише не 2025 а 2026. Сайта трябва да има изображение при споделяне на линк, сега е без. Нека всички сео настройки са включени",
@@ -74,5 +74,37 @@
     }
   ],
   "currentRevision": null,
-  "deployDomain": "demo54.add.bg"
+  "deployDomain": "demo54.add.bg",
+  "dnsRecords": [
+    {
+      "type": "CNAME",
+      "name": "demo54.add.bg",
+      "value": "koiopenclaw-max.github.io",
+      "note": "Насочва към GitHub Pages"
+    },
+    {
+      "type": "A",
+      "name": "demo54.add.bg",
+      "value": "185.199.108.153",
+      "note": "GitHub Pages IP"
+    },
+    {
+      "type": "A",
+      "name": "demo54.add.bg",
+      "value": "185.199.109.153",
+      "note": "GitHub Pages IP (резервен)"
+    },
+    {
+      "type": "A",
+      "name": "demo54.add.bg",
+      "value": "185.199.110.153",
+      "note": "GitHub Pages IP (резервен)"
+    },
+    {
+      "type": "A",
+      "name": "demo54.add.bg",
+      "value": "185.199.111.153",
+      "note": "GitHub Pages IP (резервен)"
+    }
+  ]
 }
