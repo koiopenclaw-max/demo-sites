@@ -1,18 +1,18 @@
 {
-  "tasks": [],
-  "completed": [
+  "tasks": [
     {
-      "id": 1773819124010,
+      "id": 1773819482814,
       "slug": "одиторска-кантора-узунова",
       "name": "Одиторска кантора Узунова",
-      "action": "dns_setup",
-      "status": "done",
-      "createdAt": "2026-03-18T07:32:04.010Z",
-      "startedAt": "2026-03-18T07:32:32.781Z",
-      "completedAt": "2026-03-18T07:32:34.835Z",
+      "action": "deploying",
+      "status": "pending",
+      "createdAt": "2026-03-18T07:38:02.814Z",
+      "startedAt": null,
+      "completedAt": null,
       "error": null,
-      "result": "DNS records generated for demo55.add.bg"
+      "result": null
     }
   ],
+  "completed": [],
   "version": 1
 }
