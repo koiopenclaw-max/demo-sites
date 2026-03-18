@@ -1,18 +1,5 @@
 {
-  "tasks": [
-    {
-      "id": 1773843603518,
-      "slug": "активи-консулт-бургас",
-      "name": "АКТИВИ КОНСУЛТ - Бургас",
-      "action": "deploying",
-      "status": "in_progress",
-      "createdAt": "2026-03-18T14:20:03.518Z",
-      "startedAt": "2026-03-18T14:20:08.366Z",
-      "completedAt": null,
-      "error": null,
-      "result": null
-    }
-  ],
+  "tasks": [],
   "completed": [
     {
       "id": 1773819482814,
@@ -229,6 +216,18 @@
       "completedAt": "2026-03-18T13:40:25.659Z",
       "error": null,
       "result": "Delegated to Koi for manual revision"
+    },
+    {
+      "id": 1773843603518,
+      "slug": "активи-консулт-бургас",
+      "name": "АКТИВИ КОНСУЛТ - Бургас",
+      "action": "deploying",
+      "status": "error",
+      "createdAt": "2026-03-18T14:20:03.518Z",
+      "startedAt": "2026-03-18T14:20:08.366Z",
+      "completedAt": "2026-03-18T14:20:11.354Z",
+      "error": "Deploy failed: Command failed: cd \"/tmp/deploy-активи-консулт-бургас-1773843610535\" && git add -A && git commit -m \"Deploy АКТИВИ КОНСУЛТ - Бургас to demo56.add.bg\" && git branch -M main && git push -u origin main -",
+      "result": null
     }
   ],
   "version": 1
