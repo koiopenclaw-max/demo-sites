@@ -5,49 +5,49 @@
   "websiteUrl": "https://aktivibs.com/",
   "facebookUrl": "",
   "notes": "Клиента иска модерен сайт с топ оптимизация за услугите им в Бургас, който да се ползва лесно чрез мобилни устройства",
-  "status": "brief_ready",
+  "status": "qa_submitted",
   "brief": "# Задание: АКТИВИ КОНСУЛТ - Бургас — Редизайн\n\n## За клиента\n**АКТИВИ КОНСУЛТ - Бургас** — друго\nКлиента иска модерен сайт с топ оптимизация за услугите им в Бургас, който да се ползва лесно чрез мобилни устройства\n\n## Текущо съдържание\nНе е намерено съдържание на текущия сайт.\n\n## Препоръки\n- Модерен, mobile-first дизайн\n- SEO оптимизация (Schema.org, meta tags)\n- Бързо зареждане (оптимизирани изображения)\n- Ясен CTA (Call to Action)\n- Контактна информация на видно място",
   "qa": [
     {
       "question": "Кой темплейт да използваме за сайта?",
-      "answer": "",
+      "answer": "a-modern-edge",
       "type": "template_select",
       "niche": "счетоводство",
       "status": "pending"
     },
     {
       "question": "Има ли бизнесът лого (SVG/PNG с прозрачен фон)?",
-      "answer": "",
+      "answer": "ДА има лого, изтегли го от стария сайт",
       "type": "text"
     },
     {
       "question": "Има ли предпочитана цветова гама?",
-      "answer": "",
+      "answer": "Цветовете на темплейта който избрах",
       "type": "text"
     },
     {
       "question": "Има ли снимки на офиса/екипа за използване?",
-      "answer": "",
+      "answer": "Използвай снимките от сайта, вземи снимката от хиро секцията на стария сайт и я сложи на хиро секцията в демото",
       "type": "text"
     },
     {
       "question": "Има ли Google Business Profile?",
-      "answer": "",
+      "answer": "https://share.google/uFNSTlJ7EV8woEzuz",
       "type": "text"
     },
     {
       "question": "Какво е работното време?",
-      "answer": "",
+      "answer": "Hours: \nWednesday\t9 AM–5:30 PM\nThursday\t9 AM–5:30 PM\nFriday\t9 AM–5:30 PM\nSaturday\tClosed\nSunday\tClosed\nMonday\t9 AM–5:30 PM\nTuesday\t9 AM–5:30 PM",
       "type": "text"
     },
     {
       "question": "Има ли допълнителни услуги/акценти извън текущия сайт?",
-      "answer": "",
+      "answer": "само това което е в сайта",
       "type": "text"
     }
   ],
   "demoUrl": null,
   "createdAt": "2026-03-18T08:15:58.415Z",
-  "updatedAt": "2026-03-18T08:34:00Z",
+  "updatedAt": "2026-03-18T08:43:34.011Z",
   "niche": "друго"
 }
