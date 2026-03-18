@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Demo Sites — Task Queue</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#0d0d1a;--card:#16213e;--border:#2a2a4a;--accent:#F0A500;--text:#e8e8f0;--dim:#8888a0;--success:#2ecc71;--danger:#e74c3c;--info:#3498db;--purple:#9b59b6;--warning:#f39c12}
+body{font-family:-apple-system,system-ui,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;padding:1.5rem}
+.header{text-align:center;margin-bottom:2rem}
+.header h1{font-size:1.8rem;font-weight:800;margin-bottom:0.5rem}
+.header h1 span{color:var(--accent)}
+.header .stats{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
+.stat{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:0.75rem 1.25rem;text-align:center}
+.stat-value{font-size:1.5rem;font-weight:800}
+.stat-label{font-size:0.75rem;color:var(--dim);text-transform:uppercase;letter-spacing:0.05em}
+.stat-pending .stat-value{color:var(--warning)}
+.stat-progress .stat-value{color:var(--info)}
+.stat-done .stat-value{color:var(--success)}
+.stat-error .stat-value{color:var(--danger)}
+
+.section{margin-bottom:2rem}
+.section h2{font-size:1.1rem;color:var(--dim);margin-bottom:1rem;display:flex;align-items:center;gap:0.5rem}
+.section h2 .count{background:var(--accent);color:var(--bg);font-size:0.75rem;padding:0.15rem 0.5rem;border-radius:10px;font-weight:700}
+
+.task{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1rem 1.25rem;margin-bottom:0.75rem;display:flex;align-items:center;gap:1rem;transition:all 0.3s}
+.task:hover{border-color:rgba(240,165,0,0.3)}
+.task-icon{font-size:1.5rem;width:40px;text-align:center;flex-shrink:0}
+.task-info{flex:1;min-width:0}
+.task-name{font-weight:700;font-size:1rem;margin-bottom:0.2rem}
+.task-meta{font-size:0.8rem;color:var(--dim);display:flex;gap:0.75rem;flex-wrap:wrap}
+.task-status{padding:0.25rem 0.65rem;border-radius:20px;font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:0.03em;flex-shrink:0}
+.status-pending{background:rgba(243,156,18,0.15);color:var(--warning)}
+.status-in_progress{background:rgba(52,152,219,0.15);color:var(--info);animation:pulse 2s infinite}
+.status-done{background:rgba(46,204,113,0.15);color:var(--success)}
+.status-error{background:rgba(231,76,60,0.15);color:var(--danger)}
+
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.5}}
+
+.task-error{font-size:0.8rem;color:var(--danger);margin-top:0.5rem;padding:0.5rem;background:rgba(231,76,60,0.1);border-radius:6px}
+.task-result{font-size:0.8rem;color:var(--success);margin-top:0.5rem}
+
+.empty{text-align:center;padding:3rem;color:var(--dim)}
+.empty-icon{font-size:2.5rem;margin-bottom:0.75rem;opacity:0.4}
+
+.refresh{position:fixed;bottom:1.5rem;right:1.5rem;background:var(--accent);color:var(--bg);border:none;width:50px;height:50px;border-radius:50%;font-size:1.2rem;cursor:pointer;box-shadow:0 4px 20px rgba(240,165,0,0.3);transition:all 0.3s}
+.refresh:hover{transform:scale(1.1);box-shadow:0 6px 30px rgba(240,165,0,0.5)}
+
+.poll-bar{position:fixed;top:0;left:0;right:0;height:3px;background:var(--border);z-index:100}
+.poll-bar-fill{height:100%;background:var(--accent);transition:width 1s linear;width:0%}
+
+.updated{font-size:0.75rem;color:var(--dim);text-align:center;margin-top:1rem}
+
+@media(max-width:640px){body{padding:1rem}.task{flex-direction:column;align-items:flex-start;gap:0.5rem}}
+</style>
+</head>
+<body>
+
+<div class="poll-bar"><div class="poll-bar-fill" id="pollBar"></div></div>
+
+<div class="header">
+  <h1>⚡ Task <span>Queue</span></h1>
+  <div class="stats" id="stats"></div>
+</div>
+
+<div class="section" id="activeSection">
+  <h2>🔄 Активни задачи <span class="count" id="activeCount">0</span></h2>
+  <div id="activeList"></div>
+</div>
+
+<div class="section" id="pendingSection">
+  <h2>⏳ Чакащи <span class="count" id="pendingCount">0</span></h2>
+  <div id="pendingList"></div>
+</div>
+
+<div class="section">
+  <h2>✅ Завършени (последни 20) <span class="count" id="doneCount">0</span></h2>
+  <div id="doneList"></div>
+</div>
+
+<div class="updated" id="updated"></div>
+
+<button class="refresh" onclick="loadQueue()" title="Обнови">🔄</button>
+
+<script>
+const QUEUE_URL = 'https://raw.githubusercontent.com/koiopenclaw-max/demo-sites/main/scripts/demo-queue.json';
+
+// Hmm, queue file is on the VPS, not in the repo. Use proxy or direct fetch.
+// Actually queue.json is at workspace/scripts/ — we need to serve it.
+// For now, we'll read from a synced copy in the repo, or use the VPS proxy.
+
+const ACTION_ICONS = {
+  briefing: '📋', qa_submitted: '💬', building: '🔨',
+  revisions: '🔧', dns_setup: '🌐', deploying: '🚀'
+};
+const ACTION_LABELS = {
+  briefing: 'Briefing', qa_submitted: 'QA обработка', building: 'Билд',
+  revisions: 'Корекции', dns_setup: 'DNS', deploying: 'Деплой'
+};
+
+let pollTimer = null;
+let pollProgress = 0;
+
+function timeAgo(ds) {
+  if (!ds) return '—';
+  const d = Date.now() - new Date(ds).getTime(), m = Math.floor(d / 60000);
+  if (m < 1) return 'сега';
+  if (m < 60) return `${m} мин`;
+  const h = Math.floor(m / 60);
+  if (h < 24) return `${h} ч`;
+  return `${Math.floor(h/24)} дни`;
+}
+
+function duration(start, end) {
+  if (!start || !end) return '—';
+  const ms = new Date(end) - new Date(start);
+  const s = Math.floor(ms / 1000);
+  if (s < 60) return `${s}s`;
+  return `${Math.floor(s/60)}m ${s%60}s`;
+}
+
+function renderTask(t) {
+  const icon = ACTION_ICONS[t.action] || '📝';
+  const label = ACTION_LABELS[t.action] || t.action;
+  return `<div class="task">
+    <div class="task-icon">${icon}</div>
+    <div class="task-info">
+      <div class="task-name">${t.name}</div>
+      <div class="task-meta">
+        <span>${label}</span>
+        <span>⏱ ${t.status === 'in_progress' ? 'Работи от ' + timeAgo(t.startedAt) : t.status === 'done' ? duration(t.startedAt, t.completedAt) : 'Чака ' + timeAgo(t.createdAt)}</span>
+      </div>
+      ${t.error ? `<div class="task-error">❌ ${t.error}</div>` : ''}
+      ${t.result ? `<div class="task-result">✅ ${t.result}</div>` : ''}
+    </div>
+    <span class="task-status status-${t.status}">${t.status === 'in_progress' ? '⚙️ работи' : t.status}</span>
+  </div>`;
+}
+
+async function loadQueue() {
+  try {
+    // Try VPS proxy first (has latest data)
+    const proxyUrl = document.querySelector('meta[name="proxy-url"]')?.content;
+    let data;
+    
+    // Read from GitHub (queue.json synced to repo)
+    const res = await fetch(QUEUE_URL + '?t=' + Date.now(), { cache: 'no-store' });
+    if (res.ok) {
+      data = await res.json();
+    } else {
+      document.getElementById('activeList').innerHTML = '<div class="empty"><div class="empty-icon">📡</div>Не мога да заредя queue</div>';
+      return;
+    }
+    
+    const pending = (data.tasks || []).filter(t => t.status === 'pending');
+    const active = (data.tasks || []).filter(t => t.status === 'in_progress');
+    const done = (data.completed || []).slice(-20).reverse();
+    const errors = (data.completed || []).filter(t => t.status === 'error');
+    
+    // Stats
+    document.getElementById('stats').innerHTML = `
+      <div class="stat stat-pending"><div class="stat-value">${pending.length}</div><div class="stat-label">Чакащи</div></div>
+      <div class="stat stat-progress"><div class="stat-value">${active.length}</div><div class="stat-label">Активни</div></div>
+      <div class="stat stat-done"><div class="stat-value">${(data.completed||[]).filter(t=>t.status==='done').length}</div><div class="stat-label">Завършени</div></div>
+      <div class="stat stat-error"><div class="stat-value">${errors.length}</div><div class="stat-label">Грешки</div></div>
+    `;
+    
+    document.getElementById('activeCount').textContent = active.length;
+    document.getElementById('pendingCount').textContent = pending.length;
+    document.getElementById('doneCount').textContent = done.length;
+    
+    document.getElementById('activeList').innerHTML = active.length 
+      ? active.map(renderTask).join('')
+      : '<div class="empty"><div class="empty-icon">😴</div>Няма активни задачи</div>';
+    
+    document.getElementById('pendingList').innerHTML = pending.length
+      ? pending.map(renderTask).join('')
+      : '<div class="empty"><div class="empty-icon">✨</div>Всичко е обработено</div>';
+    
+    document.getElementById('doneList').innerHTML = done.length
+      ? done.map(renderTask).join('')
+      : '<div class="empty"><div class="empty-icon">📭</div>Няма завършени задачи</div>';
+    
+    document.getElementById('updated').textContent = `Обновено: ${new Date().toLocaleTimeString('bg-BG')}`;
+    
+  } catch (e) {
+    console.error('Load error:', e);
+  }
+}
+
+// Auto-poll every 15s
+function startPoll() {
+  loadQueue();
+  setInterval(() => {
+    loadQueue();
+    pollProgress = 0;
+  }, 15000);
+  
+  // Progress bar
+  setInterval(() => {
+    pollProgress = Math.min(pollProgress + (100/15), 100);
+    document.getElementById('pollBar').style.width = pollProgress + '%';
+  }, 1000);
+}
+
+startPoll();
+</script>
+</body>
+</html>
