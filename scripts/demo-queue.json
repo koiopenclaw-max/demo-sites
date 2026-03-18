@@ -1,5 +1,18 @@
 {
-  "tasks": [],
+  "tasks": [
+    {
+      "id": 1773821823555,
+      "slug": "рум-плам-2007",
+      "name": "РУМ - ПЛАМ 2007",
+      "action": "deploying",
+      "status": "pending",
+      "createdAt": "2026-03-18T08:17:03.555Z",
+      "startedAt": null,
+      "completedAt": null,
+      "error": null,
+      "result": null
+    }
+  ],
   "completed": [
     {
       "id": 1773819482814,
@@ -48,6 +61,30 @@
       "completedAt": "2026-03-18T07:54:29.019Z",
       "error": null,
       "result": "Revisions applied → review"
+    },
+    {
+      "id": 1773820682829,
+      "slug": "рум-плам-2007",
+      "name": "РУМ - ПЛАМ 2007",
+      "action": "revisions",
+      "status": "done",
+      "createdAt": "2026-03-18T07:58:02.829Z",
+      "startedAt": "2026-03-18T07:58:03.616Z",
+      "completedAt": "2026-03-18T07:58:10.221Z",
+      "error": null,
+      "result": "Revisions applied → review"
+    },
+    {
+      "id": 1773821342979,
+      "slug": "рум-плам-2007",
+      "name": "РУМ - ПЛАМ 2007",
+      "action": "revisions",
+      "status": "done",
+      "createdAt": "2026-03-18T08:09:02.979Z",
+      "startedAt": "2026-03-18T08:09:06.022Z",
+      "completedAt": "2026-03-18T08:09:21.547Z",
+      "error": null,
+      "result": "Delegated to Koi for manual revision"
     }
   ],
   "version": 1
