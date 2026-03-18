@@ -1,102 +1,18 @@
 {
-  "tasks": [],
-  "completed": [
+  "tasks": [
     {
-      "id": 1773817914497,
-      "slug": "рум-плам-2007",
-      "name": "РУМ - ПЛАМ 2007",
-      "action": "building",
-      "status": "error",
-      "createdAt": "2026-03-18T07:11:54.497Z",
-      "startedAt": "2026-03-18T07:12:12.859Z",
-      "completedAt": "2026-03-18T07:12:40.240Z",
-      "error": "Codex did not produce index.html",
+      "id": 1773819124010,
+      "slug": "одиторска-кантора-узунова",
+      "name": "Одиторска кантора Узунова",
+      "action": "dns_setup",
+      "status": "pending",
+      "createdAt": "2026-03-18T07:32:04.010Z",
+      "startedAt": null,
+      "completedAt": null,
+      "error": null,
       "result": null
-    },
-    {
-      "id": 1773818523150,
-      "slug": "одиторска-кантора-узунова",
-      "name": "Одиторска кантора Узунова",
-      "action": "dns_setup",
-      "status": "error",
-      "createdAt": "2026-03-18T07:22:03.150Z",
-      "startedAt": "2026-03-18T07:22:10.604Z",
-      "completedAt": "2026-03-18T07:22:11.215Z",
-      "error": "Unknown action: dns_setup",
-      "result": null
-    },
-    {
-      "id": 1773818651993,
-      "slug": "одиторска-кантора-узунова",
-      "name": "Одиторска кантора Узунова",
-      "action": "dns_setup",
-      "status": "done",
-      "createdAt": "2026-03-18T07:24:11.993Z",
-      "startedAt": "2026-03-18T07:24:35.848Z",
-      "completedAt": "2026-03-18T07:24:37.430Z",
-      "error": null,
-      "result": "DNS records generated for demo55.add.bg"
-    },
-    {
-      "id": 1773818703242,
-      "slug": "одиторска-кантора-узунова",
-      "name": "Одиторска кантора Узунова",
-      "action": "dns_setup",
-      "status": "done",
-      "createdAt": "2026-03-18T07:25:03.242Z",
-      "startedAt": "2026-03-18T07:25:07.432Z",
-      "completedAt": "2026-03-18T07:25:08.739Z",
-      "error": null,
-      "result": "DNS records generated for demo55.add.bg"
-    },
-    {
-      "id": 1773818762609,
-      "slug": "одиторска-кантора-узунова",
-      "name": "Одиторска кантора Узунова",
-      "action": "dns_setup",
-      "status": "done",
-      "createdAt": "2026-03-18T07:26:02.609Z",
-      "startedAt": "2026-03-18T07:26:09.382Z",
-      "completedAt": "2026-03-18T07:26:11.481Z",
-      "error": null,
-      "result": "DNS records generated for demo55.add.bg"
-    },
-    {
-      "id": 1773818822763,
-      "slug": "одиторска-кантора-узунова",
-      "name": "Одиторска кантора Узунова",
-      "action": "dns_setup",
-      "status": "done",
-      "createdAt": "2026-03-18T07:27:02.763Z",
-      "startedAt": "2026-03-18T07:27:12.252Z",
-      "completedAt": "2026-03-18T07:27:14.270Z",
-      "error": null,
-      "result": "DNS records generated for demo55.add.bg"
-    },
-    {
-      "id": 1773818943242,
-      "slug": "одиторска-кантора-узунова",
-      "name": "Одиторска кантора Узунова",
-      "action": "dns_setup",
-      "status": "done",
-      "createdAt": "2026-03-18T07:29:03.242Z",
-      "startedAt": "2026-03-18T07:29:03.513Z",
-      "completedAt": "2026-03-18T07:29:05.562Z",
-      "error": null,
-      "result": "DNS records generated for demo55.add.bg"
-    },
-    {
-      "id": 1773819003137,
-      "slug": "одиторска-кантора-узунова",
-      "name": "Одиторска кантора Узунова",
-      "action": "dns_setup",
-      "status": "done",
-      "createdAt": "2026-03-18T07:30:03.137Z",
-      "startedAt": "2026-03-18T07:30:06.366Z",
-      "completedAt": "2026-03-18T07:30:08.820Z",
-      "error": null,
-      "result": "DNS records generated for demo55.add.bg"
     }
   ],
+  "completed": [],
   "version": 1
 }
