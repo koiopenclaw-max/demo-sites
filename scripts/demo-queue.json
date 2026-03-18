@@ -5,9 +5,9 @@
       "slug": "рум-плам-2007",
       "name": "РУМ - ПЛАМ 2007",
       "action": "deploying",
-      "status": "pending",
+      "status": "in_progress",
       "createdAt": "2026-03-18T08:17:03.555Z",
-      "startedAt": null,
+      "startedAt": "2026-03-18T08:17:31.006Z",
       "completedAt": null,
       "error": null,
       "result": null
