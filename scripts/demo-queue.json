@@ -5,9 +5,9 @@
       "slug": "активи-консулт-бургас",
       "name": "АКТИВИ КОНСУЛТ - Бургас",
       "action": "deploying",
-      "status": "pending",
+      "status": "in_progress",
       "createdAt": "2026-03-18T14:20:03.518Z",
-      "startedAt": null,
+      "startedAt": "2026-03-18T14:20:08.366Z",
       "completedAt": null,
       "error": null,
       "result": null
