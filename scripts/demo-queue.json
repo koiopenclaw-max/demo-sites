@@ -1,18 +1,18 @@
 {
-  "tasks": [
+  "tasks": [],
+  "completed": [
     {
       "id": 1773819482814,
       "slug": "одиторска-кантора-узунова",
       "name": "Одиторска кантора Узунова",
       "action": "deploying",
-      "status": "in_progress",
+      "status": "done",
       "createdAt": "2026-03-18T07:38:02.814Z",
       "startedAt": "2026-03-18T07:38:08.708Z",
-      "completedAt": null,
+      "completedAt": "2026-03-18T07:38:10.868Z",
       "error": null,
-      "result": null
+      "result": "Deployed to demo55.add.bg"
     }
   ],
-  "completed": [],
   "version": 1
 }
