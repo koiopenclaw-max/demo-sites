@@ -1,5 +1,18 @@
 {
-  "tasks": [],
+  "tasks": [
+    {
+      "id": 1773823442165,
+      "slug": "активи-консулт-бургас",
+      "name": "АКТИВИ КОНСУЛТ - Бургас",
+      "action": "qa_submitted",
+      "status": "pending",
+      "createdAt": "2026-03-18T08:44:02.165Z",
+      "startedAt": null,
+      "completedAt": null,
+      "error": null,
+      "result": null
+    }
+  ],
   "completed": [
     {
       "id": 1773819482814,
