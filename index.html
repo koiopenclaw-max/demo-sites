@@ -197,6 +197,8 @@ textarea { resize: vertical; min-height: 100px; }
 .spinner { display: inline-block; width: 24px; height: 24px; border: 3px solid var(--border); border-top-color: var(--accent); border-radius: 50%; animation: spin 0.8s linear infinite; }
 @keyframes spin { to { transform: rotate(360deg); } }
 
+.template-card:hover { transform: translateY(-4px); box-shadow: 0 8px 30px rgba(0,0,0,0.4); }
+
 @media (max-width: 640px) {
   .container { padding: 1rem; }
   .header { padding: 0.75rem 1rem; }
@@ -551,6 +553,37 @@ function renderBrief(p) {
     <div class="brief-content">${renderMd(p.brief)}</div></div>`;
 }
 
+// ===== TEMPLATE CATALOG =====
+const TEMPLATE_CATALOG = {
+  'счетоводство': {
+    label: 'Счетоводство',
+    sets: [
+      {
+        id: 'A', name: 'Set A — Класически',
+        baseUrl: 'https://koiopenclaw-max.github.io/accounting-templates-claude/',
+        templates: [
+          { id: 'a-precision', name: 'Precision', file: 'template-1-precision.html', desc: 'Швейцарски минимализъм. Черно-бяла палитра с електрическо синьо.', colors: ['#0a0a0a','#ffffff','#2563eb'] },
+          { id: 'a-trust', name: 'Trust', file: 'template-2-trust.html', desc: 'Тъмносиньо с бордо акценти. Класически корпоративен стил.', colors: ['#1a1a2e','#c0392b','#f5f5dc'] },
+          { id: 'a-modern-edge', name: 'Modern Edge', file: 'template-3-modern-edge.html', desc: 'Граfit фон, неон зелено. Модерен и технологичен.', colors: ['#1e1e2e','#00e676','#ffffff'] },
+          { id: 'a-warmth', name: 'Warmth', file: 'template-4-warmth.html', desc: 'Топло кремаво, земни тонове. Уютен и достъпен.', colors: ['#faf6f0','#8b6914','#2c1810'] },
+          { id: 'a-corporate', name: 'Corporate', file: 'template-5-corporate.html', desc: 'Сиво-стоманен, консервативен. Сериозен бизнес стил.', colors: ['#f0f2f5','#1a365d','#c9a227'] },
+        ]
+      },
+      {
+        id: 'B', name: 'Set B — Смели',
+        baseUrl: 'https://koiopenclaw-max.github.io/accounting-templates-alt/',
+        templates: [
+          { id: 'b-precision', name: 'Precision', file: 'template-1-precision.html', desc: 'Алтернативна визия — по-смел Precision вариант.', colors: ['#0d1117','#58a6ff','#f0f6fc'] },
+          { id: 'b-trust', name: 'Trust', file: 'template-2-trust.html', desc: 'Алтернативен Trust — червено и златно, Art Deco.', colors: ['#1a0a0a','#c0392b','#d4af37'] },
+          { id: 'b-modern-edge', name: 'Modern Edge', file: 'template-3-modern-edge.html', desc: 'Алтернативен Modern Edge — по-дръзък и ярък.', colors: ['#0d0d0d','#39ff14','#ffffff'] },
+          { id: 'b-warmth', name: 'Warmth', file: 'template-4-warmth.html', desc: 'Алтернативен Warmth — по-топли, по-наситени тонове.', colors: ['#fff8e7','#a0522d','#2f1b14'] },
+          { id: 'b-corporate', name: 'Corporate', file: 'template-5-corporate.html', desc: 'Алтернативен Corporate — модерен корпоративен.', colors: ['#e8edf2','#0f2b46','#b8860b'] },
+        ]
+      }
+    ]
+  }
+};
+
 function renderQa(p) {
   const a = document.getElementById('qaArea');
   if (!p.qa?.length) { a.innerHTML = ''; return; }
@@ -558,7 +591,11 @@ function renderQa(p) {
   // Normalize: support both string[] and {question,answer}[] formats
   const items = p.qa.map(q => typeof q === 'string' ? { question: q, answer: '' } : q);
   a.innerHTML = `<div class="qa-section"><h3>❓ Въпроси</h3>
-    ${items.map((q,i) => `<div class="qa-item">
+    ${items.map((q,i) => {
+      if (q.type === 'template_select') {
+        return renderTemplateSelect(q, i, canEdit);
+      }
+      return `<div class="qa-item">
       <div class="qa-question">${i+1}. ${esc(q.question||'')}</div>
       ${canEdit
         ? `<div class="qa-answer"><textarea id="qa_${i}" placeholder="Отговор...">${esc(q.answer||'')}</textarea></div>`
@@ -566,8 +603,91 @@ function renderQa(p) {
           ? `<div style="color:var(--text);padding:0.5rem 0">${esc(q.answer)}</div>`
           : `<div style="color:var(--text-muted);font-style:italic;padding:0.5rem 0">—</div>`
       }
-    </div>`).join('')}
+    </div>`;
+    }).join('')}
   </div>`;
+}
+
+function renderTemplateSelect(q, idx, canEdit) {
+  const niche = q.niche || 'счетоводство';
+  const catalog = TEMPLATE_CATALOG[niche];
+  if (!catalog) {
+    return `<div class="qa-item"><div class="qa-question">${idx+1}. ${esc(q.question||'')}</div>
+      <div style="color:var(--danger);padding:0.5rem 0">⚠️ Няма каталог за ниша "${esc(niche)}"</div></div>`;
+  }
+
+  const selectedId = q.answer || '';
+
+  return `<div class="qa-item" style="background:transparent;border:none;padding:0">
+    <div class="qa-question" style="font-size:1.1rem;margin-bottom:1rem">${idx+1}. ${esc(q.question||'Кой темплейт да използваме?')}</div>
+    <input type="hidden" id="qa_${idx}" value="${esc(selectedId)}">
+    ${catalog.sets.map(set => `
+      <div style="margin-bottom:2rem">
+        <h4 style="font-size:0.95rem;color:var(--accent);margin-bottom:1rem;display:flex;align-items:center;gap:0.5rem">
+          🎨 ${esc(set.name)}
+          <a href="${esc(set.baseUrl)}" target="_blank" style="font-size:0.75rem;color:var(--text-dim);font-weight:400">(виж всички →)</a>
+        </h4>
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1rem">
+          ${set.templates.map(t => {
+            const fullUrl = set.baseUrl + t.file;
+            const isSelected = selectedId === t.id;
+            const borderColor = isSelected ? 'var(--accent)' : 'var(--border)';
+            const bgColor = isSelected ? 'var(--accent-glow)' : 'var(--bg-card)';
+            const clickAction = canEdit ? `selectTemplate(${idx},'${t.id}')` : '';
+            const cursorStyle = canEdit ? 'cursor:pointer' : '';
+            return `<div class="template-card" onclick="${clickAction}" 
+              style="background:${bgColor};border:2px solid ${borderColor};border-radius:var(--radius);overflow:hidden;transition:all var(--transition);${cursorStyle};position:relative"
+              id="tpl_${t.id}" data-qa-idx="${idx}">
+              ${isSelected ? '<div style="position:absolute;top:8px;right:8px;background:var(--accent);color:var(--bg-deep);width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:1rem;z-index:2">✓</div>' : ''}
+              <div style="position:relative;height:180px;overflow:hidden;background:#1a1a2e">
+                <iframe src="${esc(fullUrl)}" loading="lazy" style="width:200%;height:200%;transform:scale(0.5);transform-origin:top left;border:none;pointer-events:none" title="${esc(t.name)}"></iframe>
+                <div style="position:absolute;inset:0;background:linear-gradient(180deg,transparent 50%,rgba(18,18,26,0.9))"></div>
+              </div>
+              <div style="padding:1rem">
+                <div style="display:flex;gap:0.35rem;margin-bottom:0.5rem">
+                  ${t.colors.map(c => `<div style="width:14px;height:14px;border-radius:50%;background:${c};border:1px solid rgba(255,255,255,0.15)"></div>`).join('')}
+                </div>
+                <div style="font-weight:700;font-size:0.95rem;margin-bottom:0.3rem">${esc(t.name)}</div>
+                <div style="font-size:0.8rem;color:var(--text-dim);line-height:1.4;margin-bottom:0.75rem">${esc(t.desc)}</div>
+                <a href="${esc(fullUrl)}" target="_blank" onclick="event.stopPropagation()" 
+                  style="font-size:0.8rem;color:var(--info);font-weight:600;display:inline-flex;align-items:center;gap:0.3rem">
+                  🔗 Разгледай на цял екран →
+                </a>
+              </div>
+            </div>`;
+          }).join('')}
+        </div>
+      </div>
+    `).join('')}
+  </div>`;
+}
+
+function selectTemplate(qaIdx, templateId) {
+  const input = document.getElementById(`qa_${qaIdx}`);
+  if (!input) return;
+  
+  // Toggle: if clicking already selected, deselect
+  const newValue = input.value === templateId ? '' : templateId;
+  input.value = newValue;
+  
+  // Update visual state for all cards belonging to this qa index
+  document.querySelectorAll(`[data-qa-idx="${qaIdx}"]`).forEach(card => {
+    const isThis = card.id === `tpl_${templateId}` && newValue === templateId;
+    card.style.borderColor = isThis ? 'var(--accent)' : 'var(--border)';
+    card.style.background = isThis ? 'var(--accent-glow)' : 'var(--bg-card)';
+    // Update checkmark
+    const existingCheck = card.querySelector('[data-check]');
+    if (existingCheck) existingCheck.remove();
+    if (isThis) {
+      const check = document.createElement('div');
+      check.setAttribute('data-check', '1');
+      check.style.cssText = 'position:absolute;top:8px;right:8px;background:var(--accent);color:var(--bg-deep);width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:1rem;z-index:2';
+      check.textContent = '✓';
+      card.appendChild(check);
+    }
+  });
+  
+  toast(newValue ? `Избран: ${templateId}` : 'Отменен избор', 'info');
 }
 
 function renderBottomActions(p) {
@@ -667,6 +787,7 @@ function doAction(newStatus) {
       const item = typeof q === 'string' ? { question: q, answer: '' } : q;
       const el = document.getElementById(`qa_${i}`);
       if (el) item.answer = el.value.trim();
+      // Keep type field for template_select items
       return item;
     });
   }
