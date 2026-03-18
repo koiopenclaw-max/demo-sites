@@ -54,8 +54,8 @@ nav.scrolled{background:rgba(255,255,255,.97);box-shadow:0 2px 20px rgba(0,0,0,.
 .hamburger.active span:nth-child(1){transform:rotate(45deg);top:8px}
 .hamburger.active span:nth-child(2){opacity:0}
 .hamburger.active span:nth-child(3){transform:rotate(-45deg);top:8px}
-.mobile-overlay{display:none;position:fixed;top:0;left:0;width:calc(100% - 280px);height:100vh;background:rgba(0,0,0,.5);z-index:200;opacity:0;transition:opacity .3s;-webkit-tap-highlight-color:transparent}
-.mobile-overlay.show{display:block;opacity:1}
+.mobile-overlay{display:none;position:fixed;top:0;left:0;width:100%;height:100vh;background:rgba(0,0,0,.5);z-index:200;opacity:0;transition:opacity .3s;-webkit-tap-highlight-color:transparent;pointer-events:none}
+.mobile-overlay.show{display:block;opacity:1;pointer-events:auto}
 .hero{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;background:var(--white)}
 .hero-left{display:flex;flex-direction:column;justify-content:center;padding:4rem 3rem 4rem 6vw}
 .hero-badge{display:inline-flex;align-items:center;gap:.5rem;background:rgba(0,180,216,.08);color:var(--teal);padding:.4rem 1rem;border-radius:50px;font-size:.75rem;font-weight:600;letter-spacing:.5px;text-transform:uppercase;margin-bottom:2rem;width:fit-content}
@@ -140,10 +140,10 @@ footer a{color:var(--teal)}
   .hero{grid-template-columns:1fr}
   .hero-right{height:300px}
   .hero-left{padding:6rem 1.5rem 3rem}
-  .nav-links{position:fixed;top:0;right:0;width:280px;height:100vh;background:var(--white);flex-direction:column;justify-content:flex-start;align-items:stretch;gap:0;z-index:250;padding:5rem 0 2rem;box-shadow:-4px 0 30px rgba(0,0,0,.1);transform:translateX(100%);transition:transform .3s ease;display:flex!important;overflow-y:auto;-webkit-overflow-scrolling:touch}
+  .nav-links{position:fixed;top:0;right:0;width:280px;height:100vh;height:100dvh;background:var(--white);flex-direction:column;justify-content:flex-start;align-items:stretch;gap:0;z-index:300;padding:5rem 0 2rem;box-shadow:-4px 0 30px rgba(0,0,0,.15);transform:translateX(100%);transition:transform .3s ease;display:flex!important;overflow-y:auto;-webkit-overflow-scrolling:touch;pointer-events:auto}
   .nav-links.open{transform:translateX(0)}
-  .nav-links li{border-bottom:1px solid var(--gray)}
-  .nav-links a{display:block;padding:1.2rem 2rem;font-size:1.05rem;font-weight:500;color:var(--dark);transition:background .2s,color .2s;-webkit-tap-highlight-color:rgba(0,180,216,.1);position:relative;z-index:251}
+  .nav-links li{border-bottom:1px solid var(--gray);list-style:none}
+  .nav-links a{display:block;padding:1.2rem 2rem;font-size:1.05rem;font-weight:500;color:var(--dark);transition:background .2s,color .2s;-webkit-tap-highlight-color:rgba(0,180,216,.1);cursor:pointer;touch-action:manipulation}
   .nav-links a:hover,.nav-links a:active{background:var(--gray);color:var(--teal)}
   .nav-links .nav-cta-btn{margin:1.5rem 2rem;text-align:center;border-radius:50px;padding:.8rem 1.5rem}
   .hamburger{display:block}
@@ -491,26 +491,61 @@ document.querySelectorAll('.reveal,.reveal-left,.reveal-right').forEach(el=>obs.
 
 // Mobile menu
 (function(){
-  const hamburger=document.getElementById('hamburger');
-  const navLinks=document.getElementById('navLinks');
-  const overlay=document.getElementById('mobileOverlay');
-  const links=navLinks.querySelectorAll('a');
+  var hamburger=document.getElementById('hamburger');
+  var navLinks=document.getElementById('navLinks');
+  var overlay=document.getElementById('mobileOverlay');
   var menuOpen=false;
-  function openMenu(){menuOpen=true;navLinks.classList.add('open');hamburger.classList.add('active');overlay.classList.add('show');document.body.style.overflow='hidden'}
-  function closeMenu(){menuOpen=false;navLinks.classList.remove('open');hamburger.classList.remove('active');overlay.classList.remove('show');document.body.style.overflow=''}
-  hamburger.addEventListener('click',function(e){e.stopPropagation();menuOpen?closeMenu():openMenu()});
-  overlay.addEventListener('click',function(){closeMenu()});
-  links.forEach(function(link){
+
+  function openMenu(){
+    menuOpen=true;
+    navLinks.classList.add('open');
+    hamburger.classList.add('active');
+    overlay.classList.add('show');
+    document.body.style.overflow='hidden';
+  }
+  function closeMenu(){
+    menuOpen=false;
+    navLinks.classList.remove('open');
+    hamburger.classList.remove('active');
+    overlay.classList.remove('show');
+    document.body.style.overflow='';
+  }
+
+  // Hamburger toggle
+  hamburger.addEventListener('click',function(e){
+    e.preventDefault();
+    e.stopPropagation();
+    if(menuOpen){closeMenu()}else{openMenu()}
+  });
+
+  // Overlay closes menu
+  overlay.addEventListener('click',function(e){
+    e.preventDefault();
+    closeMenu();
+  });
+
+  // Menu links: navigate then close
+  navLinks.querySelectorAll('a').forEach(function(link){
     link.addEventListener('click',function(e){
-      e.stopPropagation();
       var href=this.getAttribute('href');
-      closeMenu();
       if(href&&href.startsWith('#')){
         e.preventDefault();
+        e.stopPropagation();
         var target=document.querySelector(href);
-        if(target){setTimeout(function(){target.scrollIntoView({behavior:'smooth'})},100)}
+        closeMenu();
+        if(target){
+          setTimeout(function(){target.scrollIntoView({behavior:'smooth',block:'start'})},350);
+        }
+      } else {
+        closeMenu();
       }
     });
+  });
+
+  // Prevent nav-links container from closing menu on touch
+  navLinks.addEventListener('click',function(e){
+    // Only close if clicking the container itself, not a child link
+    if(e.target===navLinks){closeMenu()}
   });
 })();
 </script>
