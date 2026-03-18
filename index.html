@@ -931,6 +931,8 @@ function confirmDns() {
 
 // Writes go through VPS proxy (token stays server-side, never in client code)
 const PROXY_URL = 'https://alto-postings-respond-elevation.trycloudflare.com';
+// API key for write operations — injected at build time, never in source
+const PROXY_API_KEY = '%%DEMO_PROXY_API_KEY%%';
 
 async function saveToGH() {
   if (!currentProject) return;
@@ -948,7 +950,7 @@ async function saveToGH() {
     if (sha) body.sha = sha;
     const res = await fetch(`${PROXY_URL}/api/data/${slug}.json`, {
       method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 'Content-Type': 'application/json', 'X-API-Key': PROXY_API_KEY },
       body: JSON.stringify(body)
     });
     if (!res.ok) throw new Error('Save failed: ' + res.status);
