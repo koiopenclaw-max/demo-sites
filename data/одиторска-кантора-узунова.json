@@ -53,7 +53,7 @@
   ],
   "demoUrl": "https://koiopenclaw-max.github.io/demo-sites/demos/одиторска-кантора-узунова/",
   "createdAt": "2026-03-16T14:09:22.278Z",
-  "updatedAt": "2026-03-18T07:21:47.018Z",
+  "updatedAt": "2026-03-18T07:24:36.218Z",
   "revisionHistory": [
     {
       "issues": "Трябва да вземеш снимки от гугъл бизнес профила на компанията\nВземи от бизнес профила и оценка, която да сложиш на сайта\nВземи от оригиналния сайт ифно за секция ЗА нас\nВземи от оригиналния сайт инфо за Струкурата на компанията",
@@ -121,5 +121,37 @@
     }
   ],
   "currentRevision": null,
-  "deployDomain": "demo55.add.bg"
+  "deployDomain": "demo55.add.bg",
+  "dnsRecords": [
+    {
+      "type": "CNAME",
+      "name": "www.demo55.add.bg",
+      "value": "koiopenclaw-max.github.io",
+      "note": "Насочва към GitHub Pages"
+    },
+    {
+      "type": "A",
+      "name": "demo55.add.bg",
+      "value": "185.199.108.153",
+      "note": "GitHub Pages IP (основен)"
+    },
+    {
+      "type": "A",
+      "name": "demo55.add.bg",
+      "value": "185.199.109.153",
+      "note": "GitHub Pages IP (резервен 1)"
+    },
+    {
+      "type": "A",
+      "name": "demo55.add.bg",
+      "value": "185.199.110.153",
+      "note": "GitHub Pages IP (резервен 2)"
+    },
+    {
+      "type": "A",
+      "name": "demo55.add.bg",
+      "value": "185.199.111.153",
+      "note": "GitHub Pages IP (резервен 3)"
+    }
+  ]
 }
