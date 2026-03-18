@@ -5,9 +5,9 @@
       "slug": "одиторска-кантора-узунова",
       "name": "Одиторска кантора Узунова",
       "action": "deploying",
-      "status": "pending",
+      "status": "in_progress",
       "createdAt": "2026-03-18T07:43:03.140Z",
-      "startedAt": null,
+      "startedAt": "2026-03-18T07:43:22.323Z",
       "completedAt": null,
       "error": null,
       "result": null
