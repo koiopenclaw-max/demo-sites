@@ -47,6 +47,7 @@ nav.scrolled{background:rgba(255,255,255,.97);box-shadow:0 2px 20px rgba(0,0,0,.
 .nav-links a:hover{color:var(--teal)}
 .nav-cta-btn{background:linear-gradient(135deg,var(--teal),var(--coral));color:var(--white)!important;padding:.6rem 1.5rem;border-radius:50px;font-weight:600;-webkit-text-fill-color:var(--white)!important}
 .hamburger{display:none;cursor:pointer}
+.nav-close{display:none}
 .hamburger span{display:block;width:24px;height:2.5px;background:var(--dark);margin:5px 0;border-radius:2px}
 .hero{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;background:var(--white)}
 .hero-left{display:flex;flex-direction:column;justify-content:center;padding:4rem 3rem 4rem 6vw}
@@ -132,9 +133,10 @@ footer a{color:var(--teal)}
   .hero{grid-template-columns:1fr}
   .hero-right{height:300px}
   .hero-left{padding:6rem 1.5rem 3rem}
-  .nav-links{display:none;position:fixed;inset:0;background:rgba(255,255,255,.98);flex-direction:column;justify-content:center;align-items:center;gap:2rem}
+  .nav-links{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(255,255,255,.98);flex-direction:column;justify-content:center;align-items:center;gap:2rem;z-index:200}
   .nav-links.open{display:flex}
-  .hamburger{display:block}
+  .nav-links.open .nav-close{display:block;position:absolute;top:1.5rem;right:1.5rem;font-size:2rem;cursor:pointer;color:var(--dark);background:none;border:none;font-family:inherit;z-index:201}
+  .hamburger{display:block;z-index:101}
   .bento-grid{grid-template-columns:1fr}
   .bento-item.large{grid-column:span 1}
   .bento-item.tall{grid-row:span 1}
@@ -145,6 +147,8 @@ footer a{color:var(--teal)}
   .contact-form{grid-template-columns:1fr}
   .contact-form textarea,.contact-form .btn-gradient{grid-column:span 1}
   section [style*="grid-template-columns: 1fr 1fr"]{grid-template-columns:1fr!important}
+  section>div[style*="grid-template-columns"]{grid-template-columns:1fr!important}
+  .about-grid{grid-template-columns:1fr!important}
 }
 </style>
 <script type="application/ld+json">
@@ -269,10 +273,11 @@ footer a{color:var(--teal)}
 <nav id="nav">
   <a href="#" class="nav-logo"><img src="https://aktivibs.com/wp-content/uploads/2018/11/cropped-Aktivi_Konsult_PNG.png" alt="АКТИВИ КОНСУЛТ"></a>
   <ul class="nav-links" id="navLinks">
-    <li><a href="#services">Услуги</a></li>
-    <li><a href="#process">Как работим</a></li>
-    <li><a href="#faq">Въпроси</a></li>
-    <li><a href="#contact" class="nav-cta-btn">Свържи се</a></li>
+    <button class="nav-close" onclick="document.getElementById('navLinks').classList.remove('open')">&times;</button>
+    <li><a href="#services" onclick="document.getElementById('navLinks').classList.remove('open')">Услуги</a></li>
+    <li><a href="#process" onclick="document.getElementById('navLinks').classList.remove('open')">Как работим</a></li>
+    <li><a href="#faq" onclick="document.getElementById('navLinks').classList.remove('open')">Въпроси</a></li>
+    <li><a href="#contact" class="nav-cta-btn" onclick="document.getElementById('navLinks').classList.remove('open')">Свържи се</a></li>
   </ul>
   <div class="hamburger" onclick="document.getElementById('navLinks').classList.toggle('open')">
     <span></span><span></span><span></span>
@@ -296,7 +301,7 @@ footer a{color:var(--teal)}
 
 <!-- About Section -->
 <section style="padding:5rem 2rem;background:var(--white)">
-  <div style="max-width:900px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center" class="reveal">
+  <div style="max-width:900px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center" class="reveal about-grid">
     <div>
       <span class="section-tag">За нас</span>
       <h2 style="font-size:clamp(1.8rem,3vw,2.3rem);margin:.8rem 0 1rem">Счетоводна къща<br><span class="gradient">„АКТИВИ КОНСУЛТ"</span></h2>
