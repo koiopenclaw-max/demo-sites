@@ -981,7 +981,7 @@ const GH_API = 'https://api.github.com/repos/koiopenclaw-max/demo-sites/contents
 
 async function syncFromGH() {
   try {
-    // Fetch via VPS proxy (faster, no rate limits, has auth)
+    // Fetch file list via VPS proxy (no cache issues)
     const ghRes = await fetch(`${PROXY_URL}/api/data`, { cache: 'no-store' });
     if (!ghRes.ok) { console.log('GH sync failed:', ghRes.status); return; }
     const files = await ghRes.json();
@@ -993,10 +993,22 @@ async function syncFromGH() {
 
     await Promise.all(jsonFiles.map(async (f) => {
       try {
-        // download_url gives raw JSON directly — no base64 decoding needed
-        const r = await fetch(f.download_url, { cache: 'no-store' });
+        // Fetch each file via proxy (avoids raw.githubusercontent.com cache)
+        const encodedName = encodeURIComponent(f.name);
+        const r = await fetch(`${PROXY_URL}/api/data/${encodedName}`, { cache: 'no-store' });
         if (!r.ok) return;
-        let content = migrateProject(await r.json());
+        const fileData = await r.json();
+        // Decode base64 content
+        let content;
+        try {
+          content = JSON.parse(decodeURIComponent(escape(atob(fileData.content))));
+        } catch {
+          // Fallback: try download_url
+          const r2 = await fetch(f.download_url + '?t=' + Date.now(), { cache: 'no-store' });
+          if (!r2.ok) return;
+          content = await r2.json();
+        }
+        content = migrateProject(content);
         const slug = content.slug;
         if (!slug) return;
 
@@ -1019,6 +1031,13 @@ async function syncFromGH() {
     }
   } catch(e) { console.log('GH sync error:', e); }
 }
+
+// Auto-refresh dashboard every 15s (not just detail page)
+setInterval(() => {
+  if (document.getElementById('dashboardView').classList.contains('active')) {
+    syncFromGH();
+  }
+}, 15000);
 
 renderDashboard();
 syncFromGH(); // Load latest from GitHub after initial render
