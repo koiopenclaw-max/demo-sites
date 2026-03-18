@@ -1,5 +1,42 @@
 {
   "tasks": [],
-  "completed": [],
+  "completed": [
+    {
+      "id": 1773817914497,
+      "slug": "рум-плам-2007",
+      "name": "РУМ - ПЛАМ 2007",
+      "action": "building",
+      "status": "error",
+      "createdAt": "2026-03-18T07:11:54.497Z",
+      "startedAt": "2026-03-18T07:12:12.859Z",
+      "completedAt": "2026-03-18T07:12:40.240Z",
+      "error": "Codex did not produce index.html",
+      "result": null
+    },
+    {
+      "id": 1773818523150,
+      "slug": "одиторска-кантора-узунова",
+      "name": "Одиторска кантора Узунова",
+      "action": "dns_setup",
+      "status": "error",
+      "createdAt": "2026-03-18T07:22:03.150Z",
+      "startedAt": "2026-03-18T07:22:10.604Z",
+      "completedAt": "2026-03-18T07:22:11.215Z",
+      "error": "Unknown action: dns_setup",
+      "result": null
+    },
+    {
+      "id": 1773818651993,
+      "slug": "одиторска-кантора-узунова",
+      "name": "Одиторска кантора Узунова",
+      "action": "dns_setup",
+      "status": "done",
+      "createdAt": "2026-03-18T07:24:11.993Z",
+      "startedAt": "2026-03-18T07:24:35.848Z",
+      "completedAt": "2026-03-18T07:24:37.430Z",
+      "error": null,
+      "result": "DNS records generated for demo55.add.bg"
+    }
+  ],
   "version": 1
 }
