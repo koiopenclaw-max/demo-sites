@@ -1,18 +1,5 @@
 {
-  "tasks": [
-    {
-      "id": 1773826082736,
-      "slug": "активи-консулт-бургас",
-      "name": "АКТИВИ КОНСУЛТ - Бургас",
-      "action": "building",
-      "status": "in_progress",
-      "createdAt": "2026-03-18T09:28:02.736Z",
-      "startedAt": "2026-03-18T09:28:20.817Z",
-      "completedAt": null,
-      "error": null,
-      "result": null
-    }
-  ],
+  "tasks": [],
   "completed": [
     {
       "id": 1773819482814,
@@ -121,6 +108,18 @@
       "completedAt": "2026-03-18T08:44:22.665Z",
       "error": null,
       "result": "Brief enriched → brief_final"
+    },
+    {
+      "id": 1773826082736,
+      "slug": "активи-консулт-бургас",
+      "name": "АКТИВИ КОНСУЛТ - Бургас",
+      "action": "building",
+      "status": "error",
+      "createdAt": "2026-03-18T09:28:02.736Z",
+      "startedAt": "2026-03-18T09:28:20.817Z",
+      "completedAt": "2026-03-18T09:28:28.485Z",
+      "error": "Codex did not produce index.html",
+      "result": null
     }
   ],
   "version": 1
