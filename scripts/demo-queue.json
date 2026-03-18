@@ -1,18 +1,5 @@
 {
-  "tasks": [
-    {
-      "id": 1773826682784,
-      "slug": "активи-консулт-бургас",
-      "name": "АКТИВИ КОНСУЛТ - Бургас",
-      "action": "revisions",
-      "status": "in_progress",
-      "createdAt": "2026-03-18T09:38:02.784Z",
-      "startedAt": "2026-03-18T09:38:10.301Z",
-      "completedAt": null,
-      "error": null,
-      "result": null
-    }
-  ],
+  "tasks": [],
   "completed": [
     {
       "id": 1773819482814,
@@ -133,6 +120,18 @@
       "completedAt": "2026-03-18T09:28:28.485Z",
       "error": "Codex did not produce index.html",
       "result": null
+    },
+    {
+      "id": 1773826682784,
+      "slug": "активи-консулт-бургас",
+      "name": "АКТИВИ КОНСУЛТ - Бургас",
+      "action": "revisions",
+      "status": "done",
+      "createdAt": "2026-03-18T09:38:02.784Z",
+      "startedAt": "2026-03-18T09:38:10.301Z",
+      "completedAt": "2026-03-18T09:38:23.214Z",
+      "error": null,
+      "result": "Delegated to Koi for manual revision"
     }
   ],
   "version": 1
