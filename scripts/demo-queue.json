@@ -1,18 +1,5 @@
 {
-  "tasks": [
-    {
-      "id": 1773922925181,
-      "slug": "училище-козма-тричков-враца",
-      "name": "Училище Козма Тричков Враца",
-      "action": "revisions",
-      "status": "in_progress",
-      "createdAt": "2026-03-19T12:22:05.181Z",
-      "startedAt": "2026-03-19T12:22:10.028Z",
-      "completedAt": null,
-      "error": null,
-      "result": null
-    }
-  ],
+  "tasks": [],
   "completed": [
     {
       "id": 1773819482814,
@@ -277,6 +264,18 @@
       "completedAt": "2026-03-19T12:19:36.093Z",
       "error": null,
       "result": "Demo built: https://koiopenclaw-max.github.io/demo-sites/demos/%D1%83%D1%87%D0%B8%D0%BB%D0%B8%D1%89%D0%B5-%D0%BA%D0%BE%D0%B7%D0%BC%D0%B0-%D1%82%D1%80%D0%B8%D1%87%D0%BA%D0%BE%D0%B2-%D0%B2%D1%80%D0%B0%D1%86%D0%B0/"
+    },
+    {
+      "id": 1773922925181,
+      "slug": "училище-козма-тричков-враца",
+      "name": "Училище Козма Тричков Враца",
+      "action": "revisions",
+      "status": "done",
+      "createdAt": "2026-03-19T12:22:05.181Z",
+      "startedAt": "2026-03-19T12:22:10.028Z",
+      "completedAt": "2026-03-19T12:22:37.377Z",
+      "error": null,
+      "result": "Delegated to Koi for manual revision"
     }
   ],
   "version": 1
