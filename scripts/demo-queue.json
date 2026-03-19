@@ -1,5 +1,18 @@
 {
-  "tasks": [],
+  "tasks": [
+    {
+      "id": 1773925684094,
+      "slug": "училище-козма-тричков-враца",
+      "name": "Училище Козма Тричков Враца",
+      "action": "revisions",
+      "status": "pending",
+      "createdAt": "2026-03-19T13:08:04.094Z",
+      "startedAt": null,
+      "completedAt": null,
+      "error": null,
+      "result": null
+    }
+  ],
   "completed": [
     {
       "id": 1773819482814,
