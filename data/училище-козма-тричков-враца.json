@@ -48,7 +48,7 @@
   ],
   "demoUrl": "https://koiopenclaw-max.github.io/demo-sites/demos/%D1%83%D1%87%D0%B8%D0%BB%D0%B8%D1%89%D0%B5-%D0%BA%D0%BE%D0%B7%D0%BC%D0%B0-%D1%82%D1%80%D0%B8%D1%87%D0%BA%D0%BE%D0%B2-%D0%B2%D1%80%D0%B0%D1%86%D0%B0/",
   "createdAt": "2026-03-19T12:09:32.989Z",
-  "updatedAt": "2026-03-19T12:51:46.235Z",
+  "updatedAt": "2026-03-19T12:54:25.075Z",
   "niche": "счетоводство",
   "revisionHistory": [
     {
@@ -58,8 +58,9 @@
     },
     {
       "issues": "Искам в хиро секцията да сложиш снимката от хиро секцията на стария сайт",
-      "resolution": "Hero снимката от стария сайт (nachalo.jpg) е поставена в hero секцията на новия сайт.",
-      "createdAt": "2026-03-19T12:48:03.979Z"
+      "resolution": "Обработено автоматично от worker: Искам в хиро секцията да сложиш снимката от хиро секцията на стария сайт",
+      "createdAt": "2026-03-19T12:48:03.979Z",
+      "resolvedAt": "2026-03-19T12:54:25.075Z"
     }
   ],
   "currentRevision": null
