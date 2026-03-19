@@ -3,17 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>СУ „Козма Тричков“ - Враца</title>
-    <meta name="description" content="Официално представяне на СУ „Козма Тричков“ - Враца с информация за приема, обучението, иновациите, проектите и контактите на училището.">
-    <meta name="keywords" content="СУ Козма Тричков, Враца, училище, прием 5 клас, прием 8 клас, иновативно училище, проекти, ученици">
-    <meta property="og:title" content="СУ „Козма Тричков“ - Враца">
-    <meta property="og:description" content="Училище с традиции и поглед в бъдещето - информация за обучението, приема и училищния живот в СУ „Козма Тричков“ - Враца.">
-    <meta property="og:type" content="website">
-    <meta property="og:locale" content="bg_BG">
+    <title>Иновативно училище — СУ „Козма Тричков" Враца</title>
+    <meta name="description" content="Иновациите в образованието на СУ „Козма Тричков" — Враца">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
+
         *, *::before, *::after {
             margin: 0;
             padding: 0;
@@ -938,39 +934,47 @@
         .stagger.visible > *:nth-child(4) { transition-delay: 0.3s; }
         .stagger.visible > *:nth-child(5) { transition-delay: 0.4s; }
         .stagger.visible > *:nth-child(6) { transition-delay: 0.5s; }
+    
+
+        .page-header { padding: 8rem 2rem 4rem; text-align: center; background: var(--gray-light); }
+        .page-header h1 { font-size: clamp(2rem, 5vw, 3.5rem); margin-bottom: 1rem; }
+        .page-header p { color: var(--gray); max-width: 600px; margin: 0 auto; font-size: 1.1rem; }
+        .page-content { max-width: 900px; margin: 0 auto; padding: 4rem 2rem; }
+        .page-content h2 { font-size: 1.8rem; margin: 2.5rem 0 1rem; color: var(--black); }
+        .page-content h3 { font-size: 1.3rem; margin: 2rem 0 0.75rem; color: var(--violet); }
+        .page-content p { margin-bottom: 1.2rem; line-height: 1.8; color: #374151; }
+        .page-content ul, .page-content ol { margin: 1rem 0 1.5rem 1.5rem; }
+        .page-content li { margin-bottom: 0.5rem; line-height: 1.7; color: #374151; }
+        .page-content img { border-radius: 12px; margin: 2rem 0; max-width: 100%; height: auto; }
+        .page-content .img-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin: 2rem 0; }
+        @media (max-width: 768px) { .page-content .img-row { grid-template-columns: 1fr; } }
+        .team-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem; margin: 2rem 0; }
+        .team-card { background: var(--gray-light); border-radius: 12px; padding: 1.5rem; }
+        .team-card h4 { font-size: 1.1rem; margin-bottom: 0.25rem; }
+        .team-card .role { color: var(--violet); font-size: 0.9rem; font-weight: 500; }
+        .team-card .detail { color: var(--gray); font-size: 0.85rem; margin-top: 0.25rem; }
+        .contact-grid-page { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 1.5rem; margin: 2rem 0; }
+        .contact-card { background: var(--gray-light); border-radius: 12px; padding: 2rem; text-align: center; }
+        .contact-card .icon { font-size: 2rem; margin-bottom: 0.75rem; }
+        .contact-card h4 { margin-bottom: 0.5rem; }
+        .contact-card a { color: var(--violet); text-decoration: none; font-weight: 500; }
+        .back-home { display: inline-flex; align-items: center; gap: 0.5rem; color: var(--violet); font-weight: 500; text-decoration: none; margin-bottom: 2rem; }
+        .back-home:hover { text-decoration: underline; }
+        .schedule-table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; }
+        .schedule-table th, .schedule-table td { padding: 0.75rem 1rem; text-align: left; border-bottom: 1px solid #e5e7eb; }
+        .schedule-table th { background: var(--gray-light); font-weight: 600; }
+
     </style>
-    <script type="application/ld+json">
-        {
-            "@context": "https://schema.org",
-            "@type": "School",
-            "name": "СУ „Козма Тричков“ - Враца",
-            "address": {
-                "@type": "PostalAddress",
-                "streetAddress": "ул. Антим I №12",
-                "addressLocality": "Враца",
-                "addressCountry": "BG"
-            },
-            "email": "info-600327@edu.mon.bg",
-            "telephone": [
-                "+35992624287",
-                "+35992624113",
-                "+35992663164",
-                "+359888899613",
-                "+359879003229"
-            ]
-        }
-    </script>
 </head>
 <body>
 
     <nav>
         <div class="nav-logo" style="display:flex;align-items:center;gap:0.5rem;">
             <img src="https://cdn.prod.website-files.com/66ec1ff285cd5d237de7fd58/66ec208107a476ab36bed85b_logo.png" alt="Лого СУ Козма Тричков" style="height:40px;width:auto;border-radius:4px;">
-            <span>Козма Тричков<span style="color:var(--violet)">.</span></span>
+            <a href="index.html" style="color:inherit;text-decoration:none;"><span>Козма Тричков<span style="color:var(--violet)">.</span></span></a>
         </div>
         <ul class="nav-links">
             <li><a href="istoria.html">История</a></li>
-            <li><a href="misiya.html">Мисия</a></li>
             <li><a href="rkovodstvo.html">Ръководство</a></li>
             <li><a href="prepodavateli.html">Преподаватели</a></li>
             <li><a href="priem.html">Прием</a></li>
@@ -980,292 +984,63 @@
         <a href="tel:+359888899613" class="nav-cta">0888 899 613</a>
     </nav>
 
-    <section class="hero">
-        <div class="hero-text">
-            <div class="hero-overline reveal">СУ „Козма Тричков“ — Враца</div>
-            <h1 class="reveal">Училище с <span class="violet-underline">традиции</span> и поглед в бъдещето</h1>
-            <p class="hero-subtitle reveal">Средно училище в сърцето на Враца, в което се обучават ученици от V до XII клас в общообразователни, профилирани и професионални паралелки.</p>
-            <div class="hero-cta-row reveal">
-                <a href="#contact" class="btn-primary">Свържете се с нас</a>
-                <a href="#services" class="btn-outline">Вижте направленията</a>
-            </div>
-        </div>
-        <div class="hero-image reveal-clip">
-            <img src="https://cdn.prod.website-files.com/66ec1ff285cd5d237de7fdca/69a82f03cfd9d68f66020746_Gemini_Generated_Image_bwunnobwunnobwun.png" alt="Сграда на училище">
-            <div class="hero-image-badge">ОТ 1822 ГОДИНА</div>
-        </div>
+    <section class="page-header">
+        <h1>Иновативно училище</h1>
+        <p>Иновациите в образованието на СУ „Козма Тричков" — Враца</p>
     </section>
 
-    <section class="about" id="about">
-        <div class="about-inner">
-            <div class="about-header">
-                <div>
-                    <span class="section-num reveal">01 — За училището</span>
-                    <h2 class="about-title reveal">Почти два века<br>образователна история</h2>
-                </div>
-                <p class="about-text reveal" style="max-width: 400px;">Първоприемник на светското училище на Константин Огнянович и място, където традицията среща съвременното образование.</p>
-            </div>
-            <div class="about-grid">
-                <div class="about-image reveal-clip">
-                    <img src="https://cdn.prod.website-files.com/66ec1ff285cd5d237de7fd58/67121689a295a6e234134141_kozma_trichkov_old.jpg" alt="Учебна среда">
-                </div>
-                <div class="about-content">
-                    <div class="pull-quote reveal-left">
-                        <p>От далечната 1822 година до днес СУ „Козма Тричков“ остава място, където знанието, приемствеността и стремежът към развитие се случват всеки ден.</p>
-                        <cite>— СУ „Козма Тричков“ - Враца</cite>
-                    </div>
-                    <p class="about-text reveal">Училището се намира в центъра на град Враца, в достолепна и внушаваща респект сграда. Хиляди ученици, стотици учители и десетки образователни реформи са част от неговата история, съхранена през поколенията.</p>
-                    <p class="about-text reveal">Днес в СУ „Козма Тричков“ се обучават ученици в прогимназиален и гимназиален етап. От учебната 2017/2018 година училището е включено в Списъка на иновативните училища в Република България.</p>
-                </div>
-            </div>
-        </div>
-    </section>
+    <div class="page-content">
+        <a href="index.html" class="back-home">&larr; Начало</a>
 
-    <section class="services" id="services">
-        <div class="services-inner">
-            <div class="services-header">
-                <div>
-                    <span class="section-num reveal">02 — Обучение и дейности</span>
-                    <h2 class="services-title reveal">Какво<br>предлагаме</h2>
-                </div>
-                <p class="about-text reveal" style="max-width: 400px;">Ключови направления от училищния живот, приема и възможностите за развитие на учениците и родителите.</p>
-            </div>
-            <div class="services-grid stagger">
-                <div class="service-card">
-                    <div class="service-card-image">
-                        <img src="https://cdn.prod.website-files.com/66ec1ff285cd5d237de7fdca/69a7cf829f309c04c4665ec5_np1.jpg" alt="Прием на ученици">
-                    </div>
-                    <div class="service-card-body">
-                        <span class="service-card-num">01</span>
-                        <h3>Прием в V, VIII клас и СФО</h3>
-                        <p>Актуална информация за приема след IV и VII клас, както и за СФО. Училището предлага възможности за продължаване на обучението в различни форми и профили.</p>
-                        <span class="service-card-link">Прием и условия &rarr;</span>
-                    </div>
-                </div>
-                <div class="service-card">
-                    <div class="service-card-image">
-                        <img src="https://cdn.prod.website-files.com/66ec1ff285cd5d237de7fdca/6968da1e1718ed7870a58b38_binaren%20urok.jpg" alt="Иновативно училище">
-                    </div>
-                    <div class="service-card-body">
-                        <span class="service-card-num">02</span>
-                        <h3>Иновативно училище</h3>
-                        <p>От 2017/2018 учебна година училището развива иновативни практики, включително обучение по финансова грамотност с интегрирано междупредметно взаимодействие.</p>
-                        <span class="service-card-link">Иновации в обучението &rarr;</span>
-                    </div>
-                </div>
-                <div class="service-card">
-                    <div class="service-card-image">
-                        <img src="https://cdn.prod.website-files.com/66ec1ff285cd5d237de7fdca/699edeefab35eabb1376ec31_11_12.jpg" alt="За учениците">
-                    </div>
-                    <div class="service-card-body">
-                        <span class="service-card-num">03</span>
-                        <h3>Подкрепа за учениците</h3>
-                        <p>Седмична програма, организация на учебния ден, графици, НВО, ДЗИ, стипендии, спортен календар, почивни дни и полезна информация на едно място.</p>
-                        <span class="service-card-link">Ученически ресурси &rarr;</span>
-                    </div>
-                </div>
-                <div class="service-card">
-                    <div class="service-card-image">
-                        <img src="https://cdn.prod.website-files.com/66ec1ff285cd5d237de7fdca/69a7cc57e4e1640c6d875fbd_27.03-1.jpg" alt="Административни услуги">
-                    </div>
-                    <div class="service-card-body">
-                        <span class="service-card-num">04</span>
-                        <h3>Административни услуги</h3>
-                        <p>Достъп до документи, нормативни изисквания, административно обслужване, защита на личните данни и информация за родителите и обществеността.</p>
-                        <span class="service-card-link">Документи и услуги &rarr;</span>
-                    </div>
-                </div>
-                <div class="service-card">
-                    <div class="service-card-image">
-                        <img src="https://cdn.prod.website-files.com/66ec1ff285cd5d237de7fdca/6968da1e1718ed7870a58b38_binaren%20urok.jpg" alt="Проекти">
-                    </div>
-                    <div class="service-card-body">
-                        <span class="service-card-num">05</span>
-                        <h3>Проекти и програми</h3>
-                        <p>Училището работи по проекти REACT, Еразъм+, „Успех за теб“, STEM среда, НП на МОН, „Образователни маршрути“ и други инициативи за развитие.</p>
-                        <span class="service-card-link">Активни проекти &rarr;</span>
-                    </div>
-                </div>
-                <div class="service-card">
-                    <div class="service-card-image">
-                        <img src="https://cdn.prod.website-files.com/66ec1ff285cd5d237de7fdca/69a82f03cfd9d68f66020746_Gemini_Generated_Image_bwunnobwunnobwun.png" alt="Училищна общност">
-                    </div>
-                    <div class="service-card-body">
-                        <span class="service-card-num">06</span>
-                        <h3>Училищна общност</h3>
-                        <p>Ръководство, преподаватели, обществен съвет, социални услуги и съвместна работа с родители за сигурна и подкрепяща образователна среда.</p>
-                        <span class="service-card-link">Хора и среда &rarr;</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+        <img src="https://cdn.prod.website-files.com/66ec1ff285cd5d237de7fdca/6968da1e1718ed7870a58b38_binaren%20urok.jpg" alt="Иновативно обучение">
 
-    <div class="image-break reveal-scale">
-        <img src="https://cdn.prod.website-files.com/66ec1ff285cd5d237de7fdca/699edeefab35eabb1376ec31_11_12.jpg" alt="Образователна среда">
-        <div class="image-break-overlay">
-            <p>Място, където традицията, иновациите и ученическите успехи вървят заедно</p>
-        </div>
+        <h2>Иновативно училище</h2>
+        <p>От <strong>2017/2018 учебна година</strong> СУ „Козма Тричков" е включено в Списъка на иновативните училища в Република България.</p>
+        <p>Училището продължава да се развива като място, в което педагогическите технологии, организацията на средата, междупредметното взаимодействие, практическата насоченост на обучението и ориентацията към резултати допринасят за формиране на знаещи, можещи, уверени и социално активни личности.</p>
+
+        <h2>Иновация „Нашият час"</h2>
+        <p><strong>„Нашият час"</strong> е иновация на СУ „Козма Тричков", която се реализира в класовете от прогимназиален етап (<strong>2023/2024 – 2025/2026</strong>).</p>
+        <p>Същността на иновацията е утвърждаване на часа на класа като основна форма на възпитателна работа с образователна и формираща функция в подкрепа на личностното развитие на учениците чрез:</p>
+        <ul>
+            <li>Целенасочено изграждане на позитивни поведенчески модели</li>
+            <li>Развитие на меки умения</li>
+            <li>Формиране на отговорни избори</li>
+            <li>Социална ангажираност и гражданско поведение</li>
+            <li>Ориентация към ценности</li>
+        </ul>
+
+        <h2>Обучение по финансова грамотност</h2>
+        <p>Иновация <strong>„Обучение по финансова грамотност с интегрирано междупредметно взаимодействие"</strong> — иновативен подход, който свързва финансовата грамотност с други учебни предмети за по-практично и приложимо обучение.</p>
+
+        <h2>Проекти</h2>
+        <ul>
+            <li><strong>REACT</strong> — проект за реакция при кризи в образованието</li>
+            <li><strong>Еразъм+</strong> — международни образователни програми</li>
+            <li><strong>Успех за теб</strong> — подкрепа за учениците</li>
+            <li><strong>Квалификации</strong> — повишаване квалификацията на педагогическите кадри</li>
+            <li><strong>Модернизиране на професионалното образование</strong></li>
+            <li><strong>Равен достъп до училищно образование</strong></li>
+            <li><strong>Процедура BG-RRP-1.015</strong> — „Училищна STEM среда" по НПВУ</li>
+        </ul>
+
     </div>
 
-    <section class="stats" id="stats">
-        <div class="stats-inner">
-            <div class="stats-header">
-                <span class="section-num reveal">03 — История и факти</span>
-                <h2 class="stats-title reveal">Постижения,<br>които остават</h2>
-            </div>
-            <div class="stats-grid stagger">
-                <div class="stat-item">
-                    <div class="stat-number">1822</div>
-                    <div class="stat-label">Начало на светското образование във Враца, с което училището е свързано исторически</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-number">130</div>
-                    <div class="stat-label">Години от първия училищен звънец в настоящата сграда, отбелязани през 2026 година</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-number">V-XII</div>
-                    <div class="stat-label">Класове, в които се обучават учениците в прогимназиален и гимназиален етап</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-number">2017</div>
-                    <div class="stat-label">От тази учебна година училището е част от Списъка на иновативните училища в България</div>
-                </div>
-            </div>
-            <div class="stats-image-row">
-                <div class="stats-img reveal-clip">
-                    <img src="https://cdn.prod.website-files.com/66ec1ff285cd5d237de7fdca/6968da1e1718ed7870a58b38_binaren%20urok.jpg" alt="Обучение и развитие">
-                </div>
-                <div class="stats-img reveal-clip">
-                    <img src="https://cdn.prod.website-files.com/66ec1ff285cd5d237de7fdca/69a7cf829f309c04c4665ec5_np1.jpg" alt="Организация и планиране">
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="team" id="team">
-        <div class="team-inner">
-            <div class="team-header">
-                <div>
-                    <span class="section-num reveal">04 — Общност</span>
-                    <h2 class="team-title reveal">Хората зад<br>училищния дух</h2>
-                </div>
-                <p class="about-text reveal" style="max-width: 400px;">СУ „Козма Тричков“ развива активна училищна общност с ясно разпределени роли и споделена отговорност към учениците.</p>
-            </div>
-            <div class="team-grid stagger">
-                <div class="team-card">
-                    <img src="https://cdn.prod.website-files.com/66ec1ff285cd5d237de7fd58/67121689850d43ca07678ecd_ktrichkpov.jpg" alt="Ръководство">
-                    <div class="team-card-info">
-                        <h3>Ръководство</h3>
-                        <p>Директор и заместник-директор</p>
-                        <div class="team-violet-line"></div>
-                    </div>
-                </div>
-                <div class="team-card">
-                    <img src="https://cdn.prod.website-files.com/66ec1ff285cd5d237de7fdca/66ed361f46278e18ada3c81c_1.jpg" alt="Преподаватели">
-                    <div class="team-card-info">
-                        <h3>Преподаватели</h3>
-                        <p>Учители с опит и приемственост</p>
-                        <div class="team-violet-line"></div>
-                    </div>
-                </div>
-                <div class="team-card">
-                    <img src="https://cdn.prod.website-files.com/66ec1ff285cd5d237de7fdca/69a7cc57e4e1640c6d875fbd_27.03-1.jpg" alt="Обществен съвет">
-                    <div class="team-card-info">
-                        <h3>Обществен съвет</h3>
-                        <p>Партньорство с родители и общност</p>
-                        <div class="team-violet-line"></div>
-                    </div>
-                </div>
-                <div class="team-card">
-                    <img src="https://cdn.prod.website-files.com/66ec1ff285cd5d237de7fd58/67121689a295a6e234134141_kozma_trichkov_old.jpg" alt="Ученици">
-                    <div class="team-card-info">
-                        <h3>Ученици и родители</h3>
-                        <p>Активно участие в училищния живот</p>
-                        <div class="team-violet-line"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="contact" id="contact">
-        <div class="contact-inner">
-            <div class="contact-header">
-                <span class="section-num reveal">05 — Контакти</span>
-                <h2 class="contact-title reveal">Свържете се<br>с училището</h2>
-            </div>
-            <div class="contact-grid">
-                <div class="contact-info reveal-left">
-                    <div class="contact-item">
-                        <div class="contact-item-label">Директор</div>
-                        <div class="contact-item-value">
-                            <a href="tel:+359888899613">0888 899 613</a>
-                        </div>
-                    </div>
-                    <div class="contact-item">
-                        <div class="contact-item-label">Канцелария</div>
-                        <div class="contact-item-value">
-                            <a href="tel:+35992663164">092 663 164</a>
-                        </div>
-                    </div>
-                    <div class="contact-item">
-                        <div class="contact-item-label">Имейл</div>
-                        <div class="contact-item-value">
-                            <a href="mailto:info-600327@edu.mon.bg">info-600327@edu.mon.bg</a>
-                        </div>
-                    </div>
-                    <div class="contact-item">
-                        <div class="contact-item-label">Адрес</div>
-                        <div class="contact-item-value">гр. Враца, ул. „Антим I“ №12</div>
-                    </div>
-                </div>
-                <div class="contact-image reveal-right">
-                    <img src="https://cdn.prod.website-files.com/66ec1ff285cd5d237de7fdca/699edeefab35eabb1376ec31_11_12.jpg" alt="Контакти на училището">
-                </div>
-            </div>
-        </div>
-    </section>
 
     <footer>
         <div class="footer-inner">
             <div class="footer-logo" style="display:flex;align-items:center;gap:0.5rem;"><img src="https://cdn.prod.website-files.com/66ec1ff285cd5d237de7fd58/66ec208107a476ab36bed85b_logo.png" alt="Лого" style="height:32px;width:auto;border-radius:4px;">Козма Тричков<span>.</span></div>
-            <p class="footer-copy">&copy; 2026 СУ „Козма Тричков“ - Враца. Всички права запазени.</p>
+            <p class="footer-copy">&copy; 2026 СУ „Козма Тричков" - Враца. Всички права запазени.</p>
         </div>
     </footer>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const animatedElements = document.querySelectorAll(
-                '.reveal, .reveal-clip, .reveal-left, .reveal-right, .reveal-scale, .stagger'
-            );
-
-            const observer = new IntersectionObserver(function(entries) {
-                entries.forEach(function(entry) {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
-                        observer.unobserve(entry.target);
-                    }
-                });
-            }, {
-                threshold: 0.15,
-                rootMargin: '0px 0px -50px 0px'
-            });
-
-            animatedElements.forEach(function(el) {
-                observer.observe(el);
-            });
-
             var nav = document.querySelector('nav');
             window.addEventListener('scroll', function() {
-                if (window.scrollY > 50) {
-                    nav.style.boxShadow = '0 2px 20px rgba(10,10,10,0.08)';
-                } else {
-                    nav.style.boxShadow = 'none';
-                }
+                if (window.scrollY > 50) { nav.style.boxShadow = '0 2px 20px rgba(10,10,10,0.08)'; }
+                else { nav.style.boxShadow = 'none'; }
             });
         });
     </script>
-
 </body>
 </html>
