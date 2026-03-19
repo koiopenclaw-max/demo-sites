@@ -1,18 +1,5 @@
 {
-  "tasks": [
-    {
-      "id": 1773922383982,
-      "slug": "училище-козма-тричков-враца",
-      "name": "Училище Козма Тричков Враца",
-      "action": "qa_submitted",
-      "status": "in_progress",
-      "createdAt": "2026-03-19T12:13:03.982Z",
-      "startedAt": "2026-03-19T12:13:32.166Z",
-      "completedAt": null,
-      "error": null,
-      "result": null
-    }
-  ],
+  "tasks": [],
   "completed": [
     {
       "id": 1773819482814,
@@ -253,6 +240,18 @@
       "completedAt": "2026-03-19T12:10:27.959Z",
       "error": null,
       "result": "Brief готов. Ниша: счетоводство. 7 въпроса."
+    },
+    {
+      "id": 1773922383982,
+      "slug": "училище-козма-тричков-враца",
+      "name": "Училище Козма Тричков Враца",
+      "action": "qa_submitted",
+      "status": "done",
+      "createdAt": "2026-03-19T12:13:03.982Z",
+      "startedAt": "2026-03-19T12:13:32.166Z",
+      "completedAt": "2026-03-19T12:13:34.405Z",
+      "error": null,
+      "result": "Brief enriched → brief_final"
     }
   ],
   "version": 1
