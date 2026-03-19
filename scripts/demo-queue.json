@@ -1,18 +1,5 @@
 {
-  "tasks": [
-    {
-      "id": 1773922204056,
-      "slug": "училище-козма-тричков-враца",
-      "name": "Училище Козма Тричков Враца",
-      "action": "briefing",
-      "status": "in_progress",
-      "createdAt": "2026-03-19T12:10:04.056Z",
-      "startedAt": "2026-03-19T12:10:25.052Z",
-      "completedAt": null,
-      "error": null,
-      "result": null
-    }
-  ],
+  "tasks": [],
   "completed": [
     {
       "id": 1773819482814,
@@ -241,6 +228,18 @@
       "completedAt": "2026-03-18T14:20:11.354Z",
       "error": "Deploy failed: Command failed: cd \"/tmp/deploy-активи-консулт-бургас-1773843610535\" && git add -A && git commit -m \"Deploy АКТИВИ КОНСУЛТ - Бургас to demo56.add.bg\" && git branch -M main && git push -u origin main -",
       "result": null
+    },
+    {
+      "id": 1773922204056,
+      "slug": "училище-козма-тричков-враца",
+      "name": "Училище Козма Тричков Враца",
+      "action": "briefing",
+      "status": "done",
+      "createdAt": "2026-03-19T12:10:04.056Z",
+      "startedAt": "2026-03-19T12:10:25.052Z",
+      "completedAt": "2026-03-19T12:10:27.959Z",
+      "error": null,
+      "result": "Brief готов. Ниша: счетоводство. 7 въпроса."
     }
   ],
   "version": 1
