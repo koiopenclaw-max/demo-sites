@@ -53,7 +53,7 @@
   "revisionHistory": [
     {
       "issues": "Данните от дейсбук страницата не са скрейпнати:\n1. Вземи логото от там!\n2. Вземи контектите от там - телефони, адреса\n3. УСлугите на фирмата също са там\n\nВземи от страницата всичко и го качи в сайта!",
-      "resolution": "Скрейпнах Facebook страницата (facebook.com/empikabg). Извлечени и интегрирани: (1) Реално лого от профилната снимка (logo.jpg), (2) Cover photo с брандинг (cover.png), (3) Контакти: +359 88 998 6662, empika@abv.bg, София, (4) Услуги: Счетоводни услуги, ТРЗ, Данъчни консултации, Регистрация на фирми, Онлайн услуги, (5) Офис снимка (office.jpg). Сайтът е напълно преработен с правилна синьо-бяла цветова схема.",
+      "resolution": "Fixed: reveal sections opacity, footer populated with 3-column layout (logo/services/contacts), copyright updated to 2025, email verified as empika@abv.bg",
       "createdAt": "2026-03-24T14:34:26.737Z"
     }
   ],
