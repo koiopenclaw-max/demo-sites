@@ -1,0 +1,1368 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Счетоводна къща "Емпика" - Счетоводни услуги</title>
+    <meta name="description" content='Счетоводна къща "Емпика" предлага професионално счетоводно обслужване, ТРЗ, годишно приключване и данъчни консултации за фирми и самоосигуряващи се лица.'>
+    <meta name="keywords" content='счетоводство, счетоводни услуги, ТРЗ, годишно приключване, данъчни консултации, Емпика'>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Urbanist:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --grad-start: #667eea;
+            --grad-end: #764ba2;
+            --glass-bg: rgba(255, 255, 255, 0.12);
+            --glass-border: rgba(255, 255, 255, 0.25);
+            --glass-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
+            --glass-blur: blur(20px);
+            --text-white: #ffffff;
+            --text-light: rgba(255, 255, 255, 0.85);
+            --text-muted: rgba(255, 255, 255, 0.6);
+            --dark-bg: #0f0e17;
+            --accent: #e4a0ff;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            color: var(--text-white);
+            background: var(--dark-bg);
+            overflow-x: hidden;
+            line-height: 1.7;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Urbanist', sans-serif;
+            line-height: 1.2;
+        }
+
+        /* Noise texture overlay */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0.03;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+            background-repeat: repeat;
+            background-size: 256px 256px;
+        }
+
+        /* Animated gradient background */
+        .gradient-bg {
+            background: linear-gradient(135deg, var(--grad-start), var(--grad-end), #e44d90, var(--grad-start));
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Glass card base */
+        .glass {
+            background: var(--glass-bg);
+            backdrop-filter: var(--glass-blur);
+            -webkit-backdrop-filter: var(--glass-blur);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            box-shadow: var(--glass-shadow);
+        }
+
+        .glass-strong {
+            background: rgba(255, 255, 255, 0.18);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 20px;
+            box-shadow: var(--glass-shadow);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Scroll animations */
+        .animate-in {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .animate-in.float-left {
+            transform: translateX(-60px);
+        }
+
+        .animate-in.float-right {
+            transform: translateX(60px);
+        }
+
+        .animate-in.scale-in {
+            transform: scale(0.85);
+        }
+
+        .animate-in.visible {
+            opacity: 1;
+            transform: translateY(0) translateX(0) scale(1);
+        }
+
+        img {
+            display: block;
+            max-width: 100%;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        /* ============================
+           NAVIGATION
+        ============================ */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 16px 0;
+            transition: background 0.4s, padding 0.4s;
+        }
+
+        .nav.scrolled {
+            background: rgba(15, 14, 23, 0.7);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 10px 0;
+        }
+
+        .nav-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .nav-logo {
+            font-family: 'Urbanist', sans-serif;
+            font-weight: 800;
+            font-size: 1.4rem;
+            background: linear-gradient(135deg, #fff, var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: none;
+            list-style: none;
+            gap: 32px;
+        }
+
+        .nav-links a {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--text-light);
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #fff;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-toggle {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 6px;
+        }
+
+        .nav-toggle span {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background: #fff;
+            border-radius: 2px;
+            transition: transform 0.3s, opacity 0.3s;
+        }
+
+        .nav-toggle.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .nav-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .nav-toggle.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -5px);
+        }
+
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(15, 14, 23, 0.95);
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
+            z-index: 999;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 32px;
+        }
+
+        .mobile-menu.open {
+            display: flex;
+        }
+
+        .mobile-menu a {
+            font-family: 'Urbanist', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--text-light);
+            transition: color 0.3s;
+        }
+
+        .mobile-menu a:hover {
+            color: var(--accent);
+        }
+
+        @media (min-width: 768px) {
+            .nav-links {
+                display: flex;
+            }
+            .nav-toggle {
+                display: none;
+            }
+        }
+
+        /* ============================
+           HERO
+        ============================ */
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .hero-bg-image {
+            position: absolute;
+            inset: 0;
+            background: url('https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&q=80') center/cover no-repeat;
+            z-index: 0;
+        }
+
+        .hero-gradient-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.88), rgba(118, 75, 162, 0.92));
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+            z-index: 1;
+        }
+
+        /* Floating decorative orbs */
+        .hero-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            z-index: 2;
+            animation: float 8s ease-in-out infinite;
+        }
+
+        .hero-orb-1 {
+            width: 300px;
+            height: 300px;
+            background: rgba(228, 160, 255, 0.3);
+            top: 10%;
+            right: -5%;
+            animation-delay: 0s;
+        }
+
+        .hero-orb-2 {
+            width: 200px;
+            height: 200px;
+            background: rgba(102, 126, 234, 0.4);
+            bottom: 15%;
+            left: -3%;
+            animation-delay: -3s;
+        }
+
+        .hero-orb-3 {
+            width: 150px;
+            height: 150px;
+            background: rgba(255, 255, 255, 0.15);
+            top: 50%;
+            left: 40%;
+            animation-delay: -5s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) translateX(0); }
+            33% { transform: translateY(-20px) translateX(10px); }
+            66% { transform: translateY(15px) translateX(-10px); }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 3;
+            text-align: center;
+            padding: 40px 24px;
+            max-width: 720px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 32px;
+            box-shadow: 0 20px 60px rgba(31, 38, 135, 0.4);
+        }
+
+        .hero-badge {
+            display: inline-block;
+            padding: 6px 20px;
+            border-radius: 50px;
+            background: rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            font-size: 0.85rem;
+            font-weight: 500;
+            letter-spacing: 0.05em;
+            margin-bottom: 24px;
+            color: var(--text-light);
+        }
+
+        .hero h1 {
+            font-size: clamp(2.2rem, 6vw, 4rem);
+            font-weight: 900;
+            margin-bottom: 16px;
+            background: linear-gradient(135deg, #fff 0%, var(--accent) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: clamp(1rem, 2.5vw, 1.2rem);
+            color: var(--text-light);
+            margin-bottom: 32px;
+            max-width: 520px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            justify-content: center;
+        }
+
+        .btn-glass {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 14px 32px;
+            border-radius: 60px;
+            font-family: 'Urbanist', sans-serif;
+            font-weight: 700;
+            font-size: 1rem;
+            border: none;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .btn-glass:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 40px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #fff, #e0d4f7);
+            color: #4a3673;
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.15);
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        .hero-image-strip {
+            display: flex;
+            gap: 12px;
+            margin-top: 32px;
+            justify-content: center;
+        }
+
+        .hero-image-strip img {
+            width: 60px;
+            height: 60px;
+            border-radius: 16px;
+            object-fit: cover;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        /* ============================
+           SECTIONS COMMON
+        ============================ */
+        section {
+            position: relative;
+            padding: 100px 0;
+            overflow: hidden;
+        }
+
+        .section-gradient {
+            background: linear-gradient(135deg, var(--grad-start), var(--grad-end));
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+        }
+
+        .section-dark {
+            background: var(--dark-bg);
+        }
+
+        .section-dark::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse at 30% 50%, rgba(102, 126, 234, 0.15), transparent 60%),
+                        radial-gradient(ellipse at 70% 80%, rgba(118, 75, 162, 0.1), transparent 50%);
+            pointer-events: none;
+        }
+
+        .section-label {
+            display: inline-block;
+            padding: 6px 18px;
+            border-radius: 50px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--accent);
+            margin-bottom: 16px;
+        }
+
+        .section-title {
+            font-size: clamp(1.8rem, 4vw, 3rem);
+            font-weight: 800;
+            margin-bottom: 16px;
+        }
+
+        .section-subtitle {
+            font-size: 1.05rem;
+            color: var(--text-muted);
+            max-width: 560px;
+            margin-bottom: 48px;
+        }
+
+        .section-header-center {
+            text-align: center;
+        }
+
+        .section-header-center .section-subtitle {
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* ============================
+           ABOUT
+        ============================ */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .about-image-wrapper {
+            position: relative;
+        }
+
+        .about-image-wrapper img {
+            width: 100%;
+            height: 380px;
+            object-fit: cover;
+            border-radius: 24px;
+        }
+
+        .about-image-glass {
+            position: absolute;
+            bottom: -20px;
+            right: -10px;
+            padding: 16px 24px;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            border-radius: 16px;
+            font-family: 'Urbanist', sans-serif;
+        }
+
+        .about-image-glass .stat-number {
+            font-size: 2rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #fff, var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .about-image-glass .stat-label {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .about-text p {
+            color: var(--text-light);
+            margin-bottom: 20px;
+            font-size: 1.02rem;
+        }
+
+        .about-features {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-top: 24px;
+        }
+
+        .about-feature {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 16px;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+
+        .about-feature-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            background: linear-gradient(135deg, var(--grad-start), var(--grad-end));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+            flex-shrink: 0;
+        }
+
+        @media (min-width: 768px) {
+            .about-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        /* ============================
+           SERVICES
+        ============================ */
+        .services-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 24px;
+        }
+
+        .service-card {
+            position: relative;
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 24px;
+            padding: 0;
+            overflow: hidden;
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s;
+        }
+
+        .service-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 60px rgba(102, 126, 234, 0.3);
+        }
+
+        .service-card-image {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+        }
+
+        .service-card-body {
+            padding: 28px;
+        }
+
+        .service-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 16px;
+            background: linear-gradient(135deg, var(--grad-start), var(--grad-end));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 16px;
+            box-shadow: 0 8px 24px rgba(102, 126, 234, 0.3);
+        }
+
+        .service-card h3 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .service-card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        @media (min-width: 640px) {
+            .services-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .services-grid {
+                grid-template-columns: 1fr 1fr 1fr;
+            }
+        }
+
+        /* ============================
+           PROCESS
+        ============================ */
+        .process-wrapper {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .process-image-col img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            border-radius: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+
+        .process-steps {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .process-step {
+            display: flex;
+            gap: 20px;
+            padding: 24px;
+            background: rgba(255, 255, 255, 0.07);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 20px;
+            transition: transform 0.4s, background 0.4s;
+        }
+
+        .process-step:hover {
+            transform: translateX(8px);
+            background: rgba(255, 255, 255, 0.12);
+        }
+
+        .process-step-number {
+            width: 48px;
+            height: 48px;
+            min-width: 48px;
+            border-radius: 14px;
+            background: linear-gradient(135deg, var(--grad-start), var(--grad-end));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Urbanist', sans-serif;
+            font-weight: 800;
+            font-size: 1.2rem;
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.35);
+        }
+
+        .process-step h4 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .process-step p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        @media (min-width: 768px) {
+            .process-wrapper {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        /* ============================
+           TEAM
+        ============================ */
+        .team-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 28px;
+        }
+
+        .team-card {
+            text-align: center;
+            padding: 32px 24px;
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 24px;
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s;
+        }
+
+        .team-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 20px 60px rgba(118, 75, 162, 0.3);
+        }
+
+        .team-photo-frame {
+            width: 140px;
+            height: 140px;
+            margin: 0 auto 20px;
+            border-radius: 50%;
+            padding: 4px;
+            background: linear-gradient(135deg, var(--grad-start), var(--grad-end), var(--accent));
+        }
+
+        .team-photo-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 3px solid var(--dark-bg);
+        }
+
+        .team-card h3 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .team-card .team-role {
+            color: var(--accent);
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin-bottom: 12px;
+        }
+
+        .team-card p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        @media (min-width: 640px) {
+            .team-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .team-grid {
+                grid-template-columns: 1fr 1fr 1fr;
+            }
+        }
+
+        /* ============================
+           CONTACT
+        ============================ */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 40px;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .contact-item {
+            display: flex;
+            gap: 16px;
+            align-items: flex-start;
+            padding: 24px;
+            background: rgba(255, 255, 255, 0.07);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 20px;
+            transition: transform 0.3s, background 0.3s;
+        }
+
+        .contact-item:hover {
+            transform: translateY(-4px);
+            background: rgba(255, 255, 255, 0.12);
+        }
+
+        .contact-icon {
+            width: 52px;
+            height: 52px;
+            min-width: 52px;
+            border-radius: 16px;
+            background: linear-gradient(135deg, var(--grad-start), var(--grad-end));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .contact-item h4 {
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .contact-item p,
+        .contact-item a {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            transition: color 0.3s;
+        }
+
+        .contact-item a:hover {
+            color: var(--accent);
+        }
+
+        .contact-image-col img {
+            width: 100%;
+            height: 360px;
+            object-fit: cover;
+            border-radius: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+
+        .contact-map-placeholder {
+            margin-top: 24px;
+            padding: 32px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            text-align: center;
+        }
+
+        .contact-map-placeholder p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        @media (min-width: 768px) {
+            .contact-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        /* ============================
+           FOOTER
+        ============================ */
+        .footer {
+            padding: 40px 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            background: var(--dark-bg);
+        }
+
+        .footer-inner {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 16px;
+            text-align: center;
+        }
+
+        .footer-logo {
+            font-family: 'Urbanist', sans-serif;
+            font-weight: 800;
+            font-size: 1.3rem;
+            background: linear-gradient(135deg, #fff, var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .footer p {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        @media (min-width: 768px) {
+            .footer-inner {
+                flex-direction: row;
+                justify-content: space-between;
+            }
+        }
+
+        /* Floating decorative elements for sections */
+        .floating-circle {
+            position: absolute;
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .floating-circle-1 {
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, rgba(102, 126, 234, 0.2), transparent);
+            top: 10%;
+            right: -60px;
+        }
+
+        .floating-circle-2 {
+            width: 150px;
+            height: 150px;
+            background: radial-gradient(circle, rgba(228, 160, 255, 0.15), transparent);
+            bottom: 10%;
+            left: -40px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVIGATION -->
+    <nav class="nav" id="nav">
+        <div class="container nav-inner">
+            <a href="#" class="nav-logo">Емпика</a>
+            <ul class="nav-links">
+                <li><a href="#about">За нас</a></li>
+                <li><a href="#services">Услуги</a></li>
+                <li><a href="#process">Как работим</a></li>
+                <li><a href="#team">Екип</a></li>
+                <li><a href="#contact">Контакти</a></li>
+            </ul>
+            <button class="nav-toggle" id="navToggle" aria-label="Отвори менюто">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- MOBILE MENU -->
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="#about">За нас</a>
+        <a href="#services">Услуги</a>
+        <a href="#process">Как работим</a>
+        <a href="#team">Екип</a>
+        <a href="#contact">Контакти</a>
+    </div>
+
+    <!-- HERO -->
+    <section class="hero" id="hero">
+        <div class="hero-bg-image"></div>
+        <div class="hero-gradient-overlay"></div>
+        <div class="hero-orb hero-orb-1"></div>
+        <div class="hero-orb hero-orb-2"></div>
+        <div class="hero-orb hero-orb-3"></div>
+        <div class="hero-content animate-in scale-in">
+            <div class="hero-badge">&#9670; Професионално счетоводно обслужване</div>
+            <h1>Счетоводна къща "Емпика"</h1>
+            <p>Надеждно счетоводство, ТРЗ и данъчни консултации за фирми, свободни професии и развиващи се бизнеси.</p>
+            <div class="hero-buttons">
+                <a href="#contact" class="btn-glass btn-primary">&#9742; Свържете се с нас</a>
+                <a href="#services" class="btn-glass btn-secondary">Нашите услуги &#8594;</a>
+            </div>
+            <div class="hero-image-strip">
+                <img src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=800&q=80" alt="Екип">
+                <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=800&q=80" alt="Екип">
+                <img src="https://images.unsplash.com/photo-1664575602554-2087b04935a5?w=800&q=80" alt="Екип">
+                <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&q=80" alt="Екип">
+            </div>
+        </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section class="section-dark" id="about">
+        <div class="floating-circle floating-circle-1"></div>
+        <div class="floating-circle floating-circle-2"></div>
+        <div class="container">
+            <div class="about-grid">
+                <div class="about-image-wrapper animate-in float-left">
+                    <img src="https://images.unsplash.com/photo-1553877522-43269d4ea984?w=800&q=80" alt='Офис на Счетоводна къща "Емпика"'>
+                    <div class="about-image-glass">
+                        <div class="stat-number">360°</div>
+                        <div class="stat-label">счетоводно обслужване</div>
+                    </div>
+                </div>
+                <div class="about-text animate-in float-right">
+                    <span class="section-label">За нас</span>
+                    <h2 class="section-title">Практично счетоводство за реалния бизнес</h2>
+                    <p>Счетоводна къща "Емпика" предлага цялостно счетоводно обслужване с фокус върху точност, навременност и ясна комуникация. Работим с компании, предприемачи и самоосигуряващи се лица, които търсят сигурен партньор за ежедневните си административни и финансови процеси.</p>
+                    <p>Подкрепяме клиентите си при текущото осчетоводяване, изготвянето на справки и декларации, ТРЗ, годишното приключване и консултациите по данъчно-осигурителни въпроси. Целта ни е вашата документация да бъде подредена, а решенията ви - информирани.</p>
+                    <div class="about-features">
+                        <div class="about-feature">
+                            <div class="about-feature-icon">&#9889;</div>
+                            <span>Навременна обработка</span>
+                        </div>
+                        <div class="about-feature">
+                            <div class="about-feature-icon">&#128274;</div>
+                            <span>Коректност и дискретност</span>
+                        </div>
+                        <div class="about-feature">
+                            <div class="about-feature-icon">&#128202;</div>
+                            <span>Ясни справки и отчети</span>
+                        </div>
+                        <div class="about-feature">
+                            <div class="about-feature-icon">&#129309;</div>
+                            <span>Индивидуален подход</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SERVICES -->
+    <section class="section-gradient" id="services">
+        <div class="container">
+            <div class="section-header-center animate-in">
+                <span class="section-label">Услуги</span>
+                <h2 class="section-title">Счетоводни услуги за спокойна работа</h2>
+                <p class="section-subtitle">Практични решения за текущо счетоводство, ТРЗ, данъци и годишно приключване.</p>
+            </div>
+            <div class="services-grid">
+                <div class="service-card animate-in" style="transition-delay: 0.05s">
+                    <img class="service-card-image" src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&q=80" alt="Текущо счетоводно обслужване">
+                    <div class="service-card-body">
+                        <div class="service-icon">&#128176;</div>
+                        <h3>Текущо счетоводно обслужване</h3>
+                        <p>Осчетоводяване на първични документи, проследяване на движенията по сметки и поддържане на изрядна счетоводна документация.</p>
+                    </div>
+                </div>
+                <div class="service-card animate-in" style="transition-delay: 0.1s">
+                    <img class="service-card-image" src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?w=800&q=80" alt="Годишно счетоводно приключване">
+                    <div class="service-card-body">
+                        <div class="service-icon">&#128197;</div>
+                        <h3>Годишно приключване</h3>
+                        <p>Изготвяне на годишни финансови отчети, данъчни декларации и необходимите документи за приключване на отчетния период.</p>
+                    </div>
+                </div>
+                <div class="service-card animate-in" style="transition-delay: 0.15s">
+                    <img class="service-card-image" src="https://images.unsplash.com/photo-1553877522-43269d4ea984?w=800&q=80" alt="ТРЗ и личен състав">
+                    <div class="service-card-body">
+                        <div class="service-icon">&#128209;</div>
+                        <h3>ТРЗ и личен състав</h3>
+                        <p>Подготовка на ведомости, трудови договори, осигурителни документи и административно обслужване на персонала.</p>
+                    </div>
+                </div>
+                <div class="service-card animate-in" style="transition-delay: 0.2s">
+                    <img class="service-card-image" src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&q=80" alt="Данъчни и осигурителни консултации">
+                    <div class="service-card-body">
+                        <div class="service-icon">&#128269;</div>
+                        <h3>Данъчни консултации</h3>
+                        <p>Съдействие по данъчни и осигурителни въпроси, практически насоки и подготовка за коректно спазване на нормативните изисквания.</p>
+                    </div>
+                </div>
+                <div class="service-card animate-in" style="transition-delay: 0.25s">
+                    <img class="service-card-image" src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&q=80" alt="Регистрация и административно съдействие">
+                    <div class="service-card-body">
+                        <div class="service-icon">&#128101;</div>
+                        <h3>Административно съдействие</h3>
+                        <p>Подготовка и подаване на документи към институции, справки и съдействие при организацията на счетоводния поток.</p>
+                    </div>
+                </div>
+                <div class="service-card animate-in" style="transition-delay: 0.3s">
+                    <img class="service-card-image" src="https://images.unsplash.com/photo-1664575602554-2087b04935a5?w=800&q=80" alt="Справки и финансова информация">
+                    <div class="service-card-body">
+                        <div class="service-icon">&#128200;</div>
+                        <h3>Справки и отчетност</h3>
+                        <p>Подготовка на периодични справки и структурирана финансова информация, която подпомага контрола и планирането на бизнеса.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PROCESS -->
+    <section class="section-dark" id="process">
+        <div class="floating-circle floating-circle-1"></div>
+        <div class="floating-circle floating-circle-2"></div>
+        <div class="container">
+            <div class="process-wrapper">
+                <div class="process-steps">
+                    <div class="animate-in">
+                        <span class="section-label">Процес</span>
+                        <h2 class="section-title">Ясен процес без излишна тежест</h2>
+                        <p class="section-subtitle">Организираме работата така, че да знаете какво се случва с документите и сроковете ви във всеки момент.</p>
+                    </div>
+                    <div class="process-step animate-in float-left" style="transition-delay: 0.1s">
+                        <div class="process-step-number">01</div>
+                        <div>
+                            <h4>Първоначален разговор</h4>
+                            <p>Уточняваме спецификата на дейността ви, документопотока и какъв тип счетоводно обслужване е необходим.</p>
+                        </div>
+                    </div>
+                    <div class="process-step animate-in float-left" style="transition-delay: 0.2s">
+                        <div class="process-step-number">02</div>
+                        <div>
+                            <h4>Организация на работата</h4>
+                            <p>Определяме начина на обмен на документи, сроковете за обработка и отговорностите по текущото обслужване.</p>
+                        </div>
+                    </div>
+                    <div class="process-step animate-in float-left" style="transition-delay: 0.3s">
+                        <div class="process-step-number">03</div>
+                        <div>
+                            <h4>Текущо обслужване</h4>
+                            <p>Обработваме документацията, подготвяме задължителните справки и следим за спазване на нормативните срокове.</p>
+                        </div>
+                    </div>
+                    <div class="process-step animate-in float-left" style="transition-delay: 0.4s">
+                        <div class="process-step-number">04</div>
+                        <div>
+                            <h4>Постоянна връзка</h4>
+                            <p>Получавате навременна обратна връзка, съдействие при въпроси и яснота по текущите счетоводни и ТРЗ задачи.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="process-image-col animate-in float-right">
+                    <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&q=80" alt='Работен процес в Счетоводна къща "Емпика"'>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TEAM -->
+    <section class="section-gradient" id="team">
+        <div class="container">
+            <div class="section-header-center animate-in">
+                <span class="section-label">Екип</span>
+                <h2 class="section-title">Екип, на който може да разчитате</h2>
+                <p class="section-subtitle">Фокус върху точната обработка, коректната отчетност и практичното съдействие за ежедневната работа на клиента.</p>
+            </div>
+            <div class="team-grid">
+                <div class="team-card animate-in scale-in" style="transition-delay: 0.05s">
+                    <div class="team-photo-frame">
+                        <img src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=800&q=80" alt="Екип по счетоводно обслужване">
+                    </div>
+                    <h3>Счетоводно обслужване</h3>
+                    <div class="team-role">Текуща документация и отчетност</div>
+                    <p>Екипна работа по ежедневното осчетоводяване, обработката на документи и подготовката на необходимите счетоводни справки.</p>
+                </div>
+                <div class="team-card animate-in scale-in" style="transition-delay: 0.15s">
+                    <div class="team-photo-frame">
+                        <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=800&q=80" alt="Екип по ТРЗ и административно обслужване">
+                    </div>
+                    <h3>ТРЗ и администрация</h3>
+                    <div class="team-role">Заплати, договори и осигуровки</div>
+                    <p>Съдействие при обработка на възнаграждения, трудови документи и административни дейности, свързани с персонала.</p>
+                </div>
+                <div class="team-card animate-in scale-in" style="transition-delay: 0.25s">
+                    <div class="team-photo-frame">
+                        <img src="https://images.unsplash.com/photo-1664575602554-2087b04935a5?w=800&q=80" alt="Екип по консултации и годишно приключване">
+                    </div>
+                    <h3>Консултации и приключване</h3>
+                    <div class="team-role">Годишни отчети и насоки</div>
+                    <p>Подготовка на годишни документи, консултации по текущи казуси и координация при отчетни и данъчни срокове.</p>
+                </div>
+            </div>
+            <div style="text-align:center; margin-top: 40px;" class="animate-in">
+                <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&q=80" alt='Екипна работа в Счетоводна къща "Емпика"' style="width:100%; max-width:800px; height:320px; object-fit:cover; border-radius:24px; border:1px solid rgba(255,255,255,0.15);">
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section class="section-dark" id="contact">
+        <div class="floating-circle floating-circle-1"></div>
+        <div class="floating-circle floating-circle-2"></div>
+        <div class="container">
+            <div class="section-header-center animate-in">
+                <span class="section-label">Контакти</span>
+                <h2 class="section-title">Свържете се със Счетоводна къща "Емпика"</h2>
+                <p class="section-subtitle">Изпратете запитване за счетоводно обслужване, ТРЗ или консултация. Данните по-долу са ограничени до наличното съдържание от предоставените файлове.</p>
+            </div>
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <div class="contact-item animate-in float-left" style="transition-delay: 0.05s">
+                        <div class="contact-icon">&#9742;</div>
+                        <div>
+                            <h4>Телефон</h4>
+                            <p>Няма публикуван телефон в предоставеното съдържание</p>
+                        </div>
+                    </div>
+                    <div class="contact-item animate-in float-left" style="transition-delay: 0.15s">
+                        <div class="contact-icon">&#9993;</div>
+                        <div>
+                            <h4>Имейл</h4>
+                            <p>Няма публикуван имейл в предоставеното съдържание</p>
+                        </div>
+                    </div>
+                    <div class="contact-item animate-in float-left" style="transition-delay: 0.25s">
+                        <div class="contact-icon">&#128205;</div>
+                        <div>
+                            <h4>Адрес</h4>
+                            <p>Няма публикуван адрес в предоставеното съдържание</p>
+                        </div>
+                    </div>
+                    <div class="contact-item animate-in float-left" style="transition-delay: 0.35s">
+                        <div class="contact-icon">&#128338;</div>
+                        <div>
+                            <h4>Работно време</h4>
+                            <p>Работното време не е посочено в предоставеното съдържание</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-image-col animate-in float-right">
+                    <img src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?w=800&q=80" alt='Офис среда на Счетоводна къща "Емпика"'>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container footer-inner">
+            <div class="footer-logo">Счетоводна къща "Емпика"</div>
+            <p>&copy; 2026 Счетоводна къща "Емпика". Всички права запазени.</p>
+        </div>
+    </footer>
+
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "AccountingService",
+            "name": "Счетоводна къща \"Емпика\"",
+            "description": "Счетоводно обслужване, ТРЗ, годишно приключване и данъчни консултации.",
+            "areaServed": "BG",
+            "serviceType": [
+                "Счетоводно обслужване",
+                "ТРЗ и личен състав",
+                "Годишно приключване",
+                "Данъчни консултации"
+            ]
+        }
+    </script>
+
+    <script>
+        // Navigation scroll effect
+        const nav = document.getElementById('nav');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 60) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        });
+
+        // Mobile menu toggle
+        const navToggle = document.getElementById('navToggle');
+        const mobileMenu = document.getElementById('mobileMenu');
+
+        navToggle.addEventListener('click', () => {
+            navToggle.classList.toggle('active');
+            mobileMenu.classList.toggle('open');
+            document.body.style.overflow = mobileMenu.classList.contains('open') ? 'hidden' : '';
+        });
+
+        mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                navToggle.classList.remove('active');
+                mobileMenu.classList.remove('open');
+                document.body.style.overflow = '';
+            });
+        });
+
+        // IntersectionObserver scroll animations
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px 0px -60px 0px',
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.animate-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Parallax-like floating effect on scroll for orbs
+        window.addEventListener('scroll', () => {
+            const scrollY = window.scrollY;
+            const orbs = document.querySelectorAll('.hero-orb');
+            orbs.forEach((orb, i) => {
+                const speed = (i + 1) * 0.03;
+                orb.style.transform = `translateY(${scrollY * speed}px)`;
+            });
+        });
+
+        // Subtle mouse parallax on hero content
+        const heroContent = document.querySelector('.hero-content');
+        const hero = document.querySelector('.hero');
+
+        hero.addEventListener('mousemove', (e) => {
+            const rect = hero.getBoundingClientRect();
+            const x = (e.clientX - rect.left) / rect.width - 0.5;
+            const y = (e.clientY - rect.top) / rect.height - 0.5;
+            heroContent.style.transform = `translate(${x * 8}px, ${y * 8}px)`;
+        });
+
+        hero.addEventListener('mouseleave', () => {
+            heroContent.style.transform = 'translate(0, 0)';
+        });
+    </script>
+</body>
+</html>
