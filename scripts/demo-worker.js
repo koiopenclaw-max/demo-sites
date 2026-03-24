@@ -512,7 +512,7 @@ All text in Bulgarian. All images must load (use Unsplash if no client images).`
       try {
         execSync(
           `npx playwright screenshot --viewport-size "1280,800" --wait-for-timeout 3000 --full-page "http://127.0.0.1:${port}/" "${path.join(screenshotDir, 'desktop.png')}"`,
-          { timeout: 30000, stdio: 'pipe', env: { ...process.env, PATH: `${process.env.PATH}:/home/clawd/.npm-global/bin` } }
+          { timeout: 60000, stdio: 'pipe', env: { ...process.env, PATH: `${process.env.PATH}:/home/clawd/.npm-global/bin` } }
         );
       } catch (e) { log(`Desktop screenshot: ${e.message.substring(0, 100)}`); }
       
@@ -520,7 +520,7 @@ All text in Bulgarian. All images must load (use Unsplash if no client images).`
       try {
         execSync(
           `npx playwright screenshot --viewport-size "375,667" --wait-for-timeout 3000 --full-page "http://127.0.0.1:${port}/" "${path.join(screenshotDir, 'mobile.png')}"`,
-          { timeout: 30000, stdio: 'pipe', env: { ...process.env, PATH: `${process.env.PATH}:/home/clawd/.npm-global/bin` } }
+          { timeout: 60000, stdio: 'pipe', env: { ...process.env, PATH: `${process.env.PATH}:/home/clawd/.npm-global/bin` } }
         );
       } catch (e) { log(`Mobile screenshot: ${e.message.substring(0, 100)}`); }
       
@@ -600,14 +600,16 @@ Fix instructions:
       claudeResult = 'VALIDATED: YES\nSummary: Validation skipped due to error.';
     }
     
-    const scoreMatch = claudeResult.match(/SCORE:\s*(\d+)\/15/);
+    const scoreMatch = claudeResult.match(/SCORE:\s*(\d+)\/(\d+)/);
     const score = scoreMatch ? parseInt(scoreMatch[1]) : 0;
-    log(`Build validation (attempt ${buildAttempt}): score ${score}/15`);
+    const maxScore = scoreMatch ? parseInt(scoreMatch[2]) : 15;
+    const pct = maxScore > 0 ? Math.round(score / maxScore * 100) : 0;
+    log(`Build validation (attempt ${buildAttempt}): score ${score}/${maxScore} (${pct}%)`);
     log(`Claude: ${claudeResult.substring(0, 300)}`);
     
     if (claudeResult.includes('VALIDATED: YES')) {
       buildValidated = true;
-      log(`✅ Build VALIDATED on attempt ${buildAttempt} (score: ${score}/15)`);
+      log(`✅ Build VALIDATED on attempt ${buildAttempt} (score: ${score}/${maxScore}, ${pct}%)`);
     } else {
       buildClaudeFeedback = claudeResult;
       log(`❌ Build FAILED validation (attempt ${buildAttempt}, score: ${score}/15). ${buildAttempt < MAX_BUILD_ATTEMPTS ? 'Retrying...' : 'Publishing best effort.'}`);
@@ -866,7 +868,7 @@ OUTPUT: Save the final file as index.html in this directory.`;
       try {
         execSync(
           `npx playwright screenshot --viewport-size "1280,800" --wait-for-timeout 3000 --full-page "http://127.0.0.1:${port}/" "${path.join(screenshotDir, 'desktop.png')}"`,
-          { timeout: 30000, stdio: 'pipe', env: { ...process.env, PATH: `${process.env.PATH}:/home/clawd/.npm-global/bin` } }
+          { timeout: 60000, stdio: 'pipe', env: { ...process.env, PATH: `${process.env.PATH}:/home/clawd/.npm-global/bin` } }
         );
         log('Desktop screenshot captured');
       } catch (e) {
@@ -877,7 +879,7 @@ OUTPUT: Save the final file as index.html in this directory.`;
       try {
         execSync(
           `npx playwright screenshot --viewport-size "375,667" --wait-for-timeout 3000 --full-page "http://127.0.0.1:${port}/" "${path.join(screenshotDir, 'mobile.png')}"`,
-          { timeout: 30000, stdio: 'pipe', env: { ...process.env, PATH: `${process.env.PATH}:/home/clawd/.npm-global/bin` } }
+          { timeout: 60000, stdio: 'pipe', env: { ...process.env, PATH: `${process.env.PATH}:/home/clawd/.npm-global/bin` } }
         );
         log('Mobile screenshot captured');
       } catch (e) {
@@ -968,13 +970,15 @@ Fix instructions:
     log(`Claude verdict (attempt ${attempt}): ${claudeResult.substring(0, 300)}`);
     
     // Extract score
-    const scoreMatch = claudeResult.match(/SCORE:\s*(\d+)\/15/);
+    const scoreMatch = claudeResult.match(/SCORE:\s*(\d+)\/(\d+)/);
     const score = scoreMatch ? parseInt(scoreMatch[1]) : 0;
-    log(`Visual+Code score: ${score}/15`);
+    const maxScore = scoreMatch ? parseInt(scoreMatch[2]) : 15;
+    const pct = maxScore > 0 ? Math.round(score / maxScore * 100) : 0;
+    log(`Visual+Code score: ${score}/${maxScore} (${pct}%)`);
     
     if (claudeResult.includes('VALIDATED: YES')) {
       validated = true;
-      log(`✅ Revision VALIDATED on attempt ${attempt} (score: ${score}/15)`);
+      log(`✅ Revision VALIDATED on attempt ${attempt} (score: ${score}/${maxScore}, ${pct}%)`);
     } else {
       claudeFeedback = claudeResult;
       log(`❌ Revision FAILED validation on attempt ${attempt} (score: ${score}/15). Retrying...`);
