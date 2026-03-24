@@ -1,5 +1,18 @@
 {
-  "tasks": [],
+  "tasks": [
+    {
+      "id": 1774362184195,
+      "slug": "счетоводна-къща-емпика",
+      "name": "Счетоводна къща \"Емпика\"",
+      "action": "briefing",
+      "status": "pending",
+      "createdAt": "2026-03-24T14:23:04.195Z",
+      "startedAt": null,
+      "completedAt": null,
+      "error": null,
+      "result": null
+    }
+  ],
   "completed": [
     {
       "id": 1773819482814,
