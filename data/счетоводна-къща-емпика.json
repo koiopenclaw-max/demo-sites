@@ -5,10 +5,49 @@
   "websiteUrl": "",
   "facebookUrl": "https://www.facebook.com/empikabg/?locale=bg_BG",
   "notes": "Клиента иска сайт",
-  "status": "briefing",
-  "brief": null,
-  "qa": [],
+  "status": "brief_ready",
+  "brief": "# Задание: Счетоводна къща \"Емпика\" — Нов сайт\n\n## За клиента\n**Счетоводна къща \"Емпика\"** — счетоводство\nКлиента иска сайт\n\n## Текущо съдържание\nНе е намерено съдържание на текущия сайт.\n\n## Препоръки\n- Модерен, mobile-first дизайн\n- SEO оптимизация (Schema.org, meta tags)\n- Бързо зареждане (оптимизирани изображения)\n- Ясен CTA (Call to Action)\n- Контактна информация на видно място",
+  "qa": [
+    {
+      "question": "Кой темплейт да използваме за сайта?",
+      "answer": "",
+      "type": "template_select",
+      "niche": "счетоводство",
+      "status": "pending"
+    },
+    {
+      "question": "Има ли бизнесът лого (SVG/PNG с прозрачен фон)?",
+      "answer": "",
+      "type": "text"
+    },
+    {
+      "question": "Има ли предпочитана цветова гама?",
+      "answer": "",
+      "type": "text"
+    },
+    {
+      "question": "Има ли снимки на офиса/екипа за използване?",
+      "answer": "",
+      "type": "text"
+    },
+    {
+      "question": "Има ли Google Business Profile?",
+      "answer": "",
+      "type": "text"
+    },
+    {
+      "question": "Какво е работното време?",
+      "answer": "",
+      "type": "text"
+    },
+    {
+      "question": "Има ли допълнителни услуги/акценти извън текущия сайт?",
+      "answer": "",
+      "type": "text"
+    }
+  ],
   "demoUrl": null,
   "createdAt": "2026-03-24T14:22:43.170Z",
-  "updatedAt": "2026-03-24T14:22:46.901Z"
+  "updatedAt": "2026-03-24T14:23:37.140Z",
+  "niche": "счетоводство"
 }
