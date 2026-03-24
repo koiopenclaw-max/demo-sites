@@ -1,18 +1,5 @@
 {
-  "tasks": [
-    {
-      "id": 1774369022776,
-      "slug": "адвокатска-кантора-богданови-и-маринов",
-      "name": "АДВОКАТСКА КАНТОРА БОГДАНОВИ И МАРИНОВ",
-      "action": "building",
-      "status": "in_progress",
-      "createdAt": "2026-03-24T16:17:02.776Z",
-      "startedAt": "2026-03-24T16:17:17.702Z",
-      "completedAt": null,
-      "error": null,
-      "result": null
-    }
-  ],
+  "tasks": [],
   "completed": [
     {
       "id": 1773819482814,
@@ -433,6 +420,18 @@
       "completedAt": "2026-03-24T16:12:11.803Z",
       "error": null,
       "result": "Brief enriched → brief_final"
+    },
+    {
+      "id": 1774369022776,
+      "slug": "адвокатска-кантора-богданови-и-маринов",
+      "name": "АДВОКАТСКА КАНТОРА БОГДАНОВИ И МАРИНОВ",
+      "action": "building",
+      "status": "error",
+      "createdAt": "2026-03-24T16:17:02.776Z",
+      "startedAt": "2026-03-24T16:17:17.702Z",
+      "completedAt": "2026-03-24T16:25:10.523Z",
+      "error": "ENOENT: no such file or directory, copyfile '/tmp/demo-build-адвокатска-кантора-богданови-и-маринов/index.html' -> '/home/clawd/Projects/demo-sites/demos/адвокатска-кантора-богданови-и-маринов/index.html'",
+      "result": null
     }
   ],
   "version": 1
