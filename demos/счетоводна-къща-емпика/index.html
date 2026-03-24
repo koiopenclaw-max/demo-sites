@@ -560,6 +560,7 @@ footer{
 footer a{color:#91e2cb}
 @media (max-width:980px){
   .hero-grid,.about-grid,.contact-grid{grid-template-columns:1fr}
+  .hero-card{grid-template-columns:1fr}
   .hero-media{min-height:420px}
   .bento-grid{grid-template-columns:repeat(2,1fr)}
   .work-grid{grid-template-columns:repeat(2,1fr)}
@@ -945,9 +946,35 @@ footer a{color:#91e2cb}
   </section>
 </main>
 
-<footer>
-  <div class="container">
-    <p>© <span id="year"></span> Счетоводна къща Емпика, София. Всички права запазени. <a href="mailto:empika@abv.bg">empika@abv.bg</a></p>
+<footer style="background:var(--navy);color:var(--white);padding:3.5rem 0 1.5rem">
+  <div class="container" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:2.5rem;margin-bottom:2rem">
+    <div>
+      <img src="logo.jpg" alt="Емпика лого" style="width:60px;height:60px;border-radius:12px;margin-bottom:1rem">
+      <h4 style="font-size:1.1rem;margin-bottom:.5rem">Счетоводна къща Емпика</h4>
+      <p style="font-size:.9rem;color:rgba(255,255,255,.7);line-height:1.6">Професионално обслужване в сферата на счетоводството и данъците в София.</p>
+    </div>
+    <div>
+      <h4 style="font-size:1rem;margin-bottom:1rem;color:var(--teal)">Услуги</h4>
+      <ul style="list-style:none;padding:0;display:grid;gap:.5rem;font-size:.9rem;color:rgba(255,255,255,.75)">
+        <li>Счетоводство</li>
+        <li>ТРЗ и работни заплати</li>
+        <li>Данъчни консултации</li>
+        <li>Регистрация на фирми</li>
+        <li>Онлайн услуги</li>
+      </ul>
+    </div>
+    <div>
+      <h4 style="font-size:1rem;margin-bottom:1rem;color:var(--teal)">Контакти</h4>
+      <p style="font-size:.9rem;color:rgba(255,255,255,.75);line-height:2">
+        📞 <a href="tel:+359889986662" style="color:var(--white);text-decoration:none">+359 88 998 6662</a><br>
+        ✉️ <a href="mailto:empika@abv.bg" style="color:var(--white);text-decoration:none">empika@abv.bg</a><br>
+        📍 София, България<br>
+        🔗 <a href="https://www.facebook.com/empikabg/" target="_blank" style="color:var(--teal);text-decoration:none">Facebook</a>
+      </p>
+    </div>
+  </div>
+  <div class="container" style="text-align:center;padding-top:1.5rem;border-top:1px solid rgba(255,255,255,.15)">
+    <p style="font-size:.85rem;color:rgba(255,255,255,.5)">© 2025 Счетоводна къща Емпика, София. Всички права запазени.</p>
   </div>
 </footer>
 
@@ -990,7 +1017,7 @@ document.querySelectorAll('.reveal,.reveal-left,.reveal-right').forEach((element
   }
 });
 
-document.getElementById('year').textContent=new Date().getFullYear();
+// year is now static in footer
 </script>
 </body>
 </html>
