@@ -77,14 +77,12 @@ function addTask(slug, name, action, data) {
 // ===== GitHub Operations =====
 function gitPull() {
   try {
-    // Stash any unstaged changes before pulling
-    try { execSync('git stash --quiet', { cwd: DEMO_REPO, timeout: 5000, stdio: 'pipe' }); } catch {}
-    execSync('git pull --rebase origin main --quiet', { cwd: DEMO_REPO, timeout: 30000, stdio: 'pipe' });
-    try { execSync('git stash pop --quiet', { cwd: DEMO_REPO, timeout: 5000, stdio: 'pipe' }); } catch {}
+    // Discard ALL local changes and sync to remote (worker never has local-only work worth keeping)
+    execSync('git fetch origin main', { cwd: DEMO_REPO, timeout: 30000, stdio: 'pipe' });
+    execSync('git reset --hard origin/main', { cwd: DEMO_REPO, timeout: 15000, stdio: 'pipe' });
+    execSync('git clean -fd', { cwd: DEMO_REPO, timeout: 5000, stdio: 'pipe' });
   } catch (e) {
     log(`git pull error: ${e.message}`);
-    // Hard reset as last resort
-    try { execSync('git checkout -- .', { cwd: DEMO_REPO, timeout: 5000, stdio: 'pipe' }); } catch {}
   }
 }
 
