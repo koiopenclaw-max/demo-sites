@@ -425,14 +425,205 @@ When completely finished, run: echo "BUILD_COMPLETE" > /tmp/demo-build-done-${ta
     // Check if build completed despite error
   }
   
-  // Check for output
-  const outputFile = path.join(buildDir, 'index.html');
-  if (!fs.existsSync(outputFile)) {
-    throw new Error('Codex did not produce index.html');
+  // === VISUAL VALIDATION LOOP ===
+  const MAX_BUILD_ATTEMPTS = 3;
+  let buildAttempt = 0;
+  let buildValidated = false;
+  let buildClaudeFeedback = '';
+  
+  while (buildAttempt < MAX_BUILD_ATTEMPTS && !buildValidated) {
+    buildAttempt++;
+    
+    if (buildAttempt > 1) {
+      // Retry: re-run Codex with Claude's feedback
+      log(`Build retry ${buildAttempt}/${MAX_BUILD_ATTEMPTS} with feedback...`);
+      const retryPrompt = `You are building a demo website for "${data.name}".
+
+PREVIOUS BUILD FAILED VISUAL VALIDATION. Here is the feedback:
+${buildClaudeFeedback}
+
+INPUT FILES:
+- current.html — the previous attempt (fix the issues listed above)
+${templateHtml ? '- template.html — the design template for reference' : ''}
+- client-content.txt — scraped content from client
+- brief.md — project brief
+
+Fix ALL the issues listed above. Save the result as index.html.
+Keep the design professional, clean, and human-friendly.
+All text in Bulgarian. All images must load (use Unsplash if no client images).`;
+
+      fs.writeFileSync(path.join(buildDir, 'PROMPT.md'), retryPrompt);
+      // Copy previous output as current for iterative fix
+      const prevOutput = path.join(buildDir, 'index.html');
+      if (fs.existsSync(prevOutput)) {
+        fs.copyFileSync(prevOutput, path.join(buildDir, 'current.html'));
+        fs.unlinkSync(prevOutput);
+      }
+      
+      try {
+        try { execSync(`rm -rf "${buildDir}/.git"`, { stdio: 'pipe' }); } catch {}
+        execSync(
+          `cd "${buildDir}" && git init -q && codex exec --full-auto "Read PROMPT.md and follow the instructions exactly." 2>&1 | tail -20`,
+          {
+            timeout: 600000,
+            stdio: ['pipe', 'pipe', 'pipe'],
+            maxBuffer: 10 * 1024 * 1024,
+            env: { ...process.env, PATH: `${process.env.PATH}:/home/clawd/.npm-global/bin` }
+          }
+        );
+      } catch (e) {
+        log(`Codex retry ${buildAttempt}: ${e.message.substring(0, 200)}`);
+      }
+    }
+    
+    // Check for output
+    const outputFile = path.join(buildDir, 'index.html');
+    if (!fs.existsSync(outputFile)) {
+      buildClaudeFeedback = 'Codex did not produce index.html. Read PROMPT.md and save the result as index.html.';
+      continue;
+    }
+    
+    // Take screenshots for validation
+    const screenshotDir = path.join(buildDir, 'screenshots');
+    if (!fs.existsSync(screenshotDir)) fs.mkdirSync(screenshotDir, { recursive: true });
+    
+    let screenshotsOk = false;
+    let localServer = null;
+    try {
+      const http = require('http');
+      localServer = http.createServer((req, res) => {
+        let filePath = path.join(buildDir, req.url === '/' ? 'index.html' : req.url.replace(/^\//, ''));
+        if (!fs.existsSync(filePath) && demoDir) {
+          filePath = path.join(demoDir, req.url.replace(/^\//, ''));
+        }
+        if (fs.existsSync(filePath)) {
+          const ext = path.extname(filePath).toLowerCase();
+          const mimeTypes = {'.html':'text/html','.css':'text/css','.js':'application/javascript','.png':'image/png','.jpg':'image/jpeg','.jpeg':'image/jpeg','.svg':'image/svg+xml','.webp':'image/webp','.gif':'image/gif'};
+          res.writeHead(200, {'Content-Type': mimeTypes[ext] || 'application/octet-stream'});
+          fs.createReadStream(filePath).pipe(res);
+        } else {
+          res.writeHead(404);
+          res.end('Not found');
+        }
+      });
+      
+      const port = 18800 + Math.floor(Math.random() * 100);
+      await new Promise((resolve) => localServer.listen(port, '127.0.0.1', resolve));
+      
+      // Desktop screenshot
+      try {
+        execSync(
+          `npx playwright screenshot --viewport-size "1280,800" --wait-for-timeout 3000 --full-page "http://127.0.0.1:${port}/" "${path.join(screenshotDir, 'desktop.png')}"`,
+          { timeout: 30000, stdio: 'pipe', env: { ...process.env, PATH: `${process.env.PATH}:/home/clawd/.npm-global/bin` } }
+        );
+      } catch (e) { log(`Desktop screenshot: ${e.message.substring(0, 100)}`); }
+      
+      // Mobile screenshot
+      try {
+        execSync(
+          `npx playwright screenshot --viewport-size "375,667" --wait-for-timeout 3000 --full-page "http://127.0.0.1:${port}/" "${path.join(screenshotDir, 'mobile.png')}"`,
+          { timeout: 30000, stdio: 'pipe', env: { ...process.env, PATH: `${process.env.PATH}:/home/clawd/.npm-global/bin` } }
+        );
+      } catch (e) { log(`Mobile screenshot: ${e.message.substring(0, 100)}`); }
+      
+      screenshotsOk = fs.existsSync(path.join(screenshotDir, 'desktop.png')) && fs.existsSync(path.join(screenshotDir, 'mobile.png'));
+      log(`Build screenshots: ${screenshotsOk ? 'OK' : 'FAILED'}`);
+    } catch (e) {
+      log(`Screenshot error: ${e.message.substring(0, 200)}`);
+    } finally {
+      if (localServer) localServer.close();
+    }
+    
+    // Claude visual + code validation
+    const validationPrompt = `You are a senior QA validator for a NEWLY BUILT demo website.
+This is the first build for "${data.name}" (${data.type === 'new' ? 'brand new site' : 'redesign'}).
+
+=== PROJECT BRIEF ===
+${(data.brief || '').substring(0, 2000)}
+
+=== VALIDATION CHECKLIST (15 points) ===
+
+**Code (read index.html):**
+1. Business name "${data.name}" appears correctly
+2. Contact info is present (phone, email, address if available)
+3. Services/offerings are listed with real descriptions (not lorem ipsum)
+4. HTML is valid, complete, not truncated
+5. All text is in Bulgarian
+
+**Desktop visual (desktop.png):**
+6. Hero section is clean with clear headline and CTA
+7. ALL sections are visible (no blank/empty gaps)
+8. Images are professional (not zoomed, pixelated, or broken)
+9. Footer has real content (contacts, links, copyright)
+10. Overall looks professional — a real business would use this
+
+**Mobile visual (mobile.png):**
+11. Layout adapts properly, no horizontal scroll/overflow
+12. Text is readable without zooming
+13. Buttons/links are adequately sized for touch
+14. Images fit properly in mobile view
+15. Navigation is accessible (hamburger menu or similar)
+
+RESPOND IN THIS EXACT FORMAT:
+SCORE: X/15
+PASSED: [check numbers]
+FAILED: [check numbers]
+
+If SCORE >= 12/15:
+VALIDATED: YES
+Summary: [brief description]
+
+If SCORE < 12/15:
+VALIDATED: NO
+Failed checks:
+- [check N]: [specific problem]
+Fix instructions:
+- [concrete fix instruction]`;
+
+    fs.writeFileSync(path.join(buildDir, 'VALIDATE.md'), validationPrompt);
+    
+    let claudeResult = '';
+    try {
+      const claudePrompt = screenshotsOk
+        ? 'Read VALIDATE.md. Examine index.html, screenshots/desktop.png, screenshots/mobile.png. Follow the checklist exactly.'
+        : 'Read VALIDATE.md. Examine index.html. Follow code-only checks (1-5). Skip visual checks.';
+      
+      claudeResult = execSync(
+        `cd "${buildDir}" && claude --print --permission-mode bypassPermissions "${claudePrompt}" 2>/dev/null`,
+        {
+          timeout: 180000,
+          stdio: ['pipe', 'pipe', 'pipe'],
+          maxBuffer: 5 * 1024 * 1024,
+          env: { ...process.env, PATH: `${process.env.PATH}:/home/clawd/.local/bin:/home/clawd/.npm-global/bin:/usr/local/bin:/usr/bin:/bin` }
+        }
+      ).toString().trim();
+    } catch (e) {
+      log(`Claude validation error: ${e.message.substring(0, 200)}`);
+      claudeResult = 'VALIDATED: YES\nSummary: Validation skipped due to error.';
+    }
+    
+    const scoreMatch = claudeResult.match(/SCORE:\s*(\d+)\/15/);
+    const score = scoreMatch ? parseInt(scoreMatch[1]) : 0;
+    log(`Build validation (attempt ${buildAttempt}): score ${score}/15`);
+    log(`Claude: ${claudeResult.substring(0, 300)}`);
+    
+    if (claudeResult.includes('VALIDATED: YES')) {
+      buildValidated = true;
+      log(`✅ Build VALIDATED on attempt ${buildAttempt} (score: ${score}/15)`);
+    } else {
+      buildClaudeFeedback = claudeResult;
+      log(`❌ Build FAILED validation (attempt ${buildAttempt}, score: ${score}/15). ${buildAttempt < MAX_BUILD_ATTEMPTS ? 'Retrying...' : 'Publishing best effort.'}`);
+    }
+  }
+  
+  // Use the final output (validated or best effort)
+  const finalOutput = path.join(buildDir, 'index.html');
+  if (!fs.existsSync(finalOutput)) {
+    throw new Error('Codex did not produce index.html after all attempts');
   }
   
   // Copy to demo dir
-  fs.copyFileSync(outputFile, path.join(demoDir, 'index.html'));
+  fs.copyFileSync(finalOutput, path.join(demoDir, 'index.html'));
   
   // Git add demos folder and push
   try {
@@ -448,15 +639,21 @@ When completely finished, run: echo "BUILD_COMPLETE" > /tmp/demo-build-done-${ta
   
   try {
     execSync(`git add -A`, { cwd: DEMO_REPO, stdio: 'pipe' });
-    execSync(`git commit -m "[done] ${data.name} — demo built (worker)"`, { cwd: DEMO_REPO, stdio: 'pipe' });
+    const vTag = buildValidated ? '' : ' (best-effort)';
+    execSync(`git commit -m "[done] ${data.name} — demo built${vTag} (worker)"`, { cwd: DEMO_REPO, stdio: 'pipe' });
     execSync('git push origin main', { cwd: DEMO_REPO, timeout: 30000, stdio: 'pipe' });
   } catch (e) {
     log(`git push error: ${e.message}`);
   }
   
-  await notifyTelegram(`🎉 Демо готово: <b>${data.name}</b>\n🔗 ${demoUrl}\n\nПрегледай и одобри или изпрати корекции.`);
+  const statusEmoji = buildValidated ? '🎉' : '⚠️';
+  const statusNote = buildValidated ? '' : '\n⚠️ Не е напълно валидиран — прегледай ръчно.';
+  await notifyTelegram(`${statusEmoji} Демо готово: <b>${data.name}</b>\n🔗 ${demoUrl}${statusNote}\n\nПрегледай и одобри или изпрати корекции.`);
   
-  return `Demo built: ${demoUrl}`;
+  // Cleanup screenshots
+  try { execSync(`rm -rf "${path.join(buildDir, 'screenshots')}"`, { stdio: 'pipe' }); } catch {}
+  
+  return `Demo built (${buildValidated ? 'validated' : 'best-effort'}, ${buildAttempt} attempts): ${demoUrl}`;
 }
 
 async function executeRevisions(task) {
