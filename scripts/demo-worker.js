@@ -632,48 +632,134 @@ OUTPUT: Save the final file as index.html in this directory.`;
       continue;
     }
     
-    // === STEP 4: CLAUDE VALIDATES ===
-    log(`Claude validating attempt ${attempt}...`);
+    // === STEP 4: VISUAL + CODE VALIDATION ===
+    log(`Validating attempt ${attempt} (visual + code)...`);
     
-    const validationPrompt = `You are a QA validator for a website revision.
+    // 4a: Serve locally and take screenshots
+    const screenshotDir = path.join(buildDir, 'screenshots');
+    if (!fs.existsSync(screenshotDir)) fs.mkdirSync(screenshotDir, { recursive: true });
+    
+    let screenshotsOk = false;
+    let localServer = null;
+    try {
+      // Start local server
+      const http = require('http');
+      const serverDir = buildDir;
+      localServer = http.createServer((req, res) => {
+        // Serve index.html for / or any path
+        let filePath = path.join(serverDir, req.url === '/' ? 'index.html' : req.url.replace(/^\//, ''));
+        // Also serve assets from the working directory (logos, images etc.)
+        if (!fs.existsSync(filePath) && workDir) {
+          filePath = path.join(workDir, req.url.replace(/^\//, ''));
+        }
+        if (fs.existsSync(filePath)) {
+          const ext = path.extname(filePath).toLowerCase();
+          const mimeTypes = {'.html':'text/html','.css':'text/css','.js':'application/javascript','.png':'image/png','.jpg':'image/jpeg','.jpeg':'image/jpeg','.svg':'image/svg+xml','.webp':'image/webp','.gif':'image/gif','.ico':'image/x-icon'};
+          res.writeHead(200, {'Content-Type': mimeTypes[ext] || 'application/octet-stream'});
+          fs.createReadStream(filePath).pipe(res);
+        } else {
+          res.writeHead(404);
+          res.end('Not found');
+        }
+      });
+      
+      const port = 18900 + Math.floor(Math.random() * 100);
+      await new Promise((resolve) => localServer.listen(port, '127.0.0.1', resolve));
+      log(`Local server on port ${port}`);
+      
+      // Desktop screenshot (1280x800)
+      try {
+        execSync(
+          `npx playwright screenshot --viewport-size "1280,800" --wait-for-timeout 3000 --full-page "http://127.0.0.1:${port}/" "${path.join(screenshotDir, 'desktop.png')}"`,
+          { timeout: 30000, stdio: 'pipe', env: { ...process.env, PATH: `${process.env.PATH}:/home/clawd/.npm-global/bin` } }
+        );
+        log('Desktop screenshot captured');
+      } catch (e) {
+        log(`Desktop screenshot failed: ${e.message.substring(0, 100)}`);
+      }
+      
+      // Mobile screenshot (375x667 - iPhone SE)
+      try {
+        execSync(
+          `npx playwright screenshot --viewport-size "375,667" --wait-for-timeout 3000 --full-page "http://127.0.0.1:${port}/" "${path.join(screenshotDir, 'mobile.png')}"`,
+          { timeout: 30000, stdio: 'pipe', env: { ...process.env, PATH: `${process.env.PATH}:/home/clawd/.npm-global/bin` } }
+        );
+        log('Mobile screenshot captured');
+      } catch (e) {
+        log(`Mobile screenshot failed: ${e.message.substring(0, 100)}`);
+      }
+      
+      screenshotsOk = fs.existsSync(path.join(screenshotDir, 'desktop.png')) && fs.existsSync(path.join(screenshotDir, 'mobile.png'));
+    } catch (e) {
+      log(`Screenshot server error: ${e.message.substring(0, 200)}`);
+    } finally {
+      if (localServer) localServer.close();
+    }
+    
+    // 4b: Claude visual + code validation
+    const validationPrompt = `You are a senior QA validator for a demo website revision.
+You must validate BOTH the code AND the visual output.
 
-ORIGINAL REQUIREMENTS (what the client asked for):
+=== CLIENT REQUIREMENTS ===
 ${issues}
 
-PRE-EXTRACTED ASSETS THAT SHOULD HAVE BEEN USED:
+=== PRE-EXTRACTED ASSETS ===
 ${extractedAssets || '(no pre-extracted assets — generic revision)'}
 
-YOUR TASK:
-1. Read index.html (the Codex output)
-2. Read current.html (the original before changes)
-3. Check if EACH requirement from the client is actually implemented:
-   - If they asked for a logo transfer → is the correct logo URL from the old site present?
-   - If they asked for image transfers → are real images from the old site used (not placeholders)?
-   - If they asked for content transfer → is the text actually there?
-   - If they asked for structural changes → are they implemented?
-4. Check that the HTML is valid and complete (not truncated, not broken)
+=== YOUR VALIDATION CHECKLIST ===
 
-RESPOND WITH EXACTLY ONE OF:
-A) If ALL requirements are met:
+**A. Code validation (read index.html vs current.html):**
+1. Are ALL client requirements implemented in the HTML?
+2. Are the correct URLs/assets used (from pre-extracted list if provided)?
+3. Is the HTML valid, complete, not truncated?
+4. Are contact details correct (phone, email, address)?
+5. Is all text in Bulgarian?
+
+**B. Visual validation (look at desktop.png and mobile.png):**
+6. DESKTOP: Is the hero section visually clean? Text readable over background?
+7. DESKTOP: Are ALL sections visible (no empty/blank gaps)?
+8. DESKTOP: Do images look professional? Not zoomed/cropped awkwardly? Not pixelated?
+9. DESKTOP: Is the footer populated with real content?
+10. DESKTOP: Does it look like a site made for humans? Not "AI-generated"?
+11. MOBILE: Does the layout adapt properly? No horizontal overflow?
+12. MOBILE: Is text readable without zooming?
+13. MOBILE: Are buttons/links tappable (adequate size)?
+14. MOBILE: Are images properly sized (not overflowing or tiny)?
+15. OVERALL: Would a real business be proud to show this to clients?
+
+**SCORING: Each check = 1 point. Total = 15.**
+
+RESPOND IN THIS EXACT FORMAT:
+SCORE: X/15
+PASSED: [list of passed check numbers]
+FAILED: [list of failed check numbers]
+
+If SCORE >= 12/15:
 VALIDATED: YES
-Summary: [1-2 sentence summary of what was done]
+Summary: [what was done well]
 
-B) If ANY requirement is NOT met:
+If SCORE < 12/15:
 VALIDATED: NO
 Failed checks:
-- [specific thing that's missing or wrong]
-- [another specific issue]
+- [check N]: [specific problem]
+- [check N]: [specific problem]
 Fix instructions:
-- [concrete instruction for what to change, including exact URLs if relevant]`;
+- [concrete, actionable instruction with exact URLs/values if relevant]
+- [another fix instruction]`;
 
     fs.writeFileSync(path.join(buildDir, 'VALIDATE.md'), validationPrompt);
     
     let claudeResult = '';
     try {
+      // Build claude command — include screenshots if available
+      const claudePrompt = screenshotsOk
+        ? `Read VALIDATE.md. Then examine: index.html (new), current.html (original), screenshots/desktop.png (desktop visual), screenshots/mobile.png (mobile visual). Follow the validation checklist exactly.`
+        : `Read VALIDATE.md. Then examine: index.html (new), current.html (original). Follow the validation checklist (skip visual checks 6-15, code-only validation).`;
+      
       claudeResult = execSync(
-        `cd "${buildDir}" && claude --print --permission-mode bypassPermissions "Read VALIDATE.md and follow the instructions. Check index.html against current.html and the requirements." 2>/dev/null`,
+        `cd "${buildDir}" && claude --print --permission-mode bypassPermissions "${claudePrompt}" 2>/dev/null`,
         {
-          timeout: 120000, // 2 min for validation
+          timeout: 180000, // 3 min for visual validation
           stdio: ['pipe', 'pipe', 'pipe'],
           maxBuffer: 5 * 1024 * 1024,
           env: { ...process.env, PATH: `${process.env.PATH}:/home/clawd/.local/bin:/home/clawd/.npm-global/bin:/usr/local/bin:/usr/bin:/bin` }
@@ -681,18 +767,22 @@ Fix instructions:
       ).toString().trim();
     } catch (e) {
       log(`Claude validation error: ${e.message.substring(0, 200)}`);
-      // If Claude fails, treat as validated (don't block on validator failure)
       claudeResult = 'VALIDATED: YES\nSummary: Validation skipped due to error.';
     }
     
-    log(`Claude verdict (attempt ${attempt}): ${claudeResult.substring(0, 200)}`);
+    log(`Claude verdict (attempt ${attempt}): ${claudeResult.substring(0, 300)}`);
+    
+    // Extract score
+    const scoreMatch = claudeResult.match(/SCORE:\s*(\d+)\/15/);
+    const score = scoreMatch ? parseInt(scoreMatch[1]) : 0;
+    log(`Visual+Code score: ${score}/15`);
     
     if (claudeResult.includes('VALIDATED: YES')) {
       validated = true;
-      log(`✅ Revision VALIDATED on attempt ${attempt}`);
+      log(`✅ Revision VALIDATED on attempt ${attempt} (score: ${score}/15)`);
     } else {
       claudeFeedback = claudeResult;
-      log(`❌ Revision FAILED validation on attempt ${attempt}. Retrying...`);
+      log(`❌ Revision FAILED validation on attempt ${attempt} (score: ${score}/15). Retrying...`);
       // Copy the failed output as current for next attempt (iterative improvement)
       fs.copyFileSync(outputFile, path.join(buildDir, 'current.html'));
     }
