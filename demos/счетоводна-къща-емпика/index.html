@@ -4,39 +4,41 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Счетоводна къща Емпика - Счетоводство, ТРЗ и данъчни консултации в София</title>
-<meta name="description" content="Счетоводна къща Емпика в София предлага счетоводни услуги, ТРЗ, данъчни консултации, регистрация на фирми и онлайн обслужване за бизнеси в България.">
-<meta name="keywords" content="счетоводна къща София, счетоводни услуги София, ТРЗ София, данъчни консултации София, регистрация на фирми София, Емпика">
+<meta name="description" content="Емпика в София поема счетоводство, ТРЗ, данъчни декларации, регистрация на фирми и онлайн обмен на документи без излишно обикаляне.">
+<meta name="keywords" content="счетоводна къща София, счетоводство София, ТРЗ София, данъчни консултации София, регистрация на фирма София, онлайн счетоводство, Емпика">
 <meta name="robots" content="index, follow">
-<meta name="theme-color" content="#1a2a5e">
+<meta name="theme-color" content="#123a72">
 <meta name="geo.region" content="BG-22">
 <meta name="geo.placename" content="София, България">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Счетоводна къща Емпика - професионално обслужване в сферата на счетоводството и данъците">
-<meta property="og:description" content="Съвременно счетоводно обслужване, ТРЗ, данъчни консултации и онлайн услуги за компании в София.">
-<meta property="og:image" content="cover.png">
+<meta property="og:title" content="Счетоводна къща Емпика - София">
+<meta property="og:description" content="Счетоводство без главоболия: текущо обслужване, ТРЗ, декларации, регистрации и дистанционна работа с документи.">
+<meta property="og:image" content="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=1200">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="800">
 <meta property="og:locale" content="bg_BG">
 <meta property="og:site_name" content="Счетоводна къща Емпика">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Счетоводна къща Емпика - София">
-<meta name="twitter:description" content="Професионално обслужване в сферата на счетоводството и данъците.">
-<meta name="twitter:image" content="cover.png">
+<meta name="twitter:description" content="По-малко бумащина, повече яснота за бизнеса ви.">
+<meta name="twitter:image" content="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=1200">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Work+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 :root{
-  --navy:#1a2a5e;
+  --navy:#123a72;
   --blue:#0077b6;
   --teal:#00b4d8;
-  --green:#4ec6a0;
+  --mint:#5dc9b3;
   --white:#ffffff;
-  --gray:#f0f2f5;
-  --slate:#5f6b85;
+  --gray:#eef3f7;
+  --card:#f8fbfd;
   --ink:#0f172a;
-  --card:#f8fbff;
-  --line:rgba(26,42,94,.1);
-  --shadow:0 20px 60px rgba(26,42,94,.12);
+  --slate:#57657d;
+  --line:rgba(18,58,114,.12);
+  --shadow:0 22px 60px rgba(18,58,114,.14);
 }
 html{scroll-behavior:smooth}
 body{
@@ -44,21 +46,21 @@ body{
   color:var(--ink);
   background:
     radial-gradient(circle at top left, rgba(0,180,216,.12), transparent 28%),
-    radial-gradient(circle at right 20%, rgba(78,198,160,.12), transparent 22%),
-    linear-gradient(180deg, #ffffff 0%, #f8fbff 48%, #f0f2f5 100%);
+    radial-gradient(circle at right 15%, rgba(93,201,179,.14), transparent 24%),
+    linear-gradient(180deg,#ffffff 0%,#f7fbfd 48%,#eef3f7 100%);
   overflow-x:hidden;
 }
 h1,h2,h3,h4{font-family:'Syne',sans-serif;font-weight:700}
 a{text-decoration:none;color:inherit}
-img{max-width:100%;display:block}
+img{display:block;max-width:100%}
 section{position:relative}
 .container{width:min(1120px,calc(100% - 2rem));margin:0 auto}
-.reveal,.reveal-left,.reveal-right{opacity:1;transition:opacity .7s ease,transform .7s ease}
-.reveal{transform:translateY(0)}
-.reveal-left{transform:translateX(0)}
-.reveal-right{transform:translateX(0)}
+.blob{position:absolute;border-radius:50%;filter:blur(90px);opacity:.18;pointer-events:none}
+.reveal,.reveal-left,.reveal-right{opacity:0;transition:opacity .7s ease,transform .7s ease}
+.reveal{transform:translateY(34px)}
+.reveal-left{transform:translateX(-38px)}
+.reveal-right{transform:translateX(38px)}
 .reveal.visible,.reveal-left.visible,.reveal-right.visible{opacity:1;transform:translate(0)}
-.blob{position:absolute;border-radius:50%;filter:blur(90px);pointer-events:none;opacity:.16}
 nav{
   position:fixed;
   top:0;
@@ -66,33 +68,33 @@ nav{
   width:100%;
   z-index:1000;
   padding:1rem 0;
-  transition:all .3s ease;
   background:rgba(255,255,255,.88);
   backdrop-filter:blur(14px);
+  transition:all .3s ease;
   border-bottom:1px solid transparent;
 }
 nav.scrolled{
   background:rgba(255,255,255,.96);
   border-bottom-color:var(--line);
-  box-shadow:0 16px 35px rgba(15,23,42,.06);
+  box-shadow:0 16px 36px rgba(15,23,42,.08);
 }
 .nav-inner{display:flex;align-items:center;justify-content:space-between;gap:1rem}
 .nav-logo{display:flex;align-items:center;gap:.85rem}
 .nav-logo img{height:60px;width:auto}
 .nav-copy strong{display:block;font-size:1rem;color:var(--navy)}
 .nav-copy span{display:block;font-size:.8rem;color:var(--slate)}
-.nav-links{display:flex;list-style:none;align-items:center;gap:1.6rem}
+.nav-links{display:flex;align-items:center;gap:1.6rem;list-style:none}
 .nav-links a{font-size:.92rem;font-weight:500;color:var(--navy);transition:color .25s ease}
 .nav-links a:hover{color:var(--blue)}
 .nav-cta{
   display:inline-flex;
   align-items:center;
   justify-content:center;
-  padding:.8rem 1.35rem;
+  padding:.82rem 1.35rem;
   border-radius:999px;
   background:linear-gradient(135deg,var(--navy),var(--blue));
   color:var(--white)!important;
-  box-shadow:0 14px 30px rgba(0,119,182,.2);
+  box-shadow:0 16px 34px rgba(0,119,182,.22);
 }
 .hamburger{
   display:none;
@@ -122,91 +124,91 @@ nav.scrolled{
   display:none;
   position:fixed;
   inset:0;
-  background:rgba(15,23,42,.45);
+  background:rgba(15,23,42,.46);
   z-index:900;
   opacity:0;
   transition:opacity .3s ease;
 }
 .mobile-overlay.show{display:block;opacity:1}
 .hero{
-  min-height:auto;
-  padding:5.5rem 0 2.5rem;
+  padding:6.25rem 0 2.75rem;
+  min-height:100vh;
   display:grid;
   align-items:center;
 }
-.hero .blob-a{width:320px;height:320px;background:rgba(0,119,182,.22);top:120px;left:-80px}
-.hero .blob-b{width:240px;height:240px;background:rgba(78,198,160,.18);bottom:80px;right:-40px}
+.hero .blob-a{width:320px;height:320px;background:rgba(0,119,182,.2);top:100px;left:-90px}
+.hero .blob-b{width:250px;height:250px;background:rgba(93,201,179,.2);bottom:60px;right:-30px}
 .hero-grid{
   display:grid;
-  grid-template-columns:1.05fr .95fr;
-  gap:1.75rem;
+  grid-template-columns:1.02fr .98fr;
+  gap:1.5rem;
   align-items:stretch;
 }
 .hero-copy,.hero-media{
+  position:relative;
   border-radius:32px;
   overflow:hidden;
-  position:relative;
   box-shadow:var(--shadow);
 }
 .hero-copy{
+  padding:3.35rem;
   background:
-    linear-gradient(145deg, rgba(255,255,255,.96), rgba(240,246,252,.98)),
-    linear-gradient(135deg, rgba(0,119,182,.08), rgba(78,198,160,.08));
-  border:1px solid rgba(255,255,255,.9);
-  padding:3.5rem;
+    linear-gradient(145deg,rgba(255,255,255,.97),rgba(241,248,252,.98)),
+    linear-gradient(135deg,rgba(0,119,182,.06),rgba(93,201,179,.08));
+  border:1px solid rgba(255,255,255,.95);
   display:flex;
   flex-direction:column;
   justify-content:center;
 }
 .hero-badge{
-  width:fit-content;
   display:inline-flex;
   align-items:center;
   gap:.55rem;
+  width:fit-content;
+  padding:.42rem .95rem;
   border-radius:999px;
-  background:rgba(0,119,182,.09);
+  background:rgba(0,119,182,.08);
   color:var(--blue);
-  padding:.45rem 1rem;
-  font-size:.78rem;
+  font-size:.76rem;
   font-weight:700;
   text-transform:uppercase;
   letter-spacing:.08em;
-  margin-bottom:1.5rem;
+  margin-bottom:1.35rem;
 }
 .hero-badge::before{
   content:"";
   width:9px;
   height:9px;
   border-radius:50%;
-  background:var(--green);
-  box-shadow:0 0 0 6px rgba(78,198,160,.18);
+  background:var(--mint);
+  box-shadow:0 0 0 6px rgba(93,201,179,.16);
 }
 .hero h1{
-  font-size:clamp(2.4rem,5vw,4.6rem);
-  line-height:1.02;
+  font-size:clamp(2.5rem,5vw,4.8rem);
+  line-height:1.01;
   color:var(--navy);
-  margin-bottom:1.1rem;
+  margin-bottom:1rem;
 }
 .hero h1 .accent{
-  background:linear-gradient(135deg,var(--blue),var(--green));
+  background:linear-gradient(135deg,var(--blue),var(--mint));
   -webkit-background-clip:text;
   -webkit-text-fill-color:transparent;
 }
 .hero p{
   max-width:560px;
   font-size:1.04rem;
-  line-height:1.8;
+  line-height:1.76;
   color:var(--slate);
-  margin-bottom:2rem;
+  margin-bottom:1.9rem;
 }
-.hero-actions{display:flex;flex-wrap:wrap;gap:.9rem;margin-bottom:2.25rem}
+.hero-actions{display:flex;flex-wrap:wrap;gap:.9rem;margin-bottom:2rem}
 .btn-primary,.btn-secondary{
   display:inline-flex;
   align-items:center;
   justify-content:center;
   gap:.55rem;
-  border-radius:999px;
   padding:.95rem 1.5rem;
+  border-radius:999px;
   font-size:.92rem;
   font-weight:600;
   transition:transform .25s ease,box-shadow .25s ease,border-color .25s ease;
@@ -214,11 +216,11 @@ nav.scrolled{
 .btn-primary{
   background:linear-gradient(135deg,var(--navy),var(--blue));
   color:var(--white);
-  box-shadow:0 18px 34px rgba(26,42,94,.2);
+  box-shadow:0 18px 34px rgba(18,58,114,.22);
 }
 .btn-secondary{
-  border:1px solid rgba(26,42,94,.15);
-  background:rgba(255,255,255,.88);
+  background:rgba(255,255,255,.84);
+  border:1px solid rgba(18,58,114,.14);
   color:var(--navy);
 }
 .btn-primary:hover,.btn-secondary:hover{transform:translateY(-2px)}
@@ -228,50 +230,75 @@ nav.scrolled{
   gap:.9rem;
 }
 .fact{
-  background:rgba(255,255,255,.76);
-  border:1px solid rgba(26,42,94,.08);
+  padding:1rem 1.05rem;
   border-radius:22px;
-  padding:1rem 1.1rem;
+  background:rgba(255,255,255,.8);
+  border:1px solid rgba(18,58,114,.08);
 }
-.fact strong{display:block;font-family:'Syne',sans-serif;font-size:1.2rem;color:var(--navy);margin-bottom:.2rem}
-.fact span{font-size:.85rem;line-height:1.5;color:var(--slate)}
-.hero-media{min-height:420px;background:var(--navy)}
-.hero-media img{width:100%;height:100%;object-fit:cover}
+.fact strong{display:block;font-size:1.14rem;color:var(--navy);margin-bottom:.2rem}
+.fact span{display:block;font-size:.84rem;line-height:1.5;color:var(--slate)}
+.hero-media{
+  min-height:520px;
+  background:var(--navy);
+}
+.hero-media img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  object-position:center;
+}
 .hero-media::after{
   content:"";
   position:absolute;
   inset:0;
   background:
-    linear-gradient(180deg, rgba(26,42,94,.14), rgba(26,42,94,.42)),
-    linear-gradient(135deg, rgba(0,119,182,.16), rgba(78,198,160,.08));
+    linear-gradient(180deg,rgba(18,58,114,.08),rgba(18,58,114,.3)),
+    linear-gradient(135deg,rgba(0,119,182,.12),rgba(93,201,179,.08));
 }
 .hero-card{
   position:absolute;
-  left:1.35rem;
-  right:1.35rem;
-  bottom:1.35rem;
+  left:1.25rem;
+  right:1.25rem;
+  bottom:1.25rem;
   z-index:2;
   display:grid;
-  grid-template-columns:1.2fr .8fr;
+  grid-template-columns:1.15fr .85fr;
   gap:1rem;
 }
 .hero-panel{
   background:rgba(255,255,255,.9);
-  backdrop-filter:blur(16px);
-  border:1px solid rgba(255,255,255,.75);
+  backdrop-filter:blur(14px);
+  border:1px solid rgba(255,255,255,.82);
   border-radius:24px;
-  padding:1.2rem 1.25rem;
+  padding:1.1rem 1.15rem;
 }
-.hero-panel strong{display:block;font-size:.88rem;letter-spacing:.08em;text-transform:uppercase;color:var(--blue);margin-bottom:.5rem}
-.hero-panel p{font-size:.95rem;line-height:1.6;color:var(--navy);margin:0}
+.hero-panel strong{display:block;font-size:.86rem;letter-spacing:.08em;text-transform:uppercase;color:var(--blue);margin-bottom:.45rem}
+.hero-panel p{margin:0;font-size:.92rem;line-height:1.6;color:var(--navy)}
+.cover-badge{
+  display:flex;
+  align-items:center;
+  gap:.9rem;
+  padding:1rem 1.05rem;
+  border-radius:24px;
+  background:linear-gradient(135deg,rgba(0,119,182,.08),rgba(93,201,179,.12));
+  border:1px solid rgba(18,58,114,.08);
+}
+.cover-badge img{
+  width:126px;
+  height:auto;
+  border-radius:16px;
+  box-shadow:0 10px 24px rgba(18,58,114,.12);
+}
+.cover-badge strong{display:block;color:var(--navy);font-size:.95rem;margin-bottom:.25rem}
+.cover-badge span{display:block;color:var(--slate);font-size:.87rem;line-height:1.55}
 .section{padding:6.5rem 0}
-.section-header{text-align:center;max-width:720px;margin:0 auto 3.5rem}
+.section-header{text-align:center;max-width:720px;margin:0 auto 3.4rem}
 .section-tag{
   display:inline-flex;
   align-items:center;
   justify-content:center;
-  border-radius:999px;
   padding:.4rem .95rem;
+  border-radius:999px;
   background:linear-gradient(135deg,var(--navy),var(--blue));
   color:var(--white);
   font-size:.76rem;
@@ -281,11 +308,11 @@ nav.scrolled{
   margin-bottom:1rem;
 }
 .section-header h2{font-size:clamp(2rem,4vw,3rem);color:var(--navy);margin-bottom:.85rem}
-.section-header p{font-size:1rem;line-height:1.8;color:var(--slate)}
+.section-header p{font-size:1rem;line-height:1.75;color:var(--slate)}
 .about-grid{
   display:grid;
   grid-template-columns:.96fr 1.04fr;
-  gap:1.6rem;
+  gap:1.5rem;
   align-items:stretch;
 }
 .about-image,.about-copy{
@@ -294,35 +321,39 @@ nav.scrolled{
   box-shadow:var(--shadow);
 }
 .about-image{
+  min-height:470px;
   position:relative;
-  min-height:460px;
 }
-.about-image img{width:100%;height:100%;object-fit:cover}
+.about-image img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
 .about-image::after{
   content:"";
   position:absolute;
   inset:0;
-  background:linear-gradient(180deg, rgba(26,42,94,.04), rgba(26,42,94,.26));
+  background:linear-gradient(180deg,rgba(18,58,114,.06),rgba(18,58,114,.28));
 }
 .about-badge{
   position:absolute;
-  left:1.2rem;
-  bottom:1.2rem;
+  left:1.15rem;
+  bottom:1.15rem;
   z-index:2;
-  max-width:220px;
-  background:rgba(255,255,255,.9);
+  max-width:230px;
+  padding:1rem 1.05rem;
   border-radius:22px;
-  padding:1rem 1.1rem;
-  border:1px solid rgba(255,255,255,.8);
+  background:rgba(255,255,255,.92);
+  border:1px solid rgba(255,255,255,.85);
 }
-.about-badge strong{display:block;color:var(--navy);font-size:1.35rem}
-.about-badge span{display:block;color:var(--slate);font-size:.88rem;line-height:1.5}
+.about-badge strong{display:block;color:var(--navy);font-size:1.3rem}
+.about-badge span{display:block;color:var(--slate);font-size:.87rem;line-height:1.5}
 .about-copy{
-  background:linear-gradient(180deg, rgba(255,255,255,.98), rgba(244,248,252,.98));
   padding:2.2rem;
-  border:1px solid rgba(26,42,94,.08);
+  background:linear-gradient(180deg,rgba(255,255,255,.98),rgba(243,249,252,.98));
+  border:1px solid rgba(18,58,114,.08);
 }
-.about-copy h3{font-size:1.7rem;color:var(--navy);margin-bottom:1rem}
+.about-copy h3{font-size:1.72rem;color:var(--navy);margin-bottom:1rem}
 .about-copy p{font-size:1rem;line-height:1.8;color:var(--slate);margin-bottom:1rem}
 .about-list{
   display:grid;
@@ -331,37 +362,37 @@ nav.scrolled{
   margin:1.5rem 0 1.6rem;
 }
 .about-item{
-  background:var(--card);
-  border-radius:22px;
   padding:1rem 1.05rem;
-  border:1px solid rgba(26,42,94,.08);
+  border-radius:22px;
+  background:var(--card);
+  border:1px solid rgba(18,58,114,.08);
 }
 .about-item strong{display:block;color:var(--navy);font-size:1rem;margin-bottom:.35rem}
 .about-item span{display:block;font-size:.88rem;line-height:1.55;color:var(--slate)}
 .team-note{
   display:flex;
-  align-items:center;
+  align-items:flex-start;
   gap:.9rem;
   padding:1rem 1.05rem;
-  background:linear-gradient(135deg, rgba(0,119,182,.08), rgba(78,198,160,.09));
   border-radius:22px;
+  background:linear-gradient(135deg,rgba(0,119,182,.08),rgba(93,201,179,.1));
 }
 .team-note img{
   width:64px;
   height:64px;
   border-radius:18px;
   object-fit:cover;
-  border:3px solid rgba(255,255,255,.85);
+  border:3px solid rgba(255,255,255,.9);
 }
-.team-note strong{display:block;color:var(--navy);font-size:.98rem;margin-bottom:.25rem}
+.team-note strong{display:block;color:var(--navy);font-size:.96rem;margin-bottom:.2rem}
 .team-note span{display:block;color:var(--slate);font-size:.88rem;line-height:1.55}
 .services{
   background:
-    linear-gradient(180deg, rgba(240,242,245,.74), rgba(255,255,255,.92)),
+    linear-gradient(180deg,rgba(238,243,247,.74),rgba(255,255,255,.92)),
     radial-gradient(circle at top right, rgba(0,119,182,.08), transparent 25%);
 }
 .services .blob-c{width:300px;height:300px;background:rgba(0,180,216,.18);top:0;right:-80px}
-.services .blob-d{width:260px;height:260px;background:rgba(78,198,160,.18);bottom:-70px;left:-70px}
+.services .blob-d{width:260px;height:260px;background:rgba(93,201,179,.18);bottom:-70px;left:-70px}
 .bento-grid{
   display:grid;
   grid-template-columns:repeat(3,1fr);
@@ -369,24 +400,28 @@ nav.scrolled{
 }
 .bento-item{
   position:relative;
-  border-radius:28px;
   overflow:hidden;
   padding:2rem;
-  background:rgba(255,255,255,.9);
-  border:1px solid rgba(26,42,94,.08);
-  box-shadow:0 18px 45px rgba(26,42,94,.08);
+  border-radius:28px;
+  background:rgba(255,255,255,.92);
+  border:1px solid rgba(18,58,114,.08);
+  box-shadow:0 18px 45px rgba(18,58,114,.08);
   transition:transform .28s ease,box-shadow .28s ease;
 }
-.bento-item:hover{transform:translateY(-4px);box-shadow:0 26px 58px rgba(26,42,94,.12)}
+.bento-item:hover{transform:translateY(-4px);box-shadow:0 26px 58px rgba(18,58,114,.12)}
 .bento-item.large{grid-column:span 2;min-height:260px}
 .bento-item.tall{grid-row:span 2;min-height:540px}
 .bento-item.image-card{padding:0}
-.bento-item.image-card img{width:100%;height:100%;object-fit:cover}
+.bento-item.image-card img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
 .bento-item.image-card::after{
   content:"";
   position:absolute;
   inset:0;
-  background:linear-gradient(180deg, rgba(26,42,94,.06), rgba(26,42,94,.34));
+  background:linear-gradient(180deg,rgba(18,58,114,.05),rgba(18,58,114,.24));
 }
 .service-icon{
   width:56px;
@@ -401,20 +436,15 @@ nav.scrolled{
 }
 .service-icon.blue{background:rgba(0,119,182,.12)}
 .service-icon.teal{background:rgba(0,180,216,.12)}
-.service-icon.green{background:rgba(78,198,160,.15)}
+.service-icon.green{background:rgba(93,201,179,.16)}
 .bento-item h3{font-size:1.35rem;color:var(--navy);margin-bottom:.7rem}
-.bento-item p{color:var(--slate);font-size:.95rem;line-height:1.75}
-.service-points{
-  list-style:none;
-  margin-top:1rem;
-  display:grid;
-  gap:.65rem;
-}
+.bento-item p{font-size:.95rem;line-height:1.75;color:var(--slate)}
+.service-points{list-style:none;display:grid;gap:.65rem;margin-top:1rem}
 .service-points li{
   position:relative;
   padding-left:1.2rem;
-  color:var(--slate);
   font-size:.9rem;
+  color:var(--slate);
 }
 .service-points li::before{
   content:"";
@@ -424,23 +454,23 @@ nav.scrolled{
   width:7px;
   height:7px;
   border-radius:50%;
-  background:linear-gradient(135deg,var(--blue),var(--green));
+  background:linear-gradient(135deg,var(--blue),var(--mint));
 }
 .service-strip{
-  margin-top:1.2rem;
   display:flex;
   flex-wrap:wrap;
   gap:.6rem;
+  margin-top:1.15rem;
 }
 .pill{
   display:inline-flex;
   align-items:center;
+  padding:.45rem .78rem;
   border-radius:999px;
-  padding:.45rem .8rem;
-  font-size:.8rem;
-  font-weight:600;
   background:rgba(0,119,182,.08);
   color:var(--navy);
+  font-size:.8rem;
+  font-weight:600;
 }
 .service-overlay{
   position:absolute;
@@ -448,10 +478,10 @@ nav.scrolled{
   right:1.2rem;
   bottom:1.2rem;
   z-index:2;
+  padding:1rem 1.05rem;
+  border-radius:22px;
   background:rgba(255,255,255,.9);
   backdrop-filter:blur(14px);
-  border-radius:22px;
-  padding:1rem 1.05rem;
 }
 .service-overlay strong{display:block;color:var(--navy);margin-bottom:.3rem}
 .service-overlay span{display:block;color:var(--slate);font-size:.88rem;line-height:1.5}
@@ -462,26 +492,26 @@ nav.scrolled{
 }
 .work-step{
   position:relative;
-  background:rgba(255,255,255,.92);
-  border:1px solid rgba(26,42,94,.08);
-  border-radius:26px;
   padding:1.7rem 1.35rem;
-  box-shadow:0 14px 36px rgba(26,42,94,.08);
+  border-radius:26px;
+  background:rgba(255,255,255,.92);
+  border:1px solid rgba(18,58,114,.08);
+  box-shadow:0 14px 36px rgba(18,58,114,.08);
 }
 .work-step::after{
   content:"";
   position:absolute;
-  top:34px;
-  right:-20px;
-  width:40px;
+  top:42px;
+  right:-22px;
+  width:44px;
   height:2px;
-  background:linear-gradient(90deg,var(--blue),var(--green));
-  opacity:.35;
+  background:linear-gradient(90deg,var(--blue),var(--mint));
+  opacity:.4;
 }
 .work-step:last-child::after{display:none}
-.step-number{
-  width:52px;
-  height:52px;
+.work-no{
+  width:58px;
+  height:58px;
   border-radius:18px;
   display:flex;
   align-items:center;
@@ -489,159 +519,230 @@ nav.scrolled{
   margin-bottom:1rem;
   background:linear-gradient(135deg,var(--navy),var(--blue));
   color:var(--white);
-  font-size:1.1rem;
+  font-size:1.2rem;
 }
-.work-step h3{font-size:1.1rem;color:var(--navy);margin-bottom:.6rem}
-.work-step p{font-size:.92rem;line-height:1.7;color:var(--slate)}
-.contact{
-  background:linear-gradient(180deg, var(--navy) 0%, #14214c 100%);
-  color:var(--white);
+.work-step h3{font-size:1.08rem;color:var(--navy);margin-bottom:.55rem}
+.work-step p{font-size:.9rem;line-height:1.65;color:var(--slate)}
+.faq-grid{
+  display:grid;
+  grid-template-columns:.9fr 1.1fr;
+  gap:1.5rem;
+  align-items:start;
+}
+.faq-card,.faq-list{
+  border-radius:28px;
   overflow:hidden;
+  box-shadow:var(--shadow);
 }
-.contact .blob-e{width:340px;height:340px;background:rgba(0,180,216,.22);top:-90px;right:-80px}
-.contact .blob-f{width:260px;height:260px;background:rgba(78,198,160,.16);bottom:-100px;left:-40px}
-.contact .section-header h2,.contact .section-header p{color:var(--white)}
-.contact .section-header p{opacity:.78}
-.contact-grid{
-  display:grid;
-  grid-template-columns:1.05fr .95fr;
-  gap:1.4rem;
-  align-items:stretch;
-}
-.contact-panel,.contact-card-grid{
-  position:relative;
-  z-index:1;
-}
-.contact-panel{
-  background:rgba(255,255,255,.08);
-  border:1px solid rgba(255,255,255,.12);
-  border-radius:30px;
+.faq-card{
+  background:linear-gradient(180deg,rgba(255,255,255,.98),rgba(243,249,252,.98));
+  border:1px solid rgba(18,58,114,.08);
   padding:2rem;
-  backdrop-filter:blur(14px);
 }
-.contact-panel h3{font-size:1.55rem;margin-bottom:.9rem}
-.contact-panel p{font-size:1rem;line-height:1.8;color:rgba(255,255,255,.78);margin-bottom:1.6rem}
-.contact-list{
-  display:grid;
-  gap:.9rem;
-}
-.contact-item{
+.faq-card p{font-size:.98rem;line-height:1.75;color:var(--slate);margin:1rem 0 1.4rem}
+.faq-inline{
   display:flex;
-  align-items:flex-start;
   gap:.85rem;
+  align-items:center;
   padding:1rem 1.05rem;
   border-radius:22px;
-  background:rgba(255,255,255,.08);
+  background:rgba(0,119,182,.06);
 }
-.contact-item strong{display:block;font-size:.92rem;margin-bottom:.2rem}
-.contact-item a,.contact-item span{color:var(--white);font-size:.98rem}
-.contact-item small{display:block;color:rgba(255,255,255,.65);margin-top:.2rem;font-size:.8rem}
-.contact-card-grid{
+.faq-inline strong{display:block;color:var(--navy);font-size:.95rem}
+.faq-inline span{display:block;color:var(--slate);font-size:.86rem;line-height:1.5}
+.faq-list{
+  background:rgba(255,255,255,.9);
+  border:1px solid rgba(18,58,114,.08);
+  padding:1rem 1.5rem;
+}
+.faq-item{border-bottom:1px solid rgba(18,58,114,.1);padding:1.1rem 0}
+.faq-item:last-child{border-bottom:0}
+.faq-question{
+  width:100%;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:1rem;
+  border:0;
+  background:transparent;
+  font:600 .97rem 'Work Sans',sans-serif;
+  color:var(--navy);
+  text-align:left;
+  cursor:pointer;
+}
+.faq-arrow{font-size:1.1rem;color:var(--blue);transition:transform .3s ease}
+.faq-item.open .faq-arrow{transform:rotate(180deg)}
+.faq-answer{
+  max-height:0;
+  overflow:hidden;
+  transition:max-height .35s ease;
+}
+.faq-answer p{
+  padding-top:.8rem;
+  font-size:.92rem;
+  line-height:1.7;
+  color:var(--slate);
+}
+.contact{
+  background:linear-gradient(180deg,#10284f 0%,#0d2345 100%);
+  color:var(--white);
+}
+.contact .blob-e{width:420px;height:420px;background:rgba(0,180,216,.16);top:-120px;right:-120px}
+.contact-wrap{position:relative;z-index:1}
+.contact-grid{
   display:grid;
-  grid-template-columns:repeat(2,1fr);
+  grid-template-columns:.96fr 1.04fr;
+  gap:1.5rem;
+}
+.contact-panel,.contact-form-card{
+  border-radius:30px;
+  overflow:hidden;
+  border:1px solid rgba(255,255,255,.08);
+  background:rgba(255,255,255,.06);
+  box-shadow:0 24px 60px rgba(2,12,27,.24);
+}
+.contact-panel{padding:2.2rem}
+.contact-panel h2{font-size:clamp(2rem,4vw,3rem);margin-bottom:1rem}
+.contact-panel p{font-size:1rem;line-height:1.75;color:rgba(255,255,255,.72);margin-bottom:1.8rem}
+.contact-cards{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
   gap:1rem;
 }
 .contact-card{
+  padding:1.1rem 1rem;
+  border-radius:24px;
   background:rgba(255,255,255,.08);
+  border:1px solid rgba(255,255,255,.08);
+}
+.contact-card strong{display:block;font-size:.95rem;margin-bottom:.35rem}
+.contact-card a,.contact-card span{display:block;font-size:.92rem;line-height:1.6;color:#9ae7f4}
+.contact-card small{display:block;margin-top:.35rem;color:rgba(255,255,255,.52)}
+.contact-form-card{padding:2rem}
+.contact-form{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:1rem;
+}
+.contact-form input,.contact-form textarea{
+  width:100%;
+  padding:1rem 1rem;
+  border-radius:18px;
   border:1px solid rgba(255,255,255,.1);
-  border-radius:26px;
-  padding:1.5rem;
+  background:rgba(255,255,255,.08);
+  color:var(--white);
+  font:400 .95rem 'Work Sans',sans-serif;
 }
-.contact-card strong{display:block;font-size:1.05rem;margin-bottom:.45rem}
-.contact-card p{color:rgba(255,255,255,.76);font-size:.92rem;line-height:1.7}
-.contact-card.full{grid-column:span 2}
+.contact-form input::placeholder,.contact-form textarea::placeholder{color:rgba(255,255,255,.48)}
+.contact-form input:focus,.contact-form textarea:focus{outline:none;border-color:rgba(154,231,244,.8)}
+.contact-form textarea{
+  min-height:140px;
+  resize:vertical;
+  grid-column:span 2;
+}
+.contact-form button{
+  grid-column:span 2;
+  border:0;
+  cursor:pointer;
+}
+.map-card{
+  margin-top:1.2rem;
+  border-radius:24px;
+  overflow:hidden;
+}
+.map-card iframe{width:100%;height:260px;border:0}
 footer{
-  padding:1.4rem 0 2rem;
-  background:#14214c;
-  color:rgba(255,255,255,.62);
+  padding:2rem 1rem;
+  background:#0b1c37;
+  color:rgba(255,255,255,.52);
   text-align:center;
-  font-size:.88rem;
+  font-size:.82rem;
 }
-footer a{color:#91e2cb}
+footer a{color:#9ae7f4}
 @media (max-width:980px){
-  .hero-grid,.about-grid,.contact-grid{grid-template-columns:1fr}
-  .hero-card{grid-template-columns:1fr}
-  .hero-media{min-height:420px}
-  .bento-grid{grid-template-columns:repeat(2,1fr)}
+  .hero-grid,
+  .about-grid,
+  .faq-grid,
+  .contact-grid{grid-template-columns:1fr}
   .work-grid{grid-template-columns:repeat(2,1fr)}
-  .work-step:nth-child(2)::after,.work-step:nth-child(4)::after{display:none}
+  .contact-cards{grid-template-columns:1fr}
+  .hero-media{min-height:420px}
 }
 @media (max-width:768px){
-  nav{padding:.85rem 0}
-  .nav-copy{display:none}
-  .hamburger{display:block;z-index:1001}
+  .hero{padding-top:5.5rem}
+  .hero-copy{padding:2rem 1.35rem}
+  .hero-card,.hero-facts,.about-list,.bento-grid,.contact-form{grid-template-columns:1fr}
+  .contact-form textarea,.contact-form button{grid-column:span 1}
+  .bento-item.large,.bento-item.tall{grid-column:span 1;grid-row:span 1;min-height:auto}
+  .work-grid{grid-template-columns:1fr}
+  .work-step::after{display:none}
   .nav-links{
     position:fixed;
     top:0;
     right:0;
-    width:min(320px,82vw);
+    width:280px;
     height:100vh;
-    background:rgba(255,255,255,.98);
-    box-shadow:-14px 0 40px rgba(15,23,42,.12);
+    background:var(--white);
     flex-direction:column;
-    align-items:flex-start;
+    align-items:stretch;
+    justify-content:flex-start;
     gap:0;
-    padding:5.5rem 1.5rem 2rem;
+    padding:5rem 0 2rem;
     transform:translateX(100%);
     transition:transform .3s ease;
+    box-shadow:-6px 0 24px rgba(15,23,42,.12);
     z-index:950;
   }
   .nav-links.open{transform:translateX(0)}
-  .nav-links li{width:100%;border-bottom:1px solid rgba(26,42,94,.08)}
-  .nav-links a{display:block;width:100%;padding:1rem 0}
-  .nav-cta{margin-top:1rem;width:100%;text-align:center}
-  .hero{padding-top:7.5rem}
-  .hero-copy{padding:2rem}
-  .hero-card{grid-template-columns:1fr}
-  .hero-facts{grid-template-columns:1fr}
-  .about-copy{padding:1.5rem}
-  .about-list{grid-template-columns:1fr}
-  .bento-grid,.work-grid,.contact-card-grid{grid-template-columns:1fr}
-  .bento-item.large,.contact-card.full{grid-column:span 1}
-  .bento-item.tall{grid-row:span 1;min-height:340px}
-  .work-step::after{display:none}
+  .nav-links li{list-style:none;border-bottom:1px solid var(--gray)}
+  .nav-links a{display:block;padding:1.15rem 1.6rem;font-size:1rem}
+  .nav-links .nav-cta{margin:1.4rem 1.4rem 0;text-align:center}
+  .hamburger{display:block}
+  .hero-facts{gap:.75rem}
+  .cover-badge{align-items:flex-start}
 }
 </style>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "LocalBusiness",
+  "@type": ["LocalBusiness","AccountingService"],
   "name": "Счетоводна къща Емпика",
-  "alternateName": "Empika Accounting House",
-  "description": "Професионално обслужване в сферата на счетоводството и данъците в София, България.",
-  "image": ["logo.jpg", "cover.png", "office.jpg"],
+  "description": "Счетоводни услуги, ТРЗ, данъчни консултации, регистрация на фирми и онлайн обслужване в София.",
+  "url": "https://koiopenclaw-max.github.io/demo-sites/demos/%D1%81%D1%87%D0%B5%D1%82%D0%BE%D0%B2%D0%BE%D0%B4%D0%BD%D0%B0-%D0%BA%D1%8A%D1%89%D0%B0-%D0%B5%D0%BC%D0%BF%D0%B8%D0%BA%D0%B0/",
+  "image": [
+    "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=1200",
+    "https://images.unsplash.com/photo-1553877522-43269d4ea984?w=800"
+  ],
   "logo": "logo.jpg",
   "telephone": "+359889986662",
   "email": "empika@abv.bg",
+  "areaServed": {
+    "@type": "City",
+    "name": "София"
+  },
   "address": {
     "@type": "PostalAddress",
     "addressLocality": "София",
     "addressCountry": "BG"
   },
-  "areaServed": {
-    "@type": "City",
-    "name": "София"
-  },
-  "priceRange": "$$",
-  "sameAs": [],
   "hasOfferCatalog": {
     "@type": "OfferCatalog",
-    "name": "Счетоводни и консултантски услуги",
+    "name": "Услуги на Емпика",
     "itemListElement": [
       {
         "@type": "Offer",
         "itemOffered": {
           "@type": "Service",
           "name": "Счетоводни услуги",
-          "description": "Текущо счетоводно обслужване, осчетоводяване на документи и финансови отчети."
+          "description": "Текущо счетоводство, годишно приключване и финансови отчети."
         }
       },
       {
         "@type": "Offer",
         "itemOffered": {
           "@type": "Service",
-          "name": "Работни заплати / ТРЗ",
-          "description": "Изчисляване на възнаграждения, осигуровки, ведомости и трудова документация."
+          "name": "ТРЗ",
+          "description": "Заплати, осигуровки, ведомости и трудови документи."
         }
       },
       {
@@ -649,7 +750,7 @@ footer a{color:#91e2cb}
         "itemOffered": {
           "@type": "Service",
           "name": "Данъчни консултации",
-          "description": "Консултации по данъчно планиране, срокове, декларации и текущи казуси."
+          "description": "Декларации, данъчно планиране и текущи насоки."
         }
       },
       {
@@ -657,7 +758,7 @@ footer a{color:#91e2cb}
         "itemOffered": {
           "@type": "Service",
           "name": "Регистрация на фирми",
-          "description": "Съдействие при стартиране на нов бизнес и административна регистрация."
+          "description": "Подготовка на документи за нова фирма."
         }
       },
       {
@@ -665,7 +766,7 @@ footer a{color:#91e2cb}
         "itemOffered": {
           "@type": "Service",
           "name": "Онлайн услуги",
-          "description": "Дистанционна комуникация, обмен на документи и онлайн счетоводно обслужване."
+          "description": "Дистанционна работа и обмен на документи."
         }
       }
     ]
@@ -674,119 +775,123 @@ footer a{color:#91e2cb}
 </script>
 </head>
 <body>
-<div class="mobile-overlay" id="mobileOverlay"></div>
 
-<nav id="navbar">
+<nav id="nav">
   <div class="container nav-inner">
-    <a class="nav-logo" href="#начало" aria-label="Счетоводна къща Емпика">
-      <img src="logo.jpg" alt="Лого на Счетоводна къща Емпика">
-      <div class="nav-copy">
+    <a class="nav-logo" href="#top" aria-label="Счетоводна къща Емпика">
+      <img src="logo.jpg" alt="Лого на Емпика" width="200" height="200">
+      <span class="nav-copy">
         <strong>Счетоводна къща Емпика</strong>
         <span>София, България</span>
-      </div>
+      </span>
     </a>
-    <button class="hamburger" id="hamburger" aria-label="Отвори менюто" aria-expanded="false" aria-controls="navLinks">
-      <span></span>
-      <span></span>
-      <span></span>
-    </button>
     <ul class="nav-links" id="navLinks">
-      <li><a href="#начало">Начало</a></li>
-      <li><a href="#за-нас">За нас</a></li>
-      <li><a href="#услуги">Услуги</a></li>
-      <li><a href="#как-работим">Как работим</a></li>
-      <li><a href="#контакти">Контакти</a></li>
-      <li><a class="nav-cta" href="tel:+359889986662">Обадете се</a></li>
+      <li><a href="#about">За нас</a></li>
+      <li><a href="#services">Услуги</a></li>
+      <li><a href="#work">Как работим</a></li>
+      <li><a href="#faq">Въпроси</a></li>
+      <li><a href="#contact" class="nav-cta">Контакт</a></li>
     </ul>
+    <button class="hamburger" id="hamburger" aria-label="Меню" aria-expanded="false" aria-controls="navLinks">
+      <span></span><span></span><span></span>
+    </button>
   </div>
 </nav>
+<div class="mobile-overlay" id="mobileOverlay"></div>
 
-<main>
-  <section class="hero" id="начало">
+<main id="top">
+  <section class="hero">
     <div class="blob blob-a"></div>
     <div class="blob blob-b"></div>
     <div class="container hero-grid">
       <div class="hero-copy reveal visible">
-        <span class="hero-badge">Счетоводно обслужване в София</span>
-        <h1>Стабилна финансова основа за <span class="accent">вашия бизнес</span></h1>
-        <p>Счетоводна къща Емпика предоставя надеждно съдействие за фирми и предприемачи с фокус върху точност, срокове и ясна комуникация. Професионално обслужване в сферата на счетоводството и данъците.</p>
+        <div class="hero-badge">За фирми, които искат яснота</div>
+        <h1>Счетоводство <span class="accent">без главоболия</span></h1>
+        <p>Поемаме документите, заплатите и декларациите, за да не губите време в срокове, таблици и излишни обаждания. Казвате какво ви трябва, ние подреждаме останалото.</p>
         <div class="hero-actions">
-          <a class="btn-primary" href="#контакти">Поискайте консултация</a>
-          <a class="btn-secondary" href="#услуги">Вижте услугите</a>
+          <a class="btn-primary" href="#contact">Поискайте разговор</a>
+          <a class="btn-secondary" href="tel:+359889986662">+359 88 998 6662</a>
         </div>
         <div class="hero-facts">
           <div class="fact">
-            <strong>Счетоводство</strong>
-            <span>Текущо обслужване, отчети и подготовка на документи.</span>
+            <strong>Текущо</strong>
+            <span>счетоводство и отчети без излишно суетене</span>
           </div>
           <div class="fact">
             <strong>ТРЗ</strong>
-            <span>Работни заплати, осигуровки и администриране на персонал.</span>
+            <span>заплати, осигуровки и ведомости на едно място</span>
           </div>
           <div class="fact">
             <strong>Онлайн</strong>
-            <span>Удобна дистанционна комуникация и обмен на файлове.</span>
+            <span>обмен на документи, когато ви е по-удобно</span>
+          </div>
+        </div>
+        <div class="cover-badge" style="margin-top:1.2rem">
+          <img src="cover.png" alt="Банер на Емпика" width="851" height="315">
+          <div>
+            <strong>Емпика</strong>
+            <span>accounting &amp; tax · София</span>
           </div>
         </div>
       </div>
-      <div class="hero-media reveal-right visible">
-        <img src="cover.png" alt="Брандирана корица на Счетоводна къща Емпика">
+      <div class="hero-media reveal visible">
+        <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=1200" alt="Професионална работна среда с документи" width="1200" height="800">
         <div class="hero-card">
           <div class="hero-panel">
-            <strong>Фокус върху резултата</strong>
-            <p>Подреждаме счетоводните процеси така, че да имате навременна информация и спокойствие при управлението на бизнеса.</p>
+            <strong>Практично обслужване</strong>
+            <p>Текущи справки, навременни напомняния и ясен контакт, когато има нещо важно за решаване.</p>
           </div>
           <div class="hero-panel">
-            <strong>Контакт</strong>
-            <p><a href="tel:+359889986662">+359 88 998 6662</a><br><a href="mailto:empika@abv.bg">empika@abv.bg</a></p>
+            <strong>София</strong>
+            <p>Работим локално и дистанционно според това как ви е по-лесно.</p>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="section" id="за-нас">
+  <section class="section" id="about">
     <div class="container">
       <div class="section-header reveal">
         <span class="section-tag">За нас</span>
-        <h2>Партньор за спокойна и подредена финансова администрация</h2>
-        <p>Работим с практичен подход, ясни срокове и внимание към спецификата на всеки клиент. Целта ни е счетоводството да ви дава яснота, а не допълнителна тежест.</p>
+        <h2>Нормална комуникация, подредени документи</h2>
+        <p>Когато нещо трябва да се подаде, подава се. Когато липсва документ, казваме навреме. Целта е да знаете какво се случва, без да ви говорим на чиновнически език.</p>
       </div>
       <div class="about-grid">
         <div class="about-image reveal-left">
-          <img src="office.jpg" alt="Офис на Счетоводна къща Емпика">
+          <img src="https://images.unsplash.com/photo-1553877522-43269d4ea984?w=800" alt="Финансов анализ и работа с документи" width="800" height="1000">
           <div class="about-badge">
-            <strong>София, България</strong>
-            <span>Достъпно обслужване за местни компании и дистанционни клиенти от цялата страна.</span>
+            <strong>5 услуги</strong>
+            <span>Счетоводство, ТРЗ, данъци, регистрации и онлайн работа</span>
           </div>
         </div>
         <div class="about-copy reveal-right">
-          <h3>Съвременно счетоводство с човешки подход</h3>
-          <p>Емпика комбинира ежедневна оперативна помощ с стратегически поглед върху отчетността и данъчната рамка на вашата дейност. Получавате съдействие както за рутинните задачи, така и за важните административни решения.</p>
-          <p>Изграждаме комуникация, в която информацията е поднесена разбираемо, а необходимите действия са планирани навреме.</p>
+          <h3>За хора, които искат някой да поеме нещата както трябва</h3>
+          <p>Емпика е добър избор, ако искате да не се чудите какво следва всеки месец. Ние следим сроковете, обработваме документите и ви държим в течение само с важното.</p>
+          <p>Работим и дистанционно, така че не е нужно да разнасяте папки. Изпращате документите, ние ги подреждаме и връщаме ясен отговор, когато има действие от ваша страна.</p>
           <div class="about-list">
             <div class="about-item">
-              <strong>Навременни отчети</strong>
-              <span>Подготовка на финансови справки и организация на документацията според нуждите на бизнеса.</span>
+              <strong>Ясни стъпки</strong>
+              <span>Казваме какво липсва и какво следва, без завоалирани фрази.</span>
             </div>
             <div class="about-item">
-              <strong>Данъчна яснота</strong>
-              <span>Съдействие при срокове, декларации и текущи въпроси с практични насоки.</span>
+              <strong>Ред в документите</strong>
+              <span>Текущо счетоводство, отчети и срокове на едно място.</span>
             </div>
             <div class="about-item">
-              <strong>Административна подкрепа</strong>
-              <span>Регистрация на фирми, ТРЗ и процеси при развитие на екип и дейност.</span>
+              <strong>За малки и растящи фирми</strong>
+              <span>Полезно, ако нямате време да следите всичко сами.</span>
             </div>
             <div class="about-item">
-              <strong>Гъвкаво обслужване</strong>
-              <span>Онлайн комуникация и обмен на документи за по-бърза ежедневна работа.</span>
+              <strong>Онлайн обмен</strong>
+              <span>Документи и въпроси могат да се движат изцяло дистанционно.</span>
             </div>
           </div>
           <div class="team-note">
-            <img src="photo1.jpg" alt="Представителен екипен кадър на Емпика">
+            <img src="photo1.jpg" alt="Представител на екипа на Емпика" width="160" height="160">
             <div>
-              <strong>Професионално отношение към всеки детайл</strong>
-              <span>Надеждна комуникация, дискретност и внимание към счетоводната и данъчната рамка на всеки клиент.</span>
+              <strong>Личен контакт вместо шаблонни отговори</strong>
+              <span>Когато имате въпрос за заплати, декларации или нова фирма, получавате конкретен отговор какво да направите сега.</span>
             </div>
           </div>
         </div>
@@ -794,151 +899,190 @@ footer a{color:#91e2cb}
     </div>
   </section>
 
-  <section class="section services" id="услуги">
+  <section class="section services" id="services">
     <div class="blob blob-c"></div>
     <div class="blob blob-d"></div>
     <div class="container">
       <div class="section-header reveal">
         <span class="section-tag">Услуги</span>
-        <h2>Основни решения за бизнеса, подредени в ясен работен поток</h2>
-        <p>Услугите на Емпика покриват ежедневните счетоводни нужди, управлението на персонала и административните стъпки при стартиране и развитие на фирма.</p>
+        <h2>Какво реално можем да поемем</h2>
+        <p>Без празни обещания. Това са нещата, с които клиентите ни търсят най-често.</p>
       </div>
       <div class="bento-grid">
         <article class="bento-item large reveal">
           <div class="service-icon blue">01</div>
           <h3>Счетоводни услуги</h3>
-          <p>Текущо счетоводно обслужване, осчетоводяване на първични документи, подготовка на финансови отчети и поддържане на ясна отчетност.</p>
+          <p>Поемаме текущото счетоводство и годишното приключване, така че да знаете как сте наистина, а не да гадаете по папките.</p>
           <ul class="service-points">
-            <li>Хронологично и аналитично счетоводно отчитане</li>
-            <li>Месечни и годишни финансови справки</li>
-            <li>Организация на документацията за по-лесен контрол</li>
+            <li>осчетоводяване на документи и текущи справки</li>
+            <li>подготовка на финансови отчети</li>
+            <li>съдействие при месечни и годишни срокове</li>
           </ul>
+          <div class="service-strip">
+            <span class="pill">Текущо счетоводство</span>
+            <span class="pill">Финансови отчети</span>
+          </div>
+        </article>
+        <article class="bento-item image-card reveal">
+          <img src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=1000" alt="Екипна работа в офис среда" width="1000" height="1250">
+          <div class="service-overlay">
+            <strong>Работа в екип</strong>
+            <span>Полезно, когато искате някой да поеме административната част и да движи нещата подредено.</span>
+          </div>
+        </article>
+        <article class="bento-item tall image-card reveal">
+          <img src="https://images.unsplash.com/photo-1553877522-43269d4ea984?w=800" alt="Анализ на финансови данни" width="800" height="1200">
+          <div class="service-overlay">
+            <strong>Онлайн обмен на документи</strong>
+            <span>Изпращате каквото имате, ние връщаме каквото трябва да знаете.</span>
+          </div>
         </article>
         <article class="bento-item reveal">
           <div class="service-icon teal">02</div>
           <h3>Работни заплати / ТРЗ</h3>
-          <p>Обработка на възнаграждения, осигурителни задължения, ведомости и съпътстваща трудова документация.</p>
-          <div class="service-strip">
-            <span class="pill">Ведомости</span>
-            <span class="pill">Осигуровки</span>
-            <span class="pill">Трудови документи</span>
-          </div>
-        </article>
-        <article class="bento-item tall image-card reveal-right">
-          <img src="office.jpg" alt="Работна среда в Счетоводна къща Емпика">
-          <div class="service-overlay">
-            <strong>Работа с внимание към детайла</strong>
-            <span>Комбинация от прецизност, удобна комуникация и последователност в ежедневните процеси.</span>
-          </div>
+          <p>Заплати, осигуровки, ведомости и нужните трудови документи без да се чудите кой файл къде е останал.</p>
         </article>
         <article class="bento-item reveal">
           <div class="service-icon green">03</div>
           <h3>Данъчни консултации</h3>
-          <p>Разяснения по текущи данъчни казуси, срокове за подаване и практични насоки при планиране на дейността.</p>
+          <p>Помагаме с декларации и с по-практичната част: какво, кога и защо трябва да се подаде.</p>
         </article>
-        <article class="bento-item large reveal">
+        <article class="bento-item reveal">
           <div class="service-icon blue">04</div>
           <h3>Регистрация на фирми</h3>
-          <p>Съдействие при стартиране на ново дружество и ориентация в административните стъпки, необходими за спокойно начало.</p>
-          <ul class="service-points">
-            <li>Подготовка и координация на основните действия</li>
-            <li>Насоки за избора на практично счетоводно обслужване</li>
-            <li>По-добър старт с ясна организационна рамка</li>
-          </ul>
+          <p>Ако стартирате нова фирма, подготвяме документите и ви ориентираме какво ще ви трябва още от самото начало.</p>
         </article>
         <article class="bento-item reveal">
           <div class="service-icon teal">05</div>
           <h3>Онлайн услуги</h3>
-          <p>Дистанционна комуникация, обмен на документи и гъвкаво обслужване за клиенти, които търсят бърз и удобен процес.</p>
+          <p>Дистанционна работа, обмен на документи и по-малко обикаляне. Подходящо, ако искате всичко да се движи по-леко.</p>
         </article>
       </div>
     </div>
   </section>
 
-  <section class="section" id="как-работим">
+  <section class="section" id="work">
     <div class="container">
       <div class="section-header reveal">
         <span class="section-tag">Как работим</span>
-        <h2>Ясен процес от първия разговор до ежедневното обслужване</h2>
-        <p>Поддържаме структура, която улеснява както старта на сътрудничеството, така и дългосрочната работа с вашите документи и срокове.</p>
+        <h2>Кратко и подредено</h2>
+        <p>Не усложняваме процеса. Нужно е да започнем работа, а не да правим театър около нея.</p>
       </div>
       <div class="work-grid">
         <article class="work-step reveal">
-          <div class="step-number">1</div>
-          <h3>Първоначален разговор</h3>
-          <p>Уточняваме вида дейност, обема документи и нуждите от счетоводно, ТРЗ или консултантско съдействие.</p>
+          <div class="work-no">1</div>
+          <h3>Казвате от какво имате нужда</h3>
+          <p>Текущо счетоводство, ТРЗ, декларации или нова фирма. Изясняваме обхвата още в началото.</p>
         </article>
         <article class="work-step reveal">
-          <div class="step-number">2</div>
-          <h3>Организация на документи</h3>
-          <p>Подреждаме начина на предаване на информацията и определяме работещ ритъм за комуникация.</p>
+          <div class="work-no">2</div>
+          <h3>Изпращате документите</h3>
+          <p>На място или онлайн, според това кое е по-удобно за вас и екипа ви.</p>
         </article>
         <article class="work-step reveal">
-          <div class="step-number">3</div>
-          <h3>Текущо обслужване</h3>
-          <p>Извършваме регулярните счетоводни дейности, следим срокове и подготвяме необходимите справки.</p>
+          <div class="work-no">3</div>
+          <h3>Ние движим сроковете</h3>
+          <p>Следим какво трябва да се подаде и ви търсим навреме, ако липсва нещо важно.</p>
         </article>
         <article class="work-step reveal">
-          <div class="step-number">4</div>
-          <h3>Навременна обратна връзка</h3>
-          <p>Получавате информация за важните срокове, въпроси за вземане на решение и състоянието на отчетността.</p>
+          <div class="work-no">4</div>
+          <h3>Получавате ясен отговор</h3>
+          <p>Без чиновнически фрази. Само какво е свършено и ако има следваща стъпка.</p>
         </article>
       </div>
     </div>
   </section>
 
-  <section class="section contact" id="контакти">
-    <div class="blob blob-e"></div>
-    <div class="blob blob-f"></div>
-    <div class="container">
-      <div class="section-header reveal">
-        <span class="section-tag">Контакти</span>
-        <h2>Свържете се със Счетоводна къща Емпика</h2>
-        <p>Ако търсите надеждно счетоводно обслужване в София, можете да се свържете директно по телефон или имейл.</p>
+  <section class="section" id="faq">
+    <div class="container faq-grid">
+      <div class="faq-card reveal-left">
+        <span class="section-tag">Въпроси</span>
+        <h2>Най-често ни питат това</h2>
+        <p>Ако не виждате вашия казус тук, просто се обадете. По-бързо е от разгадаване на счетоводен жаргон.</p>
+        <div class="faq-inline">
+          <div>
+            <strong>Контакт</strong>
+            <span>+359 88 998 6662<br>empika@abv.bg</span>
+          </div>
+        </div>
       </div>
+      <div class="faq-list reveal-right">
+        <div class="faq-item">
+          <button class="faq-question" type="button">
+            <span>Може ли да работим изцяло дистанционно?</span>
+            <span class="faq-arrow">▼</span>
+          </button>
+          <div class="faq-answer">
+            <p>Да. Ако ви е по-удобно, документите се обменят онлайн и комуникацията остава кратка и ясна.</p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" type="button">
+            <span>Поемате ли само ТРЗ?</span>
+            <span class="faq-arrow">▼</span>
+          </button>
+          <div class="faq-answer">
+            <p>Да, може да поемем работни заплати, осигуровки и ведомости отделно, ако това ви трябва в момента.</p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" type="button">
+            <span>Помагате ли при стартиране на нова фирма?</span>
+            <span class="faq-arrow">▼</span>
+          </button>
+          <div class="faq-answer">
+            <p>Да. Подготвяме документите за регистрация и ви ориентираме какви са първите стъпки след това.</p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" type="button">
+            <span>Какво ви е нужно, за да започнем?</span>
+            <span class="faq-arrow">▼</span>
+          </button>
+          <div class="faq-answer">
+            <p>Най-напред кратък разговор и наличните документи. После казваме какво още липсва и подреждаме процеса.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section contact" id="contact">
+    <div class="blob blob-e"></div>
+    <div class="container contact-wrap">
       <div class="contact-grid">
         <div class="contact-panel reveal-left">
-          <h3>Професионално обслужване в сферата на счетоводството и данъците</h3>
-          <p>Емпика предлага практична подкрепа за компании, които искат по-добра организация, точни срокове и сигурност в административните процеси.</p>
-          <div class="contact-list">
-            <div class="contact-item">
-              <div>📞</div>
-              <div>
-                <strong>Телефон</strong>
-                <a href="tel:+359889986662">+359 88 998 6662</a>
-                <small>За бърза връзка и консултация</small>
-              </div>
+          <h2>Свържете се с Емпика</h2>
+          <p>Ако търсите счетоводител, който да поеме нещата нормално и без излишна показност, пишете или се обадете.</p>
+          <div class="contact-cards">
+            <div class="contact-card">
+              <strong>Телефон</strong>
+              <a href="tel:+359889986662">+359 88 998 6662</a>
+              <small>Обаждане или Viber</small>
             </div>
-            <div class="contact-item">
-              <div>✉️</div>
-              <div>
-                <strong>Имейл</strong>
-                <a href="mailto:empika@abv.bg">empika@abv.bg</a>
-                <small>Изпратете запитване по всяко време</small>
-              </div>
+            <div class="contact-card">
+              <strong>Имейл</strong>
+              <a href="mailto:empika@abv.bg">empika@abv.bg</a>
+              <small>За документи и запитвания</small>
             </div>
-            <div class="contact-item">
-              <div>📍</div>
-              <div>
-                <strong>Локация</strong>
-                <span>София, България</span>
-                <small>Обслужване на място и дистанционно</small>
-              </div>
+            <div class="contact-card">
+              <strong>Локация</strong>
+              <span>София, България</span>
+              <small>Работа и дистанционно</small>
             </div>
           </div>
         </div>
-        <div class="contact-card-grid reveal-right">
-          <div class="contact-card">
-            <strong>Счетоводство</strong>
-            <p>Редовна отчетност, финансова подреденост и ясно проследяване на документите.</p>
-          </div>
-          <div class="contact-card">
-            <strong>ТРЗ и персонал</strong>
-            <p>Навременна обработка на възнаграждения, осигуровки и съпътстваща документация.</p>
-          </div>
-          <div class="contact-card full">
-            <strong>Подходящо за растящи компании</strong>
-            <p>Когато фирмата ви има нужда от надежден външен счетоводен партньор, Емпика осигурява яснота, последователност и работещо ежедневие.</p>
+        <div class="contact-form-card reveal-right">
+          <form class="contact-form">
+            <input type="text" name="name" placeholder="Име">
+            <input type="text" name="company" placeholder="Фирма">
+            <input type="email" name="email" placeholder="Имейл">
+            <input type="tel" name="phone" placeholder="Телефон">
+            <textarea name="message" placeholder="С какво можем да помогнем?"></textarea>
+            <button class="btn-primary" type="button" onclick="alert('Благодарим. Ще се свържем с вас възможно най-скоро.')">Изпратете запитване</button>
+          </form>
+          <div class="map-card">
+            <iframe src="https://www.google.com/maps?q=Sofia%2C%20Bulgaria&z=11&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Карта на София"></iframe>
           </div>
         </div>
       </div>
@@ -946,78 +1090,83 @@ footer a{color:#91e2cb}
   </section>
 </main>
 
-<footer style="background:var(--navy);color:var(--white);padding:3.5rem 0 1.5rem">
-  <div class="container" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:2.5rem;margin-bottom:2rem">
-    <div>
-      <img src="logo.jpg" alt="Емпика лого" style="width:60px;height:60px;border-radius:12px;margin-bottom:1rem">
-      <h4 style="font-size:1.1rem;margin-bottom:.5rem">Счетоводна къща Емпика</h4>
-      <p style="font-size:.9rem;color:rgba(255,255,255,.7);line-height:1.6">Професионално обслужване в сферата на счетоводството и данъците в София.</p>
-    </div>
-    <div>
-      <h4 style="font-size:1rem;margin-bottom:1rem;color:var(--teal)">Услуги</h4>
-      <ul style="list-style:none;padding:0;display:grid;gap:.5rem;font-size:.9rem;color:rgba(255,255,255,.75)">
-        <li>Счетоводство</li>
-        <li>ТРЗ и работни заплати</li>
-        <li>Данъчни консултации</li>
-        <li>Регистрация на фирми</li>
-        <li>Онлайн услуги</li>
-      </ul>
-    </div>
-    <div>
-      <h4 style="font-size:1rem;margin-bottom:1rem;color:var(--teal)">Контакти</h4>
-      <p style="font-size:.9rem;color:rgba(255,255,255,.75);line-height:2">
-        📞 <a href="tel:+359889986662" style="color:var(--white);text-decoration:none">+359 88 998 6662</a><br>
-        ✉️ <a href="mailto:empika@abv.bg" style="color:var(--white);text-decoration:none">empika@abv.bg</a><br>
-        📍 София, България<br>
-        🔗 <a href="https://www.facebook.com/empikabg/" target="_blank" style="color:var(--teal);text-decoration:none">Facebook</a>
-      </p>
-    </div>
-  </div>
-  <div class="container" style="text-align:center;padding-top:1.5rem;border-top:1px solid rgba(255,255,255,.15)">
-    <p style="font-size:.85rem;color:rgba(255,255,255,.5)">© 2025 Счетоводна къща Емпика, София. Всички права запазени.</p>
-  </div>
+<footer>
+  <p>&copy; 2026 Счетоводна къща Емпика | <a href="tel:+359889986662">+359 88 998 6662</a> | <a href="mailto:empika@abv.bg">empika@abv.bg</a> | София, България</p>
 </footer>
 
 <script>
-const navbar=document.getElementById('navbar');
-const hamburger=document.getElementById('hamburger');
-const navLinks=document.getElementById('navLinks');
-const mobileOverlay=document.getElementById('mobileOverlay');
-const navAnchors=navLinks.querySelectorAll('a');
-
-function toggleMenu(forceClose=false){
-  const shouldOpen=forceClose?false:!navLinks.classList.contains('open');
-  navLinks.classList.toggle('open',shouldOpen);
-  mobileOverlay.classList.toggle('show',shouldOpen);
-  hamburger.classList.toggle('active',shouldOpen);
-  hamburger.setAttribute('aria-expanded',String(shouldOpen));
-  document.body.style.overflow=shouldOpen?'hidden':'';
-}
-
-hamburger.addEventListener('click',()=>toggleMenu());
-mobileOverlay.addEventListener('click',()=>toggleMenu(true));
-navAnchors.forEach((link)=>link.addEventListener('click',()=>toggleMenu(true)));
-
-window.addEventListener('scroll',()=>{
-  navbar.classList.toggle('scrolled',window.scrollY>18);
+window.addEventListener('scroll',function(){
+  document.getElementById('nav').classList.toggle('scrolled',window.scrollY>40);
 });
 
-const observer=new IntersectionObserver((entries)=>{
-  entries.forEach((entry)=>{
+var observer=new IntersectionObserver(function(entries){
+  entries.forEach(function(entry){
     if(entry.isIntersecting){
       entry.target.classList.add('visible');
       observer.unobserve(entry.target);
     }
   });
-},{threshold:.16});
+},{threshold:.14});
 
-document.querySelectorAll('.reveal,.reveal-left,.reveal-right').forEach((element)=>{
-  if(!element.classList.contains('visible')){
-    observer.observe(element);
-  }
+document.querySelectorAll('.reveal,.reveal-left,.reveal-right').forEach(function(element){
+  if(!element.classList.contains('visible')) observer.observe(element);
 });
 
-// year is now static in footer
+(function(){
+  var hamburger=document.getElementById('hamburger');
+  var navLinks=document.getElementById('navLinks');
+  var overlay=document.getElementById('mobileOverlay');
+  var menuOpen=false;
+
+  function openMenu(){
+    menuOpen=true;
+    navLinks.classList.add('open');
+    overlay.classList.add('show');
+    hamburger.classList.add('active');
+    hamburger.setAttribute('aria-expanded','true');
+    document.body.style.overflow='hidden';
+  }
+
+  function closeMenu(){
+    menuOpen=false;
+    navLinks.classList.remove('open');
+    overlay.classList.remove('show');
+    hamburger.classList.remove('active');
+    hamburger.setAttribute('aria-expanded','false');
+    document.body.style.overflow='';
+  }
+
+  hamburger.addEventListener('click',function(){
+    if(menuOpen) closeMenu();
+    else openMenu();
+  });
+
+  overlay.addEventListener('click',closeMenu);
+
+  navLinks.querySelectorAll('a').forEach(function(link){
+    link.addEventListener('click',closeMenu);
+  });
+
+  window.addEventListener('resize',function(){
+    if(window.innerWidth>768 && menuOpen) closeMenu();
+  });
+})();
+
+document.querySelectorAll('.faq-item').forEach(function(item){
+  var button=item.querySelector('.faq-question');
+  var answer=item.querySelector('.faq-answer');
+  button.addEventListener('click',function(){
+    var isOpen=item.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(function(other){
+      other.classList.remove('open');
+      other.querySelector('.faq-answer').style.maxHeight=null;
+    });
+    if(!isOpen){
+      item.classList.add('open');
+      answer.style.maxHeight=answer.scrollHeight+'px';
+    }
+  });
+});
 </script>
 </body>
 </html>
