@@ -1,5 +1,18 @@
 {
-  "tasks": [],
+  "tasks": [
+    {
+      "id": 1774444684831,
+      "slug": "финкомекс-одитинг-оод",
+      "name": "Финкомекс Одитинг ООД",
+      "action": "building",
+      "status": "pending",
+      "createdAt": "2026-03-25T13:18:04.831Z",
+      "startedAt": null,
+      "completedAt": null,
+      "error": null,
+      "result": null
+    }
+  ],
   "completed": [
     {
       "id": 1773819482814,
