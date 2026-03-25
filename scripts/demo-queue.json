@@ -5,9 +5,9 @@
       "slug": "адвокатска-кантора-богданови-и-маринов",
       "name": "АДВОКАТСКА КАНТОРА БОГДАНОВИ И МАРИНОВ",
       "action": "deploying",
-      "status": "pending",
+      "status": "in_progress",
       "createdAt": "2026-03-25T11:30:04.260Z",
-      "startedAt": null,
+      "startedAt": "2026-03-25T11:30:32.664Z",
       "completedAt": null,
       "error": null,
       "result": null
