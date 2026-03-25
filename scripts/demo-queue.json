@@ -4,9 +4,10 @@
       "slug": "адвокатска-кантора-богданови-и-маринов",
       "name": "АДВОКАТСКА КАНТОРА БОГДАНОВИ И МАРИНОВ",
       "action": "koi-revision",
-      "status": "pending",
+      "status": "in_progress",
       "contextFile": "/tmp/demo-revision-context-адвокатска-кантора-богданови-и-маринов.json",
-      "addedAt": "2026-03-25T08:57:01.373Z"
+      "addedAt": "2026-03-25T08:57:01.373Z",
+      "startedAt": "2026-03-25T08:57:14.347Z"
     }
   ],
   "completed": [
