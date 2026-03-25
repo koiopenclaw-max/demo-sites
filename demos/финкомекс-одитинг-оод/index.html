@@ -1,402 +1,34 @@
 <!DOCTYPE html>
 <html lang="bg">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Финкомекс Одитинг ООД | Одиторски, счетоводни и ТРЗ услуги</title>
-  <meta name="description" content="Финкомекс Одитинг ООД предлага одиторски услуги, счетоводно обслужване, ТРЗ и данъчни консултации в София.">
-  <meta name="keywords" content="Финкомекс Одитинг, одит, счетоводство, ТРЗ, данъчни консултации, София">
-  <meta property="og:title" content="Финкомекс Одитинг ООД">
-  <meta property="og:description" content="Одиторски услуги, счетоводно обслужване, ТРЗ и данъчни консултации в София.">
-  <meta property="og:type" content="website">
-  <meta property="og:locale" content="bg_BG">
-  <style>
-    :root {
-      --bg: #f6f1e8;
-      --surface: rgba(255, 255, 255, 0.8);
-      --surface-strong: #fffaf2;
-      --text: #1f2933;
-      --muted: #52606d;
-      --accent: #b7791f;
-      --accent-dark: #8b5e1a;
-      --line: rgba(31, 41, 51, 0.12);
-      --shadow: 0 24px 60px rgba(63, 45, 17, 0.12);
-      --radius: 24px;
-      --max: 1180px;
-    }
-
-    * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-    body {
-      margin: 0;
-      font-family: Georgia, "Times New Roman", serif;
-      color: var(--text);
-      background:
-        radial-gradient(circle at top left, rgba(183, 121, 31, 0.18), transparent 28%),
-        radial-gradient(circle at bottom right, rgba(111, 78, 55, 0.12), transparent 24%),
-        linear-gradient(180deg, #f9f4eb 0%, #f4eee3 100%);
-    }
-
-    a { color: inherit; text-decoration: none; }
-    img { max-width: 100%; display: block; }
-
-    .container {
-      width: min(calc(100% - 32px), var(--max));
-      margin: 0 auto;
-    }
-
-    .topbar {
-      border-bottom: 1px solid var(--line);
-      background: rgba(255, 250, 242, 0.92);
-      backdrop-filter: blur(10px);
-    }
-
-    .topbar .container,
-    .nav {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-      padding: 14px 0;
-    }
-
-    .contact-strip,
-    .nav-links,
-    .hero-actions,
-    .stats,
-    .service-grid,
-    .insight-grid,
-    .contact-grid,
-    .footer-links {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 14px;
-    }
-
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      font-size: 0.95rem;
-      font-weight: 700;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-    }
-
-    .brand-mark {
-      width: 46px;
-      height: 46px;
-      border-radius: 14px;
-      display: grid;
-      place-items: center;
-      background: linear-gradient(135deg, var(--accent), #d7a54c);
-      color: #fff;
-      box-shadow: var(--shadow);
-      font-size: 1.2rem;
-    }
-
-    .contact-strip a,
-    .contact-strip span,
-    .nav-links a {
-      color: var(--muted);
-      font-size: 0.95rem;
-    }
-
-    .nav-wrap {
-      position: sticky;
-      top: 0;
-      z-index: 30;
-      background: rgba(246, 241, 232, 0.88);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--line);
-    }
-
-    .nav-links a:hover,
-    .contact-strip a:hover {
-      color: var(--accent-dark);
-    }
-
-    .hero {
-      padding: 72px 0 40px;
-    }
-
-    .hero-layout,
-    .about-layout {
-      display: grid;
-      grid-template-columns: 1.2fr 0.8fr;
-      gap: 28px;
-      align-items: stretch;
-    }
-
-    .panel {
-      background: var(--surface);
-      border: 1px solid rgba(255, 255, 255, 0.7);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-    }
-
-    .hero-copy {
-      padding: 42px;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .eyebrow {
-      display: inline-block;
-      margin-bottom: 18px;
-      padding: 8px 14px;
-      border-radius: 999px;
-      background: rgba(183, 121, 31, 0.12);
-      color: var(--accent-dark);
-      font-size: 0.85rem;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-    }
-
-    h1, h2, h3 {
-      margin: 0 0 16px;
-      line-height: 1.1;
-      font-weight: 700;
-    }
-
-    h1 { font-size: clamp(2rem, 4vw, 3.2rem); }
-    h2 { font-size: clamp(1.6rem, 3vw, 2.4rem); }
-    h3 { font-size: 1.25rem; }
-
-    p {
-      margin: 0 0 18px;
-      color: var(--muted);
-      font-size: 1.02rem;
-      line-height: 1.7;
-    }
-
-    .button {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 48px;
-      padding: 0 22px;
-      border-radius: 999px;
-      border: 1px solid transparent;
-      font-size: 0.96rem;
-      font-weight: 700;
-      transition: 180ms ease;
-    }
-
-    .button.primary {
-      background: var(--accent);
-      color: #fff;
-    }
-
-    .button.secondary {
-      border-color: var(--line);
-      background: rgba(255, 255, 255, 0.65);
-    }
-
-    .button:hover {
-      transform: translateY(-2px);
-    }
-
-    .hero-card {
-      padding: 34px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      background:
-        linear-gradient(180deg, rgba(183, 121, 31, 0.16), rgba(255, 250, 242, 0.96)),
-        var(--surface-strong);
-    }
-
-    .hero-card ul,
-    .service-card ul {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-    }
-
-    .hero-card li,
-    .service-card li,
-    .contact-list li {
-      padding: 12px 0;
-      border-bottom: 1px solid var(--line);
-      color: var(--text);
-    }
-
-    .hero-card li:last-child,
-    .service-card li:last-child,
-    .contact-list li:last-child {
-      border-bottom: 0;
-    }
-
-    .stats {
-      margin-top: 28px;
-    }
-
-    .stat {
-      flex: 1 1 180px;
-      padding: 20px;
-      border-radius: 20px;
-      background: rgba(255, 255, 255, 0.56);
-      border: 1px solid var(--line);
-    }
-
-    .stat strong {
-      display: block;
-      margin-bottom: 8px;
-      font-size: 1.8rem;
-      color: var(--accent-dark);
-    }
-
-    section {
-      padding: 36px 0;
-    }
-
-    .about-card,
-    .contact-card {
-      padding: 34px;
-    }
-
-    .quote {
-      padding: 32px;
-      background: linear-gradient(180deg, #fffdf8, #f4ead8);
-    }
-
-    .service-grid,
-    .insight-grid,
-    .contact-grid {
-      margin-top: 24px;
-    }
-
-    .service-card,
-    .insight-card,
-    .contact-card {
-      flex: 1 1 240px;
-      padding: 28px;
-    }
-
-    .service-card {
-      background: rgba(255, 255, 255, 0.82);
-      border: 1px solid rgba(255, 255, 255, 0.74);
-      border-radius: 22px;
-      box-shadow: var(--shadow);
-    }
-
-    .service-index {
-      display: inline-flex;
-      width: 40px;
-      height: 40px;
-      align-items: center;
-      justify-content: center;
-      border-radius: 12px;
-      margin-bottom: 16px;
-      background: rgba(183, 121, 31, 0.12);
-      color: var(--accent-dark);
-      font-weight: 700;
-    }
-
-    .insight-card {
-      border-radius: 22px;
-      border: 1px solid var(--line);
-      background: rgba(255, 255, 255, 0.72);
-    }
-
-    .contact-card {
-      border-radius: 22px;
-      border: 1px solid rgba(255, 255, 255, 0.72);
-      background: rgba(255, 250, 242, 0.9);
-      box-shadow: var(--shadow);
-    }
-
-    .contact-list {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-    }
-
-    footer {
-      padding: 26px 0 48px;
-      color: var(--muted);
-    }
-
-    .footer-box {
-      padding-top: 24px;
-      border-top: 1px solid var(--line);
-      display: flex;
-      flex-wrap: wrap;
-      gap: 18px;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .reveal {
-      opacity: 0;
-      transform: translateY(24px);
-      transition: opacity 700ms ease, transform 700ms ease;
-    }
-
-    .reveal.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    @media (max-width: 860px) {
-      .topbar .container,
-      .nav,
-      .footer-box {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-
-      .hero-layout,
-      .about-layout {
-        grid-template-columns: 1fr;
-      }
-
-      .hero {
-        padding-top: 40px;
-      }
-
-      .hero-copy,
-      .hero-card,
-      .about-card,
-      .quote,
-      .service-card,
-      .insight-card,
-      .contact-card {
-        padding: 24px;
-      }
-    }
-  
-/* Hamburger button */
-.menu-toggle{display:none;flex-direction:column;justify-content:center;gap:5px;width:44px;height:44px;padding:8px;background:none;border:1px solid rgba(255,255,255,0.15);border-radius:12px;cursor:pointer;z-index:30;flex-shrink:0}
-.menu-toggle span{display:block;width:100%;height:2px;background:#fff;border-radius:2px;transition:transform 300ms ease,opacity 200ms ease}
-.menu-toggle.active span:nth-child(1){transform:rotate(45deg) translate(5px,5px)}
-.menu-toggle.active span:nth-child(2){opacity:0}
-.menu-toggle.active span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px)}
-
-@media(max-width:719px){
-  .menu-toggle{display:flex}
-  .nav{flex-wrap:wrap;position:relative}
-  .nav-links{display:none !important;flex-direction:column;width:100%;gap:0;padding:0.5rem 0 1rem;order:3}
-  .nav-links.open{display:flex !important}
-  .nav-links a{display:block;padding:0.85rem 0;font-size:1.05rem;border-bottom:1px solid rgba(255,255,255,0.08)}
-  .nav-links a:last-child{border-bottom:none}
-  .hero h1{font-size:clamp(2rem,7vw,3.2rem)}
-  section{padding:3rem 0}
-  .services-grid,.principles-grid,.contact-wrap{grid-template-columns:1fr !important}
-  .form-grid.two-col{grid-template-columns:1fr !important}
-  .footer-inner{text-align:center;flex-direction:column}
-  .hero-stats{grid-template-columns:1fr !important}
-  .hero-actions{flex-direction:column;align-items:stretch}
-  .hero-actions .button{text-align:center}
-}
-
-</style>
-  <script type="application/ld+json">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Финкомекс Одитинг ООД | Одиторски, счетоводни и ТРЗ услуги в София</title>
+<meta name="description" content="Финкомекс Одитинг ООД предлага одиторски услуги, счетоводно обслужване, ТРЗ услуги и данъчни консултации в София от 1993 г. ИДЕС №102.">
+<meta name="keywords" content="Финкомекс Одитинг, одит София, счетоводство, ТРЗ услуги, данъчни консултации, одиторско дружество, ИДЕС">
+<meta name="theme-color" content="#1a1a2e">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="bg_BG">
+<meta property="og:title" content="Финкомекс Одитинг ООД — Одит, Счетоводство, ТРЗ, Данъчни Консултации">
+<meta property="og:description" content="Одиторско дружество с над 30 години опит. Пълен спектър от одиторски, счетоводни, ТРЗ и данъчни услуги.">
+<meta property="og:url" content="https://www.fincomex.eu">
+<meta property="og:image" content="https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=1600&auto=format&fit=crop&q=80">
+<link rel="canonical" href="https://www.fincomex.eu">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
     {
-      "@context": "https://schema.org",
-      "@type": "AccountingService",
+      "@type": ["AccountingService", "LocalBusiness"],
+      "@id": "https://www.fincomex.eu/#business",
       "name": "Финкомекс Одитинг ООД",
+      "url": "https://www.fincomex.eu",
+      "image": "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=1600&auto=format&fit=crop&q=80",
+      "description": "Одиторско дружество, предлагащо одиторски, счетоводни, ТРЗ услуги и данъчни консултации в София от 1993 г.",
+      "telephone": ["+359 2 968 19 21", "+359 2 968 19 22"],
       "address": {
         "@type": "PostalAddress",
         "streetAddress": "бул. Джеймс Баучер 33A",
@@ -404,247 +36,385 @@
         "addressLocality": "София",
         "addressCountry": "BG"
       },
-      "telephone": [
-        "+35929681921",
-        "+35929681922"
-      ],
-      "areaServed": "България",
-      "serviceType": [
-        "Одиторски услуги",
-        "Счетоводни услуги",
-        "ТРЗ услуги",
-        "Данъчни консултации"
-      ]
+      "areaServed": { "@type": "City", "name": "София" },
+      "foundingDate": "1993",
+      "serviceType": ["Одиторски услуги", "Счетоводни услуги", "ТРЗ услуги", "Данъчни консултации"],
+      "sameAs": ["https://www.fincomex.eu"]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://www.fincomex.eu/#website",
+      "url": "https://www.fincomex.eu",
+      "name": "Финкомекс Одитинг ООД",
+      "inLanguage": "bg"
     }
-  </script>
+  ]
+}
+</script>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="topbar">
-    <div class="container">
-      <div class="brand">
-        <div class="brand-mark">ФО</div>
-        <span>Финкомекс Одитинг ООД</span>
-      </div>
-      <div class="contact-strip">
-        <span>1407 София, бул. Джеймс Баучер 33A</span>
-        <a href="tel:+35929681921">+359 2 968 19 21</a>
-        <a href="tel:+35929681922">+359 2 968 19 22</a>
-      </div>
+<div class="site-shell">
+  <header class="topbar">
+    <div class="container nav">
+      <a class="brand" href="#hero" aria-label="Начало">
+        <span class="brand-mark">Финкомекс Одитинг</span>
+        <span class="brand-note">Одит · Счетоводство · Консултации</span>
+      </a>
+      <button class="menu-toggle" aria-label="Меню" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+      <nav class="nav-links" aria-label="Основна навигация">
+        <a href="#about">За нас</a>
+        <a href="#services">Услуги</a>
+        <a href="#experience">Нашият опит</a>
+        <a class="nav-cta" href="#contact">Свържете се с нас</a>
+      </nav>
     </div>
-  </div>
-
-  <div class="nav-wrap">
-    <nav class="container nav">
-      <button class="menu-toggle" aria-label="Меню" aria-expanded="false"><span></span><span></span><span></span></button>
-        <div class="nav-links">
-        <a href="#nachalo">Начало</a>
-        <a href="#za-nas">За нас</a>
-        <a href="#uslugi">Услуги</a>
-        <a href="#opit">Нашият опит</a>
-        <a href="#publikacii">Публикации</a>
-        <a href="#kontakti">Контакти</a>
-      </div>
-      <a class="button primary" href="#kontakti">Бързо запитване</a>
-    </nav>
-  </div>
+  </header>
 
   <main>
-    <section class="hero" id="nachalo">
-      <div class="container hero-layout">
-        <div class="panel hero-copy">
-          <span class="eyebrow">Одит и счетоводство</span>
-          <h1>Партньор за уверен финансов контрол и устойчив бизнес.</h1>
-          <p>Финкомекс Одитинг ООД предоставя професионални одиторски, счетоводни, ТРЗ и данъчни услуги за компании, които търсят точност, яснота и надеждно обслужване.</p>
-          <p>Работим от София и помагаме на клиентите си да вземат информирани решения с грижа към качеството, квалификацията на екипа и дългосрочните отношения.</p>
+    <section class="hero" id="hero">
+      <div class="hero-media" aria-hidden="true">
+        <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=1920&auto=format&fit=crop&q=80" alt="" loading="lazy" decoding="async" fetchpriority="low">
+      </div>
+      <div class="hero-overlay" aria-hidden="true"></div>
+      <div class="container hero-grid">
+        <div class="hero-copy reveal">
+          <span class="eyebrow">Одиторско дружество от 1993 г.</span>
+          <h1>ФИНКОМЕКС ОДИТИНГ</h1>
+          <p class="hero-subtitle">Одит, счетоводство, ТРЗ и данъчни консултации</p>
+          <p class="hero-description">Целият спектър от услуги в областта на счетоводството, данъчното, търговското, трудовото и осигурителното право — на едно място, от екип с над 30 години опит.</p>
           <div class="hero-actions">
-            <a class="button primary" href="tel:+35929681921">Обадете се сега</a>
-            <a class="button secondary" href="#uslugi">Вижте услугите</a>
+            <a class="button button-primary" href="#contact">Свържете се с нас</a>
+            <a class="button button-secondary" href="#services">Нашите услуги</a>
           </div>
-          <div class="stats">
-            <div class="stat">
-              <strong>4</strong>
-              <span>основни направления на обслужване</span>
+          <div class="hero-stats" aria-label="Основни акценти">
+            <div class="hero-stat">
+              <strong>30+ години</strong>
+              <span>Опит в одит и счетоводство от 1993 г.</span>
             </div>
-            <div class="stat">
-              <strong>2</strong>
-              <span>директни телефонни линии за контакт</span>
+            <div class="hero-stat">
+              <strong>ИДЕС №102</strong>
+              <span>Вписани в регистъра на Института на дипломираните експерт-счетоводители</span>
             </div>
-            <div class="stat">
-              <strong>1407</strong>
-              <span>локация в София, удобна за бизнес срещи</span>
+            <div class="hero-stat">
+              <strong>5 експерта</strong>
+              <span>Дипломирани експерт-счетоводители в екипа</span>
             </div>
           </div>
         </div>
-        <aside class="panel hero-card">
-          <div>
-            <span class="eyebrow">Какво предлагаме</span>
-            <h2>Комплексна експертиза под един покрив</h2>
+      </div>
+    </section>
+
+    <section class="section-light" id="about">
+      <div class="container about-grid">
+        <div class="reveal">
+          <div class="section-intro">
+            <span class="section-tag">За нас</span>
+            <h2 class="section-title">Одиторско дружество с традиции и експертиза</h2>
+            <p class="section-copy">Финкомекс Одитинг ООД е одиторско дружество, универсален правоприемник на Финкомекс ООД, регистрирано в Софийски Градски Съд през 1993 г. Дружеството е вписано в регистъра на ИДЕС под №102.</p>
           </div>
-          <ul>
-            <li>Одиторски услуги за яснота и увереност в отчетността</li>
-            <li>Счетоводни услуги, съобразени с нуждите на бизнеса</li>
-            <li>ТРЗ услуги за спокойствие в администрирането на персонала</li>
-            <li>Данъчни консултации при промени и текущи решения</li>
-          </ul>
+          <div class="about-card">
+            <p>Дружеството работи с петима дипломирани експерт-счетоводители, от които двама са съдружници. Съдружниците във Финкомекс Одитинг са специалисти, работили в системата на Държавния финансов контрол, Данъчната администрация и Социалното осигуряване.</p>
+          </div>
+          <div class="about-card" style="margin-top:1rem;">
+            <p>Комплексността на обслужването позволява на нашите клиенти да насочат усилията си към своята производствена или търговска дейност, като използват предоставените им от нас счетоводна информация и данъчни консултации. Висококвалифицираната данъчна защита анализира разходите за данъци и осигурява дългосрочна възможност за данъчно планиране.</p>
+          </div>
+        </div>
+        <aside class="about-highlight reveal">
+          <strong>Опит. Качество. Доверие.</strong>
+          <p>От независимия финансов одит до данъчното планиране — Финкомекс предлага интегрирано решение, изградено върху десетилетия професионален опит и познаване на българското и международното счетоводно законодателство.</p>
+          <p>Клиентите ни получават оптимално съотношение между цена и резултат от услугите ни, подкрепено от пълно съдействие при избора на подходящия вид обслужване.</p>
         </aside>
       </div>
     </section>
 
-    <section id="za-nas">
-      <div class="container about-layout">
-        <div class="panel about-card reveal">
-          <span class="eyebrow">За нас</span>
-          <h2>Универсален правоприемник на Финкомекс ООД</h2>
-          <p>Финкомекс Одитинг ООД е одиторско дружество, което стъпва върху опита и приемствеността на Финкомекс ООД. Фокусът е върху коректно обслужване, професионален подход и устойчиво доверие с постоянни клиенти.</p>
-          <p>Подхождаме с внимание към всяка компания и структурираме услугите така, че да отговарят на реалните нужди на управлението, отчетността и ежедневната работа.</p>
-        </div>
-        <div class="panel quote reveal">
-          <span class="eyebrow">Нашият подход</span>
-          <h2>Качество, развитие и отговорност</h2>
-          <p>В представянето на компанията ясно личат трите водещи посоки: качество на предоставяните услуги, повишаване квалификацията на персонала и грижа за дългосрочните партньорства.</p>
-          <p>Добавяме и отговорно отношение към средата, като част от модерното разбиране за стабилен и устойчив бизнес.</p>
-        </div>
-      </div>
-    </section>
-
-    <section id="uslugi">
+    <section class="section-soft" id="services">
       <div class="container">
-        <span class="eyebrow reveal">Услуги</span>
-        <h2 class="reveal">Изберете услугата, която отговаря на вашите нужди</h2>
-        <p class="reveal">Предлагаме ясно структурирани услуги за компании, които търсят надежден външен партньор за финансово управление, контрол и консултиране.</p>
-        <div class="service-grid">
-          <article class="service-card reveal">
-            <div class="service-index">01</div>
-            <h3>Одиторски услуги</h3>
-            <p>Независим професионален поглед върху финансовата отчетност и процесите, свързани с контрола и съответствието.</p>
-          </article>
-          <article class="service-card reveal">
-            <div class="service-index">02</div>
-            <h3>Счетоводни услуги</h3>
-            <p>Текущо счетоводно обслужване с фокус върху коректност, навременност и полезна информация за управлението.</p>
-          </article>
-          <article class="service-card reveal">
-            <div class="service-index">03</div>
-            <h3>ТРЗ услуги</h3>
-            <p>Поддръжка на трудови и възнаградителни процеси с внимание към документацията и ежедневната административна работа.</p>
-          </article>
-          <article class="service-card reveal">
-            <div class="service-index">04</div>
-            <h3>Данъчни консултации</h3>
-            <p>Практични насоки при данъчни казуси, законови промени и решения, които изискват яснота и добра подготовка.</p>
-          </article>
+        <div class="section-intro reveal">
+          <span class="section-tag">Услуги</span>
+          <h2 class="section-title">Пълен спектър от одиторски, счетоводни и консултантски услуги</h2>
+          <p class="section-copy">Изберете точно тази услуга, която отговаря на вашите нужди — от независим финансов одит до обработка на възнаграждения и данъчно планиране.</p>
         </div>
-      </div>
-    </section>
-
-    <section id="opit">
-      <div class="container">
-        <span class="eyebrow reveal">Нашият опит</span>
-        <h2 class="reveal">Работа, основана на последователност и доверие</h2>
-        <div class="insight-grid">
-          <article class="insight-card reveal">
-            <h3>Качество на услугите</h3>
-            <p>Процесите са насочени към точност, надеждност и полезен резултат за ръководството и отчетността на клиента.</p>
-          </article>
-          <article class="insight-card reveal">
-            <h3>Повишаване на квалификацията</h3>
-            <p>Развитието на екипа е част от устойчивото обслужване и гарантира адекватна реакция при нови изисквания и казуси.</p>
-          </article>
-          <article class="insight-card reveal">
-            <h3>Постоянни клиенти</h3>
-            <p>Дългосрочните отношения са естествен резултат от коректна комуникация, практични решения и лично отношение.</p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section id="publikacii">
-      <div class="container">
-        <span class="eyebrow reveal">Публикации</span>
-        <h2 class="reveal">Полезна информация и актуални теми</h2>
-        <div class="insight-grid">
-          <article class="insight-card reveal">
-            <h3>Европейско финансиране</h3>
-            <p>Финкомекс Одитинг ООД е посочена като бенефициент по договор за безвъзмездна финансова помощ № BG16RFOP002-2.089-4175-C01 за оперативен капитал за българските малки предприятия.</p>
-          </article>
-          <article class="insight-card reveal">
-            <h3>Промени в закона за ДДС</h3>
-            <p>Публикацията разглежда измененията в Закона за данък върху добавената стойност, обнародвани в края на 2014 г., и практическите им отражения.</p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section id="kontakti">
-      <div class="container">
-        <span class="eyebrow reveal">Контакти</span>
-        <h2 class="reveal">Свържете се с нас за консултация</h2>
-        <div class="contact-grid">
-          <article class="contact-card reveal">
-            <h3>Офис</h3>
-            <ul class="contact-list">
-              <li>Адрес: 1407 София, бул. Джеймс Баучер 33A</li>
-              <li>Телефон 1: <a href="tel:+35929681921">+359 2 968 19 21</a></li>
-              <li>Телефон 2: <a href="tel:+35929681922">+359 2 968 19 22</a></li>
-              <li>Работно време: не е посочено в наличното съдържание</li>
+        <div class="services-layout">
+          <article class="service-panel reveal">
+            <div class="service-head">
+              <div class="icon-shell" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"></path><rect x="9" y="3" width="6" height="4" rx="1"></rect><path d="m9 14 2 2 4-4"></path></svg>
+              </div>
+              <div>
+                <h3>Одиторски услуги</h3>
+                <p>Независим финансов одит с подход, базиран на най-добрите международни практики.</p>
+              </div>
+            </div>
+            <ul class="service-list">
+              <li>Независим одит на годишни и междинни финансови отчети</li>
+              <li>Одит на проекти, финансирани от ЕС и Световната банка</li>
+              <li>Одит за специални адресати — банки, кредитори</li>
+              <li>Ограничен преглед на финансови отчети</li>
+              <li>Проверки при преобразуване на търговски дружества</li>
+              <li>Тематични проверки по преценка на ръководството</li>
             </ul>
           </article>
-          <article class="contact-card reveal">
-            <h3>Бързо запитване</h3>
-            <p>Ако търсите партньор за одит, счетоводно обслужване, ТРЗ или данъчни консултации, свържете се с нас по телефона за първоначален разговор.</p>
-            <div class="hero-actions">
-              <a class="button primary" href="tel:+35929681921">Позвънете</a>
-              <a class="button secondary" href="#nachalo">Към началото</a>
+
+          <article class="service-panel reveal">
+            <div class="service-head">
+              <div class="icon-shell" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1Z"></path><path d="M8 10h8"></path><path d="M8 14h4"></path></svg>
+              </div>
+              <div>
+                <h3>Счетоводни услуги</h3>
+                <p>Комплексно счетоводно обслужване съгласно българското законодателство и МСФО.</p>
+              </div>
+            </div>
+            <ul class="service-list">
+              <li>Цялостно организиране на счетоводния процес</li>
+              <li>Месечни декларации по ЗДДС, Интрастат, ЗКПО</li>
+              <li>Изготвяне на годишен финансов отчет</li>
+              <li>Счетоводна политика и индивидуален сметкоплан</li>
+              <li>Справки за БНБ, НСИ и отчети за консолидация</li>
+              <li>Съдействие по време на одит</li>
+            </ul>
+          </article>
+        </div>
+
+        <div class="services-layout" style="margin-top:1.4rem;">
+          <article class="service-panel reveal">
+            <div class="service-head">
+              <div class="icon-shell" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+              </div>
+              <div>
+                <h3>ТРЗ услуги</h3>
+                <p>Консултации и обработка на възнагражденията на персонала с гарантирана конфиденциалност.</p>
+              </div>
+            </div>
+            <ul class="service-list">
+              <li>Консултации по трудово правоотношение</li>
+              <li>Изготвяне на трудови договори и регистрация</li>
+              <li>Месечни ведомости за заплати</li>
+              <li>Банкови платежни документи за осигуровки</li>
+              <li>Обработка на болнични листове</li>
+              <li>Попълване на трудови и осигурителни книжки</li>
+            </ul>
+          </article>
+
+          <article class="service-panel reveal">
+            <div class="service-head">
+              <div class="icon-shell" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M2 20h20"></path><path d="M5 20V10l7-7 7 7v10"></path><path d="M9 20v-4a3 3 0 0 1 6 0v4"></path><path d="M3 11l9-9 9 9"></path></svg>
+              </div>
+              <div>
+                <h3>Данъчни консултации</h3>
+                <p>Оптимални решения при данъчно планиране, анализ на рискове и ревизии.</p>
+              </div>
+            </div>
+            <ul class="service-list">
+              <li>Данъчно планиране и анализ на данъчни рискове</li>
+              <li>Откриване на данъчни възможности</li>
+              <li>Международно двойно данъчно облагане</li>
+              <li>Съдействие при данъчни проверки и ревизии</li>
+              <li>Становища по стопански операции</li>
+              <li>Промени в нормативната уредба — навременно информиране</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-dark" id="experience">
+      <div class="container">
+        <div class="section-intro reveal">
+          <span class="section-tag">Нашият опит</span>
+          <h2 class="section-title">Принципи, които водят нашата работа от 1993 г.</h2>
+          <p class="section-copy">Удовлетворяването на интересите на клиента и лоялността ни към него са главна предпоставка за нашия успех.</p>
+        </div>
+        <div class="offer-grid">
+          <article class="offer-card reveal">
+            <div class="icon-shell" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg>
+            </div>
+            <div>
+              <strong>Качество на услугите</strong>
+              <p>Убедени сме, че само услуги с високо качество могат да удовлетворят изискванията на клиента и да защитят името и интересите на нашата фирма.</p>
+            </div>
+          </article>
+          <article class="offer-card reveal">
+            <div class="icon-shell" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>
+            </div>
+            <div>
+              <strong>Квалификация на персонала</strong>
+              <p>Фокусирането в счетоводни, данъчни и финансови услуги позволява целенасочено обучение на нашите специалисти. Фокусирането води до качество.</p>
+            </div>
+          </article>
+          <article class="offer-card reveal">
+            <div class="icon-shell" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M12 22c5.52 0 10-4.48 10-10S17.52 2 12 2 2 6.48 2 12s4.48 10 10 10z"></path><path d="M7 12l2-6 5 10 3-6 2 2"></path></svg>
+            </div>
+            <div>
+              <strong>Грижа за природата</strong>
+              <p>Енергоспестяваща техника, „green" настройки, дигитални документи, минимум хартия и максимално рециклиране на консумативи.</p>
+            </div>
+          </article>
+          <article class="offer-card reveal">
+            <div class="icon-shell" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+            </div>
+            <div>
+              <strong>Постоянни клиенти</strong>
+              <p>Стремим се към привличане на постоянни клиенти и тяхното запазване чрез качеството на предоставяните услуги и дългосрочното партньорство.</p>
             </div>
           </article>
         </div>
       </div>
     </section>
+
+    <section class="section-light" id="why-us">
+      <div class="container">
+        <div class="section-intro reveal">
+          <span class="section-tag">Защо Финкомекс</span>
+          <h2 class="section-title">Причини клиентите да ни се доверяват дългосрочно</h2>
+          <p class="section-copy">Дългогодишното признание на клиентите ни и доверието на стопанската общност са резултат от задълбочено познаване на българските и международните стандарти.</p>
+        </div>
+        <div class="why-grid">
+          <article class="why-card reveal">
+            <strong>Опит от 1993 г.</strong>
+            <p>Над 30 години непрекъсната практика в одит и счетоводство.</p>
+          </article>
+          <article class="why-card reveal">
+            <strong>Комплексно обслужване</strong>
+            <p>Одит, счетоводство, ТРЗ и данъчни консултации — всичко на едно място.</p>
+          </article>
+          <article class="why-card reveal">
+            <strong>Международни стандарти</strong>
+            <p>Работа по МОС, МСФО и НСФОМСП с екип от сертифицирани одитори.</p>
+          </article>
+          <article class="why-card reveal">
+            <strong>Оптимална цена</strong>
+            <p>Оптимално съотношение между цена и резултат от всяка предоставена услуга.</p>
+          </article>
+          <article class="why-card reveal">
+            <strong>Данъчна защита</strong>
+            <p>Висококвалифицирана данъчна защита с дългосрочно планиране и минимизиране на рисковете.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-soft" id="contact">
+      <div class="container contact-wrap">
+        <div class="contact-card reveal">
+          <div class="section-intro" style="margin-bottom:0;">
+            <span class="section-tag">Контакти</span>
+            <h2 class="section-title">Свържете се с нас</h2>
+            <p class="section-copy">Ще се радваме да обсъдим как можем да бъдем полезни за Вашия бизнес.</p>
+          </div>
+          <div class="contact-points">
+            <div class="contact-point">
+              <div class="icon-shell" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M12 21c4-4.5 6-7.6 6-10.2A6 6 0 0 0 6 10.8C6 13.4 8 16.5 12 21Z"></path><path d="M12 13.5a2.7 2.7 0 1 0 0-5.4 2.7 2.7 0 0 0 0 5.4Z"></path></svg>
+              </div>
+              <div>
+                <strong>Адрес</strong>
+                <p>1407 София, бул. Джеймс Баучер 33A</p>
+              </div>
+            </div>
+            <div class="contact-point">
+              <div class="icon-shell" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.362 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.338 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+              </div>
+              <div>
+                <strong>Телефони</strong>
+                <p><a href="tel:+35929681921">+359 2 968 19 21</a></p>
+                <p><a href="tel:+35929681922">+359 2 968 19 22</a></p>
+              </div>
+            </div>
+            <div class="contact-point">
+              <div class="icon-shell" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M12 22c5.52 0 10-4.48 10-10S17.52 2 12 2 2 6.48 2 12s4.48 10 10 10z"></path><path d="M2 12h20"></path><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+              </div>
+              <div>
+                <strong>Уебсайт</strong>
+                <p><a href="https://www.fincomex.eu" target="_blank" rel="noopener noreferrer">www.fincomex.eu</a></p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <form class="contact-form reveal" action="#" method="post">
+          <div class="section-intro" style="margin-bottom:1.4rem;">
+            <span class="section-tag">Запитване</span>
+            <h2 class="section-title" style="font-size:clamp(1.8rem,4vw,2.6rem);">Изпратете ни запитване</h2>
+          </div>
+          <div class="form-grid two-col">
+            <div class="field">
+              <label for="name">Име</label>
+              <input id="name" name="name" type="text" placeholder="Вашето име">
+            </div>
+            <div class="field">
+              <label for="email">Имейл</label>
+              <input id="email" name="email" type="email" placeholder="you@example.com">
+            </div>
+          </div>
+          <div class="form-grid" style="margin-top:1rem;">
+            <div class="field">
+              <label for="subject">Тема</label>
+              <input id="subject" name="subject" type="text" placeholder="Вид услуга или въпрос">
+            </div>
+            <div class="field">
+              <label for="message">Съобщение</label>
+              <textarea id="message" name="message" placeholder="Опишете от какво имате нужда и как предпочитате да се свържем с Вас."></textarea>
+            </div>
+            <p class="form-note">Това е демонстрационна форма. За реален контакт, моля обадете се на посочените телефони или посетете <a href="https://www.fincomex.eu" style="color:var(--gold);">www.fincomex.eu</a>.</p>
+            <div>
+              <button class="button button-primary" type="submit">Изпратете запитване</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </section>
   </main>
 
-  <footer>
-    <div class="container footer-box">
-      <div>
-        <strong>Финкомекс Одитинг ООД</strong><br>
-        Одиторски, счетоводни, ТРЗ услуги и данъчни консултации
-      </div>
-      <div class="footer-links">
-        <a href="#za-nas">За нас</a>
-        <a href="#uslugi">Услуги</a>
-        <a href="#kontakti">Контакти</a>
-      </div>
+  <footer class="footer">
+    <div class="container footer-inner">
+      <p>&copy; 2024 Финкомекс Одитинг ООД. Всички права запазени.</p>
+      <a href="https://www.fincomex.eu" target="_blank" rel="noopener noreferrer">www.fincomex.eu</a>
     </div>
   </footer>
+</div>
 
-  <script>
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("visible");
-          observer.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.15 });
-
-    document.querySelectorAll(".reveal").forEach((element) => observer.observe(element));
-  </script>
 <script>
-const toggle=document.querySelector(".menu-toggle");
-const navLinks=document.querySelector(".nav-links");
-if(toggle&&navLinks){
-  toggle.addEventListener("click",()=>{
-    const isOpen=navLinks.classList.toggle("open");
-    toggle.classList.toggle("active");
-    toggle.setAttribute("aria-expanded",isOpen);
-  });
-  navLinks.querySelectorAll("a").forEach(link=>{
-    link.addEventListener("click",()=>{
-      navLinks.classList.remove("open");
-      toggle.classList.remove("active");
-      toggle.setAttribute("aria-expanded","false");
+  document.documentElement.classList.add("js");
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("in-view");
+        observer.unobserve(entry.target);
+      }
     });
-  });
-}
+  }, { threshold: 0.18, rootMargin: "0px 0px -8% 0px" });
+
+  document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
+
+  const toggle = document.querySelector(".menu-toggle");
+  const navLinks = document.querySelector(".nav-links");
+  if (toggle && navLinks) {
+    toggle.addEventListener("click", () => {
+      const isOpen = navLinks.classList.toggle("open");
+      toggle.classList.toggle("active");
+      toggle.setAttribute("aria-expanded", isOpen);
+    });
+    navLinks.querySelectorAll("a").forEach(link => {
+      link.addEventListener("click", () => {
+        navLinks.classList.remove("open");
+        toggle.classList.remove("active");
+        toggle.setAttribute("aria-expanded", "false");
+      });
+    });
+  }
 </script>
 </body>
 </html>
