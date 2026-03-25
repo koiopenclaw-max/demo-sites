@@ -1,15 +1,5 @@
 {
-  "tasks": [
-    {
-      "slug": "адвокатска-кантора-богданови-и-маринов",
-      "name": "АДВОКАТСКА КАНТОРА БОГДАНОВИ И МАРИНОВ",
-      "action": "koi-revision",
-      "status": "in_progress",
-      "contextFile": "/tmp/demo-revision-context-адвокатска-кантора-богданови-и-маринов.json",
-      "addedAt": "2026-03-25T08:58:33.355Z",
-      "startedAt": "2026-03-25T08:58:43.723Z"
-    }
-  ],
+  "tasks": [],
   "completed": [
     {
       "id": 1773819482814,
@@ -558,6 +548,17 @@
       "startedAt": "2026-03-25T08:57:14.347Z",
       "error": "Unknown action: koi-revision",
       "completedAt": "2026-03-25T08:57:15.520Z"
+    },
+    {
+      "slug": "адвокатска-кантора-богданови-и-маринов",
+      "name": "АДВОКАТСКА КАНТОРА БОГДАНОВИ И МАРИНОВ",
+      "action": "koi-revision",
+      "status": "done",
+      "contextFile": "/tmp/demo-revision-context-адвокатска-кантора-богданови-и-маринов.json",
+      "addedAt": "2026-03-25T08:58:33.355Z",
+      "startedAt": "2026-03-25T08:58:43.723Z",
+      "result": "Codex done, awaiting Koi validation. Output: baseline.html, civil-law.html, contacts.html, crew.html, criminal-administrative-law.html, criminal-law.html, index.html, prices.html, services.html",
+      "completedAt": "2026-03-25T09:01:52.067Z"
     }
   ],
   "version": 1
