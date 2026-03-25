@@ -104,6 +104,20 @@ input:focus, textarea:focus, select:focus { border-color: var(--accent); box-sha
 select { cursor: pointer; }
 select option { background: var(--bg-main); color: var(--text); }
 textarea { resize: vertical; min-height: 100px; }
+/* Revision image upload */
+.revision-images { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.75rem; }
+.revision-images .thumb { position: relative; width: 100px; height: 100px; border-radius: 8px; overflow: hidden; border: 1px solid var(--border); }
+.revision-images .thumb img { width: 100%; height: 100%; object-fit: cover; cursor: pointer; }
+.revision-images .thumb .remove-btn { position: absolute; top: 2px; right: 2px; background: rgba(231,76,60,0.9); color: #fff; border: none; border-radius: 50%; width: 22px; height: 22px; font-size: 14px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+.revision-images .add-img { width: 100px; height: 100px; border: 2px dashed var(--border); border-radius: 8px; display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: pointer; color: var(--text-muted); font-size: 0.75rem; gap: 0.25rem; transition: all 0.2s; }
+.revision-images .add-img:hover { border-color: var(--accent); color: var(--accent); }
+.revision-images .add-img span { font-size: 1.5rem; }
+.revision-history-images { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.5rem; }
+.revision-history-images img { width: 120px; height: 90px; object-fit: cover; border-radius: 6px; border: 1px solid var(--border); cursor: pointer; transition: transform 0.2s; }
+.revision-history-images img:hover { transform: scale(1.05); }
+.img-lightbox { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 9999; display: flex; align-items: center; justify-content: center; cursor: pointer; }
+.img-lightbox img { max-width: 95%; max-height: 95%; border-radius: 8px; }
+
 
 .dashboard-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem; }
 .dashboard-header h2 { font-size: 1.4rem; font-weight: 700; }
@@ -756,6 +770,7 @@ function renderRevisions(p) {
         <div style="font-size:0.75rem;color:var(--text-muted);margin-bottom:0.5rem">Корекция #${i+1} — ${new Date(r.createdAt).toLocaleString('bg-BG')}</div>
         <div style="margin-bottom:0.5rem"><strong>Проблеми:</strong></div>
         <div style="white-space:pre-wrap;font-size:0.9rem">${esc(r.issues)}</div>
+        ${r.images && r.images.length ? '<div class="revision-history-images">' + r.images.map(function(img){ return '<img src="' + img + '" onclick="openLightbox(this.src)">'; }).join('') + '</div>' : ''}
         ${r.resolution ? `<div style="margin-top:0.75rem;padding-top:0.75rem;border-top:1px solid var(--border)">
           <strong style="color:var(--success)">✅ Решение:</strong>
           <div style="white-space:pre-wrap;font-size:0.9rem;margin-top:0.25rem">${esc(r.resolution)}</div>
@@ -769,6 +784,11 @@ function renderRevisions(p) {
       <h3>🔧 Корекции</h3>
       <textarea id="revisionInput" placeholder="Опиши проблемите за отстраняване...&#10;&#10;Например:&#10;- Телефонът не е кликабилен&#10;- Цветът на бутона да е по-тъмен&#10;- Добави работно време" 
         style="width:100%;min-height:120px;padding:0.75rem;border:1px solid var(--border);border-radius:8px;background:var(--bg-input);color:var(--text);font-size:0.95rem;resize:vertical">${esc(p.currentRevision || '')}</textarea>
+      <div class="revision-images" id="revisionImages">
+        <input type="file" id="revisionFileInput" accept="image/*" multiple style="display:none" onchange="handleRevisionImages(this.files)">
+        <div class="add-img" onclick="document.getElementById('revisionFileInput').click()"><span>📷</span>Добави снимки</div>
+      </div>
+      <div style="font-size:0.75rem;color:var(--text-muted);margin-top:0.35rem">📎 Прикачи скрийншоти за по-точно описание</div>
       <div style="margin-top:0.75rem">
         <button class="btn btn-warning btn-lg" onclick="submitRevisions()" style="background:rgba(243,156,18,0.8);width:100%">🔧 Изпрати за корекция</button>
       </div>
@@ -868,19 +888,66 @@ function confirmDeleteProject() {
 }
 
 // ===== GITHUB =====
+// ===== IMAGE HANDLING FOR REVISIONS =====
+let _revisionImages = [];
+function handleRevisionImages(files) {
+  for (const file of files) {
+    if (!file.type.startsWith('image/')) continue;
+    if (_revisionImages.length >= 5) { toast('Максимум 5 снимки', 'error'); break; }
+    compressImage(file, 1200, 0.8).then(function(dataUrl) { _revisionImages.push(dataUrl); renderRevisionThumbs(); });
+  }
+  document.getElementById('revisionFileInput').value = '';
+}
+function compressImage(file, maxDim, quality) {
+  return new Promise(function(resolve) {
+    var reader = new FileReader();
+    reader.onload = function(e) {
+      var img = new Image();
+      img.onload = function() {
+        var canvas = document.createElement('canvas');
+        var w = img.width, h = img.height;
+        if (w > maxDim || h > maxDim) { if (w > h) { h = Math.round(h * maxDim / w); w = maxDim; } else { w = Math.round(w * maxDim / h); h = maxDim; } }
+        canvas.width = w; canvas.height = h;
+        canvas.getContext('2d').drawImage(img, 0, 0, w, h);
+        resolve(canvas.toDataURL('image/jpeg', quality));
+      };
+      img.src = e.target.result;
+    };
+    reader.readAsDataURL(file);
+  });
+}
+function renderRevisionThumbs() {
+  var container = document.getElementById('revisionImages');
+  if (!container) return;
+  var html = '';
+  for (var i = 0; i < _revisionImages.length; i++) {
+    html += '<div class="thumb"><img src="' + _revisionImages[i] + '" onclick="openLightbox(this.src)"><button class="remove-btn" onclick="removeRevisionImage(' + i + ')">\u00d7</button></div>';
+  }
+  html += '<input type="file" id="revisionFileInput" accept="image/*" multiple style="display:none" onchange="handleRevisionImages(this.files)">';
+  if (_revisionImages.length < 5) html += '<div class="add-img" onclick="document.getElementById(\'revisionFileInput\').click()"><span>📷</span>' + (_revisionImages.length ? '+' : 'Добави снимки') + '</div>';
+  container.innerHTML = html;
+}
+function removeRevisionImage(idx) { _revisionImages.splice(idx, 1); renderRevisionThumbs(); }
+function openLightbox(src) {
+  var lb = document.createElement('div');
+  lb.className = 'img-lightbox';
+  lb.onclick = function() { lb.remove(); };
+  lb.innerHTML = '<img src="' + src + '">';
+  document.body.appendChild(lb);
+}
+
 // ===== REVISIONS =====
 function submitRevisions() {
   const input = document.getElementById('revisionInput');
   if (!input || !input.value.trim()) { toast('Опиши проблемите','error'); return; }
   const issues = input.value.trim();
   
-  // Save to revision history
+  // Save to revision history (with images if any)
   if (!currentProject.revisionHistory) currentProject.revisionHistory = [];
-  currentProject.revisionHistory.push({
-    issues,
-    resolution: null,
-    createdAt: new Date().toISOString()
-  });
+  var entry = { issues: issues, resolution: null, createdAt: new Date().toISOString() };
+  if (_revisionImages.length) entry.images = _revisionImages.slice();
+  currentProject.revisionHistory.push(entry);
+  _revisionImages = [];
   currentProject.currentRevision = issues;
   currentProject.status = 'revisions';
   currentProject.updatedAt = new Date().toISOString();
