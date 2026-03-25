@@ -1,15 +1,5 @@
 {
-  "tasks": [
-    {
-      "slug": "адвокатска-кантора-богданови-и-маринов",
-      "name": "АДВОКАТСКА КАНТОРА БОГДАНОВИ И МАРИНОВ",
-      "action": "koi-revision",
-      "status": "in_progress",
-      "contextFile": "/tmp/demo-revision-context-адвокатска-кантора-богданови-и-маринов.json",
-      "addedAt": "2026-03-25T08:57:01.373Z",
-      "startedAt": "2026-03-25T08:57:14.347Z"
-    }
-  ],
+  "tasks": [],
   "completed": [
     {
       "id": 1773819482814,
@@ -547,6 +537,17 @@
       "startedAt": "2026-03-25T08:55:10.129Z",
       "error": "Unknown action: koi-revision",
       "completedAt": "2026-03-25T08:55:11.326Z"
+    },
+    {
+      "slug": "адвокатска-кантора-богданови-и-маринов",
+      "name": "АДВОКАТСКА КАНТОРА БОГДАНОВИ И МАРИНОВ",
+      "action": "koi-revision",
+      "status": "error",
+      "contextFile": "/tmp/demo-revision-context-адвокатска-кантора-богданови-и-маринов.json",
+      "addedAt": "2026-03-25T08:57:01.373Z",
+      "startedAt": "2026-03-25T08:57:14.347Z",
+      "error": "Unknown action: koi-revision",
+      "completedAt": "2026-03-25T08:57:15.520Z"
     }
   ],
   "version": 1
