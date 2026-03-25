@@ -4,95 +4,944 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Екип | Адвокатска кантора Богданови и Маринов</title>
-<meta name="description" content="Екипът на адвокатска кантора Богданови и Маринов — адв. Теодора Богданова, адв. Лилия Богданова, адв. Павел Маринов.">
+<meta name="description" content="Екипът на адвокатска кантора Богданови и Маринов.">
 <meta name="theme-color" content="#1a1a2e">
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
-<link rel="stylesheet" href="subpage.css">
+<style>
+:root{
+    --navy-950:#0a0d18;
+    --navy-900:#11172a;
+    --navy-800:#1a1a2e;
+    --navy-700:#27304a;
+    --navy-600:#364365;
+    --gold:#d4af37;
+    --gold-soft:#f0d98a;
+    --ivory:#f6f2e8;
+    --pearl:#faf8f3;
+    --stone:#e8e3d8;
+    --ink:#141821;
+    --muted:#596074;
+    --white:#ffffff;
+    --shadow:0 22px 60px rgba(8,12,24,0.18);
+    --radius:26px;
+    --container:min(1180px, calc(100vw - 2rem));
+  }
+
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;
+    font-family:"Manrope",sans-serif;
+    color:var(--ink);
+    background:var(--white);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
+  }
+
+  img{max-width:100%;display:block}
+  a{color:inherit}
+  button,input,textarea{font:inherit}
+
+  .site-shell{
+    overflow:hidden;
+    background:
+      radial-gradient(circle at top left, rgba(212,175,55,0.11), transparent 32%),
+      linear-gradient(180deg, #0d1322 0%, #121a31 22%, #f7f4ee 22%, #f7f4ee 100%);
+  }
+
+  .container{width:var(--container);margin:0 auto}
+
+  .topbar{
+    position:sticky;
+    top:0;
+    z-index:20;
+    backdrop-filter:blur(18px);
+    background:rgba(10,13,24,0.78);
+    border-bottom:1px solid rgba(255,255,255,0.08);
+  }
+
+  .nav{
+    min-height:82px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:1rem;
+    padding:0.8rem 0;
+  }
+
+  .brand{
+    text-decoration:none;
+    display:grid;
+    gap:0.1rem;
+    color:var(--white);
+  }
+
+  .brand-mark{
+    font-family:"Cormorant Garamond",serif;
+    font-size:1.65rem;
+    letter-spacing:0.04em;
+    text-transform:uppercase;
+  }
+
+  .brand-note{
+    font-size:0.72rem;
+    letter-spacing:0.26em;
+    text-transform:uppercase;
+    color:rgba(255,255,255,0.64);
+  }
+
+  .nav-links{
+    display:flex;
+    align-items:center;
+    gap:1rem;
+    flex-wrap:wrap;
+    justify-content:flex-end;
+  }
+
+  .nav-links a{
+    text-decoration:none;
+    color:rgba(255,255,255,0.84);
+    font-size:0.95rem;
+  }
+
+  .nav-links a:hover,
+  .nav-links a:focus-visible{color:var(--gold-soft)}
+
+  .nav-cta{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    min-height:46px;
+    padding:0.8rem 1.2rem;
+    border-radius:999px;
+    background:linear-gradient(135deg, var(--gold) 0%, #b8911e 100%);
+    color:var(--navy-950);
+    font-weight:800;
+    box-shadow:0 12px 28px rgba(212,175,55,0.2);
+  }
+
+  .hero{
+    position:relative;
+    min-height:calc(100vh - 82px);
+    min-height:calc(100svh - 82px);
+    display:grid;
+    align-items:center;
+    padding:3rem 0 4rem;
+    color:var(--white);
+    isolation:isolate;
+  }
+
+  .hero-media{
+    position:absolute;
+    inset:0;
+    z-index:-3;
+  }
+
+  .hero-media img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    filter:grayscale(18%) saturate(82%) brightness(0.34);
+  }
+
+  .hero-overlay{
+    position:absolute;
+    inset:0;
+    z-index:-2;
+    background:
+      linear-gradient(110deg, rgba(10,13,24,0.96) 16%, rgba(17,23,42,0.84) 48%, rgba(12,18,34,0.7) 100%),
+      radial-gradient(circle at 75% 18%, rgba(212,175,55,0.18), transparent 22%);
+  }
+
+  .hero-grid{
+    display:grid;
+    gap:2rem;
+  }
+
+  .eyebrow{
+    display:inline-flex;
+    align-items:center;
+    gap:0.7rem;
+    width:max-content;
+    padding:0.55rem 0.9rem;
+    border:1px solid rgba(212,175,55,0.34);
+    border-radius:999px;
+    background:rgba(255,255,255,0.03);
+    color:var(--gold-soft);
+    font-size:0.8rem;
+    letter-spacing:0.2em;
+    text-transform:uppercase;
+  }
+
+  .eyebrow::before{
+    content:"";
+    width:0.55rem;
+    height:0.55rem;
+    border-radius:50%;
+    background:var(--gold);
+    box-shadow:0 0 0 7px rgba(212,175,55,0.12);
+  }
+
+  .hero-copy{
+    max-width:760px;
+    padding:2rem 0;
+  }
+
+  .hero h1{
+    margin:1.15rem 0 1rem;
+    font-family:"Cormorant Garamond",serif;
+    font-size:clamp(3rem, 8vw, 6.2rem);
+    line-height:0.94;
+    letter-spacing:0.02em;
+    text-transform:uppercase;
+  }
+
+  .hero-subtitle{
+    margin:0 0 1rem;
+    font-size:clamp(1.1rem, 2.6vw, 1.45rem);
+    color:var(--ivory);
+    font-weight:600;
+  }
+
+  .hero-description{
+    max-width:650px;
+    margin:0 0 2rem;
+    font-size:1.05rem;
+    color:rgba(255,255,255,0.76);
+  }
+
+  .hero-actions{
+    display:flex;
+    flex-wrap:wrap;
+    gap:1rem;
+    align-items:center;
+  }
+
+  .button{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:0.7rem;
+    padding:0.95rem 1.35rem;
+    min-height:54px;
+    border-radius:999px;
+    border:1px solid transparent;
+    text-decoration:none;
+    font-weight:800;
+    transition:transform 220ms ease, box-shadow 220ms ease, background-color 220ms ease, border-color 220ms ease;
+  }
+
+  .button:hover,
+  .button:focus-visible{transform:translateY(-2px)}
+
+  .button-primary{
+    background:linear-gradient(135deg, var(--gold-soft) 0%, var(--gold) 42%, #b58d16 100%);
+    color:var(--navy-950);
+    box-shadow:0 18px 40px rgba(19,21,31,0.26);
+  }
+
+  .button-secondary{
+    border-color:rgba(255,255,255,0.22);
+    background:rgba(255,255,255,0.05);
+    color:var(--white);
+  }
+
+  .hero-stats{
+    display:grid;
+    grid-template-columns:repeat(3, minmax(0, 1fr));
+    gap:1rem;
+    margin-top:2.4rem;
+    max-width:780px;
+  }
+
+  .hero-stat{
+    padding:1.15rem 1rem;
+    border-radius:18px;
+    background:linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.03));
+    border:1px solid rgba(255,255,255,0.09);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,0.06);
+  }
+
+  .hero-stat strong{
+    display:block;
+    font-family:"Cormorant Garamond",serif;
+    font-size:1.75rem;
+    color:var(--gold-soft);
+  }
+
+  .hero-stat span{
+    display:block;
+    color:rgba(255,255,255,0.72);
+    font-size:0.92rem;
+  }
+
+  section{
+    padding:5rem 0;
+    position:relative;
+  }
+
+  .section-light{background:var(--white)}
+  .section-soft{background:linear-gradient(180deg, var(--pearl) 0%, #f1ece2 100%)}
+  .section-dark{
+    color:var(--white);
+    background:
+      radial-gradient(circle at top right, rgba(212,175,55,0.12), transparent 28%),
+      linear-gradient(180deg, var(--navy-900) 0%, #0b1020 100%);
+  }
+
+  .section-intro{
+    display:grid;
+    gap:1rem;
+    margin-bottom:2.4rem;
+  }
+
+  .section-tag{
+    width:max-content;
+    padding:0.55rem 0.9rem;
+    border-radius:999px;
+    background:rgba(212,175,55,0.12);
+    color:#866611;
+    font-size:0.78rem;
+    font-weight:800;
+    text-transform:uppercase;
+    letter-spacing:0.16em;
+  }
+
+  .section-dark .section-tag{
+    color:var(--gold-soft);
+    background:rgba(212,175,55,0.14);
+  }
+
+  .section-title{
+    margin:0;
+    font-family:"Cormorant Garamond",serif;
+    font-size:clamp(2.1rem, 5vw, 3.7rem);
+    line-height:0.98;
+    letter-spacing:0.03em;
+    text-transform:uppercase;
+  }
+
+  .section-copy{
+    max-width:720px;
+    margin:0;
+    color:var(--muted);
+    font-size:1.02rem;
+  }
+
+  .section-dark .section-copy{color:rgba(255,255,255,0.72)}
+
+  .about-grid{
+    display:grid;
+    gap:1.3rem;
+  }
+
+  .about-card{
+    background:var(--white);
+    border:1px solid rgba(39,48,74,0.08);
+    border-radius:var(--radius);
+    padding:1.6rem;
+    box-shadow:var(--shadow);
+  }
+
+  .about-card p{
+    margin:0;
+    color:#384054;
+    font-size:1rem;
+  }
+
+  .about-highlight{
+    display:grid;
+    gap:1rem;
+    padding:1.8rem;
+    border-radius:var(--radius);
+    background:linear-gradient(180deg, #161d31 0%, #0f1424 100%);
+    color:var(--white);
+    box-shadow:var(--shadow);
+  }
+
+  .about-highlight strong{
+    font-family:"Cormorant Garamond",serif;
+    font-size:2rem;
+    color:var(--gold-soft);
+    letter-spacing:0.03em;
+    text-transform:uppercase;
+  }
+
+  .about-highlight p{margin:0;color:rgba(255,255,255,0.74)}
+
+  .services-layout{
+    display:grid;
+    gap:1.4rem;
+  }
+
+  .service-panel{
+    background:var(--white);
+    border-radius:var(--radius);
+    padding:1.7rem;
+    box-shadow:var(--shadow);
+    border:1px solid rgba(17,23,42,0.06);
+  }
+
+  .service-head{
+    display:flex;
+    align-items:flex-start;
+    gap:1rem;
+    margin-bottom:1.25rem;
+  }
+
+  .icon-shell{
+    flex:0 0 auto;
+    width:3.5rem;
+    height:3.5rem;
+    display:grid;
+    place-items:center;
+    border-radius:18px;
+    background:linear-gradient(145deg, rgba(212,175,55,0.18), rgba(212,175,55,0.08));
+    color:#80620f;
+  }
+
+  .icon-shell svg{
+    width:1.8rem;
+    height:1.8rem;
+    stroke:currentColor;
+    fill:none;
+    stroke-width:1.7;
+    stroke-linecap:round;
+    stroke-linejoin:round;
+  }
+
+  .service-head h3{
+    margin:0 0 0.25rem;
+    font-size:1.35rem;
+    color:var(--navy-900);
+  }
+
+  .service-head p{
+    margin:0;
+    color:var(--muted);
+  }
+
+  .service-list{
+    display:grid;
+    gap:0.8rem;
+    padding:0;
+    margin:0;
+    list-style:none;
+  }
+
+  .service-list li{
+    display:flex;
+    align-items:flex-start;
+    gap:0.8rem;
+    color:#2d3548;
+  }
+
+  .service-list li::before{
+    content:"";
+    flex:0 0 auto;
+    width:0.65rem;
+    height:0.65rem;
+    margin-top:0.45rem;
+    border-radius:50%;
+    background:radial-gradient(circle, var(--gold) 0%, #af8814 100%);
+    box-shadow:0 0 0 5px rgba(212,175,55,0.11);
+  }
+
+  .offer-grid,
+  .why-grid{
+    display:grid;
+    gap:1rem;
+  }
+
+  .offer-card,
+  .why-card{
+    border-radius:22px;
+    padding:1.4rem;
+    background:rgba(255,255,255,0.04);
+    border:1px solid rgba(255,255,255,0.08);
+  }
+
+  .offer-card{
+    display:flex;
+    align-items:flex-start;
+    gap:1rem;
+  }
+
+  .offer-card .icon-shell{
+    background:rgba(212,175,55,0.12);
+    color:var(--gold-soft);
+  }
+
+  .offer-card p,
+  .why-card p{
+    margin:0;
+    color:rgba(255,255,255,0.78);
+  }
+
+  .offer-card strong,
+  .why-card strong{
+    display:block;
+    margin-bottom:0.25rem;
+    color:var(--white);
+    font-size:1.05rem;
+  }
+
+  .why-card{
+    background:var(--white);
+    color:var(--ink);
+    border:1px solid rgba(17,23,42,0.07);
+    box-shadow:var(--shadow);
+  }
+
+  .why-card strong{color:var(--navy-900)}
+  .why-card p{color:var(--muted)}
+
+  .contact-wrap{
+    display:grid;
+    gap:1.4rem;
+  }
+
+  .contact-card,
+  .contact-form{
+    border-radius:var(--radius);
+    padding:1.7rem;
+    box-shadow:var(--shadow);
+  }
+
+  .contact-card{
+    background:linear-gradient(180deg, #161d31 0%, #0c1020 100%);
+    color:var(--white);
+  }
+
+  .contact-points{
+    display:grid;
+    gap:1rem;
+    margin-top:1.4rem;
+  }
+
+  .contact-point{
+    display:flex;
+    align-items:flex-start;
+    gap:0.9rem;
+  }
+
+  .contact-point .icon-shell{
+    width:3rem;
+    height:3rem;
+    border-radius:16px;
+    background:rgba(212,175,55,0.14);
+    color:var(--gold-soft);
+  }
+
+  .contact-point a{
+    text-decoration:none;
+    color:var(--white);
+  }
+
+  .contact-card p{
+    margin:0;
+    color:rgba(255,255,255,0.74);
+  }
+
+  .contact-form{
+    background:var(--white);
+    border:1px solid rgba(17,23,42,0.08);
+  }
+
+  .form-grid{
+    display:grid;
+    gap:1rem;
+  }
+
+  .field{
+    display:grid;
+    gap:0.45rem;
+  }
+
+  label{
+    font-size:0.9rem;
+    font-weight:700;
+    color:var(--navy-900);
+  }
+
+  input,
+  textarea{
+    width:100%;
+    border:1px solid rgba(39,48,74,0.15);
+    border-radius:18px;
+    padding:0.95rem 1rem;
+    background:#fcfbf8;
+    color:var(--ink);
+    transition:border-color 220ms ease, box-shadow 220ms ease;
+  }
+
+  input:focus,
+  textarea:focus{
+    outline:none;
+    border-color:rgba(212,175,55,0.9);
+    box-shadow:0 0 0 4px rgba(212,175,55,0.12);
+  }
+
+  textarea{min-height:150px;resize:vertical}
+
+  .form-note{
+    margin:0;
+    color:var(--muted);
+    font-size:0.92rem;
+  }
+
+  .footer{
+    padding:2rem 0 3rem;
+    background:#090d16;
+    color:rgba(255,255,255,0.72);
+    border-top:1px solid rgba(255,255,255,0.07);
+  }
+
+  .footer-inner{
+    display:flex;
+    flex-direction:column;
+    gap:0.8rem;
+  }
+
+  .footer a{
+    color:var(--gold-soft);
+    text-decoration:none;
+  }
+
+  .reveal{
+    transition:transform 700ms ease, filter 700ms ease;
+  }
+
+  .js .reveal{
+    transform:translateY(24px);
+    filter:saturate(0.95);
+  }
+
+  .js .reveal.in-view{
+    transform:none;
+    filter:none;
+  }
+
+  @media (min-width: 720px){
+    .hero-grid,
+    .about-grid,
+    .contact-wrap{grid-template-columns:repeat(2, minmax(0, 1fr))}
+
+    .services-layout{grid-template-columns:1.2fr 0.8fr}
+    .offer-grid,
+    .why-grid{grid-template-columns:repeat(2, minmax(0, 1fr))}
+    .form-grid.two-col{grid-template-columns:repeat(2, minmax(0, 1fr))}
+    .footer-inner{flex-direction:row;justify-content:space-between;align-items:center}
+  }
+
+  @media (min-width: 980px){
+    section{padding:6.4rem 0}
+    .hero-copy{padding:3rem 0 4rem}
+    .services-layout{grid-template-columns:1fr 1fr}
+    .offer-grid{grid-template-columns:repeat(3, minmax(0, 1fr))}
+    .why-grid{grid-template-columns:repeat(5, minmax(0, 1fr))}
+    .about-grid{grid-template-columns:1.25fr 0.75fr}
+  }
+
+  @media (max-width: 719px){
+    .nav{align-items:flex-start}
+    .nav-links{gap:0.7rem}
+    .hero h1{max-width:11ch}
+    .hero-stats{grid-template-columns:1fr}
+  }
+</style>
+<style>
+
+  .nav-toggle{display:none}
+  .nav-toggle-button{display:none}
+  .page-grid,
+  .sitemap-grid{display:grid;gap:1rem}
+  .content-prose p{margin:0 0 1rem}
+  .content-prose p:last-child{margin-bottom:0}
+  .content-prose,
+  .service-list li,
+  .contact-card p,
+  .section-copy{overflow-wrap:anywhere;word-break:break-word}
+  .card-title{
+    display:block;
+    margin:0 0 0.9rem;
+    font-size:1.2rem;
+    color:var(--navy-900);
+  }
+  .prose-card{
+    background:var(--white);
+    border:1px solid rgba(17,23,42,0.08);
+    border-radius:var(--radius);
+    padding:1.7rem;
+    box-shadow:var(--shadow);
+  }
+  .service-list + .service-list{margin-top:1rem}
+  .sitemap-grid a{
+    text-decoration:none;
+    display:block;
+    padding:0.9rem 1rem;
+    border-radius:18px;
+    background:#fcfbf8;
+    border:1px solid rgba(39,48,74,0.12);
+    font-weight:700;
+  }
+  .sitemap-grid a[aria-current="page"]{
+    background:rgba(212,175,55,0.12);
+    border-color:rgba(212,175,55,0.34);
+  }
+  .footer-nav{
+    display:grid;
+    gap:0.8rem;
+  }
+  .footer-nav-links{
+    display:flex;
+    flex-wrap:wrap;
+    gap:0.8rem;
+  }
+  .footer-nav-links a{
+    color:rgba(255,255,255,0.88);
+    text-decoration:none;
+  }
+  @media (min-width: 720px){
+    .page-grid{grid-template-columns:repeat(2, minmax(0, 1fr))}
+    .sitemap-grid{grid-template-columns:repeat(2, minmax(0, 1fr))}
+  }
+  @media (min-width: 980px){
+    .page-grid{grid-template-columns:repeat(3, minmax(0, 1fr))}
+  }
+  @media (max-width: 959px){
+    .nav{align-items:center}
+    .nav-toggle-button{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      width:3rem;
+      height:3rem;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,0.14);
+      background:rgba(255,255,255,0.04);
+      color:var(--white);
+      cursor:pointer;
+    }
+    .nav-toggle-button svg{width:1.3rem;height:1.3rem;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round}
+    .nav-links{
+      position:absolute;
+      top:calc(100% + 0.55rem);
+      left:1rem;
+      right:1rem;
+      display:none;
+      flex-direction:column;
+      align-items:stretch;
+      padding:1rem;
+      border-radius:24px;
+      background:rgba(10,13,24,0.97);
+      border:1px solid rgba(255,255,255,0.08);
+      box-shadow:var(--shadow);
+    }
+    .nav-links a{padding:0.55rem 0}
+    .nav-links .nav-cta{margin-top:0.4rem;width:100%}
+    .nav-toggle:checked ~ .nav-links{display:flex}
+  }
+  @media (max-width: 719px){
+    .container{width:min(1180px, calc(100vw - 1.2rem))}
+    section{padding:4rem 0}
+    .hero{padding:2.4rem 0 3.4rem}
+    .hero-copy{padding:1rem 0}
+    .hero-actions .button{width:100%}
+    .about-card,
+    .about-highlight,
+    .service-panel,
+    .contact-card,
+    .contact-form{padding:1.25rem}
+    .offer-card{flex-direction:column}
+  }
+
+</style>
 </head>
 <body>
-<div class="site-shell" style="background: var(--white);">
+<div class="site-shell">
   <header class="topbar">
     <div class="container nav">
       <a class="brand" href="index.html" aria-label="Начало">
         <span class="brand-mark">Богданови и Маринов</span>
         <span class="brand-note">Адвокатска кантора</span>
       </a>
-      <button class="menu-toggle" aria-label="Меню" aria-expanded="false"><span></span><span></span><span></span></button>
+      <input class="nav-toggle" type="checkbox" id="menu-toggle">
+      <label class="nav-toggle-button" for="menu-toggle" aria-label="Отвори менюто">
+        <svg viewBox="0 0 24 24">
+          <path d="M4 7h16"></path>
+          <path d="M4 12h16"></path>
+          <path d="M4 17h16"></path>
+        </svg>
+      </label>
       <nav class="nav-links" aria-label="Основна навигация">
-        <a href="index.html">Начало</a>
-        <a href="services.html">Услуги</a>
-        <a href="civil-law.html">Гражданско право</a>
-        <a href="criminal-law.html">Наказателно право</a>
-        <a href="prices.html">Цени</a>
-        <a href="crew.html" style="color:var(--gold-soft)">Екип</a>
+        <a href="index.html">Начало</a><a href="services.html">Услуги</a><a href="servicescivil-law.html">Гражданско право</a><a href="servicescriminal-administrative-law.html">Наказателно и административно право</a><a href="prices.html">Цени</a><a href="crew.html" aria-current="page">Екип</a><a href="contacts.html">Контакти</a>
         <a class="nav-cta" href="contacts.html">Свържете се с нас</a>
       </nav>
     </div>
   </header>
 
   <main>
-    <section class="page-hero">
-      <div class="container">
-        <nav class="breadcrumb"><a href="index.html">Начало</a> <span>›</span> Екип</nav>
-        <h1>Екип</h1>
-        <p>Специалисти адвокати в различни сфери на правото</p>
+    <section class="hero" id="hero">
+      <div class="hero-media" aria-hidden="true">
+        <img
+          src="https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=1920&auto=format&fit=crop&q=80"
+          alt=""
+          loading="lazy"
+          decoding="async"
+          fetchpriority="low"
+        >
+      </div>
+      <div class="hero-overlay" aria-hidden="true"></div>
+      <div class="container hero-grid">
+        <div class="hero-copy reveal">
+          <span class="eyebrow">Екип</span>
+          <h1>АДВОКАТСКИ ЕКИП</h1>
+          <p class="hero-subtitle">Професионален опит в наказателното, гражданското и търговското право</p>
+          <p class="hero-description">Оригиналната страница представя биографиите и специализациите на адвокатите от кантората.</p>
+          <div class="hero-actions">
+            <a class="button button-primary" href="contacts.html">Свържете се с екипа</a>
+            <a class="button button-secondary" href="services.html">Услуги на кантората</a>
+          </div>
+          <div class="hero-stats" aria-label="Основни акценти"><div class="hero-stat"><strong>Теодора Богданова</strong><span>Наказателно право и граждански спорове.</span></div><div class="hero-stat"><strong>Лилия Богданова</strong><span>Недвижими имоти, търговско и облигационно право.</span></div><div class="hero-stat"><strong>Павел Маринов</strong><span>Наказателни и административни дела, ПТП и защита при задържане.</span></div></div>
+        </div>
       </div>
     </section>
-
+    <section class="section-light" id="crew-content">
+        <div class="container">
+          <div class="section-intro reveal">
+            <span class="section-tag">Профили</span>
+            <h2 class="section-title">Информацията за адвокатите е прехвърлена от оригиналния сайт</h2>
+            <p class="section-copy">Всеки профил е представен в отделна карта за по-лесно четене на мобилни устройства.</p>
+          </div>
+          <div class="page-grid">
+                <article class="about-card reveal content-prose">
+                  <strong class="card-title">АДВОКАТ ТЕОДОРА БОГДАНОВА</strong>
+                  <p>Адвокат Теодора Богданова завършва право през 1997г. През 1998г. адвокат Теодора Богданова след стаж в Софийски градски съд, полага успешно изпита за придобиване на юридическа правоспособност пред Министерство на правосъдието. Член е на Софийска адвокатска колегия.</p><p>Адвокат Теодора Богданова се специализира главно в наказателното право, във всичките му области като работи и гражданско право – разводи, трудови спорове, имуществени спорове, съдебни делби, спорове, свързани със земеделски земи, реституция, дела, свързани със застрахователни обезщетения, спорове, свързани с изпълнението на гражданско-правни и търговски сделки, изпълнителни дела, търговски спорове.</p>
+                  
+                </article>
+                
+                <article class="about-card reveal content-prose">
+                  <strong class="card-title">АДВОКАТ ЛИЛИЯ БОГДАНОВА</strong>
+                  <p>От 2000г. адвокат Лилия Богданова работи в нотариална кантора. През 2007г. завършва право. През 2008г. след стаж в Софийски градски съд, адвокат Лилия Богданова полага успешно изпита за придобиване на юридическа правоспособност пред Министерство на правосъдието, след което адвокат Лилия Богданова в продължение на две години работи като помощник-нотариус в същата кантора. През 2010г. адвокат Лилия Богданова успешно полага изпита за адвокати и се вписва в регистъра на Софийска адвокатска колегия. Адвокат Лилия Богданова е специализирана във вещното право и по-специално сделките с недвижими имоти, търговското право, облигационното право, въпроси, свързани с трудовото и осигурителното законодателство, данъчно право, право на интелектуална собственост, търговски марки и патенти.</p>
+                  
+                </article>
+                
+                <article class="about-card reveal content-prose">
+                  <strong class="card-title">АДВОКАТ ПАВЕЛ МАРИНОВ</strong>
+                  <p>Адвокат Павел Маринов завършва право през 1996г. През 1997г. след стаж в Софийски градски съд, полага успешно изпита за придобиване на юридическа правоспособност пред Министерство на правосъдието.</p><p>Адвокат Павел Маринов е работил като следовател в Столична следствена служба, включително и в Транспортния отдел на същата, като следовател по тежки пътно-транспортни произшествия. Член е на Софийска адвокатска колегия.</p><p>Адвокат Павел Маринов е специалист по наказателни и административни дела в това число защита правата на гражданите при съставяне на неправилни и незаконосъобразни актове за установяване на административни нарушения, наказателни постановление и други актове на органите на изпълнителната власт, защита при настъпване на ПТП, представителство в досъдебното и съдебното производство, представителство при сключване на споразумения с прокуратурата, защита правата на гражданите при задържане от органите на МВР</p>
+                  
+                </article>
+                
+                <article class="about-card reveal content-prose">
+                  <strong class="card-title">КЪМ НАСТОЯЩИЯ МОМЕНТ НА ВАШЕ РАЗПОЛОЖЕНИЕ СА:</strong>
+                  <p>Адвокат ТЕОДОРА БОГДАНОВА</p><p>Адвокат ЛИЛИЯ БОГДАНОВА</p>
+                  
+                </article>
+                </div>
+        </div>
+        </section><section class="section-soft" id="contact">
+        <div class="container contact-wrap">
+          <div class="contact-card reveal">
+            <div class="section-intro" style="margin-bottom:0;">
+              <span class="section-tag">Контакти</span>
+              <h2 class="section-title">Свържете се с кантората след предварителна уговорка</h2>
+              <p class="section-copy">Оригиналният сайт посочва адрес в София, телефони и имейли за директна връзка с адвокатите от кантората.</p>
+            </div>
+            <div class="contact-points">
+    <div class="contact-point">
+      <div class="icon-shell" aria-hidden="true">
+<svg viewBox="0 0 24 24">
+  <path d="M12 21c4-4.5 6-7.6 6-10.2A6 6 0 0 0 6 10.8C6 13.4 8 16.5 12 21Z"></path>
+  <path d="M12 13.5a2.7 2.7 0 1 0 0-5.4 2.7 2.7 0 0 0 0 5.4Z"></path>
+</svg>
+</div>
+      <div>
+        <strong>Адрес</strong>
+        <p>гр. София, община Лозенец, кв. Хладилника, ул. „Русалийски проход“ № 1, партер, офис № 4</p>
+      </div>
+    </div>
     
-    <section class="content-section section-light">
-      <div class="container">
-        <div class="section-intro reveal">
-          <span class="section-tag">Екип</span>
-          <h2 class="section-title">Нашите адвокати</h2>
-        </div>
-
-        <div class="crew-grid">
-          <div class="crew-card reveal">
-            <h3>Адвокат Теодора Богданова</h3>
-            <p>Адвокат Теодора Богданова завършва право през 1997 г. През 1998 г. след стаж в Софийски градски съд, полага успешно изпита за придобиване на юридическа правоспособност пред Министерство на правосъдието. Член е на Софийска адвокатска колегия.</p>
-            <p>Адвокат Теодора Богданова се специализира главно в наказателното право, във всичките му области като работи и гражданско право – разводи, трудови спорове, имуществени спорове, съдебни делби, спорове, свързани със земеделски земи, реституция, дела, свързани със застрахователни обезщетения, спорове, свързани с изпълнението на гражданско-правни и търговски сделки, изпълнителни дела, търговски спорове.</p>
-          </div>
-
-          <div class="crew-card reveal">
-            <h3>Адвокат Лилия Богданова</h3>
-            <p>От 2000 г. адвокат Лилия Богданова работи в нотариална кантора. През 2007 г. завършва право. През 2008 г. след стаж в Софийски градски съд, полага успешно изпита за придобиване на юридическа правоспособност пред Министерство на правосъдието, след което в продължение на две години работи като помощник-нотариус в същата кантора.</p>
-            <p>През 2010 г. успешно полага изпита за адвокати и се вписва в регистъра на Софийска адвокатска колегия. Адвокат Лилия Богданова е специализирана във вещното право и по-специално сделките с недвижими имоти, търговското право, облигационното право, въпроси, свързани с трудовото и осигурителното законодателство, данъчно право, право на интелектуална собственост, търговски марки и патенти.</p>
-          </div>
-
-          <div class="crew-card reveal">
-            <h3>Адвокат Павел Маринов</h3>
-            <p>Адвокат Павел Маринов завършва право през 1996 г. През 1997 г. след стаж в Софийски градски съд, полага успешно изпита за придобиване на юридическа правоспособност пред Министерство на правосъдието.</p>
-            <p>Адвокат Павел Маринов е работил като следовател в Столична следствена служба, включително и в Транспортния отдел на същата, като следовател по тежки пътно-транспортни произшествия. Член е на Софийска адвокатска колегия.</p>
-            <p>Адвокат Павел Маринов е специалист по наказателни и административни дела в това число защита правата на гражданите при съставяне на неправилни и незаконосъобразни актове за установяване на административни нарушения, наказателни постановления и други актове на органите на изпълнителната власт, защита при настъпване на ПТП, представителство в досъдебното и съдебното производство, представителство при сключване на споразумения с прокуратурата, защита правата на гражданите при задържане от органите на МВР.</p>
-          </div>
-        </div>
-
-        <div class="crew-available reveal">
-          <strong>Към настоящия момент на Ваше разположение са:</strong>
-          <p>Адвокат ТЕОДОРА БОГДАНОВА<br>Адвокат ЛИЛИЯ БОГДАНОВА</p>
-        </div>
-
-        <p style="text-align:center;margin-top:2rem;">
-          <a class="button button-primary" href="contacts.html" style="display:inline-flex;">Свържете се с нас</a>
-        </p>
+    <div class="contact-point">
+      <div class="icon-shell" aria-hidden="true">
+<svg viewBox="0 0 24 24">
+  <path d="M6.6 10.8a15.5 15.5 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1.1-.3 1.2.4 2.4.5 3.7.5.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.6c.6 0 1 .4 1 1 0 1.3.2 2.5.5 3.7.1.4 0 .8-.3 1.1l-2.2 2Z"></path>
+</svg>
+</div>
+      <div>
+        <strong>Телефони</strong>
+        <p>Теодора Богданова: <a href="tel:+359888523863">0888 523 863</a><br>Лилия Богданова: <a href="tel:+359885852982">0885 852 982</a><br>Павел Маринов: <a href="tel:+359887523849">0887 523 849</a></p>
       </div>
-    </section>
+    </div>
+    
+    <div class="contact-point">
+      <div class="icon-shell" aria-hidden="true">
+<svg viewBox="0 0 24 24">
+  <path d="M4 6h16v12H4z"></path>
+  <path d="m4 8 8 6 8-6"></path>
+</svg>
+</div>
+      <div>
+        <strong>Имейли</strong>
+        <p><a href="mailto:advtbogdanova@gmail.com">advtbogdanova@gmail.com</a><br><a href="mailto:advlbogdanova@gmail.com">advlbogdanova@gmail.com</a><br><a href="mailto:adv.pmarinov@gmail.com">adv.pmarinov@gmail.com</a></p>
+      </div>
+    </div>
+    </div>
+          </div>
+          <div class="contact-form reveal content-prose">
+            <div class="section-intro" style="margin-bottom:1.4rem;">
+              <span class="section-tag">Форма за запитване</span>
+              <h2 class="section-title" style="font-size:clamp(1.8rem,4vw,2.6rem);">Опишете Вашия казус</h2>
+            </div>
+            <form action="#" method="post">
+              <div class="form-grid two-col">
+                <div class="field">
+                  <label for="contact-name">Име и фамилия</label>
+                  <input id="contact-name" name="name" type="text" placeholder="Вашето име">
+                </div>
+                <div class="field">
+                  <label for="contact-email">Имейл</label>
+                  <input id="contact-email" name="email" type="email" placeholder="you@example.com">
+                </div>
+              </div>
+              <div class="form-grid" style="margin-top:1rem;">
+                <div class="field">
+                  <label for="contact-subject">Тема</label>
+                  <input id="contact-subject" name="subject" type="text" placeholder="Кратко описание на нужната правна помощ">
+                </div>
+                <div class="field">
+                  <label for="contact-message">Съобщение</label>
+                  <textarea id="contact-message" name="message" placeholder="Опишете случая, основните факти и как предпочитате да се свържем с Вас."></textarea>
+                </div>
+                <p class="form-note">Това е демонстрационна форма и служи като визуален placeholder до добавяне на реални данни за контакт и интеграция за изпращане.</p>
+                <div>
+                  <button class="button button-primary" type="submit">Изпратете запитване</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+        </section>
   </main>
 
   <footer class="footer">
     <div class="container footer-inner">
-      <p>© 2024 Адвокатска кантора Богданови и Маринов. Всички права запазени.</p>
+      <div class="footer-nav">
+        <p>© 2024 Адвокатска кантора Богданови и Маринов. Всички права запазени.</p>
+        <div class="footer-nav-links"><a href="index.html">Начало</a><a href="services.html">Услуги</a><a href="servicescivil-law.html">Гражданско право</a><a href="servicescriminal-administrative-law.html">Наказателно и административно право</a><a href="prices.html">Цени</a><a href="crew.html" aria-current="page">Екип</a><a href="contacts.html">Контакти</a><a href="feed.html">Поток</a><a href="commentsfeed.html">Поток от коментари</a><a href="xmlrpc.php.html">XML-RPC адрес</a></div>
+      </div>
       <a href="https://topadvocati.com" target="_blank" rel="noopener noreferrer">topadvocati.com</a>
     </div>
   </footer>
 </div>
 
 <script>
-  document.documentElement.classList.add("js");
+document.documentElement.classList.add("js");
+
   const observer = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
@@ -100,26 +949,21 @@
         observer.unobserve(entry.target);
       }
     });
-  }, { threshold: 0.18, rootMargin: "0px 0px -8% 0px" });
-  document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
-</script>
-<script>
-  const toggle = document.querySelector(".menu-toggle");
-  const navLinks = document.querySelector(".nav-links");
-  if (toggle && navLinks) {
-    toggle.addEventListener("click", () => {
-      const isOpen = navLinks.classList.toggle("open");
-      toggle.classList.toggle("active");
-      toggle.setAttribute("aria-expanded", isOpen);
+  }, {
+    threshold: 0.18,
+    rootMargin: "0px 0px -8% 0px"
+  });
+
+  document.querySelectorAll(".reveal").forEach((element) => {
+    observer.observe(element);
+  });
+
+  const menuToggle = document.getElementById("menu-toggle");
+  document.querySelectorAll(".nav-links a").forEach((link) => {
+    link.addEventListener("click", () => {
+      if (menuToggle) menuToggle.checked = false;
     });
-    navLinks.querySelectorAll("a").forEach(link => {
-      link.addEventListener("click", () => {
-        navLinks.classList.remove("open");
-        toggle.classList.remove("active");
-        toggle.setAttribute("aria-expanded", "false");
-      });
-    });
-  }
+  });
 </script>
 </body>
 </html>
