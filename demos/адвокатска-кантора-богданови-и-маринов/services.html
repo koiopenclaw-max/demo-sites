@@ -20,6 +20,7 @@
         <span class="brand-mark">Богданови и Маринов</span>
         <span class="brand-note">Адвокатска кантора</span>
       </a>
+      <button class="menu-toggle" aria-label="Меню" aria-expanded="false"><span></span><span></span><span></span></button>
       <nav class="nav-links" aria-label="Основна навигация">
         <a href="index.html">Начало</a>
         <a href="services.html" style="color:var(--gold-soft)">Услуги</a>
@@ -114,6 +115,24 @@
     });
   }, { threshold: 0.18, rootMargin: "0px 0px -8% 0px" });
   document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
+</script>
+<script>
+  const toggle = document.querySelector(".menu-toggle");
+  const navLinks = document.querySelector(".nav-links");
+  if (toggle && navLinks) {
+    toggle.addEventListener("click", () => {
+      const isOpen = navLinks.classList.toggle("open");
+      toggle.classList.toggle("active");
+      toggle.setAttribute("aria-expanded", isOpen);
+    });
+    navLinks.querySelectorAll("a").forEach(link => {
+      link.addEventListener("click", () => {
+        navLinks.classList.remove("open");
+        toggle.classList.remove("active");
+        toggle.setAttribute("aria-expanded", "false");
+      });
+    });
+  }
 </script>
 </body>
 </html>
