@@ -714,6 +714,7 @@
         <span class="brand-mark">Богданови и Маринов</span>
         <span class="brand-note">Адвокатска кантора</span>
       </a>
+      <button class="menu-toggle" aria-label="Меню" aria-expanded="false"><span></span><span></span><span></span></button>
       <nav class="nav-links" aria-label="Основна навигация">
         <a href="index.html">Начало</a>
         <a href="services.html">Услуги</a>
@@ -948,5 +949,6 @@
     observer.observe(element);
   });
 </script>
+<script>const t=document.querySelector(".menu-toggle"),n=document.querySelector(".nav-links");if(t&&n){t.addEventListener("click",()=>{const o=n.classList.toggle("open");t.classList.toggle("active");t.setAttribute("aria-expanded",o)});n.querySelectorAll("a").forEach(a=>a.addEventListener("click",()=>{n.classList.remove("open");t.classList.remove("active");t.setAttribute("aria-expanded","false")}))}</script>
 </body>
 </html>
