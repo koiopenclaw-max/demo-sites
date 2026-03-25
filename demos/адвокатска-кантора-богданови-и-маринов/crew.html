@@ -320,8 +320,10 @@
   .hero-stat strong{
     display:block;
     font-family:"Cormorant Garamond",serif;
-    font-size:1.75rem;
+    font-size:1.4rem;
     color:var(--gold-soft);
+    overflow-wrap:break-word;
+    word-break:break-word;
   }
 
   .hero-stat span{
@@ -698,6 +700,9 @@
     .about-grid{grid-template-columns:1.25fr 0.75fr}
   }
 
+  @media (max-width: 900px){
+    .hero-stats{grid-template-columns:1fr}
+  }
   @media (max-width: 719px){
     .nav{align-items:flex-start}
     .nav-links{gap:0.7rem}
