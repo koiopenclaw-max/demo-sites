@@ -266,7 +266,7 @@
     box-shadow:0 0 0 7px rgba(212,175,55,0.12);
   }
 
-  .hero-copy{
+  
     max-width:760px;
     padding:2rem 0;
   }
@@ -332,7 +332,7 @@
 
   .hero-stats{
     display:grid;
-    grid-template-columns:repeat(3, minmax(0, 1fr));
+    grid-template-columns:repeat(3, 1fr);
     gap:1.5rem;
     margin-top:2.4rem;
     max-width:100%;
@@ -349,7 +349,7 @@
   .hero-stat strong{
     display:block;
     font-family:"Cormorant Garamond",serif;
-    font-size:1.75rem;
+    font-size:1.2rem;
     color:var(--gold-soft);
   }
 
@@ -762,11 +762,7 @@
   }
 
   @media (max-width: 1100px){
-    .hero-stats{grid-template-columns:1fr}
-  }
-  @media (max-width: 719px){
-    html, body, main{overflow-x:hidden}
-    .nav{align-items:flex-start;flex-wrap:wrap}
+    .hero-stats{grid-template-columns:repeat(3, 1fr);flex-wrap:wrap}
     .menu-toggle{display:inline-flex}
     .nav-links{
       display:none;
@@ -783,15 +779,7 @@
     .nav-links a,
     .nav-cta{width:100%}
     .hero h1{max-width:100%;font-size:2rem;line-height:1.1}
-    .hero-stats{grid-template-columns:1fr}
-    .about-card,
-    .about-highlight,
-    .service-panel,
-    .offer-card,
-    .why-card,
-    .contact-card,
-    .contact-form{
-      width:100%;
+    .hero-stats{grid-template-columns:repeat(3, 1fr);
       max-width:100%;
       padding:1rem;
     }
