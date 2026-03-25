@@ -1,18 +1,5 @@
 {
-  "tasks": [
-    {
-      "id": 1774444564547,
-      "slug": "финкомекс-одитинг-оод",
-      "name": "Финкомекс Одитинг ООД",
-      "action": "briefing",
-      "status": "in_progress",
-      "createdAt": "2026-03-25T13:16:04.547Z",
-      "startedAt": "2026-03-25T13:16:08.112Z",
-      "completedAt": null,
-      "error": null,
-      "result": null
-    }
-  ],
+  "tasks": [],
   "completed": [
     {
       "id": 1773819482814,
@@ -595,6 +582,18 @@
       "completedAt": "2026-03-25T11:30:38.779Z",
       "error": null,
       "result": "Deployed to demo59.add.bg (repo: demo59-add-bg)"
+    },
+    {
+      "id": 1774444564547,
+      "slug": "финкомекс-одитинг-оод",
+      "name": "Финкомекс Одитинг ООД",
+      "action": "briefing",
+      "status": "done",
+      "createdAt": "2026-03-25T13:16:04.547Z",
+      "startedAt": "2026-03-25T13:16:08.112Z",
+      "completedAt": "2026-03-25T13:16:10.950Z",
+      "error": null,
+      "result": "Brief готов. Ниша: счетоводство. 7 въпроса."
     }
   ],
   "version": 1
