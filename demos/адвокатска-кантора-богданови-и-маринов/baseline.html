@@ -394,7 +394,11 @@
     background:var(--white);
     border:1px solid rgba(39,48,74,0.08);
     border-radius:var(--radius);
-    padding:1.6rem;
+    padding:1.5rem 1.8rem;
+    min-height:auto;
+    overflow:visible;
+    word-wrap:break-word;
+    overflow-wrap:break-word;
     box-shadow:var(--shadow);
   }
 
@@ -407,7 +411,11 @@
   .about-highlight{
     display:grid;
     gap:1rem;
-    padding:1.8rem;
+    padding:1.5rem 1.8rem;
+    min-height:auto;
+    overflow:visible;
+    word-wrap:break-word;
+    overflow-wrap:break-word;
     border-radius:var(--radius);
     background:linear-gradient(180deg, #161d31 0%, #0f1424 100%);
     color:var(--white);
@@ -432,7 +440,11 @@
   .service-panel{
     background:var(--white);
     border-radius:var(--radius);
-    padding:1.7rem;
+    padding:1.5rem 1.8rem;
+    min-height:auto;
+    overflow:visible;
+    word-wrap:break-word;
+    overflow-wrap:break-word;
     box-shadow:var(--shadow);
     border:1px solid rgba(17,23,42,0.06);
   }
@@ -474,6 +486,9 @@
   .service-head p{
     margin:0;
     color:var(--muted);
+    font-size:0.95rem;
+    word-wrap:break-word;
+    overflow-wrap:break-word;
   }
 
   .service-list{
@@ -489,6 +504,11 @@
     align-items:flex-start;
     gap:0.8rem;
     color:#2d3548;
+    line-height:1.6;
+    padding:0.3rem 0;
+    font-size:0.95rem;
+    word-wrap:break-word;
+    overflow-wrap:break-word;
   }
 
   .service-list li::before{
@@ -511,7 +531,11 @@
   .offer-card,
   .why-card{
     border-radius:22px;
-    padding:1.4rem;
+    padding:1.5rem 1.8rem;
+    min-height:auto;
+    overflow:visible;
+    word-wrap:break-word;
+    overflow-wrap:break-word;
     background:rgba(255,255,255,0.04);
     border:1px solid rgba(255,255,255,0.08);
   }
@@ -530,7 +554,10 @@
   .offer-card p,
   .why-card p{
     margin:0;
+    font-size:0.95rem;
     color:rgba(255,255,255,0.78);
+    word-wrap:break-word;
+    overflow-wrap:break-word;
   }
 
   .offer-card strong,
@@ -559,7 +586,11 @@
   .contact-card,
   .contact-form{
     border-radius:var(--radius);
-    padding:1.7rem;
+    padding:1.5rem 1.8rem;
+    min-height:auto;
+    overflow:visible;
+    word-wrap:break-word;
+    overflow-wrap:break-word;
     box-shadow:var(--shadow);
   }
 
@@ -595,7 +626,10 @@
 
   .contact-card p{
     margin:0;
+    font-size:0.95rem;
     color:rgba(255,255,255,0.74);
+    word-wrap:break-word;
+    overflow-wrap:break-word;
   }
 
   .contact-form{
@@ -642,7 +676,7 @@
   .form-note{
     margin:0;
     color:var(--muted);
-    font-size:0.92rem;
+    font-size:0.95rem;
   }
 
   .footer{
@@ -699,10 +733,32 @@
   }
 
   @media (max-width: 719px){
+    html, body, main{overflow-x:hidden}
     .nav{align-items:flex-start}
     .nav-links{gap:0.7rem}
     .hero h1{max-width:11ch}
     .hero-stats{grid-template-columns:1fr}
+    .about-card,
+    .about-highlight,
+    .service-panel,
+    .offer-card,
+    .why-card,
+    .contact-card,
+    .contact-form{
+      width:100%;
+      max-width:100%;
+      padding:1rem;
+    }
+    .about-card p,
+    .about-highlight p,
+    .service-head p,
+    .service-list li,
+    .offer-card p,
+    .why-card p,
+    .contact-card p,
+    .form-note{
+      font-size:0.9rem;
+    }
   }
 </style>
 </head>
