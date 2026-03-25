@@ -65,9 +65,9 @@
     },
     {
       "issues": "Сайта визуално ми допада, но има следните проблеми:\n\n- При разглеждане през мобилноустройство - менюто не е мобайл френдли\n-Съдържанието в страниците не е се визуализира добре на мобилниустрийства",
-      "resolution": "✅ Валидирано (attempt 2): 10 файла — commentsfeed.html, contacts.html, crew.html, feed.html, index.html, prices.html, services.html, servicescivil-law.html, servicescriminal-administrative-law.html, xmlrpc.php.html",
+      "resolution": "Mobile fix: hamburger menu + responsive layout for all 7 pages.",
       "createdAt": "2026-03-25T06:23:07.086Z",
-      "resolvedAt": "2026-03-25T06:40:54.912Z"
+      "resolvedAt": "2026-03-25T06:43:44.000Z"
     }
   ],
   "currentRevision": null
