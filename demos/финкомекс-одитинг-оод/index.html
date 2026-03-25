@@ -334,74 +334,64 @@
       transition: opacity 700ms ease, transform 700ms ease;
     }
 
-    .hero-copy, .hero-card { opacity: 1 !important; transform: none !important; }
     .reveal.visible {
       opacity: 1;
       transform: translateY(0);
     }
 
-    
-    /* Hamburger button */
-    .menu-toggle{
-      display:none;
-      flex-direction:column;
-      justify-content:center;
-      gap:5px;
-      width:44px;
-      height:44px;
-      padding:8px;
-      background:none;
-      border:1px solid var(--line);
-      border-radius:12px;
-      cursor:pointer;
-      z-index:30;
-    }
-    .menu-toggle span{
-      display:block;width:100%;height:2px;
-      background:var(--text);border-radius:2px;
-      transition:transform 300ms ease, opacity 200ms ease;
-    }
-    .menu-toggle.active span:nth-child(1){transform:rotate(45deg) translate(5px,5px)}
-    .menu-toggle.active span:nth-child(2){opacity:0}
-    .menu-toggle.active span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px)}
-
     @media (max-width: 860px) {
-      .menu-toggle{display:flex}
       .topbar .container,
+      .nav,
       .footer-box {
         flex-direction: column;
         align-items: flex-start;
       }
-      .nav{flex-wrap:wrap;position:relative}
-      .nav-links{
-        display:none !important;
-        flex-direction:column;
-        width:100%;
-        gap:0;
-        padding:0.5rem 0 1rem;
-        order:3;
-      }
-      .nav-links.open{display:flex !important}
-      .nav-links a{
-        display:block;
-        padding:0.75rem 0;
-        border-bottom:1px solid var(--line);
-        font-size:1rem;
-      }
+
       .hero-layout,
       .about-layout {
         grid-template-columns: 1fr;
       }
-      .hero { padding-top: 40px; }
-      .hero-copy, .hero-card, .about-card, .quote,
-      .service-card, .insight-card, .contact-card { padding: 24px; }
-      .service-grid, .insight-grid, .contact-grid { flex-direction:column; }
-      .service-card, .insight-card { min-width:100%; }
-      .stats { flex-direction:column; }
-      .hero-actions { flex-direction:column; }
-      .hero-actions .button { width:100%; text-align:center; }
+
+      .hero {
+        padding-top: 40px;
+      }
+
+      .hero-copy,
+      .hero-card,
+      .about-card,
+      .quote,
+      .service-card,
+      .insight-card,
+      .contact-card {
+        padding: 24px;
+      }
     }
-  </style>
+  
+/* Hamburger button */
+.menu-toggle{display:none;flex-direction:column;justify-content:center;gap:5px;width:44px;height:44px;padding:8px;background:none;border:1px solid rgba(255,255,255,0.15);border-radius:12px;cursor:pointer;z-index:30;flex-shrink:0}
+.menu-toggle span{display:block;width:100%;height:2px;background:#fff;border-radius:2px;transition:transform 300ms ease,opacity 200ms ease}
+.menu-toggle.active span:nth-child(1){transform:rotate(45deg) translate(5px,5px)}
+.menu-toggle.active span:nth-child(2){opacity:0}
+.menu-toggle.active span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px)}
+
+@media(max-width:719px){
+  .menu-toggle{display:flex}
+  .nav{flex-wrap:wrap;position:relative}
+  .nav-links{display:none !important;flex-direction:column;width:100%;gap:0;padding:0.5rem 0 1rem;order:3}
+  .nav-links.open{display:flex !important}
+  .nav-links a{display:block;padding:0.85rem 0;font-size:1.05rem;border-bottom:1px solid rgba(255,255,255,0.08)}
+  .nav-links a:last-child{border-bottom:none}
+  .hero h1{font-size:clamp(2rem,7vw,3.2rem)}
+  section{padding:3rem 0}
+  .services-grid,.principles-grid,.contact-wrap{grid-template-columns:1fr !important}
+  .form-grid.two-col{grid-template-columns:1fr !important}
+  .footer-inner{text-align:center;flex-direction:column}
+  .hero-stats{grid-template-columns:1fr !important}
+  .hero-actions{flex-direction:column;align-items:stretch}
+  .hero-actions .button{text-align:center}
+}
+
+</style>
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -461,7 +451,7 @@
   <main>
     <section class="hero" id="nachalo">
       <div class="container hero-layout">
-        <div class="panel hero-copy">
+        <div class="panel hero-copy reveal">
           <span class="eyebrow">Одит и счетоводство</span>
           <h1>Партньор за уверен финансов контрол и устойчив бизнес.</h1>
           <p>Финкомекс Одитинг ООД предоставя професионални одиторски, счетоводни, ТРЗ и данъчни услуги за компании, които търсят точност, яснота и надеждно обслужване.</p>
@@ -485,7 +475,7 @@
             </div>
           </div>
         </div>
-        <aside class="panel hero-card">
+        <aside class="panel hero-card reveal">
           <div>
             <span class="eyebrow">Какво предлагаме</span>
             <h2>Комплексна експертиза под един покрив</h2>
@@ -639,22 +629,22 @@
     document.querySelectorAll(".reveal").forEach((element) => observer.observe(element));
   </script>
 <script>
-  const toggle = document.querySelector(".menu-toggle");
-  const navLinks = document.querySelector(".nav-links");
-  if (toggle && navLinks) {
-    toggle.addEventListener("click", () => {
-      const isOpen = navLinks.classList.toggle("open");
-      toggle.classList.toggle("active");
-      toggle.setAttribute("aria-expanded", isOpen);
+const toggle=document.querySelector(".menu-toggle");
+const navLinks=document.querySelector(".nav-links");
+if(toggle&&navLinks){
+  toggle.addEventListener("click",()=>{
+    const isOpen=navLinks.classList.toggle("open");
+    toggle.classList.toggle("active");
+    toggle.setAttribute("aria-expanded",isOpen);
+  });
+  navLinks.querySelectorAll("a").forEach(link=>{
+    link.addEventListener("click",()=>{
+      navLinks.classList.remove("open");
+      toggle.classList.remove("active");
+      toggle.setAttribute("aria-expanded","false");
     });
-    navLinks.querySelectorAll("a").forEach(link => {
-      link.addEventListener("click", () => {
-        navLinks.classList.remove("open");
-        toggle.classList.remove("active");
-        toggle.setAttribute("aria-expanded", "false");
-      });
-    });
-  }
+  });
+}
 </script>
 </body>
 </html>
