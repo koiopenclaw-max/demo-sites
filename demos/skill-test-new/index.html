@@ -1,0 +1,1020 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Дентална клиника "Д-р Иванов"</title>
+  <meta name="description" content="Дентална клиника Д-р Иванов в София - профилактика, естетична стоматология и имплантология.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #F8FFFE;
+      --surface: #FFFFFF;
+      --text: #1A1A2E;
+      --text-light: #4A5568;
+      --accent: #0D9488;
+      --accent-dark: #0F766E;
+      --accent-light: #CCFBF1;
+      --border: #BEEAE4;
+      --shadow: 0 20px 50px rgba(13, 148, 136, 0.12);
+      --font-heading: "DM Serif Display", serif;
+      --font-body: "DM Sans", sans-serif;
+      --container: 1180px;
+      --radius-lg: 28px;
+      --radius-md: 20px;
+      --radius-sm: 14px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: var(--font-body);
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, #dff9f4 0, transparent 32%),
+        linear-gradient(180deg, #f6fffd 0%, #f8fffe 42%, #eefaf8 100%);
+      line-height: 1.6;
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+      height: auto;
+      border: 0;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button {
+      font: inherit;
+    }
+
+    .container {
+      width: min(calc(100% - 2rem), var(--container));
+      margin: 0 auto;
+    }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 30;
+      background: rgba(248, 255, 254, 0.94);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(190, 234, 228, 0.9);
+    }
+
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 1rem 0;
+    }
+
+    .brand {
+      display: flex;
+      flex-direction: column;
+      gap: 0.1rem;
+      min-width: 0;
+    }
+
+    .brand-mark {
+      font-family: var(--font-heading);
+      font-size: 1.75rem;
+      line-height: 1;
+      color: var(--accent-dark);
+    }
+
+    .brand-copy {
+      color: var(--text-light);
+      font-size: 0.95rem;
+    }
+
+    .nav-shell {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .nav-disclosure {
+      display: contents;
+    }
+
+    .nav-disclosure summary {
+      list-style: none;
+    }
+
+    .nav-disclosure summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .site-nav {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      color: var(--text-light);
+      font-weight: 500;
+    }
+
+    .site-nav a:hover,
+    .site-nav a:focus-visible {
+      color: var(--accent-dark);
+    }
+
+    .btn,
+    .btn-outline {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 0.95rem 1.4rem;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      font-weight: 700;
+      transition: transform 180ms ease, border-color 180ms ease, background-color 180ms ease;
+    }
+
+    .btn:hover,
+    .btn-outline:hover,
+    .btn:focus-visible,
+    .btn-outline:focus-visible {
+      transform: translateY(-1px);
+    }
+
+    .btn {
+      background: var(--accent);
+      color: #fff;
+      box-shadow: 0 14px 30px rgba(13, 148, 136, 0.18);
+    }
+
+    .btn:hover,
+    .btn:focus-visible {
+      background: var(--accent-dark);
+    }
+
+    .btn-outline {
+      background: transparent;
+      border-color: var(--accent);
+      color: var(--accent-dark);
+    }
+
+    .btn-outline:hover,
+    .btn-outline:focus-visible {
+      background: var(--accent-light);
+    }
+
+    .menu-toggle {
+      display: none;
+      align-items: center;
+      justify-content: center;
+      width: 3rem;
+      height: 3rem;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      background: var(--surface);
+      color: var(--accent-dark);
+      cursor: pointer;
+    }
+
+    .menu-toggle svg {
+      width: 1.5rem;
+      height: 1.5rem;
+    }
+
+    .hero {
+      padding: 4rem 0 2rem;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 2.5rem;
+      align-items: center;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+      padding: 0.5rem 0.85rem;
+      border-radius: 999px;
+      background: var(--accent-light);
+      color: var(--accent-dark);
+      font-weight: 700;
+      font-size: 0.95rem;
+    }
+
+    .eyebrow svg {
+      width: 1rem;
+      height: 1rem;
+    }
+
+    h1,
+    h2,
+    h3 {
+      margin: 0;
+      font-family: var(--font-heading);
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+    }
+
+    h1 {
+      font-size: clamp(2.8rem, 6vw, 5.2rem);
+      margin-bottom: 1rem;
+    }
+
+    h2 {
+      font-size: clamp(2.2rem, 4vw, 3.3rem);
+      margin-bottom: 1rem;
+    }
+
+    h3 {
+      font-size: 1.5rem;
+      margin-bottom: 0.8rem;
+    }
+
+    .hero-copy p,
+    .about-copy p,
+    .contact-card p,
+    .service-card p,
+    .footer-copy {
+      color: var(--text-light);
+      margin: 0;
+      font-size: 1.05rem;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.9rem;
+      margin-top: 2rem;
+    }
+
+    .hero-card {
+      position: relative;
+      padding: 1rem;
+      border-radius: var(--radius-lg);
+      background: linear-gradient(145deg, #dff8f4 0%, #ffffff 78%);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .hero-card::after {
+      content: "";
+      position: absolute;
+      inset: auto -10% -10% auto;
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(13, 148, 136, 0.18) 0%, rgba(13, 148, 136, 0) 72%);
+      pointer-events: none;
+    }
+
+    .hero-image {
+      border-radius: 24px;
+      min-height: 100%;
+      object-fit: cover;
+    }
+
+    .hero-badge {
+      position: absolute;
+      left: 1.75rem;
+      bottom: 1.75rem;
+      padding: 0.85rem 1rem;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.94);
+      border: 1px solid rgba(190, 234, 228, 0.9);
+      box-shadow: 0 12px 26px rgba(26, 26, 46, 0.08);
+    }
+
+    .hero-badge strong {
+      display: block;
+      font-size: 1rem;
+    }
+
+    .hero-badge span {
+      color: var(--text-light);
+      font-size: 0.92rem;
+    }
+
+    .stats-bar {
+      margin: 2rem 0 5rem;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 1px;
+      background: #0b5f59;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+
+    .stat {
+      padding: 1.5rem;
+      background: linear-gradient(180deg, var(--accent-dark), #0b5f59);
+      color: #fff;
+      text-align: center;
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 1.8rem;
+      margin-bottom: 0.2rem;
+    }
+
+    .section {
+      padding: 0 0 5rem;
+    }
+
+    .section-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-bottom: 1.8rem;
+    }
+
+    .section-head p {
+      max-width: 42rem;
+      margin: 0;
+      color: var(--text-light);
+      font-size: 1.02rem;
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(310px, 1fr));
+      gap: 1.25rem;
+    }
+
+    .service-card,
+    .contact-card,
+    .map-card {
+      padding: 1.6rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      background: linear-gradient(180deg, #ffffff 0%, #f3fffc 100%);
+      box-shadow: 0 12px 30px rgba(26, 26, 46, 0.05);
+    }
+
+    .service-icon,
+    .contact-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 3rem;
+      height: 3rem;
+      margin-bottom: 1rem;
+      border-radius: 14px;
+      background: var(--accent-light);
+      color: var(--accent-dark);
+    }
+
+    .service-icon svg,
+    .contact-icon svg {
+      width: 1.5rem;
+      height: 1.5rem;
+    }
+
+    .about-grid,
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1.5rem;
+      align-items: stretch;
+    }
+
+    .about-image-wrap {
+      position: relative;
+      padding: 1rem;
+      border-radius: var(--radius-lg);
+      background: linear-gradient(180deg, #ebfffb 0%, #d8f6f2 100%);
+      overflow: hidden;
+    }
+
+    .about-image {
+      width: 100%;
+      height: 100%;
+      min-height: 420px;
+      border-radius: 22px;
+      object-fit: cover;
+    }
+
+    .about-copy {
+      padding: 2rem;
+      border-radius: var(--radius-lg);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      box-shadow: 0 16px 36px rgba(26, 26, 46, 0.06);
+    }
+
+    .about-points {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+
+    .point {
+      padding: 1rem;
+      border-radius: 18px;
+      background: #f1fffc;
+      border: 1px solid var(--border);
+    }
+
+    .point strong {
+      display: block;
+      margin-bottom: 0.35rem;
+      color: var(--accent-dark);
+    }
+
+    .badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.85rem;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.9rem 1.1rem;
+      border-radius: 999px;
+      background: #e9fdf8;
+      border: 1px solid var(--border);
+      color: var(--text);
+      font-weight: 700;
+    }
+
+    .badge.badge-primary {
+      background: #d8fbf1;
+      color: var(--accent-dark);
+    }
+
+    .badge svg {
+      width: 1rem;
+      height: 1rem;
+      color: var(--accent-dark);
+    }
+
+    .contact-stack {
+      display: grid;
+      gap: 1rem;
+    }
+
+    .contact-line {
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+    }
+
+    .map-card {
+      position: relative;
+      min-height: 100%;
+      background:
+        linear-gradient(135deg, rgba(13, 148, 136, 0.08) 0%, rgba(255, 255, 255, 1) 100%),
+        repeating-linear-gradient(
+          0deg,
+          transparent 0,
+          transparent 32px,
+          rgba(13, 148, 136, 0.06) 32px,
+          rgba(13, 148, 136, 0.06) 33px
+        ),
+        repeating-linear-gradient(
+          90deg,
+          transparent 0,
+          transparent 32px,
+          rgba(13, 148, 136, 0.06) 32px,
+          rgba(13, 148, 136, 0.06) 33px
+        );
+      overflow: hidden;
+    }
+
+    .map-card::before,
+    .map-card::after {
+      content: "";
+      position: absolute;
+      border-radius: 999px;
+      background: rgba(13, 148, 136, 0.12);
+    }
+
+    .map-card::before {
+      inset: 18% auto auto 12%;
+      width: 110px;
+      height: 22px;
+      transform: rotate(-28deg);
+    }
+
+    .map-card::after {
+      inset: 48% 10% auto auto;
+      width: 160px;
+      height: 24px;
+      transform: rotate(36deg);
+    }
+
+    .map-content {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      place-items: center;
+      min-height: 100%;
+      text-align: center;
+      padding: 2rem;
+    }
+
+    .map-pin {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 4rem;
+      height: 4rem;
+      margin-bottom: 1rem;
+      border-radius: 50%;
+      background: var(--accent);
+      color: #fff;
+      box-shadow: 0 16px 35px rgba(13, 148, 136, 0.18);
+    }
+
+    .map-pin svg {
+      width: 1.7rem;
+      height: 1.7rem;
+    }
+
+    .site-footer {
+      background: #132728;
+      color: #e7fffb;
+      padding: 1.5rem 0;
+    }
+
+    .footer-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .footer-inner a {
+      color: #9ef3e5;
+      font-weight: 700;
+    }
+
+    @media (max-width: 980px) {
+      .hero-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-card {
+        max-width: 720px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .site-header {
+        position: static;
+      }
+
+      .header-inner {
+        flex-wrap: wrap;
+      }
+
+      .nav-disclosure {
+        width: 100%;
+        order: 3;
+      }
+
+      .nav-disclosure summary {
+        display: inline-flex;
+        margin-left: auto;
+      }
+
+      .nav-shell {
+        display: none;
+        width: 100%;
+        flex-direction: column;
+        align-items: stretch;
+        padding: 0.5rem 0 0.25rem;
+      }
+
+      .nav-disclosure[open] .nav-shell {
+        display: flex;
+      }
+
+      .site-nav {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+        padding: 1rem 0;
+      }
+
+      .menu-toggle {
+        display: inline-flex;
+      }
+
+      .header-cta {
+        margin-left: auto;
+      }
+
+      .stats-grid,
+      .services-grid,
+      .about-points {
+        grid-template-columns: 1fr;
+      }
+
+      .about-grid,
+      .contact-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .section-head,
+      .footer-inner {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .hero {
+        padding-top: 2.25rem;
+      }
+
+      .hero-badge {
+        position: static;
+        margin: 1rem;
+      }
+    }
+
+    @media (max-width: 390px) {
+      .container {
+        width: min(calc(100% - 1.2rem), var(--container));
+      }
+
+      .brand-mark {
+        font-size: 1.45rem;
+      }
+
+      h1 {
+        font-size: 2.35rem;
+      }
+
+      .btn,
+      .btn-outline {
+        width: 100%;
+      }
+
+      .service-card,
+      .contact-card,
+      .map-card,
+      .about-copy {
+        padding: 1.2rem;
+      }
+
+      .services-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-actions {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="#top" aria-label="Начало">
+        <span class="brand-mark">Дентална клиника "Д-р Иванов"</span>
+        <span class="brand-copy">Съвременна грижа за вашата усмивка</span>
+      </a>
+
+      <a class="btn header-cta" href="#contact">Запазете час</a>
+
+      <details class="nav-disclosure">
+        <summary class="menu-toggle" aria-controls="site-nav-shell" aria-expanded="false" aria-label="Отвори меню">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+            <path d="M4 7h16"></path>
+            <path d="M4 12h16"></path>
+            <path d="M4 17h16"></path>
+          </svg>
+        </summary>
+        <div class="nav-shell" id="site-nav-shell">
+          <nav class="site-nav" aria-label="Основна навигация">
+            <a href="#services">Услуги</a>
+            <a href="#about">За клиниката</a>
+            <a href="#trust">Доверие</a>
+            <a href="#contact">Контакти</a>
+          </nav>
+        </div>
+      </details>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <div class="eyebrow">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 3c3.2 0 5.8 2.6 5.8 5.8 0 5.1-5.8 12.4-5.8 12.4S6.2 13.9 6.2 8.8C6.2 5.6 8.8 3 12 3Z"></path>
+              <circle cx="12" cy="8.8" r="2.2"></circle>
+            </svg>
+            София, център
+          </div>
+          <h1>Спокойна стоматология с прецизна грижа и модерно оборудване</h1>
+          <p>Дентална клиника "Д-р Иванов" предлага профилактика, естетична стоматология и имплантология в уютна среда с индивидуален подход към всеки пациент.</p>
+          <div class="hero-actions">
+            <a class="btn" href="#contact">Запазете час</a>
+            <a class="btn-outline" href="#services">Разгледайте услугите</a>
+          </div>
+        </div>
+
+        <div class="hero-card">
+          <img
+            class="hero-image"
+            src="https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&w=900&q=80"
+            alt="Стоматологичен кабинет с пациент и лекар"
+            width="900"
+            height="1100"
+          >
+          <div class="hero-badge">
+            <strong>Пон-Пет: 9:00-18:00</strong>
+            <span>бул. Витоша 45, София 1000</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="stats-bar">
+      <div class="container">
+        <div class="stats-grid" aria-label="Статистика">
+          <div class="stat">
+            <strong>15+</strong>
+            <span>години опит</span>
+          </div>
+          <div class="stat">
+            <strong>2000+</strong>
+            <span>пациенти</span>
+          </div>
+          <div class="stat">
+            <strong>5</strong>
+            <span>специалисти</span>
+          </div>
+          <div class="stat">
+            <strong>НЗОК</strong>
+            <span>партньор</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="services">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2>Основни услуги</h2>
+            <p>Практични решения за здрава и уверена усмивка, изпълнени с внимание към комфорта и дългосрочния резултат.</p>
+          </div>
+        </div>
+
+        <div class="services-grid">
+          <article class="service-card">
+            <div class="service-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 3c3.5 0 6.5 2.6 6.5 6.7 0 5.4-3.3 10.5-6.5 11.6-3.2-1.1-6.5-6.2-6.5-11.6C5.5 5.6 8.5 3 12 3Z"></path>
+                <path d="M9 9.5c.8.8 1.5 1.2 3 1.2s2.2-.4 3-1.2"></path>
+                <path d="M9.2 14.4h5.6"></path>
+              </svg>
+            </div>
+            <h3>Профилактика</h3>
+            <p>Редовни прегледи, почистване на зъбен камък и професионална хигиена</p>
+          </article>
+
+          <article class="service-card">
+            <div class="service-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 3c3.6 0 6.6 2.7 6.6 6.6 0 5.6-3.1 10.7-6.6 11.8-3.5-1.1-6.6-6.2-6.6-11.8C5.4 5.7 8.4 3 12 3Z"></path>
+                <path d="m9 12 1.6 1.6L15 9.2"></path>
+                <path d="M8.7 16.3c1 .5 2.1.7 3.3.7 1.2 0 2.3-.2 3.3-.7"></path>
+              </svg>
+            </div>
+            <h3>Естетична стоматология</h3>
+            <p>Избелване, порцеланови фасети и холивудска усмивка</p>
+          </article>
+
+          <article class="service-card">
+            <div class="service-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 3c3.7 0 6.5 2.8 6.5 6.7 0 4.8-2.8 9.7-6.5 11.3-3.7-1.6-6.5-6.5-6.5-11.3C5.5 5.8 8.3 3 12 3Z"></path>
+                <path d="M12 10v6"></path>
+                <path d="M9.6 12.2h4.8"></path>
+                <path d="M10.2 7.9h3.6"></path>
+              </svg>
+            </div>
+            <h3>Имплантология</h3>
+            <p>Зъбни импланти от световни производители с доживотна гаранция</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="about">
+      <div class="container about-grid">
+        <div class="about-image-wrap">
+          <img
+            class="about-image"
+            src="https://images.unsplash.com/photo-1606811971618-4486d14f3f99?auto=format&fit=crop&w=1000&q=80"
+            alt="Екип от стоматологични специалисти в модерна клиника"
+            width="1000"
+            height="1200"
+          >
+        </div>
+        <div class="about-copy">
+          <h2>За клиниката</h2>
+          <p>Работим от 2005 година в центъра на София. Екип от 5 специалисти, модерно оборудване, индивидуален подход.</p>
+          <div class="about-points">
+            <div class="point">
+              <strong>Опитен екип</strong>
+              <span>Комплексна грижа от диагностика до финален резултат.</span>
+            </div>
+            <div class="point">
+              <strong>Съвременна апаратура</strong>
+              <span>Прецизност и комфорт при всеки етап от лечението.</span>
+            </div>
+            <div class="point">
+              <strong>Централна локация</strong>
+              <span>Лесен достъп на бул. Витоша 45, София 1000.</span>
+            </div>
+            <div class="point">
+              <strong>Индивидуален подход</strong>
+              <span>План за лечение, съобразен с вашите нужди.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="trust">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2>Причини да ни се доверите</h2>
+            <p>Ясна организация, спокойна среда и стандарти, които пациентите очакват от модерна дентална клиника.</p>
+          </div>
+        </div>
+
+        <div class="badges" aria-label="Баджове за доверие">
+          <div class="badge badge-primary">НЗОК партньор</div>
+          <div class="badge">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 3 5 6v5c0 4.4 3 8.5 7 9.9 4-1.4 7-5.5 7-9.9V6l-7-3Z"></path>
+              <path d="m9.5 11.8 1.7 1.7 3.5-3.7"></path>
+            </svg>
+            Сертифицирани специалисти
+          </div>
+          <div class="badge">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 3v18"></path>
+              <path d="M5 8c0 1.9 1.6 3.5 3.5 3.5S12 9.9 12 8s-1.6-3.5-3.5-3.5S5 6.1 5 8Z"></path>
+              <path d="M12 15.5c0 1.9 1.6 3.5 3.5 3.5S19 17.4 19 15.5 17.4 12 15.5 12 12 13.6 12 15.5Z"></path>
+            </svg>
+            Стерилна среда
+          </div>
+          <div class="badge">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="8"></circle>
+              <path d="M12 7v5l3 2"></path>
+            </svg>
+            Пон-Пет: 9:00-18:00
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="contact">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2>Контакти</h2>
+            <p>Свържете се с нас за консултация, профилактичен преглед или план за лечение.</p>
+          </div>
+        </div>
+
+        <div class="contact-grid">
+          <div class="contact-stack">
+            <div class="contact-card">
+              <div class="contact-line">
+                <div class="contact-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 21s-6-5.2-6-10.2A6 6 0 1 1 18 10.8C18 15.8 12 21 12 21Z"></path>
+                    <circle cx="12" cy="10.5" r="2.2"></circle>
+                  </svg>
+                </div>
+                <div>
+                  <h3>Адрес</h3>
+                  <p>бул. Витоша 45, София 1000</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="contact-card">
+              <div class="contact-line">
+                <div class="contact-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M5 4h3l2 5-1.7 1.7a15.2 15.2 0 0 0 5 5L15 14l5 2v3a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2Z"></path>
+                  </svg>
+                </div>
+                <div>
+                  <h3>Телефон</h3>
+                  <p><a href="tel:021234567">02 123 4567</a></p>
+                </div>
+              </div>
+            </div>
+
+            <div class="contact-card">
+              <div class="contact-line">
+                <div class="contact-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M4 6h16v12H4z"></path>
+                    <path d="m4 8 8 5 8-5"></path>
+                  </svg>
+                </div>
+                <div>
+                  <h3>Имейл</h3>
+                  <p><a href="mailto:info@dr-ivanov.bg">info@dr-ivanov.bg</a></p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="map-card" aria-label="Карта">
+            <div class="map-content">
+              <div>
+                <div class="map-pin" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 21s-6-5.2-6-10.2A6 6 0 1 1 18 10.8C18 15.8 12 21 12 21Z"></path>
+                    <circle cx="12" cy="10.5" r="2.2"></circle>
+                  </svg>
+                </div>
+                <h3>Дентална клиника "Д-р Иванов"</h3>
+                <p>бул. Витоша 45, София 1000</p>
+                <p>Удобна локация в центъра на града с бърз достъп за пациенти от цяла София.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="footer-copy">© 2026 Дентална клиника "Д-р Иванов". Всички права запазени.</div>
+      <a href="tel:021234567">02 123 4567</a>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      var menuDisclosure = document.querySelector('.nav-disclosure');
+      var menuButton = document.querySelector('.menu-toggle');
+      var navLinks = document.querySelectorAll('.site-nav a');
+
+      if (!menuButton || !menuDisclosure) return;
+
+      function closeMenu() {
+        menuDisclosure.removeAttribute('open');
+        menuButton.setAttribute('aria-expanded', 'false');
+        menuButton.setAttribute('aria-label', 'Отвори меню');
+      }
+
+      menuDisclosure.addEventListener('toggle', function () {
+        var isOpen = menuDisclosure.hasAttribute('open');
+        menuButton.setAttribute('aria-expanded', String(isOpen));
+        menuButton.setAttribute('aria-label', isOpen ? 'Затвори меню' : 'Отвори меню');
+      });
+
+      navLinks.forEach(function (link) {
+        link.addEventListener('click', closeMenu);
+      });
+
+      window.addEventListener('resize', function () {
+        if (window.innerWidth > 768) {
+          closeMenu();
+        }
+      });
+    }());
+  </script>
+</body>
+</html>

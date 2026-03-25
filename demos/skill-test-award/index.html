@@ -1,0 +1,1356 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Дентална клиника "Д-р Иванов"</title>
+  <meta name="description" content="Дентална клиника Д-р Иванов в София - профилактика, естетична стоматология и имплантология в спокойна и модерна среда.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" as="image" href="https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&w=1600&q=80">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;600&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #F8FFFE;
+      --surface: #ffffff;
+      --surface-soft: #effcf8;
+      --text: #1A1A2E;
+      --text-light: #4A5568;
+      --accent: #0D9488;
+      --accent-dark: #0F766E;
+      --accent-light: #CCFBF1;
+      --border: rgba(26, 26, 46, 0.08);
+      --shadow: 0 20px 60px rgba(18, 32, 56, 0.12);
+      --shadow-strong: 0 20px 60px rgba(0, 0, 0, 0.15);
+      --radius: 28px;
+      --radius-sm: 20px;
+      --nav-height: 96px;
+      --container: min(1180px, calc(100% - 40px));
+      --font-display: "DM Serif Display", serif;
+      --font-body: "DM Sans", sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scrollbar-width: thin;
+      scrollbar-color: var(--accent) rgba(26, 26, 46, 0.08);
+    }
+
+    ::-webkit-scrollbar {
+      width: 10px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: rgba(26, 26, 46, 0.06);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: linear-gradient(180deg, var(--accent), var(--accent-dark));
+      border-radius: 999px;
+    }
+
+    body {
+      margin: 0;
+      font-family: var(--font-body);
+      background:
+        radial-gradient(circle at top left, rgba(13, 148, 136, 0.1), transparent 35%),
+        linear-gradient(180deg, #fcfffe 0%, var(--bg) 100%);
+      color: var(--text);
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.03;
+      z-index: 20;
+      background-image:
+        radial-gradient(circle at 20% 20%, rgba(26, 26, 46, 0.7) 0.6px, transparent 0.8px),
+        radial-gradient(circle at 80% 40%, rgba(26, 26, 46, 0.6) 0.6px, transparent 0.8px),
+        radial-gradient(circle at 40% 80%, rgba(26, 26, 46, 0.6) 0.8px, transparent 1px);
+      background-size: 24px 24px, 32px 32px, 28px 28px;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button {
+      font: inherit;
+    }
+
+    a:focus-visible,
+    button:focus-visible {
+      outline: 3px solid var(--accent);
+      outline-offset: 4px;
+    }
+
+    .container {
+      width: var(--container);
+      margin: 0 auto;
+    }
+
+    .section {
+      position: relative;
+      padding: 110px 0;
+    }
+
+    .section-soft {
+      background: linear-gradient(180deg, rgba(204, 251, 241, 0.72) 0%, rgba(248, 255, 254, 0.96) 100%);
+    }
+
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(1.75rem, 3.5vw, 2.75rem);
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      margin: 0 0 18px;
+      max-width: 14ch;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 18px;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 34px;
+      height: 1px;
+      background: currentColor;
+      opacity: 0.6;
+    }
+
+    .section-copy {
+      max-width: 620px;
+      color: var(--text-light);
+      margin: 0;
+    }
+
+    .reveal-on-scroll {
+      opacity: 1;
+      transform: none;
+    }
+
+    .js-ready .reveal-on-scroll {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+
+    .js-ready .reveal-on-scroll.revealed {
+      opacity: 1;
+      transform: none;
+      transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    }
+
+    .site-header {
+      position: fixed;
+      inset: 0 0 auto;
+      z-index: 30;
+      transition: background 0.3s ease, box-shadow 0.3s ease, padding 0.3s ease;
+      padding: 24px 0;
+    }
+
+    .site-header.scrolled {
+      background: rgba(248, 255, 254, 0.88);
+      backdrop-filter: blur(18px);
+      box-shadow: 0 10px 30px rgba(18, 32, 56, 0.08);
+      padding: 12px 0;
+    }
+
+    .nav-shell {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      min-height: 44px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 14px;
+      font-weight: 600;
+      min-height: 44px;
+    }
+
+    .brand-mark {
+      width: 44px;
+      height: 44px;
+      border-radius: 16px;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, rgba(13, 148, 136, 0.16), rgba(204, 251, 241, 0.7));
+      border: 1px solid rgba(255, 255, 255, 0.5);
+      box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.6);
+    }
+
+    .brand span {
+      display: block;
+      line-height: 1.1;
+    }
+
+    .brand small {
+      color: var(--text-light);
+      font-size: 0.78rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 26px;
+      margin-left: auto;
+    }
+
+    .nav-links a {
+      position: relative;
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+      color: rgba(248, 255, 254, 0.88);
+    }
+
+    .site-header.scrolled .nav-links a,
+    .site-header.menu-open .nav-links a {
+      color: var(--text);
+    }
+
+    .nav-links a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: 8px;
+      width: 100%;
+      height: 1px;
+      background: currentColor;
+      transform: scaleX(0);
+      transform-origin: right;
+      transition: transform 0.3s ease;
+      opacity: 0.6;
+    }
+
+    .nav-links a:hover::after,
+    .nav-links a:focus-visible::after {
+      transform: scaleX(1);
+      transform-origin: left;
+    }
+
+    .button,
+    .button-ghost {
+      position: relative;
+      isolation: isolate;
+      overflow: hidden;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      min-height: 50px;
+      padding: 0 24px;
+      border-radius: 999px;
+      font-weight: 600;
+      border: 1px solid transparent;
+      transition: transform 0.25s ease, border-color 0.25s ease;
+    }
+
+    .button::before,
+    .button-ghost::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      transform: scaleX(0);
+      transform-origin: right;
+      transition: transform 0.35s ease;
+    }
+
+    .button {
+      color: white;
+      background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+      box-shadow: 0 16px 40px rgba(13, 148, 136, 0.24);
+    }
+
+    .button::before {
+      background: linear-gradient(135deg, var(--accent-dark), #0a5d58);
+    }
+
+    .button-ghost {
+      color: white;
+      border-color: rgba(255, 255, 255, 0.34);
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(12px);
+    }
+
+    .button-ghost::before {
+      background: rgba(255, 255, 255, 0.12);
+    }
+
+    .site-header.scrolled .button-ghost {
+      color: var(--text);
+      border-color: rgba(26, 26, 46, 0.1);
+      background: rgba(255, 255, 255, 0.9);
+    }
+
+    .button:hover,
+    .button-ghost:hover,
+    .button:focus-visible,
+    .button-ghost:focus-visible {
+      transform: translateY(-2px);
+    }
+
+    .button:hover::before,
+    .button-ghost:hover::before,
+    .button:focus-visible::before,
+    .button-ghost:focus-visible::before {
+      transform: scaleX(1);
+      transform-origin: left;
+    }
+
+    .menu-toggle {
+      display: none;
+      width: 48px;
+      height: 48px;
+      border-radius: 16px;
+      border: 1px solid rgba(255, 255, 255, 0.24);
+      background: rgba(255, 255, 255, 0.08);
+      color: white;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+
+    .site-header.scrolled .menu-toggle,
+    .site-header.menu-open .menu-toggle {
+      color: var(--text);
+      background: rgba(255, 255, 255, 0.95);
+      border-color: rgba(26, 26, 46, 0.1);
+    }
+
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: flex-end;
+      padding: 180px 0 110px;
+      color: white;
+      background:
+        linear-gradient(135deg, rgba(26, 26, 46, 0.85) 0%, rgba(13, 148, 136, 0.4) 100%),
+        url("https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&w=1600&q=80") center/cover no-repeat;
+      background-attachment: fixed;
+      overflow: hidden;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: auto 0 -1px;
+      height: 140px;
+      background: linear-gradient(180deg, rgba(248, 255, 254, 0) 0%, var(--bg) 100%);
+    }
+
+    .hero-grid {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: minmax(0, 700px) minmax(220px, 1fr);
+      gap: 32px;
+      align-items: end;
+    }
+
+    .hero-copy {
+      max-width: 680px;
+    }
+
+    .hero-eyebrow,
+    .hero-headline,
+    .hero-subtitle,
+    .hero-cta {
+      opacity: 1;
+    }
+
+    .hero-eyebrow {
+      animation: fadeSlideUp 0.6s ease-out 0.1s both;
+    }
+
+    .hero-headline {
+      animation: fadeSlideUp 0.8s ease-out 0.3s both;
+      margin: 0;
+      font-family: var(--font-display);
+      font-size: clamp(2.5rem, 6vw, 4.5rem);
+      line-height: 0.96;
+      letter-spacing: -0.02em;
+      max-width: 10ch;
+    }
+
+    .hero-subtitle {
+      animation: fadeSlideUp 0.6s ease-out 0.5s both;
+      margin: 22px 0 0;
+      max-width: 56ch;
+      color: rgba(255, 255, 255, 0.82);
+      font-size: 1.05rem;
+    }
+
+    .hero-cta {
+      animation: fadeSlideUp 0.6s ease-out 0.7s both;
+      margin-top: 34px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+
+    .hero-note {
+      align-self: end;
+      justify-self: end;
+      padding: 24px;
+      border-radius: var(--radius);
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(18px);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      max-width: 280px;
+    }
+
+    .hero-note strong {
+      display: block;
+      font-size: 1.1rem;
+      margin-bottom: 6px;
+    }
+
+    .hero-note p {
+      margin: 0;
+      color: rgba(255, 255, 255, 0.76);
+      font-size: 0.94rem;
+    }
+
+    .bridge-card {
+      position: relative;
+      margin-top: -70px;
+      padding: 40px;
+      border-radius: var(--radius);
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.92), rgba(204, 251, 241, 0.82));
+      border: 1px solid rgba(13, 148, 136, 0.12);
+      box-shadow: var(--shadow);
+    }
+
+    .bridge-card p {
+      margin: 0;
+      font-size: 1.2rem;
+      color: var(--text);
+      max-width: 760px;
+    }
+
+    .services-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 360px) minmax(0, 1fr);
+      gap: 34px;
+      align-items: start;
+    }
+
+    .services-bento {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      grid-template-rows: auto auto;
+      gap: 20px;
+    }
+
+    .service-card {
+      position: relative;
+      min-width: 310px;
+      min-height: 240px;
+      padding: 28px;
+      border-radius: var(--radius);
+      overflow: hidden;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      box-shadow: 0 10px 30px rgba(18, 32, 56, 0.06);
+      transition: transform 0.35s ease, box-shadow 0.35s ease;
+    }
+
+    .service-card:hover,
+    .service-card:focus-within {
+      transform: translateY(-8px) rotate(-0.5deg);
+      box-shadow: var(--shadow-strong);
+    }
+
+    .service-featured {
+      grid-row: span 2;
+      min-height: 500px;
+      color: white;
+      background:
+        linear-gradient(180deg, rgba(26, 26, 46, 0.18), rgba(26, 26, 46, 0.8)),
+        url("https://images.unsplash.com/photo-1609840114035-3c981b782dfe?auto=format&fit=crop&w=900&q=80") center/cover no-repeat;
+      display: flex;
+      align-items: flex-end;
+    }
+
+    .service-card::after {
+      content: "";
+      position: absolute;
+      inset: auto auto -35px -35px;
+      width: 130px;
+      height: 130px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(13, 148, 136, 0.12), transparent 68%);
+      pointer-events: none;
+    }
+
+    .service-inner {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+
+    .service-icon {
+      width: 52px;
+      height: 52px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 18px;
+      margin-bottom: auto;
+      background: rgba(13, 148, 136, 0.1);
+      color: var(--accent-dark);
+    }
+
+    .service-featured .service-icon {
+      background: rgba(255, 255, 255, 0.12);
+      color: white;
+    }
+
+    .card-title {
+      margin: 26px 0 10px;
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      line-height: 1.15;
+    }
+
+    .service-card p {
+      margin: 0;
+      color: inherit;
+      opacity: 0.9;
+    }
+
+    .stats-bar {
+      background: #1A1A2E;
+      color: white;
+      padding: 40px 0;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .stat-card {
+      padding: 28px 22px;
+      border-radius: 24px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      text-align: center;
+    }
+
+    .stat-value {
+      display: block;
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 4vw, 3rem);
+      line-height: 1;
+      margin-bottom: 10px;
+    }
+
+    .stat-label {
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 0.95rem;
+    }
+
+    .about-grid,
+    .trust-grid,
+    .contact-grid,
+    .footer-grid {
+      display: grid;
+      gap: 32px;
+    }
+
+    .about-grid {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+      align-items: center;
+    }
+
+    .about-image-wrap {
+      position: relative;
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+
+    .about-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: grayscale(20%);
+      transition: filter 0.35s ease, transform 0.35s ease;
+    }
+
+    .about-image-wrap:hover .about-image,
+    .about-image-wrap:focus-within .about-image {
+      filter: grayscale(0%);
+      transform: scale(1.03);
+    }
+
+    .about-panel {
+      padding: 38px;
+      border-radius: var(--radius);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      box-shadow: 0 10px 30px rgba(18, 32, 56, 0.05);
+    }
+
+    .about-list {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 28px;
+    }
+
+    .about-list div {
+      padding: 16px 18px;
+      border-radius: 20px;
+      background: var(--surface-soft);
+      border: 1px solid rgba(13, 148, 136, 0.1);
+    }
+
+    .about-list strong {
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .trust-grid {
+      grid-template-columns: minmax(320px, 420px) minmax(0, 1fr);
+      align-items: start;
+    }
+
+    .rating-widget,
+    .testimonial-card,
+    .contact-card,
+    .map-card {
+      border-radius: var(--radius);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      box-shadow: 0 10px 30px rgba(18, 32, 56, 0.05);
+    }
+
+    .rating-widget {
+      padding: 32px;
+      position: sticky;
+      top: 120px;
+    }
+
+    .rating-score {
+      font-family: var(--font-display);
+      font-size: 3rem;
+      line-height: 1;
+      margin-bottom: 10px;
+    }
+
+    .stars {
+      color: #f7b731;
+      letter-spacing: 0.18em;
+      margin-bottom: 14px;
+      font-size: 1.1rem;
+    }
+
+    .rating-meta {
+      color: var(--text-light);
+      margin: 0 0 26px;
+    }
+
+    .trust-badge {
+      display: inline-flex;
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: rgba(13, 148, 136, 0.1);
+      color: var(--accent-dark);
+      font-weight: 600;
+      letter-spacing: 0.04em;
+    }
+
+    .testimonials {
+      display: grid;
+      gap: 20px;
+    }
+
+    .testimonial-card {
+      padding: 28px;
+      transition: transform 0.35s ease, box-shadow 0.35s ease;
+    }
+
+    .testimonial-card:hover,
+    .testimonial-card:focus-within {
+      transform: translateY(-8px) rotate(-0.5deg);
+      box-shadow: var(--shadow-strong);
+    }
+
+    .testimonial-card p {
+      margin: 0 0 18px;
+      color: var(--text);
+      font-size: 1.05rem;
+    }
+
+    .testimonial-card strong {
+      display: block;
+    }
+
+    .testimonial-card span {
+      color: var(--text-light);
+      font-size: 0.92rem;
+    }
+
+    .contact-grid {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      align-items: stretch;
+    }
+
+    .contact-card,
+    .map-card {
+      padding: 34px;
+    }
+
+    .contact-items {
+      display: grid;
+      gap: 18px;
+      margin: 28px 0 34px;
+    }
+
+    .contact-item {
+      display: grid;
+      grid-template-columns: 52px 1fr;
+      gap: 14px;
+      align-items: start;
+      padding: 18px;
+      border-radius: 20px;
+      background: var(--surface-soft);
+      border: 1px solid rgba(13, 148, 136, 0.1);
+    }
+
+    .contact-item svg {
+      color: var(--accent-dark);
+    }
+
+    .contact-item strong {
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    .map-card {
+      position: relative;
+      overflow: hidden;
+      background:
+        linear-gradient(180deg, rgba(13, 148, 136, 0.08), rgba(255, 255, 255, 0.9)),
+        linear-gradient(135deg, rgba(26, 26, 46, 0.06) 25%, transparent 25%) -16px 0/32px 32px,
+        linear-gradient(225deg, rgba(26, 26, 46, 0.04) 25%, transparent 25%) -16px 0/32px 32px,
+        linear-gradient(315deg, rgba(26, 26, 46, 0.04) 25%, transparent 25%) 0 0/32px 32px,
+        linear-gradient(45deg, rgba(26, 26, 46, 0.04) 25%, transparent 25%) 0 0/32px 32px,
+        white;
+    }
+
+    .map-pin {
+      width: 84px;
+      height: 84px;
+      border-radius: 28px;
+      background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+      display: grid;
+      place-items: center;
+      color: white;
+      box-shadow: 0 18px 36px rgba(13, 148, 136, 0.3);
+      margin-bottom: 24px;
+    }
+
+    .footer {
+      padding: 34px 0;
+      background: #161625;
+      color: rgba(255, 255, 255, 0.86);
+    }
+
+    .footer-grid {
+      grid-template-columns: 1.2fr auto auto;
+      align-items: center;
+    }
+
+    .footer-links,
+    .socials {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 18px;
+    }
+
+    .footer a {
+      color: rgba(255, 255, 255, 0.76);
+    }
+
+    .footer a:hover,
+    .footer a:focus-visible {
+      color: white;
+    }
+
+    .caption {
+      font-size: 0.85rem;
+      color: var(--text-light);
+    }
+
+    @keyframes fadeSlideUp {
+      from {
+        opacity: 0;
+        transform: translateY(24px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 980px) {
+      .hero {
+        background-attachment: scroll;
+      }
+
+      .hero-grid,
+      .services-layout,
+      .about-grid,
+      .trust-grid,
+      .contact-grid,
+      .footer-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-note {
+        justify-self: start;
+      }
+
+      .services-bento,
+      .stats-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .service-featured {
+        grid-row: auto;
+        min-height: 420px;
+      }
+
+      .rating-widget {
+        position: static;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .site-header {
+        padding: 16px 0;
+      }
+
+      .menu-toggle {
+        display: inline-flex;
+      }
+
+      .nav-links {
+        position: absolute;
+        top: calc(100% + 12px);
+        left: 20px;
+        right: 20px;
+        display: none;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+        margin-left: 0;
+        padding: 18px;
+        border-radius: 24px;
+        background: rgba(248, 255, 254, 0.96);
+        backdrop-filter: blur(18px);
+        box-shadow: var(--shadow);
+        border: 1px solid rgba(26, 26, 46, 0.06);
+      }
+
+      .site-header.menu-open .nav-links {
+        display: flex;
+      }
+
+      .nav-links a,
+      .site-header .button-ghost {
+        color: var(--text);
+      }
+
+      .hero {
+        min-height: auto;
+        padding: 150px 0 90px;
+      }
+
+      .bridge-card {
+        margin-top: -48px;
+        padding: 28px;
+      }
+
+      .section {
+        padding: 88px 0;
+      }
+
+      .about-list {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 390px) {
+      .container {
+        width: min(100% - 24px, 1180px);
+      }
+
+      .service-card,
+      .service-featured {
+        min-width: 0;
+      }
+
+      .hero-cta {
+        flex-direction: column;
+      }
+
+      .button,
+      .button-ghost {
+        width: 100%;
+      }
+
+      .bridge-card p {
+        font-size: 1.05rem;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      *,
+      *::before,
+      *::after {
+        animation: none !important;
+        transition: none !important;
+      }
+
+      .hero {
+        background-attachment: scroll;
+      }
+
+      .js-ready .reveal-on-scroll,
+      .js-ready .reveal-on-scroll.revealed {
+        opacity: 1;
+        transform: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header" id="top">
+    <div class="container nav-shell">
+      <a class="brand" href="#top" aria-label="Начало">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 3c-3.4 0-6 2.4-6 5.8 0 5.5 2.3 11.2 6 11.2s6-5.7 6-11.2C18 5.4 15.4 3 12 3Z"></path>
+            <path d="M9.5 9.2c.4 1.3 1.3 2 2.5 2s2.1-.7 2.5-2"></path>
+          </svg>
+        </span>
+        <span>
+          Дентална клиника "Д-р Иванов"
+          <small>София</small>
+        </span>
+      </a>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="nav-links" aria-label="Отвори меню">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <path d="M4 7h16"></path>
+          <path d="M4 12h16"></path>
+          <path d="M4 17h16"></path>
+        </svg>
+      </button>
+      <nav aria-label="Основна навигация" id="nav-links" class="nav-links">
+        <a href="#services">Услуги</a>
+        <a href="#about">За нас</a>
+        <a href="#trust">Доверие</a>
+        <a href="#contact">Контакти</a>
+        <a class="button-ghost" href="#contact">Запазете час</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" aria-label="Въведение">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <div class="eyebrow hero-eyebrow">Дентална клиника в София</div>
+          <h1 class="hero-headline">Усмивката, която заслужавате</h1>
+          <p class="hero-subtitle">Модерна дентална грижа в спокойна атмосфера, създадена за хора, които искат качество, сигурност и увереност още от първата консултация.</p>
+          <div class="hero-cta">
+            <a class="button" href="#contact">Запазете час</a>
+            <a class="button-ghost" href="#services">Разгледайте услугите</a>
+          </div>
+        </div>
+        <aside class="hero-note reveal-on-scroll">
+          <strong>Пон-Пет: 9:00-18:00</strong>
+          <p>бул. Витоша 45, София 1000<br>02 123 4567</p>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section section-soft" aria-label="Емпатия">
+      <div class="container">
+        <div class="bridge-card reveal-on-scroll">
+          <div class="eyebrow">Спокойствие</div>
+          <p>Знаем, че посещението при зъболекар може да бъде стресиращо. Затова създадохме пространство, в което се чувствате като у дома.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="services" aria-labelledby="services-title">
+      <div class="container services-layout">
+        <div class="reveal-on-scroll">
+          <div class="eyebrow">Нашите услуги</div>
+          <h2 class="section-title" id="services-title">Лечение, което променя усещането ви за стоматология</h2>
+          <p class="section-copy">От профилактика до комплексна имплантология, всяка стъпка е планирана така, че да ви върне увереността с максимален комфорт и ясна комуникация.</p>
+        </div>
+        <div class="services-bento">
+          <article class="service-card service-featured reveal-on-scroll">
+            <div class="service-inner">
+              <div class="service-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 2v5"></path>
+                  <path d="M8 7h8"></path>
+                  <path d="M10 7v4"></path>
+                  <path d="M14 7v4"></path>
+                  <path d="M8.3 12.2c-.9 2.4-.9 5.2.5 7.3.7 1.1 1.6 1.5 3.2 1.5s2.5-.4 3.2-1.5c1.4-2.1 1.4-4.9.5-7.3"></path>
+                </svg>
+              </div>
+              <div>
+                <h3 class="card-title">Имплантология</h3>
+                <p>Зъбни импланти от световни производители с доживотна гаранция</p>
+              </div>
+            </div>
+          </article>
+          <article class="service-card reveal-on-scroll">
+            <div class="service-inner">
+              <div class="service-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M8 4.5C8 3.7 8.7 3 9.5 3h5c.8 0 1.5.7 1.5 1.5v2c0 1.4-.6 2.7-1.7 3.6l-.5.4c-.5.4-.8 1-.8 1.6V20"></path>
+                  <path d="M11 20h2"></path>
+                  <path d="M10 8h4"></path>
+                  <path d="M8.3 10.4c-1.8.7-3.3 2.5-3.3 5.1 0 3.3 2.3 5.5 7 5.5"></path>
+                </svg>
+              </div>
+              <div>
+                <h3 class="card-title">Профилактика</h3>
+                <p>Редовни прегледи, почистване на зъбен камък и професионална хигиена</p>
+              </div>
+            </div>
+          </article>
+          <article class="service-card reveal-on-scroll">
+            <div class="service-inner">
+              <div class="service-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M7 13c1.3 1.4 3 2 5 2s3.7-.6 5-2"></path>
+                  <path d="M6 9.5C7.2 8.2 9.4 7 12 7s4.8 1.2 6 2.5"></path>
+                  <path d="M5 16.5C6.8 18.4 9.2 19.5 12 19.5s5.2-1.1 7-3"></path>
+                </svg>
+              </div>
+              <div>
+                <h3 class="card-title">Естетична стоматология</h3>
+                <p>Избелване, порцеланови фасети и холивудска усмивка</p>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="stats-bar" aria-label="Статистика">
+      <div class="container">
+        <div class="stats-grid reveal-on-scroll">
+          <div class="stat-card">
+            <span class="stat-value" data-counter="15" data-suffix="+">0</span>
+            <span class="stat-label">Години опит</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-value" data-counter="2000" data-suffix="+">0</span>
+            <span class="stat-label">Доволни пациенти</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-value" data-counter="5">0</span>
+            <span class="stat-label">Специалисти</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-value">НЗОК</span>
+            <span class="stat-label">Партньор</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="about" aria-labelledby="about-title">
+      <div class="container about-grid">
+        <div class="about-image-wrap reveal-on-scroll">
+          <img
+            class="about-image"
+            src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?auto=format&fit=crop&w=900&q=80"
+            alt="Стоматологичен кабинет с модерен стол и светлина"
+            width="900"
+            height="1100"
+            loading="lazy"
+          >
+        </div>
+        <div class="about-panel reveal-on-scroll">
+          <div class="eyebrow">За нас</div>
+          <h2 class="section-title" id="about-title">Модерна клиника с човешки подход в сърцето на София</h2>
+          <p class="section-copy">Работим от 2005 година в центъра на София. Екип от 5 специалисти, модерно оборудване, индивидуален подход.</p>
+          <div class="about-list">
+            <div>
+              <strong>От 2005</strong>
+              <span class="caption">Последователна грижа и дългосрочни резултати</span>
+            </div>
+            <div>
+              <strong>5 специалисти</strong>
+              <span class="caption">Екип, който планира лечението ви в детайл</span>
+            </div>
+            <div>
+              <strong>Централна локация</strong>
+              <span class="caption">бул. Витоша 45, София 1000</span>
+            </div>
+            <div>
+              <strong>Индивидуален подход</strong>
+              <span class="caption">Ясни решения според вашите нужди и комфорт</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-soft" id="trust" aria-labelledby="trust-title">
+      <div class="container trust-grid">
+        <aside class="rating-widget reveal-on-scroll" aria-label="Рейтинг и доверие">
+          <div class="eyebrow">Доверие</div>
+          <h2 class="section-title" id="trust-title">Доказателство, че спокойствието и качеството вървят заедно</h2>
+          <div class="rating-score">4.9</div>
+          <div class="stars" aria-label="Пет звезди">★★★★★</div>
+          <p class="rating-meta">4.9 ★★★★★ · 127 отзива</p>
+          <div class="trust-badge">НЗОК партньор</div>
+        </aside>
+        <div class="testimonials">
+          <article class="testimonial-card reveal-on-scroll">
+            <p>"Страхувах се от зъболекар цял живот, но тук се почувствах напълно спокойна. Резултатът е невероятен!"</p>
+            <strong>Мария К.</strong>
+            <span>пациент от 2019 г.</span>
+          </article>
+          <article class="testimonial-card reveal-on-scroll">
+            <p>"Професионализъм на най-високо ниво. Препоръчвам на всеки!"</p>
+            <strong>Георги Д.</strong>
+            <span>пациент от 2021 г.</span>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="contact" aria-labelledby="contact-title">
+      <div class="container contact-grid">
+        <div class="contact-card reveal-on-scroll">
+          <div class="eyebrow">Контакти</div>
+          <h2 class="section-title" id="contact-title">Планирайте първата стъпка към по-уверена усмивка</h2>
+          <p class="section-copy">Свържете се с нас за консултация или профилактичен преглед. Отговаряме бързо и планираме удобно време за посещение.</p>
+          <div class="contact-items">
+            <div class="contact-item">
+              <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M20 10c0 5.3-8 11-8 11S4 15.3 4 10a8 8 0 1 1 16 0Z"></path>
+                <circle cx="12" cy="10" r="3"></circle>
+              </svg>
+              <div>
+                <strong>Адрес</strong>
+                <span>бул. Витоша 45, София 1000</span>
+              </div>
+            </div>
+            <div class="contact-item">
+              <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.4 19.4 0 0 1-6-6A19.8 19.8 0 0 1 2 4.1 2 2 0 0 1 4 2h3a2 2 0 0 1 2 1.7l.4 2.6a2 2 0 0 1-.6 1.7l-1.2 1.2a16 16 0 0 0 6 6l1.2-1.2a2 2 0 0 1 1.7-.6l2.6.4a2 2 0 0 1 1.7 2Z"></path>
+              </svg>
+              <div>
+                <strong>Телефон</strong>
+                <a href="tel:021234567">02 123 4567</a>
+              </div>
+            </div>
+            <div class="contact-item">
+              <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M4 4h16v16H4z"></path>
+                <path d="m22 6-10 7L2 6"></path>
+              </svg>
+              <div>
+                <strong>Имейл</strong>
+                <a href="mailto:info@dr-ivanov.bg">info@dr-ivanov.bg</a>
+              </div>
+            </div>
+            <div class="contact-item">
+              <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <circle cx="12" cy="12" r="9"></circle>
+                <path d="M12 7v5l3 3"></path>
+              </svg>
+              <div>
+                <strong>Работно време</strong>
+                <span>Пон-Пет: 9:00-18:00</span>
+              </div>
+            </div>
+          </div>
+          <a class="button" href="tel:021234567">Запазете час</a>
+        </div>
+        <div class="map-card reveal-on-scroll" aria-label="Локация">
+          <div class="map-pin" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M20 10c0 5.3-8 11-8 11S4 15.3 4 10a8 8 0 1 1 16 0Z"></path>
+              <circle cx="12" cy="10" r="3"></circle>
+            </svg>
+          </div>
+          <div class="eyebrow">Локация</div>
+          <h3 class="card-title">В центъра на града, лесно достъпни за вашето ежедневие</h3>
+          <p class="section-copy">Клиниката се намира на бул. Витоша 45, София 1000. Мястото е подбрано така, че да стигате бързо за консултация, преглед или лечение.</p>
+          <p class="caption">Карта демонстрационен плейсхолдър</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-grid">
+      <div>
+        <strong>Дентална клиника "Д-р Иванов"</strong>
+        <div class="caption">© 2026 Всички права запазени.</div>
+      </div>
+      <div class="footer-links">
+        <a href="#services">Услуги</a>
+        <a href="#about">За нас</a>
+        <a href="#contact">Контакти</a>
+      </div>
+      <div class="socials" aria-label="Социални мрежи">
+        <a href="#" aria-label="Facebook">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M15 3h-2a4 4 0 0 0-4 4v3H6v4h3v7h4v-7h3l1-4h-4V7a1 1 0 0 1 1-1h3V3Z"></path>
+          </svg>
+        </a>
+        <a href="#" aria-label="Instagram">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="3" width="18" height="18" rx="5"></rect>
+            <circle cx="12" cy="12" r="4"></circle>
+            <path d="M17.5 6.5h.01"></path>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.documentElement.classList.add('js-ready');
+
+    const header = document.querySelector('.site-header');
+    const toggle = document.querySelector('.menu-toggle');
+    const nav = document.querySelector('.nav-links');
+    const navLinks = nav.querySelectorAll('a');
+
+    const syncHeader = () => {
+      header.classList.toggle('scrolled', window.scrollY > 24);
+    };
+
+    syncHeader();
+    window.addEventListener('scroll', syncHeader, { passive: true });
+
+    toggle.addEventListener('click', () => {
+      const open = header.classList.toggle('menu-open');
+      toggle.setAttribute('aria-expanded', String(open));
+    });
+
+    navLinks.forEach((link) => {
+      link.addEventListener('click', () => {
+        header.classList.remove('menu-open');
+        toggle.setAttribute('aria-expanded', 'false');
+      });
+    });
+
+    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const reveals = document.querySelectorAll('.reveal-on-scroll');
+
+    if (!prefersReduced && 'IntersectionObserver' in window) {
+      const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          const siblings = Array.from(entry.target.parentElement ? entry.target.parentElement.children : [entry.target])
+            .filter((el) => el.classList && el.classList.contains('reveal-on-scroll'));
+          const index = siblings.indexOf(entry.target);
+          entry.target.style.transitionDelay = `${Math.max(index, 0) * 0.1}s`;
+          entry.target.classList.add('revealed');
+          revealObserver.unobserve(entry.target);
+        });
+      }, { threshold: 0.15 });
+
+      reveals.forEach((el) => revealObserver.observe(el));
+    } else {
+      reveals.forEach((el) => el.classList.add('revealed'));
+    }
+
+    const statsSection = document.querySelector('.stats-grid');
+    const counters = document.querySelectorAll('[data-counter]');
+
+    const easeOutCubic = (t) => 1 - Math.pow(1 - t, 3);
+
+    const animateCounter = (element) => {
+      const target = Number(element.dataset.counter);
+      const suffix = element.dataset.suffix || '';
+      const duration = 1400;
+      const start = performance.now();
+
+      const tick = (now) => {
+        const progress = Math.min((now - start) / duration, 1);
+        const value = Math.round(target * easeOutCubic(progress));
+        element.textContent = value.toLocaleString('bg-BG') + suffix;
+        if (progress < 1) {
+          requestAnimationFrame(tick);
+        }
+      };
+
+      requestAnimationFrame(tick);
+    };
+
+    if (!prefersReduced && statsSection && 'IntersectionObserver' in window) {
+      const statsObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          counters.forEach((counter) => animateCounter(counter));
+          statsObserver.disconnect();
+        });
+      }, { threshold: 0.35 });
+
+      statsObserver.observe(statsSection);
+    } else {
+      counters.forEach((counter) => {
+        counter.textContent = Number(counter.dataset.counter).toLocaleString('bg-BG') + (counter.dataset.suffix || '');
+      });
+    }
+  </script>
+</body>
+</html>
