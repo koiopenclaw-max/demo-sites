@@ -1,18 +1,5 @@
 {
-  "tasks": [
-    {
-      "id": 1774423623191,
-      "slug": "адвокатска-кантора-богданови-и-маринов",
-      "name": "АДВОКАТСКА КАНТОРА БОГДАНОВИ И МАРИНОВ",
-      "action": "revisions",
-      "status": "in_progress",
-      "createdAt": "2026-03-25T07:27:03.191Z",
-      "startedAt": "2026-03-25T07:27:04.785Z",
-      "completedAt": null,
-      "error": null,
-      "result": null
-    }
-  ],
+  "tasks": [],
   "completed": [
     {
       "id": 1773819482814,
@@ -491,6 +478,18 @@
       "createdAt": "2026-03-25T06:24:02.875Z",
       "startedAt": "2026-03-25T06:24:16.645Z",
       "completedAt": "2026-03-25T06:40:56.002Z",
+      "error": null,
+      "result": "Revision validated (2 attempts, 10 files): https://koiopenclaw-max.github.io/demo-sites/demos/%D0%B0%D0%B4%D0%B2%D0%BE%D0%BA%D0%B0%D1%82%D1%81%D0%BA%D0%B0-%D0%BA%D0%B0%D0%BD%D1%82%D0%BE%D1%80%D0%B0-%D0%B1%D0%BE%D0%B3%D0%B4%D0%B0%D0%BD%D0%BE%D0%B2%D0%B8-%D0%B8-%D0%BC%D0%B0%D1%80%D0%B8%D0%BD%D0%BE%D0%B2/"
+    },
+    {
+      "id": 1774423623191,
+      "slug": "адвокатска-кантора-богданови-и-маринов",
+      "name": "АДВОКАТСКА КАНТОРА БОГДАНОВИ И МАРИНОВ",
+      "action": "revisions",
+      "status": "done",
+      "createdAt": "2026-03-25T07:27:03.191Z",
+      "startedAt": "2026-03-25T07:27:04.785Z",
+      "completedAt": "2026-03-25T07:35:57.812Z",
       "error": null,
       "result": "Revision validated (2 attempts, 10 files): https://koiopenclaw-max.github.io/demo-sites/demos/%D0%B0%D0%B4%D0%B2%D0%BE%D0%BA%D0%B0%D1%82%D1%81%D0%BA%D0%B0-%D0%BA%D0%B0%D0%BD%D1%82%D0%BE%D1%80%D0%B0-%D0%B1%D0%BE%D0%B3%D0%B4%D0%B0%D0%BD%D0%BE%D0%B2%D0%B8-%D0%B8-%D0%BC%D0%B0%D1%80%D0%B8%D0%BD%D0%BE%D0%B2/"
     }
