@@ -634,9 +634,103 @@
     .about-grid{grid-template-columns:1.25fr 0.75fr}
   }
 
-  @media (max-width: 719px){
-    .nav{align-items:flex-start}
-    .nav-links{gap:0.7rem}
-    .hero h1{max-width:11ch}
-    .hero-stats{grid-template-columns:1fr}
+
+/* Hamburger button */
+.menu-toggle{
+  display:none;
+  flex-direction:column;
+  justify-content:center;
+  gap:5px;
+  width:44px;
+  height:44px;
+  padding:8px;
+  background:none;
+  border:1px solid rgba(255,255,255,0.15);
+  border-radius:12px;
+  cursor:pointer;
+  z-index:30;
+  flex-shrink:0;
+}
+
+.menu-toggle span{
+  display:block;
+  width:100%;
+  height:2px;
+  background:var(--white);
+  border-radius:2px;
+  transition:transform 300ms ease, opacity 200ms ease;
+}
+
+.menu-toggle.active span:nth-child(1){
+  transform:rotate(45deg) translate(5px, 5px);
+}
+
+.menu-toggle.active span:nth-child(2){
+  opacity:0;
+}
+
+.menu-toggle.active span:nth-child(3){
+  transform:rotate(-45deg) translate(5px, -5px);
+}
+
+@media (max-width: 719px){
+  .menu-toggle{display:flex}
+
+  .nav{
+    flex-wrap:wrap;
+    align-items:center;
+    position:relative;
   }
+
+  .nav-links{
+    display:none !important;
+    flex-direction:column;
+    width:100%;
+    gap:0;
+    padding:0.5rem 0 1rem;
+    order:3;
+  }
+
+  .nav-links.open{
+    display:flex !important;
+  }
+
+  .nav-links a{
+    display:block;
+    padding:0.85rem 0;
+    font-size:1.05rem;
+    border-bottom:1px solid rgba(255,255,255,0.08);
+  }
+
+  .nav-links a:last-child{
+    border-bottom:none;
+  }
+
+  .nav-cta{
+    margin-top:0.5rem;
+    text-align:center;
+    width:100%;
+  }
+
+  .hero h1{max-width:100%;font-size:clamp(2.2rem,7vw,3.5rem)}
+  .hero-copy{padding:1.5rem 0 2rem}
+  .hero-stats{grid-template-columns:1fr}
+  .hero-description{font-size:0.95rem}
+  .hero-actions{flex-direction:column;align-items:stretch}
+  .hero-actions .button{text-align:center}
+
+  section{padding:3rem 0}
+  .section-title{font-size:clamp(1.6rem,5vw,2.4rem)}
+  .services-layout{grid-template-columns:1fr}
+  .offer-grid{grid-template-columns:1fr}
+  .why-grid{grid-template-columns:1fr}
+  .about-grid{grid-template-columns:1fr}
+  .contact-wrap{grid-template-columns:1fr}
+  .service-panel{padding:1.2rem}
+  .service-head{flex-direction:column;gap:0.7rem}
+  .offer-card{flex-direction:column}
+  .contact-card{padding:1.2rem}
+  .contact-form{padding:1.2rem}
+  .form-grid.two-col{grid-template-columns:1fr}
+  .footer-inner{text-align:center}
+}
