@@ -734,3 +734,32 @@
   .form-grid.two-col{grid-template-columns:1fr}
   .footer-inner{text-align:center}
 }
+
+/* Content prose mobile fix */
+@media (max-width: 719px) {
+  .content-prose {
+    padding: 1.4rem 1.25rem !important;
+    overflow-wrap: break-word;
+    word-break: break-word;
+  }
+  .content-prose p,
+  .content-prose li,
+  .content-prose td {
+    font-size: 0.95rem;
+    line-height: 1.75;
+    overflow-wrap: break-word;
+    word-break: break-word;
+  }
+  .content-prose h2,
+  .content-prose h3,
+  .card-title {
+    font-size: clamp(1.2rem, 4vw, 1.6rem);
+    word-break: break-word;
+  }
+  .about-card {
+    padding: 1.4rem 1.25rem !important;
+  }
+  .page-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
