@@ -5,9 +5,9 @@
       "slug": "счетоводна-къща-емпика",
       "name": "Счетоводна къща \"Емпика\"",
       "action": "deploying",
-      "status": "pending",
+      "status": "in_progress",
       "createdAt": "2026-03-25T07:45:04.620Z",
-      "startedAt": null,
+      "startedAt": "2026-03-25T07:45:07.665Z",
       "completedAt": null,
       "error": null,
       "result": null
