@@ -1,18 +1,5 @@
 {
-  "tasks": [
-    {
-      "id": 1774438204260,
-      "slug": "адвокатска-кантора-богданови-и-маринов",
-      "name": "АДВОКАТСКА КАНТОРА БОГДАНОВИ И МАРИНОВ",
-      "action": "deploying",
-      "status": "in_progress",
-      "createdAt": "2026-03-25T11:30:04.260Z",
-      "startedAt": "2026-03-25T11:30:32.664Z",
-      "completedAt": null,
-      "error": null,
-      "result": null
-    }
-  ],
+  "tasks": [],
   "completed": [
     {
       "id": 1773819482814,
@@ -583,6 +570,18 @@
       "startedAt": "2026-03-25T09:46:18.142Z",
       "result": "Codex done, awaiting Koi validation. Output: baseline.html, civil-law.html, contacts.html, crew.html, criminal-administrative-law.html, criminal-law.html, index.html, prices.html, services.html",
       "completedAt": "2026-03-25T09:56:31.558Z"
+    },
+    {
+      "id": 1774438204260,
+      "slug": "адвокатска-кантора-богданови-и-маринов",
+      "name": "АДВОКАТСКА КАНТОРА БОГДАНОВИ И МАРИНОВ",
+      "action": "deploying",
+      "status": "done",
+      "createdAt": "2026-03-25T11:30:04.260Z",
+      "startedAt": "2026-03-25T11:30:32.664Z",
+      "completedAt": "2026-03-25T11:30:38.779Z",
+      "error": null,
+      "result": "Deployed to demo59.add.bg (repo: demo59-add-bg)"
     }
   ],
   "version": 1
