@@ -1,5 +1,18 @@
 {
-  "tasks": [],
+  "tasks": [
+    {
+      "id": 1774438204260,
+      "slug": "адвокатска-кантора-богданови-и-маринов",
+      "name": "АДВОКАТСКА КАНТОРА БОГДАНОВИ И МАРИНОВ",
+      "action": "deploying",
+      "status": "pending",
+      "createdAt": "2026-03-25T11:30:04.260Z",
+      "startedAt": null,
+      "completedAt": null,
+      "error": null,
+      "result": null
+    }
+  ],
   "completed": [
     {
       "id": 1773819482814,
