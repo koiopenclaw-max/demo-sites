@@ -1,15 +1,5 @@
 {
-  "tasks": [
-    {
-      "slug": "адвокатска-кантора-богданови-и-маринов",
-      "name": "АДВОКАТСКА КАНТОРА БОГДАНОВИ И МАРИНОВ",
-      "action": "koi-revision",
-      "status": "in_progress",
-      "contextFile": "/tmp/demo-revision-context-адвокатска-кантора-богданови-и-маринов.json",
-      "addedAt": "2026-03-25T08:52:56.465Z",
-      "startedAt": "2026-03-25T08:52:59.921Z"
-    }
-  ],
+  "tasks": [],
   "completed": [
     {
       "id": 1773819482814,
@@ -514,6 +504,17 @@
       "completedAt": "2026-03-25T07:45:13.790Z",
       "error": null,
       "result": "Deployed to demo58.add.bg (repo: demo58-add-bg)"
+    },
+    {
+      "slug": "адвокатска-кантора-богданови-и-маринов",
+      "name": "АДВОКАТСКА КАНТОРА БОГДАНОВИ И МАРИНОВ",
+      "action": "koi-revision",
+      "status": "error",
+      "contextFile": "/tmp/demo-revision-context-адвокатска-кантора-богданови-и-маринов.json",
+      "addedAt": "2026-03-25T08:52:56.465Z",
+      "startedAt": "2026-03-25T08:52:59.921Z",
+      "error": "loadDemoData is not defined",
+      "completedAt": "2026-03-25T08:53:01.180Z"
     }
   ],
   "version": 1
