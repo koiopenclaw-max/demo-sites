@@ -210,7 +210,7 @@
     min-height:calc(100svh - 82px);
     display:grid;
     align-items:center;
-    padding:3rem 0 4rem;
+    padding:5rem 0 4rem;
     color:var(--white);
     isolation:isolate;
   }
@@ -267,15 +267,15 @@
   }
 
   .hero-copy{
-    max-width:760px;
+    max-width:960px;
     padding:2rem 0;
   }
 
   .hero h1{
     margin:1.15rem 0 1rem;
     font-family:"Cormorant Garamond",serif;
-    font-size:clamp(3rem, 8vw, 6.2rem);
-    line-height:0.94;
+    font-size:clamp(2.2rem, 5.5vw, 4.5rem);
+    line-height:1.05;
     letter-spacing:0.02em;
     text-transform:uppercase;
   }
@@ -332,7 +332,7 @@
 
   .hero-stats{
     display:grid;
-    grid-template-columns:repeat(3, minmax(0, 1fr));
+    grid-template-columns:repeat(3, minmax(160px, 1fr));
     gap:1.5rem;
     margin-top:2.4rem;
     max-width:100%;
@@ -356,7 +356,8 @@
   .hero-stat span{
     display:block;
     color:rgba(255,255,255,0.72);
-    font-size:0.92rem;
+    font-size:1.05rem;
+    line-height:1.5;
   }
 
   section{
