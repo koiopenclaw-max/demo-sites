@@ -782,13 +782,13 @@ function renderRevisions(p) {
   if (['done','review','dns_setup','live'].includes(p.status)) {
     el.innerHTML = `<div class="qa-section" style="margin-top:1.5rem">
       <h3>🔧 Корекции</h3>
-      <textarea id="revisionInput" placeholder="Опиши проблемите за отстраняване...&#10;&#10;Например:&#10;- Телефонът не е кликабилен&#10;- Цветът на бутона да е по-тъмен&#10;- Добави работно време" 
+      <textarea id="revisionInput" placeholder="Опиши проблемите за отстраняване...&#10;&#10;Например:&#10;- Телефонът не е кликабилен&#10;- Цветът на бутона да е по-тъмен&#10;&#10;💡 Ctrl+V / ⌘V за поставяне на скрийншот" 
         style="width:100%;min-height:120px;padding:0.75rem;border:1px solid var(--border);border-radius:8px;background:var(--bg-input);color:var(--text);font-size:0.95rem;resize:vertical">${esc(p.currentRevision || '')}</textarea>
       <div class="revision-images" id="revisionImages">
         <input type="file" id="revisionFileInput" accept="image/*" multiple style="display:none" onchange="handleRevisionImages(this.files)">
         <div class="add-img" onclick="document.getElementById('revisionFileInput').click()"><span>📷</span>Добави снимки</div>
       </div>
-      <div style="font-size:0.75rem;color:var(--text-muted);margin-top:0.35rem">📎 Прикачи скрийншоти за по-точно описание</div>
+      <div style="font-size:0.75rem;color:var(--text-muted);margin-top:0.35rem">📋 Ctrl+V / ⌘V за paste на скрийншот, или 📷 за избор на файл</div>
       <div style="margin-top:0.75rem">
         <button class="btn btn-warning btn-lg" onclick="submitRevisions()" style="background:rgba(243,156,18,0.8);width:100%">🔧 Изпрати за корекция</button>
       </div>
@@ -886,6 +886,23 @@ function confirmDeleteProject() {
   currentSlug = null; currentProject = null;
   toast('Изтрит'); navigateTo('dashboard');
 }
+
+// ===== PASTE HANDLER =====
+document.addEventListener('paste', function(e) {
+  var items = e.clipboardData && e.clipboardData.items;
+  if (!items) return;
+  var hasImage = false;
+  for (var i = 0; i < items.length; i++) {
+    if (items[i].type.indexOf('image') !== -1) {
+      hasImage = true;
+      var file = items[i].getAsFile();
+      if (file && typeof handleRevisionImages === 'function') {
+        handleRevisionImages([file]);
+      }
+    }
+  }
+  if (hasImage) e.preventDefault();
+});
 
 // ===== GITHUB =====
 // ===== IMAGE HANDLING FOR REVISIONS =====
