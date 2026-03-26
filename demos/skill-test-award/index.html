@@ -674,26 +674,65 @@
       margin-bottom: 10px;
     }
 
-    .stars {
-      color: #f7b731;
-      letter-spacing: 0.18em;
-      margin-bottom: 14px;
-      font-size: 1.1rem;
+    .google-review-widget {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 20px 24px;
+      border-radius: 20px;
+      background: #fff;
+      border: 1px solid rgba(0,0,0,0.06);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+      margin-bottom: 20px;
     }
 
-    .rating-meta {
+    .google-g {
+      flex-shrink: 0;
+    }
+
+    .google-review-top {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .google-review-widget .rating-score {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      line-height: 1;
+      margin: 0;
+      color: var(--text);
+    }
+
+    .google-review-meta {
+      display: block;
+      font-size: 0.82rem;
       color: var(--text-light);
-      margin: 0 0 26px;
+      margin-top: 4px;
     }
 
-    .trust-badge {
+    .nhif-trust-badge {
       display: inline-flex;
-      padding: 10px 14px;
-      border-radius: 999px;
-      background: rgba(13, 148, 136, 0.1);
-      color: var(--accent-dark);
-      font-weight: 600;
-      letter-spacing: 0.04em;
+      align-items: center;
+      gap: 14px;
+      padding: 16px 22px;
+      border-radius: 16px;
+      background: #EFF6FF;
+      border: 1px solid #BBDEFB;
+    }
+
+    .nhif-text strong {
+      display: block;
+      color: #1565C0;
+      font-size: 1rem;
+      font-weight: 700;
+    }
+
+    .nhif-text span {
+      display: block;
+      font-size: 0.78rem;
+      color: var(--text-light);
+      margin-top: 2px;
     }
 
     .testimonials {
@@ -1101,9 +1140,12 @@
             <span class="stat-value" data-counter="5">0</span>
             <span class="stat-label">Специалисти</span>
           </div>
-          <div class="stat-card">
-            <span class="stat-value">НЗОК</span>
-            <span class="stat-label">Партньор</span>
+          <div class="stat-card stat-nhif">
+            <svg width="36" height="42" viewBox="0 0 50 55" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style="margin:0 auto 8px;">
+              <path d="M25 0 L50 10 L50 30 C50 42 38 50 25 55 C12 50 0 42 0 30 L0 10 Z" fill="#42A5F5"/>
+              <path d="M18 16h4v8h6v-8h4v22h-4V28h-6v10h-4z" fill="white"/>
+            </svg>
+            <span class="stat-label">Договор с НЗОК</span>
           </div>
         </div>
       </div>
@@ -1152,10 +1194,41 @@
         <aside class="rating-widget reveal-on-scroll" aria-label="Рейтинг и доверие">
           <div class="eyebrow">Доверие</div>
           <h2 class="section-title" id="trust-title">Доказателство, че спокойствието и качеството вървят заедно</h2>
-          <div class="rating-score">4.9</div>
-          <div class="stars" aria-label="Пет звезди">★★★★★</div>
-          <p class="rating-meta">4.9 ★★★★★ · 127 отзива</p>
-          <div class="trust-badge">НЗОК партньор</div>
+          
+          <!-- Google Reviews Widget -->
+          <div class="google-review-widget">
+            <svg class="google-g" width="40" height="40" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" aria-label="Google">
+              <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
+              <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/>
+              <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/>
+              <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/>
+            </svg>
+            <div class="google-review-content">
+              <div class="google-review-top">
+                <span class="rating-score">4.9</span>
+                <svg class="google-stars" width="110" height="22" viewBox="0 0 110 22" xmlns="http://www.w3.org/2000/svg" aria-label="5 от 5 звезди">
+                  <polygon fill="#FBBC05" points="11,1 13.8,7.2 20.6,8.1 15.8,12.7 17,19.5 11,16.2 5,19.5 6.2,12.7 1.4,8.1 8.2,7.2"/>
+                  <polygon fill="#FBBC05" points="33,1 35.8,7.2 42.6,8.1 37.8,12.7 39,19.5 33,16.2 27,19.5 28.2,12.7 23.4,8.1 30.2,7.2"/>
+                  <polygon fill="#FBBC05" points="55,1 57.8,7.2 64.6,8.1 59.8,12.7 61,19.5 55,16.2 49,19.5 50.2,12.7 45.4,8.1 52.2,7.2"/>
+                  <polygon fill="#FBBC05" points="77,1 79.8,7.2 86.6,8.1 81.8,12.7 83,19.5 77,16.2 71,19.5 72.2,12.7 67.4,8.1 74.2,7.2"/>
+                  <polygon fill="#FBBC05" points="99,1 101.8,7.2 108.6,8.1 103.8,12.7 105,19.5 99,16.2 93,19.5 94.2,12.7 89.4,8.1 96.2,7.2"/>
+                </svg>
+              </div>
+              <span class="google-review-meta">Базирано на 127 отзива в Google</span>
+            </div>
+          </div>
+
+          <!-- НЗОК Badge -->
+          <div class="nhif-trust-badge">
+            <svg width="44" height="52" viewBox="0 0 50 55" xmlns="http://www.w3.org/2000/svg" aria-label="НЗОК">
+              <path d="M25 0 L50 10 L50 30 C50 42 38 50 25 55 C12 50 0 42 0 30 L0 10 Z" fill="#1565C0"/>
+              <path d="M18 16h4v8h6v-8h4v22h-4V28h-6v10h-4z" fill="white"/>
+            </svg>
+            <div class="nhif-text">
+              <strong>Договор с НЗОК</strong>
+              <span>Национална здравноосигурителна каса</span>
+            </div>
+          </div>
         </aside>
         <div class="testimonials">
           <article class="testimonial-card reveal-on-scroll">
