@@ -717,13 +717,18 @@
       gap: 14px;
       padding: 16px 22px;
       border-radius: 16px;
-      background: #EFF6FF;
-      border: 1px solid #BBDEFB;
+      background: #F3F0F9;
+      border: 1px solid #D1C4E9;
+    }
+
+    .nhif-logo {
+      flex-shrink: 0;
+      object-fit: contain;
     }
 
     .nhif-text strong {
       display: block;
-      color: #1565C0;
+      color: #4A148C;
       font-size: 1rem;
       font-weight: 700;
     }
@@ -1141,10 +1146,7 @@
             <span class="stat-label">Специалисти</span>
           </div>
           <div class="stat-card stat-nhif">
-            <svg width="36" height="42" viewBox="0 0 50 55" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style="margin:0 auto 8px;">
-              <path d="M25 0 L50 10 L50 30 C50 42 38 50 25 55 C12 50 0 42 0 30 L0 10 Z" fill="#42A5F5"/>
-              <path d="M18 16h4v8h6v-8h4v22h-4V28h-6v10h-4z" fill="white"/>
-            </svg>
+            <img src="nhif_logo.png" alt="НЗОК" width="44" height="48" style="margin:0 auto 8px;display:block;">
             <span class="stat-label">Договор с НЗОК</span>
           </div>
         </div>
@@ -1218,12 +1220,9 @@
             </div>
           </div>
 
-          <!-- НЗОК Badge -->
+          <!-- НЗОК Badge — реално лого -->
           <div class="nhif-trust-badge">
-            <svg width="44" height="52" viewBox="0 0 50 55" xmlns="http://www.w3.org/2000/svg" aria-label="НЗОК">
-              <path d="M25 0 L50 10 L50 30 C50 42 38 50 25 55 C12 50 0 42 0 30 L0 10 Z" fill="#1565C0"/>
-              <path d="M18 16h4v8h6v-8h4v22h-4V28h-6v10h-4z" fill="white"/>
-            </svg>
+            <img src="nhif_logo.png" alt="НЗОК лого" width="52" height="57" class="nhif-logo">
             <div class="nhif-text">
               <strong>Договор с НЗОК</strong>
               <span>Национална здравноосигурителна каса</span>
