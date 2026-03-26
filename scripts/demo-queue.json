@@ -5,9 +5,9 @@
       "slug": "финкомекс-одитинг-оод",
       "name": "Финкомекс Одитинг ООД",
       "action": "deploying",
-      "status": "pending",
+      "status": "in_progress",
       "createdAt": "2026-03-26T07:33:04.824Z",
-      "startedAt": null,
+      "startedAt": "2026-03-26T07:33:18.232Z",
       "completedAt": null,
       "error": null,
       "result": null
