@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ПроВинд — PVC и алуминиева дограма | Clean Industrial</title>
+<meta name="description" content="ПроВинд — модерна дограма и врати. Безплатно замерване. Технологии от бъдещето за вашия дом.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700;800&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+:root {
+  --bg: #FFFFFF; --bg-alt: #F4F6FA; --bg-card: #FFFFFF;
+  --text: #0D1117; --text-muted: #57606A;
+  --accent: #2563EB; --accent-light: #DBEAFE;
+  --cta: #FF6B35; --cta-hover: #E85A25;
+  --font-heading: 'Barlow Condensed', sans-serif;
+  --font-body: 'DM Sans', sans-serif;
+}
+html { scroll-behavior: smooth; }
+body { font-family: var(--font-body); background: var(--bg); color: var(--text); line-height: 1.6; overflow-x: hidden; }
+h1, h2, h3, h4 { font-family: var(--font-heading); font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
+a { text-decoration: none; color: inherit; }
+img { max-width: 100%; display: block; }
+.container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+
+.section-title { text-align: center; font-size: 2.4rem; margin-bottom: 8px; }
+.section-title span { color: var(--accent); }
+.section-sub { text-align: center; color: var(--text-muted); max-width: 620px; margin: 0 auto 56px; font-size: 1.05rem; }
+.blue-line { display: block; width: 60px; height: 4px; background: var(--accent); margin: 12px auto 0; }
+
+.cta-btn {
+  display: inline-block; padding: 14px 32px; background: var(--cta); color: #fff;
+  font-weight: 700; font-size: 0.95rem; border: none; cursor: pointer;
+  border-radius: 4px; transition: background 0.3s, transform 0.2s;
+  font-family: var(--font-heading); text-transform: uppercase; letter-spacing: 1px;
+}
+.cta-btn:hover { background: var(--cta-hover); transform: translateY(-2px); }
+.cta-btn-alt {
+  display: inline-block; padding: 14px 32px; background: var(--accent); color: #fff;
+  font-weight: 700; font-size: 0.95rem; border: none; cursor: pointer;
+  border-radius: 4px; transition: background 0.3s, transform 0.2s;
+  font-family: var(--font-heading); text-transform: uppercase; letter-spacing: 1px;
+}
+.cta-btn-alt:hover { background: #1D4ED8; transform: translateY(-2px); }
+
+/* HEADER */
+header {
+  position: fixed; top: 0; left: 0; width: 100%; z-index: 1000;
+  background: rgba(255,255,255,0.97); backdrop-filter: blur(8px);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+}
+.header-inner {
+  display: flex; align-items: center; justify-content: space-between;
+  max-width: 1200px; margin: 0 auto; padding: 14px 24px;
+}
+.logo {
+  font-family: var(--font-heading); font-size: 1.7rem; font-weight: 800;
+  color: var(--text); text-transform: uppercase; letter-spacing: 2px;
+}
+.logo span { color: var(--accent); font-weight: 800; }
+nav { display: flex; align-items: center; gap: 28px; }
+nav a { font-size: 0.9rem; font-weight: 600; color: var(--text-muted); transition: color 0.3s; font-family: var(--font-heading); text-transform: uppercase; letter-spacing: 0.5px; }
+nav a:hover { color: var(--accent); }
+.header-cta { padding: 10px 20px; font-size: 0.8rem; }
+.hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 8px; }
+.hamburger span { display: block; width: 26px; height: 3px; background: var(--text); transition: all 0.3s; border-radius: 2px; }
+
+/* HERO */
+.hero {
+  position: relative; min-height: 100vh; display: flex; align-items: center;
+  background: var(--bg);
+}
+.hero-inner {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center;
+  max-width: 1200px; margin: 0 auto; padding: 120px 24px 80px;
+}
+.hero-text .hero-tag {
+  display: inline-block; background: var(--accent-light); color: var(--accent);
+  font-family: var(--font-heading); font-size: 0.8rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 2px; padding: 6px 16px;
+  border-radius: 4px; margin-bottom: 24px;
+}
+.hero-text h1 { font-size: 3.5rem; line-height: 1.05; margin-bottom: 20px; text-transform: uppercase; }
+.hero-text h1 span { color: var(--accent); }
+.hero-text p { font-size: 1.15rem; color: var(--text-muted); margin-bottom: 32px; max-width: 480px; line-height: 1.7; }
+.hero-buttons { display: flex; gap: 16px; flex-wrap: wrap; }
+.hero-image { position: relative; border-radius: 8px; overflow: hidden; }
+.hero-image img { width: 100%; height: 500px; object-fit: cover; border-radius: 8px; }
+.hero-image::after {
+  content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 4px; background: var(--accent);
+}
+
+/* PRODUCTS */
+.products { padding: 100px 0; background: var(--bg-alt); }
+.products-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 20px; }
+.product-card {
+  background: var(--bg-card); border-left: 4px solid var(--accent); padding: 32px 20px;
+  transition: all 0.3s; position: relative;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+}
+.product-card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(37,99,235,0.12); }
+.product-card svg { width: 44px; height: 44px; margin-bottom: 16px; color: var(--accent); }
+.product-card h3 { font-size: 1rem; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.5px; }
+.product-card p { font-size: 0.85rem; color: var(--text-muted); line-height: 1.5; }
+
+/* WHY US */
+.why-us { padding: 100px 0; background: var(--bg); }
+.stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px; }
+.stat-item {
+  text-align: center; padding: 40px 20px; background: var(--bg-alt);
+  border-radius: 4px; position: relative; overflow: hidden;
+}
+.stat-item::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: var(--accent); }
+.stat-number { font-family: var(--font-heading); font-size: 3.5rem; font-weight: 800; color: var(--accent); display: block; line-height: 1; }
+.stat-label { font-size: 0.95rem; color: var(--text-muted); margin-top: 12px; font-weight: 500; }
+
+/* PROCESS */
+.process { padding: 100px 0; background: var(--accent); color: #fff; }
+.process .section-title { color: #fff; }
+.process .section-title span { color: rgba(255,255,255,0.7); }
+.process .section-sub { color: rgba(255,255,255,0.8); }
+.process .blue-line { background: rgba(255,255,255,0.4); }
+.timeline { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; position: relative; }
+.timeline::before { content: ''; position: absolute; top: 40px; left: 12%; right: 12%; height: 3px; background: rgba(255,255,255,0.2); }
+.timeline-step { text-align: center; padding: 0 16px; position: relative; }
+.step-num {
+  display: flex; align-items: center; justify-content: center;
+  width: 80px; height: 80px; border-radius: 50%;
+  background: #fff; color: var(--accent);
+  font-family: var(--font-heading); font-size: 2rem; font-weight: 800;
+  margin: 0 auto 24px; position: relative; z-index: 2;
+}
+.step-title { font-size: 1.1rem; margin-bottom: 8px; text-transform: uppercase; }
+.step-desc { font-size: 0.85rem; opacity: 0.8; line-height: 1.5; }
+.step-arrow { display: none; }
+
+/* GALLERY */
+.gallery { padding: 100px 0; background: var(--bg-alt); }
+.gallery-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.gallery-item { position: relative; overflow: hidden; border-radius: 4px; aspect-ratio: 16/10; }
+.gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s; }
+.gallery-item:hover img { transform: scale(1.06); }
+.gallery-overlay {
+  position: absolute; inset: 0; background: linear-gradient(to top, rgba(37,99,235,0.7) 0%, transparent 60%);
+  display: flex; align-items: flex-end; padding: 20px; opacity: 0; transition: opacity 0.3s;
+}
+.gallery-item:hover .gallery-overlay { opacity: 1; }
+.gallery-overlay span { color: #fff; font-family: var(--font-heading); font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; }
+
+/* PARTNERS */
+.partners { padding: 80px 0; background: var(--bg); }
+.partners-grid { display: flex; justify-content: center; align-items: center; gap: 60px; flex-wrap: wrap; }
+.partner-badge {
+  font-family: var(--font-heading); font-size: 1.5rem; font-weight: 700;
+  color: var(--text); opacity: 0.2; transition: all 0.3s; text-transform: uppercase; letter-spacing: 3px;
+}
+.partner-badge:hover { opacity: 0.8; color: var(--accent); }
+
+/* ENERGY */
+.energy { padding: 100px 0; background: var(--bg-alt); }
+.energy-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+.energy-text h3 { font-size: 1.4rem; color: var(--accent); margin-bottom: 16px; text-transform: uppercase; }
+.energy-text p { color: var(--text-muted); margin-bottom: 20px; line-height: 1.7; }
+.energy-rating { display: flex; flex-direction: column; gap: 8px; }
+.energy-row { display: flex; align-items: center; gap: 12px; }
+.energy-label { font-family: var(--font-heading); font-weight: 700; font-size: 1rem; width: 60px; text-align: center; padding: 6px; color: #fff; border-radius: 2px; }
+.energy-bar-track { flex: 1; height: 28px; background: #E5E7EB; border-radius: 2px; overflow: hidden; }
+.energy-bar-fill { height: 100%; border-radius: 2px; display: flex; align-items: center; padding-left: 12px; color: #fff; font-size: 0.8rem; font-weight: 600; }
+.energy-a3 { background: #15803D; }
+.energy-a2 { background: #22C55E; }
+.energy-a1 { background: #4ADE80; }
+.energy-a { background: #86EFAC; color: #166534!important; }
+.energy-b { background: #FDE047; color: #854D0E!important; }
+.energy-c { background: #FB923C; }
+.energy-d { background: #EF4444; }
+
+/* TESTIMONIALS */
+.testimonials { padding: 100px 0; background: var(--bg); }
+.testimonials-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+.testimonial-card {
+  background: var(--bg-alt); padding: 36px; border-radius: 4px; position: relative;
+  border-top: 4px solid var(--accent);
+}
+.testimonial-stars { display: flex; gap: 4px; margin-bottom: 16px; }
+.testimonial-stars svg { width: 18px; height: 18px; color: var(--cta); fill: var(--cta); }
+.testimonial-text { font-size: 0.95rem; color: var(--text-muted); line-height: 1.7; margin-bottom: 24px; }
+.testimonial-author { font-weight: 700; font-size: 0.95rem; font-family: var(--font-heading); text-transform: uppercase; }
+.testimonial-city { font-size: 0.8rem; color: var(--text-muted); margin-top: 2px; }
+
+/* CONTACT */
+.contact { padding: 100px 0; background: var(--bg-alt); }
+.contact-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 60px; }
+.contact-form { display: flex; flex-direction: column; gap: 16px; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.form-group label { display: block; font-size: 0.8rem; color: var(--text-muted); margin-bottom: 6px; font-family: var(--font-heading); text-transform: uppercase; letter-spacing: 1px; font-weight: 600; }
+.form-group input, .form-group textarea {
+  width: 100%; padding: 14px 16px; background: #fff; border: 2px solid #E5E7EB;
+  color: var(--text); font-family: var(--font-body); font-size: 0.95rem;
+  transition: border-color 0.3s; outline: none; border-radius: 4px;
+}
+.form-group input:focus, .form-group textarea:focus { border-color: var(--accent); }
+.form-group textarea { resize: vertical; min-height: 120px; }
+.contact-info-card {
+  background: var(--accent); color: #fff; padding: 40px; border-radius: 4px;
+}
+.contact-info-card h3 { font-size: 1.4rem; margin-bottom: 32px; text-transform: uppercase; }
+.contact-detail { display: flex; align-items: flex-start; gap: 16px; margin-bottom: 28px; }
+.contact-detail svg { width: 22px; height: 22px; flex-shrink: 0; margin-top: 2px; }
+.contact-detail span { font-size: 0.95rem; line-height: 1.6; opacity: 0.9; }
+.map-placeholder {
+  width: 100%; height: 160px; background: rgba(255,255,255,0.1); border-radius: 4px;
+  display: flex; align-items: center; justify-content: center; opacity: 0.7;
+  font-size: 0.85rem; margin-top: 24px;
+}
+
+/* FOOTER */
+footer { padding: 60px 0 24px; background: var(--text); color: #fff; }
+.footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 40px; }
+.footer-brand .logo { color: #fff; }
+.footer-brand .logo span { color: var(--accent); }
+.footer-brand p { color: rgba(255,255,255,0.5); font-size: 0.9rem; margin-top: 12px; }
+.footer-col h4 { font-size: 0.85rem; color: var(--accent); margin-bottom: 16px; text-transform: uppercase; letter-spacing: 2px; }
+.footer-col a { display: block; color: rgba(255,255,255,0.5); font-size: 0.85rem; margin-bottom: 10px; transition: color 0.3s; }
+.footer-col a:hover { color: #fff; }
+.footer-bottom { display: flex; justify-content: space-between; align-items: center; padding-top: 24px; border-top: 1px solid rgba(255,255,255,0.08); }
+.footer-bottom p { font-size: 0.8rem; color: rgba(255,255,255,0.4); }
+.social-icons { display: flex; gap: 16px; }
+.social-icons a svg { width: 20px; height: 20px; color: rgba(255,255,255,0.4); transition: color 0.3s; }
+.social-icons a:hover svg { color: var(--accent); }
+
+/* MOBILE */
+@media (max-width: 1200px) {
+  .hero-text h1 { font-size: 2.8rem; }
+  .products-grid { grid-template-columns: repeat(3, 1fr); }
+}
+@media (max-width: 768px) {
+  .hamburger { display: flex; }
+  nav { display: none; position: absolute; top: 100%; left: 0; right: 0; background: #fff; flex-direction: column; padding: 20px 24px; gap: 12px; box-shadow: 0 8px 24px rgba(0,0,0,0.08); }
+  nav.active { display: flex; }
+  .hero-inner { grid-template-columns: 1fr; padding: 100px 24px 60px; gap: 40px; }
+  .hero-image img { height: 300px; }
+  .hero-text h1 { font-size: 2.4rem; }
+  .products-grid { grid-template-columns: repeat(2, 1fr); }
+  .stats-grid { grid-template-columns: repeat(2, 1fr); }
+  .timeline { grid-template-columns: repeat(2, 1fr); gap: 32px; }
+  .timeline::before { display: none; }
+  .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+  .testimonials-grid { grid-template-columns: 1fr; }
+  .contact-grid { grid-template-columns: 1fr; }
+  .energy-grid { grid-template-columns: 1fr; }
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+  .form-row { grid-template-columns: 1fr; }
+  .section-title { font-size: 2rem; }
+}
+@media (max-width: 390px) {
+  .hero-text h1 { font-size: 2rem; }
+  .products-grid { grid-template-columns: 1fr; }
+  .stats-grid { grid-template-columns: 1fr 1fr; gap: 16px; }
+  .gallery-grid { grid-template-columns: 1fr; }
+  .footer-grid { grid-template-columns: 1fr; }
+  .hero-buttons { flex-direction: column; }
+  .partners-grid { gap: 24px; }
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="header-inner">
+    <a href="#" class="logo">Про<span>Винд</span></a>
+    <nav id="mainNav">
+      <a href="#hero">Начало</a>
+      <a href="#products">Продукти</a>
+      <a href="#why-us">За нас</a>
+      <a href="#gallery">Проекти</a>
+      <a href="#contact">Контакти</a>
+      <a href="#contact" class="cta-btn header-cta">Безплатно замерване</a>
+    </nav>
+    <button class="hamburger" id="hamburger" aria-label="Меню">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="hero-inner">
+    <div class="hero-text">
+      <span class="hero-tag">Технологии от бъдещето</span>
+      <h1>Модерна <span>дограма</span> за модерни домове</h1>
+      <p>Иновативни решения за PVC и алуминиева дограма с висока енергийна ефективност. Безплатно замерване и оферта до 24 часа навсякъде в България.</p>
+      <div class="hero-buttons">
+        <a href="#contact" class="cta-btn">Безплатно замерване</a>
+        <a href="#products" class="cta-btn-alt">Вижте продуктите</a>
+      </div>
+    </div>
+    <div class="hero-image">
+      <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80" alt="Модерна къща с дограма">
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCTS -->
+<section class="products" id="products">
+  <div class="container">
+    <h2 class="section-title">Нашите <span>продукти</span></h2>
+    <span class="blue-line"></span>
+    <p class="section-sub">Комплексни решения за остъкляване и врати — от стандартни прозорци до панорамни плъзгащи системи.</p>
+    <div class="products-grid">
+      <div class="product-card">
+        <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="6" y="6" width="36" height="36" rx="1"/><line x1="24" y1="6" x2="24" y2="42"/><line x1="6" y1="24" x2="24" y2="24"/></svg>
+        <h3>PVC Дограма</h3>
+        <p>Пет- и шесткамерни профили от Rehau и VEKA. Клас А, с тройно стъкло.</p>
+      </div>
+      <div class="product-card">
+        <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="6" y="6" width="36" height="36" rx="1"/><line x1="24" y1="6" x2="24" y2="42"/><circle cx="22" cy="24" r="1.5" fill="currentColor"/><circle cx="26" cy="24" r="1.5" fill="currentColor"/></svg>
+        <h3>Алуминиева Дограма</h3>
+        <p>Тънки профили с термично прекъсване. Максимална светлина, минимална рамка.</p>
+      </div>
+      <div class="product-card">
+        <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="12" y="4" width="24" height="40" rx="2"/><circle cx="30" cy="26" r="2" fill="currentColor"/><line x1="12" y1="16" x2="36" y2="16" opacity="0.3"/></svg>
+        <h3>Входни Врати</h3>
+        <p>Бронирани врати с многоточково заключване. Сигурност и елегантен дизайн.</p>
+      </div>
+      <div class="product-card">
+        <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="12" y="4" width="24" height="40" rx="2"/><rect x="16" y="8" width="16" height="14" rx="1" fill="none"/><circle cx="30" cy="28" r="2" fill="currentColor"/></svg>
+        <h3>Интериорни Врати</h3>
+        <p>МДФ, CPL и масивни врати. Модерни, класически и минималистични модели.</p>
+      </div>
+      <div class="product-card">
+        <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="4" y="8" width="18" height="32" rx="1"/><rect x="26" y="8" width="18" height="32" rx="1"/><path d="M22 24 L26 24" stroke-dasharray="2 2"/></svg>
+        <h3>Плъзгащи Системи</h3>
+        <p>HST и PSK системи за панорамно остъкляване. До 6 метра ширина.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY US -->
+<section class="why-us" id="why-us">
+  <div class="container">
+    <h2 class="section-title">Защо <span>ПроВинд</span></h2>
+    <span class="blue-line"></span>
+    <p class="section-sub">Цифри, които говорят сами за себе си. 15 години опит и хиляди доволни клиенти.</p>
+    <div class="stats-grid">
+      <div class="stat-item">
+        <span class="stat-number">15+</span>
+        <span class="stat-label">Години опит в бранша</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-number">5000+</span>
+        <span class="stat-label">Завършени обекта</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-number">0 лв</span>
+        <span class="stat-label">Безплатно замерване</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-number">10 г.</span>
+        <span class="stat-label">Гаранция на продуктите</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="process" id="process">
+  <div class="container">
+    <h2 class="section-title">Как <span>работим</span></h2>
+    <span class="blue-line"></span>
+    <p class="section-sub">Четири прости стъпки от първия контакт до готовия монтаж.</p>
+    <div class="timeline">
+      <div class="timeline-step">
+        <div class="step-num">01</div>
+        <h4 class="step-title">Замерване</h4>
+        <p class="step-desc">Идваме на обекта безплатно и измерваме всички отвори с лазерна прецизност.</p>
+      </div>
+      <div class="timeline-step">
+        <div class="step-num">02</div>
+        <h4 class="step-title">Оферта до 24ч</h4>
+        <p class="step-desc">Получавате персонализирана оферта с варианти и визуализация до 24 часа.</p>
+      </div>
+      <div class="timeline-step">
+        <div class="step-num">03</div>
+        <h4 class="step-title">Производство</h4>
+        <p class="step-desc">Продуктите се изработват по ваши размери в наши фабрики с немска технология.</p>
+      </div>
+      <div class="timeline-step">
+        <div class="step-num">04</div>
+        <h4 class="step-title">Монтаж</h4>
+        <p class="step-desc">Сертифициран екип извършва монтажа по RAL стандарт. Гаранция 10 години.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section class="gallery" id="gallery">
+  <div class="container">
+    <h2 class="section-title">Реализирани <span>проекти</span></h2>
+    <span class="blue-line"></span>
+    <p class="section-sub">Част от обектите, които сме завършили с гордост.</p>
+    <div class="gallery-grid">
+      <div class="gallery-item">
+        <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&q=80" alt="Модерна къща" loading="lazy">
+        <div class="gallery-overlay"><span>Жилищен комплекс, София</span></div>
+      </div>
+      <div class="gallery-item">
+        <img src="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=800&q=80" alt="Интериор с прозорци" loading="lazy">
+        <div class="gallery-overlay"><span>Частна къща, Пловдив</span></div>
+      </div>
+      <div class="gallery-item">
+        <img src="https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=800&q=80" alt="PVC дограма" loading="lazy">
+        <div class="gallery-overlay"><span>Офис сграда, Варна</span></div>
+      </div>
+      <div class="gallery-item">
+        <img src="https://images.unsplash.com/photo-1600573472592-401b489a3cdc?w=800&q=80" alt="Плъзгащи врати" loading="lazy">
+        <div class="gallery-overlay"><span>Вила, Созопол</span></div>
+      </div>
+      <div class="gallery-item">
+        <img src="https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=800&q=80" alt="Входна врата" loading="lazy">
+        <div class="gallery-overlay"><span>Апартамент, Бургас</span></div>
+      </div>
+      <div class="gallery-item">
+        <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&q=80" alt="Фасада" loading="lazy">
+        <div class="gallery-overlay"><span>Търговски обект, Стара Загора</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PARTNERS -->
+<section class="partners">
+  <div class="container">
+    <div class="partners-grid">
+      <span class="partner-badge">REHAU</span>
+      <span class="partner-badge">VEKA</span>
+      <span class="partner-badge">SALAMANDER</span>
+      <span class="partner-badge">SCHÜCO</span>
+      <span class="partner-badge">REYNAERS</span>
+      <span class="partner-badge">ALUMIL</span>
+    </div>
+  </div>
+</section>
+
+<!-- ENERGY EFFICIENCY -->
+<section class="energy" id="energy">
+  <div class="container">
+    <h2 class="section-title">Енергийна <span>ефективност</span></h2>
+    <span class="blue-line"></span>
+    <p class="section-sub">Правилната дограма спестява до 40% от разходите за отопление.</p>
+    <div class="energy-grid">
+      <div class="energy-text">
+        <h3>Инвестиция, която се изплаща</h3>
+        <p>Съвременните профилни системи с тройно остъкляване постигат U-стойности до 0.7 W/m²K, което ги прави едни от най-ефективните на пазара.</p>
+        <p>Нашите специалисти ще ви помогнат да изберете оптималната комбинация от профил, стъклопакет и фурнитура спрямо вашия бюджет и нужди от изолация.</p>
+      </div>
+      <div class="energy-rating">
+        <div class="energy-row">
+          <span class="energy-label energy-a3">A+++</span>
+          <div class="energy-bar-track"><div class="energy-bar-fill energy-a3" style="width:95%">Тристъклен + аргон</div></div>
+        </div>
+        <div class="energy-row">
+          <span class="energy-label energy-a2">A++</span>
+          <div class="energy-bar-track"><div class="energy-bar-fill energy-a2" style="width:82%">Premium PVC</div></div>
+        </div>
+        <div class="energy-row">
+          <span class="energy-label energy-a1">A+</span>
+          <div class="energy-bar-track"><div class="energy-bar-fill energy-a1" style="width:68%">Стандартна PVC</div></div>
+        </div>
+        <div class="energy-row">
+          <span class="energy-label energy-b" style="background:#FDE047;color:#854D0E">B</span>
+          <div class="energy-bar-track"><div class="energy-bar-fill" style="width:45%;background:#FDE047;color:#854D0E">Двустъклен пакет</div></div>
+        </div>
+        <div class="energy-row">
+          <span class="energy-label energy-d">D</span>
+          <div class="energy-bar-track"><div class="energy-bar-fill energy-d" style="width:25%">Стара дограма</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials" id="testimonials">
+  <div class="container">
+    <h2 class="section-title">Клиентите за <span>нас</span></h2>
+    <span class="blue-line"></span>
+    <p class="section-sub">Доверието на хиляди клиенти е нашата най-голяма награда.</p>
+    <div class="testimonials-grid">
+      <div class="testimonial-card">
+        <div class="testimonial-stars">
+          <svg viewBox="0 0 20 20"><path d="M10 1l2.39 4.84 5.34.78-3.87 3.77.91 5.32L10 13.27l-4.77 2.51.91-5.32L2.27 6.69l5.34-.78L10 1z"/></svg>
+          <svg viewBox="0 0 20 20"><path d="M10 1l2.39 4.84 5.34.78-3.87 3.77.91 5.32L10 13.27l-4.77 2.51.91-5.32L2.27 6.69l5.34-.78L10 1z"/></svg>
+          <svg viewBox="0 0 20 20"><path d="M10 1l2.39 4.84 5.34.78-3.87 3.77.91 5.32L10 13.27l-4.77 2.51.91-5.32L2.27 6.69l5.34-.78L10 1z"/></svg>
+          <svg viewBox="0 0 20 20"><path d="M10 1l2.39 4.84 5.34.78-3.87 3.77.91 5.32L10 13.27l-4.77 2.51.91-5.32L2.27 6.69l5.34-.78L10 1z"/></svg>
+          <svg viewBox="0 0 20 20"><path d="M10 1l2.39 4.84 5.34.78-3.87 3.77.91 5.32L10 13.27l-4.77 2.51.91-5.32L2.27 6.69l5.34-.78L10 1z"/></svg>
+        </div>
+        <p class="testimonial-text">Качество и бързина — получих оферта за 3 часа, а монтажът беше завършен перфектно за два дни. Шумоизолацията е невероятна!</p>
+        <p class="testimonial-author">Димитър Колев</p>
+        <p class="testimonial-city">София, кв. Младост</p>
+      </div>
+      <div class="testimonial-card">
+        <div class="testimonial-stars">
+          <svg viewBox="0 0 20 20"><path d="M10 1l2.39 4.84 5.34.78-3.87 3.77.91 5.32L10 13.27l-4.77 2.51.91-5.32L2.27 6.69l5.34-.78L10 1z"/></svg>
+          <svg viewBox="0 0 20 20"><path d="M10 1l2.39 4.84 5.34.78-3.87 3.77.91 5.32L10 13.27l-4.77 2.51.91-5.32L2.27 6.69l5.34-.78L10 1z"/></svg>
+          <svg viewBox="0 0 20 20"><path d="M10 1l2.39 4.84 5.34.78-3.87 3.77.91 5.32L10 13.27l-4.77 2.51.91-5.32L2.27 6.69l5.34-.78L10 1z"/></svg>
+          <svg viewBox="0 0 20 20"><path d="M10 1l2.39 4.84 5.34.78-3.87 3.77.91 5.32L10 13.27l-4.77 2.51.91-5.32L2.27 6.69l5.34-.78L10 1z"/></svg>
+          <svg viewBox="0 0 20 20"><path d="M10 1l2.39 4.84 5.34.78-3.87 3.77.91 5.32L10 13.27l-4.77 2.51.91-5.32L2.27 6.69l5.34-.78L10 1z"/></svg>
+        </div>
+        <p class="testimonial-text">Сменихме дограмата на цялата къща — 14 прозореца и 3 врати. Екипът работи бързо и прецизно, а резултатът надмина очакванията ни.</p>
+        <p class="testimonial-author">Елена Маринова</p>
+        <p class="testimonial-city">Пловдив, кв. Тракия</p>
+      </div>
+      <div class="testimonial-card">
+        <div class="testimonial-stars">
+          <svg viewBox="0 0 20 20"><path d="M10 1l2.39 4.84 5.34.78-3.87 3.77.91 5.32L10 13.27l-4.77 2.51.91-5.32L2.27 6.69l5.34-.78L10 1z"/></svg>
+          <svg viewBox="0 0 20 20"><path d="M10 1l2.39 4.84 5.34.78-3.87 3.77.91 5.32L10 13.27l-4.77 2.51.91-5.32L2.27 6.69l5.34-.78L10 1z"/></svg>
+          <svg viewBox="0 0 20 20"><path d="M10 1l2.39 4.84 5.34.78-3.87 3.77.91 5.32L10 13.27l-4.77 2.51.91-5.32L2.27 6.69l5.34-.78L10 1z"/></svg>
+          <svg viewBox="0 0 20 20"><path d="M10 1l2.39 4.84 5.34.78-3.87 3.77.91 5.32L10 13.27l-4.77 2.51.91-5.32L2.27 6.69l5.34-.78L10 1z"/></svg>
+          <svg viewBox="0 0 20 20"><path d="M10 1l2.39 4.84 5.34.78-3.87 3.77.91 5.32L10 13.27l-4.77 2.51.91-5.32L2.27 6.69l5.34-.78L10 1z"/></svg>
+        </div>
+        <p class="testimonial-text">Избрахме алуминиева плъзгаща система за терасата. Панорамната гледка е невероятна, а изолацията е на ниво. Абсолютна препоръка!</p>
+        <p class="testimonial-author">Иван Тодоров</p>
+        <p class="testimonial-city">Варна, кв. Чайка</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="container">
+    <h2 class="section-title">Свържете се <span>с нас</span></h2>
+    <span class="blue-line"></span>
+    <p class="section-sub">Заявете безплатно замерване или поискайте оферта — отговаряме до 24 часа.</p>
+    <div class="contact-grid">
+      <form class="contact-form" onsubmit="event.preventDefault(); alert('Благодарим! Ще се свържем с вас скоро.')">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="name">Име</label>
+            <input type="text" id="name" name="name" placeholder="Вашето име" required>
+          </div>
+          <div class="form-group">
+            <label for="phone">Телефон</label>
+            <input type="tel" id="phone" name="phone" placeholder="+359 88 123 4567" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="email">Имейл</label>
+          <input type="email" id="email" name="email" placeholder="email@example.com">
+        </div>
+        <div class="form-group">
+          <label for="message">Съобщение</label>
+          <textarea id="message" name="message" placeholder="Какво ви трябва? Тип дограма, брой прозорци, приблизителни размери..."></textarea>
+        </div>
+        <button type="submit" class="cta-btn" style="border:none;font-family:var(--font-heading);font-size:1rem;padding:16px 32px;text-transform:uppercase;letter-spacing:2px;">Изпратете запитване</button>
+      </form>
+      <div class="contact-info-card">
+        <h3>Контактна информация</h3>
+        <div class="contact-detail">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          <span>бул. България 120<br>1404 София, България</span>
+        </div>
+        <div class="contact-detail">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          <span>+359 2 987 6543<br>+359 88 765 4321</span>
+        </div>
+        <div class="contact-detail">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          <span>office@provind.bg</span>
+        </div>
+        <div class="contact-detail">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          <span>Пон–Пет: 08:00–18:00<br>Събота: 09:00–14:00</span>
+        </div>
+        <div class="map-placeholder">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="margin-right:6px"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Google карта
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <span class="logo">Про<span>Винд</span></span>
+        <p>Качество за вашия дом от 2008. PVC и алуминиева дограма, входни и интериорни врати за цяла България.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Продукти</h4>
+        <a href="#products">PVC Дограма</a>
+        <a href="#products">Алуминиева Дограма</a>
+        <a href="#products">Входни Врати</a>
+        <a href="#products">Интериорни Врати</a>
+        <a href="#products">Плъзгащи Системи</a>
+      </div>
+      <div class="footer-col">
+        <h4>Компания</h4>
+        <a href="#why-us">За нас</a>
+        <a href="#gallery">Проекти</a>
+        <a href="#testimonials">Отзиви</a>
+        <a href="#energy">Енергийна ефективност</a>
+      </div>
+      <div class="footer-col">
+        <h4>Контакти</h4>
+        <a href="tel:+35929876543">+359 2 987 6543</a>
+        <a href="mailto:office@provind.bg">office@provind.bg</a>
+        <a href="#contact">Заявка за замерване</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2008–2026 ПроВинд ЕООД. Всички права запазени.</p>
+      <div class="social-icons">
+        <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
+        <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
+        <a href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+const hamburger = document.getElementById('hamburger');
+const nav = document.getElementById('mainNav');
+hamburger.addEventListener('click', () => {
+  nav.classList.toggle('active');
+  const spans = hamburger.querySelectorAll('span');
+  if (nav.classList.contains('active')) {
+    spans[0].style.transform = 'rotate(45deg) translate(5px, 5px)';
+    spans[1].style.opacity = '0';
+    spans[2].style.transform = 'rotate(-45deg) translate(5px, -5px)';
+  } else {
+    spans[0].style.transform = 'none';
+    spans[1].style.opacity = '1';
+    spans[2].style.transform = 'none';
+  }
+});
+nav.querySelectorAll('a').forEach(link => {
+  link.addEventListener('click', () => {
+    nav.classList.remove('active');
+    const spans = hamburger.querySelectorAll('span');
+    spans[0].style.transform = 'none';
+    spans[1].style.opacity = '1';
+    spans[2].style.transform = 'none';
+  });
+});
+</script>
+</body>
+</html>

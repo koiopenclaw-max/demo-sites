@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ПроВинд — Екологична дограма и врати | Eco Modern</title>
+<meta name="description" content="ПроВинд — Енергийно ефективна PVC и алуминиева дограма. Спестете до 40% от разходите за отопление. Безплатно замерване.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+:root {
+  --bg: #F0F7F0; --bg-alt: #E4F0E4; --bg-card: #FFFFFF; --bg-dark: #0F2A1A;
+  --text: #1A2E1A; --text-muted: #4A6B4A;
+  --accent: #2D8B4E; --accent-light: #D4EFE0; --accent-dark: #1F6B38;
+  --secondary: #1E3A5F; --secondary-light: #E0EAF5;
+  --font-heading: 'Montserrat', sans-serif;
+  --font-body: 'Inter', sans-serif;
+  --radius: 8px;
+}
+html { scroll-behavior: smooth; }
+body { font-family: var(--font-body); background: var(--bg); color: var(--text); line-height: 1.65; overflow-x: hidden; }
+h1, h2, h3, h4 { font-family: var(--font-heading); font-weight: 700; }
+a { text-decoration: none; color: inherit; }
+img { max-width: 100%; display: block; }
+.container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+
+.section-header { text-align: center; margin-bottom: 56px; }
+.section-tag { display: inline-flex; align-items: center; gap: 6px; background: var(--accent-light); color: var(--accent); font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; padding: 6px 16px; border-radius: 20px; margin-bottom: 16px; }
+.section-tag svg { width: 14px; height: 14px; }
+.section-title { font-size: 2.2rem; margin-bottom: 12px; line-height: 1.2; }
+.section-sub { color: var(--text-muted); max-width: 600px; margin: 0 auto; font-size: 1.05rem; }
+
+.btn-primary {
+  display: inline-flex; align-items: center; gap: 8px; padding: 14px 28px;
+  background: var(--accent); color: #fff; font-weight: 600; font-size: 0.95rem;
+  border: none; border-radius: var(--radius); cursor: pointer;
+  transition: all 0.3s; font-family: var(--font-body);
+}
+.btn-primary:hover { background: var(--accent-dark); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(45,139,78,0.3); }
+.btn-primary svg { width: 18px; height: 18px; }
+.btn-outline {
+  display: inline-flex; align-items: center; gap: 8px; padding: 14px 28px;
+  background: transparent; color: var(--accent); font-weight: 600; font-size: 0.95rem;
+  border: 2px solid var(--accent); border-radius: var(--radius); cursor: pointer;
+  transition: all 0.3s; font-family: var(--font-body);
+}
+.btn-outline:hover { background: var(--accent); color: #fff; }
+
+/* HEADER */
+header {
+  position: fixed; top: 0; left: 0; width: 100%; z-index: 1000;
+  background: rgba(240,247,240,0.95); backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(45,139,78,0.08);
+}
+.header-inner {
+  display: flex; align-items: center; justify-content: space-between;
+  max-width: 1200px; margin: 0 auto; padding: 14px 24px;
+}
+.logo { display: flex; align-items: center; gap: 10px; }
+.logo-icon { width: 36px; height: 36px; background: var(--accent); border-radius: var(--radius); display: flex; align-items: center; justify-content: center; }
+.logo-icon svg { width: 20px; height: 20px; color: #fff; }
+.logo-text { font-family: var(--font-heading); font-size: 1.3rem; font-weight: 800; color: var(--text); }
+.logo-text span { color: var(--accent); }
+nav { display: flex; align-items: center; gap: 24px; }
+nav a { font-size: 0.9rem; font-weight: 500; color: var(--text-muted); transition: color 0.3s; }
+nav a:hover { color: var(--accent); }
+.nav-cta { padding: 10px 20px; font-size: 0.85rem; border-radius: var(--radius); }
+.hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 8px; }
+.hamburger span { display: block; width: 24px; height: 2px; background: var(--text); transition: all 0.3s; border-radius: 2px; }
+
+/* HERO */
+.hero { position: relative; min-height: 100vh; display: flex; align-items: center; overflow: hidden; }
+.hero-bg {
+  position: absolute; inset: 0;
+  background: url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1600&q=80') center/cover no-repeat;
+}
+.hero-bg::after {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(135deg, rgba(15,42,26,0.92) 0%, rgba(45,139,78,0.75) 50%, rgba(30,58,95,0.85) 100%);
+}
+.hero-content {
+  position: relative; z-index: 2; max-width: 1200px; margin: 0 auto; padding: 140px 24px 100px;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; width: 100%;
+}
+.hero-text { color: #fff; }
+.eco-badge {
+  display: inline-flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.12);
+  color: #A8E6C3; padding: 8px 16px; border-radius: 24px; font-size: 0.82rem; font-weight: 600;
+  margin-bottom: 24px; border: 1px solid rgba(168,230,195,0.2);
+}
+.eco-badge svg { width: 16px; height: 16px; }
+.hero h1 { font-size: 3rem; line-height: 1.15; margin-bottom: 20px; font-weight: 800; }
+.hero h1 em { font-style: normal; color: #A8E6C3; }
+.hero p { font-size: 1.1rem; color: rgba(255,255,255,0.8); margin-bottom: 32px; max-width: 480px; line-height: 1.7; }
+.hero-buttons { display: flex; gap: 16px; flex-wrap: wrap; }
+.hero-buttons .btn-primary { background: #A8E6C3; color: var(--bg-dark); }
+.hero-buttons .btn-primary:hover { background: #8FD9B0; }
+.hero-buttons .btn-outline { border-color: rgba(255,255,255,0.4); color: #fff; }
+.hero-buttons .btn-outline:hover { background: rgba(255,255,255,0.1); border-color: #fff; }
+.hero-stats {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 20px;
+}
+.hero-stat {
+  background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.1);
+  border-radius: var(--radius); padding: 28px 24px; text-align: center; color: #fff;
+  backdrop-filter: blur(4px);
+}
+.hero-stat-num { font-family: var(--font-heading); font-size: 2.4rem; font-weight: 800; color: #A8E6C3; display: block; line-height: 1; }
+.hero-stat-label { font-size: 0.85rem; color: rgba(255,255,255,0.7); margin-top: 8px; }
+
+/* PRODUCTS */
+.products { padding: 100px 0; background: var(--bg); }
+.products-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; }
+.product-card {
+  background: var(--bg-card); border-radius: var(--radius); padding: 28px 24px;
+  border: 1px solid rgba(45,139,78,0.08); transition: all 0.3s;
+  position: relative; overflow: hidden;
+}
+.product-card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  background: linear-gradient(90deg, var(--accent), var(--secondary));
+  transform: scaleX(0); transform-origin: left; transition: transform 0.3s;
+}
+.product-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(45,139,78,0.1); }
+.product-card:hover::before { transform: scaleX(1); }
+.product-icon-wrap {
+  width: 56px; height: 56px; border-radius: var(--radius); background: var(--accent-light);
+  display: flex; align-items: center; justify-content: center; margin-bottom: 16px;
+}
+.product-icon-wrap svg { width: 28px; height: 28px; color: var(--accent); }
+.product-card h3 { font-size: 1.05rem; margin-bottom: 8px; }
+.product-card p { font-size: 0.88rem; color: var(--text-muted); line-height: 1.55; }
+.product-eco { display: inline-flex; align-items: center; gap: 4px; font-size: 0.75rem; color: var(--accent); font-weight: 600; margin-top: 12px; }
+.product-eco svg { width: 14px; height: 14px; }
+
+/* WHY US */
+.why-us { padding: 100px 0; background: var(--bg-alt); }
+.why-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+.why-card {
+  background: var(--bg-card); border-radius: var(--radius); padding: 32px 24px; text-align: center;
+  border: 1px solid rgba(45,139,78,0.08); transition: all 0.3s;
+}
+.why-card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(45,139,78,0.08); }
+.why-icon {
+  width: 64px; height: 64px; border-radius: 50%; background: var(--accent-light);
+  display: flex; align-items: center; justify-content: center; margin: 0 auto 16px;
+}
+.why-icon svg { width: 28px; height: 28px; color: var(--accent); }
+.why-number { font-family: var(--font-heading); font-size: 2.2rem; font-weight: 800; color: var(--accent); display: block; margin-bottom: 4px; }
+.why-label { font-size: 0.9rem; color: var(--text-muted); }
+
+/* PROCESS */
+.process { padding: 100px 0; background: var(--bg); }
+.process-steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; position: relative; }
+.process-steps::before {
+  content: ''; position: absolute; top: 36px; left: 12.5%; right: 12.5%;
+  height: 3px; background: var(--accent-light); border-radius: 2px;
+}
+.process-step { text-align: center; padding: 0 16px; position: relative; }
+.step-num {
+  width: 72px; height: 72px; border-radius: 50%;
+  background: var(--accent); color: #fff;
+  font-family: var(--font-heading); font-size: 1.4rem; font-weight: 800;
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 20px; position: relative; z-index: 2;
+  box-shadow: 0 4px 12px rgba(45,139,78,0.2);
+}
+.step-title { font-size: 1rem; font-weight: 700; margin-bottom: 8px; }
+.step-desc { font-size: 0.85rem; color: var(--text-muted); line-height: 1.5; }
+
+/* GALLERY */
+.gallery { padding: 100px 0; background: var(--bg-alt); }
+.gallery-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.gallery-item {
+  position: relative; overflow: hidden; border-radius: var(--radius);
+  aspect-ratio: 4/3;
+}
+.gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; }
+.gallery-item:hover img { transform: scale(1.05); }
+.gallery-badge {
+  position: absolute; top: 12px; left: 12px; background: var(--accent); color: #fff;
+  font-size: 0.7rem; font-weight: 700; padding: 4px 10px; border-radius: 4px;
+  text-transform: uppercase; letter-spacing: 1px;
+}
+
+/* PARTNERS */
+.partners { padding: 80px 0; background: var(--bg); }
+.partners-label { text-align: center; font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 2px; font-weight: 600; margin-bottom: 32px; }
+.partners-grid { display: flex; justify-content: center; align-items: center; gap: 40px; flex-wrap: wrap; }
+.partner-chip {
+  font-family: var(--font-heading); font-size: 1rem; font-weight: 700;
+  color: var(--text-muted); padding: 12px 24px; border: 1px solid rgba(45,139,78,0.1);
+  border-radius: var(--radius); transition: all 0.3s; background: var(--bg-card);
+}
+.partner-chip:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-light); }
+
+/* ENERGY */
+.energy { padding: 100px 0; background: var(--bg-dark); color: #fff; }
+.energy .section-tag { background: rgba(168,230,195,0.15); color: #A8E6C3; }
+.energy .section-title { color: #fff; }
+.energy .section-sub { color: rgba(255,255,255,0.7); }
+.energy-content { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start; }
+.energy-left h3 { font-size: 1.3rem; margin-bottom: 16px; color: #A8E6C3; }
+.energy-left p { color: rgba(255,255,255,0.7); margin-bottom: 20px; line-height: 1.7; }
+.co2-counter {
+  background: rgba(255,255,255,0.06); border: 1px solid rgba(168,230,195,0.15);
+  border-radius: var(--radius); padding: 24px; margin-top: 24px; text-align: center;
+}
+.co2-num { font-family: var(--font-heading); font-size: 3rem; font-weight: 800; color: #A8E6C3; }
+.co2-label { font-size: 0.85rem; color: rgba(255,255,255,0.6); margin-top: 4px; }
+.energy-ratings { display: flex; flex-direction: column; gap: 12px; }
+.rating-row { display: flex; align-items: center; gap: 8px; }
+.rating-label {
+  font-family: var(--font-heading); font-weight: 700; font-size: 0.85rem;
+  width: 52px; text-align: center; padding: 8px 0; color: #fff; border-radius: 4px;
+  flex-shrink: 0;
+}
+.rating-bar { flex: 1; height: 36px; background: rgba(255,255,255,0.06); border-radius: 4px; overflow: hidden; position: relative; }
+.rating-fill {
+  height: 100%; border-radius: 4px; display: flex; align-items: center;
+  padding: 0 12px; font-size: 0.8rem; font-weight: 600; color: #fff;
+}
+.rating-a3 { background: #15803D; }
+.rating-a2 { background: #22C55E; }
+.rating-a1 { background: #4ADE80; }
+.rating-a { background: #86EFAC; color: #166534 !important; }
+.rating-b { background: #FDE047; color: #854D0E !important; }
+.rating-c { background: #FB923C; color: #7C2D12 !important; }
+.rating-d { background: #EF4444; }
+.rating-desc { font-size: 0.75rem; color: rgba(255,255,255,0.5); white-space: nowrap; flex-shrink: 0; }
+.sustainability-badges { display: flex; gap: 16px; margin-top: 32px; flex-wrap: wrap; }
+.sus-badge {
+  display: flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(168,230,195,0.15); border-radius: var(--radius);
+  padding: 10px 16px; font-size: 0.8rem; color: rgba(255,255,255,0.8);
+}
+.sus-badge svg { width: 18px; height: 18px; color: #A8E6C3; flex-shrink: 0; }
+
+/* TESTIMONIALS */
+.testimonials { padding: 100px 0; background: var(--bg); }
+.testimonials-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.testimonial-card {
+  background: var(--bg-card); border-radius: var(--radius); padding: 32px;
+  border: 1px solid rgba(45,139,78,0.08); position: relative;
+}
+.testimonial-rating { display: flex; gap: 3px; margin-bottom: 16px; }
+.testimonial-rating svg { width: 16px; height: 16px; color: var(--accent); fill: var(--accent); }
+.testimonial-text { font-size: 0.95rem; color: var(--text-muted); line-height: 1.7; margin-bottom: 20px; }
+.testimonial-footer { display: flex; align-items: center; gap: 12px; }
+.testimonial-avatar {
+  width: 44px; height: 44px; border-radius: 50%; background: var(--accent-light);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-heading); font-weight: 700; color: var(--accent); font-size: 1rem;
+}
+.testimonial-name { font-weight: 600; font-size: 0.9rem; }
+.testimonial-city { font-size: 0.8rem; color: var(--text-muted); }
+
+/* CONTACT */
+.contact { padding: 100px 0; background: var(--bg-alt); }
+.contact-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 60px; }
+.contact-form { display: flex; flex-direction: column; gap: 16px; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.form-group label { display: block; font-size: 0.82rem; color: var(--text-muted); margin-bottom: 6px; font-weight: 600; }
+.form-group input, .form-group textarea {
+  width: 100%; padding: 13px 16px; background: var(--bg-card); border: 1px solid rgba(45,139,78,0.12);
+  color: var(--text); font-family: var(--font-body); font-size: 0.95rem;
+  transition: border-color 0.3s; outline: none; border-radius: var(--radius);
+}
+.form-group input:focus, .form-group textarea:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(45,139,78,0.1); }
+.form-group textarea { resize: vertical; min-height: 120px; }
+.contact-sidebar {}
+.contact-sidebar h3 { font-size: 1.3rem; margin-bottom: 8px; }
+.contact-sidebar > p { color: var(--text-muted); margin-bottom: 28px; font-size: 0.95rem; }
+.contact-item { display: flex; align-items: flex-start; gap: 14px; margin-bottom: 22px; }
+.contact-item-icon {
+  width: 40px; height: 40px; min-width: 40px; border-radius: var(--radius); background: var(--accent-light);
+  display: flex; align-items: center; justify-content: center;
+}
+.contact-item-icon svg { width: 18px; height: 18px; color: var(--accent); }
+.contact-item span { color: var(--text-muted); font-size: 0.92rem; line-height: 1.5; }
+.map-placeholder {
+  width: 100%; height: 180px; background: var(--bg-card); border: 1px solid rgba(45,139,78,0.1);
+  border-radius: var(--radius); display: flex; align-items: center; justify-content: center;
+  color: var(--text-muted); font-size: 0.85rem; margin-top: 24px;
+}
+
+/* FOOTER */
+footer { padding: 60px 0 24px; background: var(--bg-dark); color: #fff; }
+.footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 40px; }
+.footer-brand p { color: rgba(255,255,255,0.5); font-size: 0.88rem; margin-top: 12px; }
+.footer-col h4 { font-size: 0.85rem; color: #A8E6C3; margin-bottom: 16px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
+.footer-col a { display: block; color: rgba(255,255,255,0.5); font-size: 0.85rem; margin-bottom: 10px; transition: color 0.3s; }
+.footer-col a:hover { color: #fff; }
+.footer-bottom { display: flex; justify-content: space-between; align-items: center; padding-top: 24px; border-top: 1px solid rgba(255,255,255,0.08); }
+.footer-bottom p { font-size: 0.8rem; color: rgba(255,255,255,0.4); }
+.social-icons { display: flex; gap: 12px; }
+.social-icons a { width: 36px; height: 36px; border-radius: 50%; background: rgba(255,255,255,0.06); display: flex; align-items: center; justify-content: center; transition: all 0.3s; }
+.social-icons a:hover { background: var(--accent); }
+.social-icons a svg { width: 18px; height: 18px; color: rgba(255,255,255,0.6); }
+.social-icons a:hover svg { color: #fff; }
+
+/* MOBILE */
+@media (max-width: 1200px) {
+  .hero h1 { font-size: 2.5rem; }
+  .hero-content { gap: 40px; }
+}
+@media (max-width: 768px) {
+  .hamburger { display: flex; }
+  nav { display: none; position: absolute; top: 100%; left: 0; right: 0; background: rgba(240,247,240,0.98); flex-direction: column; padding: 20px 24px; gap: 14px; box-shadow: 0 8px 24px rgba(0,0,0,0.06); }
+  nav.active { display: flex; }
+  .hero-content { grid-template-columns: 1fr; padding: 110px 24px 60px; }
+  .hero h1 { font-size: 2.2rem; }
+  .hero-stats { grid-template-columns: 1fr 1fr; }
+  .products-grid { grid-template-columns: repeat(2, 1fr); }
+  .why-grid { grid-template-columns: repeat(2, 1fr); }
+  .process-steps { grid-template-columns: repeat(2, 1fr); gap: 32px; }
+  .process-steps::before { display: none; }
+  .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+  .testimonials-grid { grid-template-columns: 1fr; }
+  .contact-grid { grid-template-columns: 1fr; }
+  .energy-content { grid-template-columns: 1fr; }
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+  .form-row { grid-template-columns: 1fr; }
+  .section-title { font-size: 1.8rem; }
+}
+@media (max-width: 390px) {
+  .hero h1 { font-size: 1.8rem; }
+  .hero-stats { grid-template-columns: 1fr; }
+  .products-grid { grid-template-columns: 1fr; }
+  .why-grid { grid-template-columns: 1fr; }
+  .process-steps { grid-template-columns: 1fr; }
+  .gallery-grid { grid-template-columns: 1fr; }
+  .footer-grid { grid-template-columns: 1fr; }
+  .hero-buttons { flex-direction: column; }
+  .partners-grid { gap: 12px; }
+  .sustainability-badges { flex-direction: column; }
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="header-inner">
+    <a href="#" class="logo">
+      <div class="logo-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 8C8 10 5.9 16.17 3.82 21.34l1.89.66.95-2.3c.48.17.98.3 1.34.3C19 20 22 3 22 3c-1 2-8 2.25-13 3.25S2 11.5 2 13.5s1.75 3.75 1.75 3.75"/></svg>
+      </div>
+      <span class="logo-text">Про<span>Винд</span></span>
+    </a>
+    <nav id="mainNav">
+      <a href="#hero">Начало</a>
+      <a href="#products">Продукти</a>
+      <a href="#why-us">За нас</a>
+      <a href="#gallery">Проекти</a>
+      <a href="#contact">Контакти</a>
+      <a href="#contact" class="btn-primary nav-cta">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        Безплатно замерване
+      </a>
+    </nav>
+    <button class="hamburger" id="hamburger" aria-label="Меню">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <div class="hero-text">
+      <div class="eco-badge">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 8C8 10 5.9 16.17 3.82 21.34l1.89.66.95-2.3c.48.17.98.3 1.34.3C19 20 22 3 22 3c-1 2-8 2.25-13 3.25S2 11.5 2 13.5s1.75 3.75 1.75 3.75"/></svg>
+        Екологично и енергийно ефективно
+      </div>
+      <h1>Дограма, която <em>спестява</em> енергия и пази планетата</h1>
+      <p>Съвременни PVC и алуминиеви профили с най-високи показатели за енергийна ефективност. Намалете сметките за отопление до 40% и вашия въглероден отпечатък.</p>
+      <div class="hero-buttons">
+        <a href="#contact" class="btn-primary">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          Безплатно замерване
+        </a>
+        <a href="#products" class="btn-outline">Вижте продуктите</a>
+      </div>
+    </div>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <span class="hero-stat-num">40%</span>
+        <span class="hero-stat-label">По-ниски сметки за отопление</span>
+      </div>
+      <div class="hero-stat">
+        <span class="hero-stat-num">A+++</span>
+        <span class="hero-stat-label">Енергиен клас</span>
+      </div>
+      <div class="hero-stat">
+        <span class="hero-stat-num">0.7</span>
+        <span class="hero-stat-label">U-стойност (W/m²K)</span>
+      </div>
+      <div class="hero-stat">
+        <span class="hero-stat-num">15+</span>
+        <span class="hero-stat-label">Години опит</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCTS -->
+<section class="products" id="products">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+        Нашите решения
+      </span>
+      <h2 class="section-title">Екологична дограма и врати</h2>
+      <p class="section-sub">Всеки наш продукт е подбран с мисъл за енергийна ефективност, дълготрайност и минимално въздействие върху околната среда.</p>
+    </div>
+    <div class="products-grid">
+      <div class="product-card">
+        <div class="product-icon-wrap">
+          <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="6" y="6" width="36" height="36" rx="2"/><line x1="24" y1="6" x2="24" y2="42"/><line x1="6" y1="24" x2="24" y2="24"/></svg>
+        </div>
+        <h3>PVC Дограма</h3>
+        <p>Многокамерни PVC профили с рециклирани компоненти. Изключителна изолация при минимален въглероден отпечатък.</p>
+        <span class="product-eco">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 8C8 10 5.9 16.17 3.82 21.34l1.89.66.95-2.3c.48.17.98.3 1.34.3C19 20 22 3 22 3c-1 2-8 2.25-13 3.25S2 11.5 2 13.5s1.75 3.75 1.75 3.75"/></svg>
+          100% рециклируем
+        </span>
+      </div>
+      <div class="product-card">
+        <div class="product-icon-wrap">
+          <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="6" y="6" width="36" height="36" rx="1"/><line x1="24" y1="6" x2="24" y2="42"/><circle cx="22" cy="24" r="1.5" fill="currentColor"/><circle cx="26" cy="24" r="1.5" fill="currentColor"/></svg>
+        </div>
+        <h3>Алуминиева Дограма</h3>
+        <p>Алуминиеви профили с термично прекъсване и нисък U-фактор. Тънки рамки — повече слънчева светлина.</p>
+        <span class="product-eco">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+          Макс. естествена светлина
+        </span>
+      </div>
+      <div class="product-card">
+        <div class="product-icon-wrap">
+          <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="12" y="4" width="24" height="40" rx="2"/><circle cx="30" cy="26" r="2" fill="currentColor"/><line x1="12" y1="16" x2="36" y2="16" opacity="0.3"/></svg>
+        </div>
+        <h3>Входни Врати</h3>
+        <p>Високоизолирани входни врати с термопанели и многоточково заключване. Сигурност и ефективност.</p>
+        <span class="product-eco">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          Клас A+ изолация
+        </span>
+      </div>
+      <div class="product-card">
+        <div class="product-icon-wrap">
+          <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="12" y="4" width="24" height="40" rx="2"/><rect x="16" y="8" width="16" height="14" rx="1" fill="none"/><circle cx="30" cy="28" r="2" fill="currentColor"/></svg>
+        </div>
+        <h3>Интериорни Врати</h3>
+        <p>Интериорни врати от FSC-сертифициран дървесен материал. Красота без компромис с природата.</p>
+        <span class="product-eco">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 8C8 10 5.9 16.17 3.82 21.34l1.89.66.95-2.3c.48.17.98.3 1.34.3C19 20 22 3 22 3c-1 2-8 2.25-13 3.25S2 11.5 2 13.5s1.75 3.75 1.75 3.75"/></svg>
+          FSC-сертифицирани
+        </span>
+      </div>
+      <div class="product-card">
+        <div class="product-icon-wrap">
+          <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="4" y="8" width="18" height="32" rx="1"/><rect x="26" y="8" width="18" height="32" rx="1"/><path d="M22 24 L26 24" stroke-dasharray="2 2"/></svg>
+        </div>
+        <h3>Плъзгащи Системи</h3>
+        <p>Панорамни плъзгащи системи с тройно остъкляване. Пасивен слънчев добив и минимални загуби.</p>
+        <span class="product-eco">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/></svg>
+          Пасивен соларен добив
+        </span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY US -->
+<section class="why-us" id="why-us">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        Нашите предимства
+      </span>
+      <h2 class="section-title">Защо ПроВинд</h2>
+      <p class="section-sub">Цифри, зад които стоят хиляди доволни семейства и по-топли домове.</p>
+    </div>
+    <div class="why-grid">
+      <div class="why-card">
+        <div class="why-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        </div>
+        <span class="why-number">15+</span>
+        <span class="why-label">Години опит в бранша</span>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        </div>
+        <span class="why-number">5000+</span>
+        <span class="why-label">Реализирани обекта</span>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        </div>
+        <span class="why-number">0 лв</span>
+        <span class="why-label">Безплатно замерване</span>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <span class="why-number">10 г.</span>
+        <span class="why-label">Гаранция на продуктите</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="process" id="process">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        Нашият процес
+      </span>
+      <h2 class="section-title">4 лесни стъпки</h2>
+      <p class="section-sub">Прозрачен и ефективен процес от замерването до финалния монтаж.</p>
+    </div>
+    <div class="process-steps">
+      <div class="process-step">
+        <div class="step-num">1</div>
+        <h4 class="step-title">Замерване</h4>
+        <p class="step-desc">Безплатно замерване на обекта с лазерно оборудване и енергиен анализ.</p>
+      </div>
+      <div class="process-step">
+        <div class="step-num">2</div>
+        <h4 class="step-title">Оферта до 24ч</h4>
+        <p class="step-desc">Получавате оферта с енергийни показатели и спестявания на всяка опция.</p>
+      </div>
+      <div class="process-step">
+        <div class="step-num">3</div>
+        <h4 class="step-title">Производство</h4>
+        <p class="step-desc">Изработка с рециклируеми материали и контрол на качеството на всяка стъпка.</p>
+      </div>
+      <div class="process-step">
+        <div class="step-num">4</div>
+        <h4 class="step-title">Монтаж</h4>
+        <p class="step-desc">Енергийно ефективен монтаж по RAL стандарт с 10 години гаранция.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section class="gallery" id="gallery">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+        Наши проекти
+      </span>
+      <h2 class="section-title">Реализирани обекти</h2>
+      <p class="section-sub">Всеки проект е стъпка към по-зелено и по-ефективно бъдеще.</p>
+    </div>
+    <div class="gallery-grid">
+      <div class="gallery-item">
+        <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&q=80" alt="Еко къща с дограма" loading="lazy">
+        <span class="gallery-badge">Клас A+++</span>
+      </div>
+      <div class="gallery-item">
+        <img src="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=800&q=80" alt="Панорамни прозорци" loading="lazy">
+        <span class="gallery-badge">-38% CO₂</span>
+      </div>
+      <div class="gallery-item">
+        <img src="https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=800&q=80" alt="Жилищна сграда" loading="lazy">
+        <span class="gallery-badge">U = 0.8</span>
+      </div>
+      <div class="gallery-item">
+        <img src="https://images.unsplash.com/photo-1600573472592-401b489a3cdc?w=800&q=80" alt="Плъзгащи врати" loading="lazy">
+        <span class="gallery-badge">Пасивен стандарт</span>
+      </div>
+      <div class="gallery-item">
+        <img src="https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=800&q=80" alt="Модерна фасада" loading="lazy">
+        <span class="gallery-badge">-42% разходи</span>
+      </div>
+      <div class="gallery-item">
+        <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&q=80" alt="Еко реновация" loading="lazy">
+        <span class="gallery-badge">Зелен сертификат</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PARTNERS -->
+<section class="partners">
+  <div class="container">
+    <p class="partners-label">Сертифицирани партньори</p>
+    <div class="partners-grid">
+      <span class="partner-chip">REHAU</span>
+      <span class="partner-chip">VEKA</span>
+      <span class="partner-chip">SALAMANDER</span>
+      <span class="partner-chip">SCHÜCO</span>
+      <span class="partner-chip">REYNAERS</span>
+      <span class="partner-chip">ALUMIL</span>
+    </div>
+  </div>
+</section>
+
+<!-- ENERGY EFFICIENCY -->
+<section class="energy" id="energy">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+        Енергийна ефективност
+      </span>
+      <h2 class="section-title">Спестете енергия, спасете планетата</h2>
+      <p class="section-sub">Нашите продукти постигат най-високите енергийни класове, намалявайки въглеродния отпечатък на вашия дом.</p>
+    </div>
+    <div class="energy-content">
+      <div class="energy-left">
+        <h3>Как дограмата спестява енергия</h3>
+        <p>Тристъклените пакети с нискоемисионно покритие и аргон пълнеж задържат до 95% от топлината. С U-стойност от 0.7 W/m²K, вашите нови прозорци ще намалят разходите за отопление значително.</p>
+        <p>Всяка подмяна на стара дограма с нова енергийно ефективна спестява средно 1.2 тона CO₂ годишно за средно голям дом.</p>
+        <div class="co2-counter">
+          <div class="co2-num">6 000+ т</div>
+          <div class="co2-label">Спестени тонове CO₂ от нашите клиенти</div>
+        </div>
+        <div class="sustainability-badges">
+          <div class="sus-badge">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 8C8 10 5.9 16.17 3.82 21.34l1.89.66.95-2.3c.48.17.98.3 1.34.3C19 20 22 3 22 3c-1 2-8 2.25-13 3.25S2 11.5 2 13.5s1.75 3.75 1.75 3.75"/></svg>
+            100% рециклируем PVC
+          </div>
+          <div class="sus-badge">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+            Клас A+++ ефективност
+          </div>
+          <div class="sus-badge">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+            Европейски стандарти
+          </div>
+        </div>
+      </div>
+      <div class="energy-ratings">
+        <div class="rating-row">
+          <span class="rating-label rating-a3">A+++</span>
+          <div class="rating-bar"><div class="rating-fill rating-a3" style="width:100%">Тристъклен + аргон</div></div>
+        </div>
+        <div class="rating-row">
+          <span class="rating-label rating-a2">A++</span>
+          <div class="rating-bar"><div class="rating-fill rating-a2" style="width:85%">Premium PVC</div></div>
+        </div>
+        <div class="rating-row">
+          <span class="rating-label rating-a1">A+</span>
+          <div class="rating-bar"><div class="rating-fill rating-a1" style="width:70%">Стандартен PVC</div></div>
+        </div>
+        <div class="rating-row">
+          <span class="rating-label rating-a">A</span>
+          <div class="rating-bar"><div class="rating-fill rating-a" style="width:55%">Двоен стъклопакет</div></div>
+        </div>
+        <div class="rating-row">
+          <span class="rating-label rating-b">B</span>
+          <div class="rating-bar"><div class="rating-fill rating-b" style="width:40%">Обикновен двоен</div></div>
+        </div>
+        <div class="rating-row">
+          <span class="rating-label rating-c">C</span>
+          <div class="rating-bar"><div class="rating-fill rating-c" style="width:28%">Стар алуминий</div></div>
+        </div>
+        <div class="rating-row">
+          <span class="rating-label rating-d">D</span>
+          <div class="rating-bar"><div class="rating-fill rating-d" style="width:18%">Стара дограма</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials" id="testimonials">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        Отзиви
+      </span>
+      <h2 class="section-title">Доволни клиенти, по-зелени домове</h2>
+      <p class="section-sub">Истински истории от семейства, които вече спестяват енергия и пари.</p>
+    </div>
+    <div class="testimonials-grid">
+      <div class="testimonial-card">
+        <div class="testimonial-rating">
+          <svg viewBox="0 0 20 20"><path d="M10 1l2.39 4.84 5.34.78-3.87 3.77.91 5.32L10 13.27l-4.77 2.51.91-5.32L2.27 6.69l5.34-.78L10 1z"/></svg>
+          <svg viewBox="0 0 20 20"><path d="M10 1l2.39 4.84 5.34.78-3.87 3.77.91 5.32L10 13.27l-4.77 2.51.91-5.32L2.27 6.69l5.34-.78L10 1z"/></svg>
+          <svg viewBox="0 0 20 20"><path d="M10 1l2.39 4.84 5.34.78-3.87 3.77.91 5.32L10 13.27l-4.77 2.51.91-5.32L2.27 6.69l5.34-.78L10 1z"/></svg>
+          <svg viewBox="0 0 20 20"><path d="M10 1l2.39 4.84 5.34.78-3.87 3.77.91 5.32L10 13.27l-4.77 2.51.91-5.32L2.27 6.69l5.34-.78L10 1z"/></svg>
+          <svg viewBox="0 0 20 20"><path d="M10 1l2.39 4.84 5.34.78-3.87 3.77.91 5.32L10 13.27l-4.77 2.51.91-5.32L2.27 6.69l5.34-.78L10 1z"/></svg>
+        </div>
+        <p class="testimonial-text">Сметката за газ падна с 35% след смяната на дограмата. Тристъклените пакети правят невероятна разлика — зимата е тиха и топла вкъщи.</p>
+        <div class="testimonial-footer">
+          <div class="testimonial-avatar">ПТ</div>
+          <div>
+            <p class="testimonial-name">Пламен Тодоров</p>
+            <p class="testimonial-city">София, кв. Студентски град</p>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <div class="testimonial-rating">
+          <svg viewBox="0 0 20 20"><path d="M10 1l2.39 4.84 5.34.78-3.87 3.77.91 5.32L10 13.27l-4.77 2.51.91-5.32L2.27 6.69l5.34-.78L10 1z"/></svg>
+          <svg viewBox="0 0 20 20"><path d="M10 1l2.39 4.84 5.34.78-3.87 3.77.91 5.32L10 13.27l-4.77 2.51.91-5.32L2.27 6.69l5.34-.78L10 1z"/></svg>
+          <svg viewBox="0 0 20 20"><path d="M10 1l2.39 4.84 5.34.78-3.87 3.77.91 5.32L10 13.27l-4.77 2.51.91-5.32L2.27 6.69l5.34-.78L10 1z"/></svg>
+          <svg viewBox="0 0 20 20"><path d="M10 1l2.39 4.84 5.34.78-3.87 3.77.91 5.32L10 13.27l-4.77 2.51.91-5.32L2.27 6.69l5.34-.78L10 1z"/></svg>
+          <svg viewBox="0 0 20 20"><path d="M10 1l2.39 4.84 5.34.78-3.87 3.77.91 5.32L10 13.27l-4.77 2.51.91-5.32L2.27 6.69l5.34-.78L10 1z"/></svg>
+        </div>
+        <p class="testimonial-text">Харесваме, че ПроВинд мислят за екологията. Профилите са рециклируеми, монтажът е чист, а резултатът — страхотна изолация и нови прозорци.</p>
+        <div class="testimonial-footer">
+          <div class="testimonial-avatar">КС</div>
+          <div>
+            <p class="testimonial-name">Калина Стефанова</p>
+            <p class="testimonial-city">Пловдив, кв. Тракия</p>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <div class="testimonial-rating">
+          <svg viewBox="0 0 20 20"><path d="M10 1l2.39 4.84 5.34.78-3.87 3.77.91 5.32L10 13.27l-4.77 2.51.91-5.32L2.27 6.69l5.34-.78L10 1z"/></svg>
+          <svg viewBox="0 0 20 20"><path d="M10 1l2.39 4.84 5.34.78-3.87 3.77.91 5.32L10 13.27l-4.77 2.51.91-5.32L2.27 6.69l5.34-.78L10 1z"/></svg>
+          <svg viewBox="0 0 20 20"><path d="M10 1l2.39 4.84 5.34.78-3.87 3.77.91 5.32L10 13.27l-4.77 2.51.91-5.32L2.27 6.69l5.34-.78L10 1z"/></svg>
+          <svg viewBox="0 0 20 20"><path d="M10 1l2.39 4.84 5.34.78-3.87 3.77.91 5.32L10 13.27l-4.77 2.51.91-5.32L2.27 6.69l5.34-.78L10 1z"/></svg>
+          <svg viewBox="0 0 20 20"><path d="M10 1l2.39 4.84 5.34.78-3.87 3.77.91 5.32L10 13.27l-4.77 2.51.91-5.32L2.27 6.69l5.34-.78L10 1z"/></svg>
+        </div>
+        <p class="testimonial-text">Направихме пълна реновация на фасадата с алуминиева дограма от ПроВинд. Къщата вече отговаря на нискоенергийни стандарти. Невероятна разлика!</p>
+        <div class="testimonial-footer">
+          <div class="testimonial-avatar">ВН</div>
+          <div>
+            <p class="testimonial-name">Васил Николов</p>
+            <p class="testimonial-city">Варна, к.к. Златни пясъци</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        Контакти
+      </span>
+      <h2 class="section-title">Заявете безплатно замерване</h2>
+      <p class="section-sub">Попълнете формата или се обадете — ще изчислим спестяванията от новата дограма безплатно.</p>
+    </div>
+    <div class="contact-grid">
+      <form class="contact-form" onsubmit="event.preventDefault(); alert('Благодарим! Ще се свържем с вас до 24 часа с безплатна оценка за енергийните спестявания.')">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="name">Име</label>
+            <input type="text" id="name" name="name" placeholder="Вашето име" required>
+          </div>
+          <div class="form-group">
+            <label for="phone">Телефон</label>
+            <input type="tel" id="phone" name="phone" placeholder="+359 88 123 4567" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="email">Имейл</label>
+          <input type="email" id="email" name="email" placeholder="email@example.com">
+        </div>
+        <div class="form-group">
+          <label for="message">Съобщение</label>
+          <textarea id="message" name="message" placeholder="Опишете вашия проект — тип дограма, брой прозорци, размери, желан енергиен клас..."></textarea>
+        </div>
+        <button type="submit" class="btn-primary" style="border:none;font-size:1rem;padding:16px 32px;justify-content:center;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:18px;height:18px"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+          Изпратете запитване
+        </button>
+      </form>
+      <div class="contact-sidebar">
+        <h3>Свържете се с нас</h3>
+        <p>Нашият екип от енергийни консултанти ще ви помогне да изберете най-ефективното решение за вашия дом.</p>
+        <div class="contact-item">
+          <div class="contact-item-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          </div>
+          <span>бул. Черни връх 88<br>1407 София, България</span>
+        </div>
+        <div class="contact-item">
+          <div class="contact-item-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          </div>
+          <span>+359 2 987 6543<br>+359 88 765 4321</span>
+        </div>
+        <div class="contact-item">
+          <div class="contact-item-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          </div>
+          <span>eco@provind.bg</span>
+        </div>
+        <div class="map-placeholder">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="margin-right:8px"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Тук ще бъде вградена Google карта
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="#" class="logo" style="margin-bottom:4px">
+          <div class="logo-icon" style="background:#A8E6C3">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#0F2A1A" stroke-width="2"><path d="M17 8C8 10 5.9 16.17 3.82 21.34l1.89.66.95-2.3c.48.17.98.3 1.34.3C19 20 22 3 22 3c-1 2-8 2.25-13 3.25S2 11.5 2 13.5s1.75 3.75 1.75 3.75"/></svg>
+          </div>
+          <span class="logo-text" style="color:#fff">Про<span style="color:#A8E6C3">Винд</span></span>
+        </a>
+        <p>Качество за вашия дом от 2008. Енергийно ефективна дограма и врати за по-зелено бъдеще.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Продукти</h4>
+        <a href="#products">PVC Дограма</a>
+        <a href="#products">Алуминиева Дограма</a>
+        <a href="#products">Входни Врати</a>
+        <a href="#products">Интериорни Врати</a>
+        <a href="#products">Плъзгащи Системи</a>
+      </div>
+      <div class="footer-col">
+        <h4>Компания</h4>
+        <a href="#why-us">За нас</a>
+        <a href="#gallery">Проекти</a>
+        <a href="#testimonials">Отзиви</a>
+        <a href="#energy">Енергийна ефективност</a>
+      </div>
+      <div class="footer-col">
+        <h4>Контакти</h4>
+        <a href="tel:+35929876543">+359 2 987 6543</a>
+        <a href="mailto:eco@provind.bg">eco@provind.bg</a>
+        <a href="#contact">Безплатно замерване</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2008–2026 ПроВинд ЕООД. Всички права запазени.</p>
+      <div class="social-icons">
+        <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
+        <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
+        <a href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+const hamburger = document.getElementById('hamburger');
+const nav = document.getElementById('mainNav');
+hamburger.addEventListener('click', () => {
+  nav.classList.toggle('active');
+  const spans = hamburger.querySelectorAll('span');
+  if (nav.classList.contains('active')) {
+    spans[0].style.transform = 'rotate(45deg) translate(5px, 5px)';
+    spans[1].style.opacity = '0';
+    spans[2].style.transform = 'rotate(-45deg) translate(5px, -5px)';
+  } else {
+    spans[0].style.transform = 'none';
+    spans[1].style.opacity = '1';
+    spans[2].style.transform = 'none';
+  }
+});
+nav.querySelectorAll('a').forEach(link => {
+  link.addEventListener('click', () => {
+    nav.classList.remove('active');
+    const spans = hamburger.querySelectorAll('span');
+    spans[0].style.transform = 'none';
+    spans[1].style.opacity = '1';
+    spans[2].style.transform = 'none';
+  });
+});
+</script>
+</body>
+</html>
