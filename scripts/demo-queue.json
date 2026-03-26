@@ -1,18 +1,5 @@
 {
-  "tasks": [
-    {
-      "id": 1774510384824,
-      "slug": "финкомекс-одитинг-оод",
-      "name": "Финкомекс Одитинг ООД",
-      "action": "deploying",
-      "status": "in_progress",
-      "createdAt": "2026-03-26T07:33:04.824Z",
-      "startedAt": "2026-03-26T07:33:18.232Z",
-      "completedAt": null,
-      "error": null,
-      "result": null
-    }
-  ],
+  "tasks": [],
   "completed": [
     {
       "id": 1773819482814,
@@ -619,6 +606,18 @@
       "completedAt": "2026-03-25T13:23:25.181Z",
       "error": null,
       "result": "Demo built (validated, 1 attempts): https://koiopenclaw-max.github.io/demo-sites/demos/%D1%84%D0%B8%D0%BD%D0%BA%D0%BE%D0%BC%D0%B5%D0%BA%D1%81-%D0%BE%D0%B4%D0%B8%D1%82%D0%B8%D0%BD%D0%B3-%D0%BE%D0%BE%D0%B4/"
+    },
+    {
+      "id": 1774510384824,
+      "slug": "финкомекс-одитинг-оод",
+      "name": "Финкомекс Одитинг ООД",
+      "action": "deploying",
+      "status": "done",
+      "createdAt": "2026-03-26T07:33:04.824Z",
+      "startedAt": "2026-03-26T07:33:18.232Z",
+      "completedAt": "2026-03-26T07:33:24.373Z",
+      "error": null,
+      "result": "Deployed to demo60.add.bg (repo: demo60-add-bg)"
     }
   ],
   "version": 1
