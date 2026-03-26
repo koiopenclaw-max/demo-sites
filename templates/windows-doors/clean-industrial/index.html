@@ -1,790 +1,1696 @@
 <!DOCTYPE html>
 <html lang="bg">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ПроВинд — PVC и алуминиева дограма | Clean Industrial</title>
-<meta name="description" content="ПроВинд — модерна дограма и врати. Безплатно замерване. Технологии от бъдещето за вашия дом.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700;800&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-<style>
-*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-html, body { overflow-x: hidden; }
-:root {
-  --bg: #FFFFFF; --bg-alt: #F4F6FA; --bg-card: #FFFFFF;
-  --text: #0D1117; --text-muted: #57606A;
-  --accent: #2563EB; --accent-light: #DBEAFE;
-  --cta: #FF6B35; --cta-hover: #E85A25;
-  --font-heading: 'Barlow Condensed', sans-serif;
-  --font-body: 'DM Sans', sans-serif;
-}
-html { scroll-behavior: smooth; }
-body { font-family: var(--font-body); background: var(--bg); color: var(--text); line-height: 1.6; overflow-x: hidden; }
-h1, h2, h3, h4 { font-family: var(--font-heading); font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
-a { text-decoration: none; color: inherit; }
-img { max-width: 100%; display: block; }
-.container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ПроВинд — Дограма и Врати за Модерни Домове</title>
+    <meta name="description" content="ПроВинд — PVC и алуминиева дограма, входни и интериорни врати. Качество за вашия дом от 2008. Безплатно замерване и оферта.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* ===== RESET & BASE ===== */
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
-/* Grain overlay */
-body::after {
-  content: '';
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  opacity: 0.03;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  z-index: 9998;
-}
+        :root {
+            --bg: #FFFFFF;
+            --text: #0D1117;
+            --primary: #1A1A2E;
+            --accent: #FF4D00;
+            --neutral: #64748B;
+            --surface: #F1F5F9;
+            --font-heading: 'Bebas Neue', sans-serif;
+            --font-body: 'Inter', sans-serif;
+        }
 
-/* Eyebrow */
-.eyebrow {
-  font-size: 0.75rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.15em;
-  color: var(--accent);
-  display: block;
-  margin-bottom: 12px;
-  text-align: center;
-}
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 80px;
+        }
 
-.section-title { text-align: center; font-size: 2.8rem; margin-bottom: 8px; }
-.section-title span { color: var(--accent); }
-.section-sub { text-align: center; color: var(--text-muted); max-width: 620px; margin: 0 auto 56px; font-size: 1.05rem; }
-.blue-line { display: block; width: 60px; height: 4px; background: var(--accent); margin: 12px auto 0; }
+        body {
+            font-family: var(--font-body);
+            color: var(--text);
+            background: var(--bg);
+            line-height: 1.6;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
 
-/* Reveal */
-.reveal {
-  opacity: 1;
-  transform: translateY(0);
-  transition: opacity 0.6s ease, transform 0.6s ease;
-}
-.reveal.animate { opacity: 0; transform: translateY(30px); }
-.reveal.visible { opacity: 1; transform: translateY(0); }
-@media (prefers-reduced-motion: reduce) { .reveal { transition: none !important; } }
+        /* Grain texture overlay */
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0.03;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+        }
 
-/* Buttons */
-.cta-btn {
-  display: inline-block; padding: 14px 32px; background: var(--cta); color: #fff;
-  font-weight: 700; font-size: 0.95rem; border: none; cursor: pointer;
-  border-radius: 4px; transition: background 0.3s, transform 0.2s;
-  font-family: var(--font-heading); text-transform: uppercase; letter-spacing: 1px;
-  position: relative; overflow: hidden; z-index: 1;
-}
-.cta-btn::before {
-  content: ''; position: absolute; inset: 0; background: rgba(0,0,0,0.15);
-  transform: scaleX(0); transform-origin: right;
-  transition: transform 0.4s cubic-bezier(0.65, 0, 0.35, 1); z-index: -1;
-}
-.cta-btn:hover::before { transform: scaleX(1); transform-origin: left; }
-.cta-btn:hover { background: var(--cta-hover); transform: translateY(-2px); }
-.cta-btn-alt {
-  display: inline-block; padding: 14px 32px; background: var(--accent); color: #fff;
-  font-weight: 700; font-size: 0.95rem; border: none; cursor: pointer;
-  border-radius: 4px; transition: background 0.3s, transform 0.2s;
-  font-family: var(--font-heading); text-transform: uppercase; letter-spacing: 1px;
-  position: relative; overflow: hidden; z-index: 1;
-}
-.cta-btn-alt::before {
-  content: ''; position: absolute; inset: 0; background: rgba(0,0,0,0.15);
-  transform: scaleX(0); transform-origin: right;
-  transition: transform 0.4s cubic-bezier(0.65, 0, 0.35, 1); z-index: -1;
-}
-.cta-btn-alt:hover::before { transform: scaleX(1); transform-origin: left; }
-.cta-btn-alt:hover { background: #1D4ED8; transform: translateY(-2px); }
+        img { max-width: 100%; display: block; }
+        a { text-decoration: none; color: inherit; }
+        ul { list-style: none; }
 
-/* HEADER */
-header {
-  position: fixed; top: 0; left: 0; width: 100%; z-index: 1000;
-  background: rgba(255,255,255,0.97); backdrop-filter: blur(8px);
-  box-shadow: 0 1px 3px rgba(0,0,0,0.08);
-}
-.header-inner {
-  display: flex; align-items: center; justify-content: space-between;
-  max-width: 1200px; margin: 0 auto; padding: 14px 24px;
-}
-.logo {
-  font-family: var(--font-heading); font-size: 1.7rem; font-weight: 800;
-  color: var(--text); text-transform: uppercase; letter-spacing: 2px;
-}
-.logo span { color: var(--accent); font-weight: 800; }
-nav { display: flex; align-items: center; gap: 28px; }
-nav a { font-size: 0.9rem; font-weight: 600; color: var(--text-muted); transition: color 0.3s; font-family: var(--font-heading); text-transform: uppercase; letter-spacing: 0.5px; }
-nav a:hover { color: var(--accent); }
-.header-cta { padding: 10px 20px; font-size: 0.8rem; }
-.hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 8px; }
-.hamburger span { display: block; width: 26px; height: 3px; background: var(--text); transition: all 0.3s; border-radius: 2px; }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
 
-/* Mobile Overlay */
-.mobile-overlay {
-  position: fixed; inset: 0; background: #FFFFFF; z-index: 9999;
-  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 32px;
-  opacity: 0; visibility: hidden; transition: opacity 0.3s ease, visibility 0.3s ease;
-}
-.mobile-overlay.active { opacity: 1; visibility: visible; }
-.mobile-close { position: absolute; top: 20px; right: 20px; background: none; border: none; cursor: pointer; padding: 12px; z-index: 10000; color: #0D1117; }
-.mobile-nav-links { display: flex; flex-direction: column; align-items: center; gap: 24px; }
-.mobile-nav-links a { font-family: var(--font-heading); font-size: 1.8rem; font-weight: 700; color: #0D1117; text-transform: uppercase; letter-spacing: 2px; transition: color 0.3s; }
-.mobile-nav-links a:hover { color: var(--accent); }
-.mobile-nav-links .mobile-cta {
-  display: inline-block; padding: 16px 36px; background: #FF6B35; color: #fff;
-  font-family: var(--font-heading); font-size: 1rem; font-weight: 700; text-transform: uppercase;
-  letter-spacing: 2px; border-radius: 4px; margin-top: 12px;
-}
+        /* ===== TYPOGRAPHY ===== */
+        h1, h2, h3, h4 {
+            font-family: var(--font-heading);
+            font-weight: 400;
+            letter-spacing: 0.04em;
+            line-height: 1.1;
+        }
 
-/* HERO — FULL WIDTH CINEMATIC */
-.hero {
-  position: relative; min-height: 100vh; display: flex; align-items: center;
-  background: url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1600&q=80') center/cover no-repeat;
-}
-.hero::before {
-  content: ''; position: absolute; inset: 0;
-  background: linear-gradient(135deg, rgba(13,17,23,0.88) 0%, rgba(37,99,235,0.4) 100%);
-}
-.hero-content {
-  position: relative; z-index: 2; text-align: center; width: 100%;
-  max-width: 900px; margin: 0 auto; padding: 140px 24px 100px; color: #fff;
-}
-.hero-tag {
-  display: inline-block; background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.2);
-  color: #DBEAFE; font-family: var(--font-heading); font-size: 0.85rem; font-weight: 700;
-  text-transform: uppercase; letter-spacing: 3px; padding: 8px 20px; border-radius: 4px; margin-bottom: 28px;
-}
-.hero h1 { font-size: 4.5rem; line-height: 0.95; margin-bottom: 24px; text-transform: uppercase; letter-spacing: -1px; }
-.hero h1 span { color: var(--cta); }
-.hero p { font-size: 1.2rem; color: rgba(255,255,255,0.8); margin-bottom: 36px; max-width: 600px; margin-left: auto; margin-right: auto; line-height: 1.7; }
-.hero-buttons { display: flex; gap: 16px; flex-wrap: wrap; justify-content: center; }
+        .eyebrow {
+            font-family: var(--font-body);
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 12px;
+            display: block;
+        }
 
-/* PRODUCTS — BENTO GRID */
-.products { padding: 100px 0; background: var(--bg-alt); }
-.products-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: auto auto;
-  gap: 20px;
-}
-.product-card {
-  background: var(--bg-card); border-left: 4px solid var(--accent); padding: 32px 24px;
-  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.4s ease;
-  position: relative; box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-}
-.product-card:hover { transform: translateY(-8px); box-shadow: 0 20px 60px rgba(37,99,235,0.12); }
-.product-card:first-child {
-  grid-row: span 2;
-  border-left: 6px solid var(--cta);
-  padding: 48px 32px;
-}
-.product-card:first-child h3 { font-size: 1.4rem; }
-.product-card:first-child p { font-size: 0.95rem; }
-.product-card svg { width: 44px; height: 44px; margin-bottom: 16px; color: var(--accent); }
-.product-card:first-child svg { width: 56px; height: 56px; }
-.product-card h3 { font-size: 1rem; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.5px; }
-.product-card p { font-size: 0.85rem; color: var(--text-muted); line-height: 1.5; }
+        .section-title {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            color: var(--primary);
+            margin-bottom: 16px;
+        }
 
-/* WHY US */
-.why-us { padding: 100px 0; background: var(--bg); }
-.stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px; }
-.stat-item {
-  text-align: center; padding: 40px 20px; background: var(--bg-alt);
-  border-radius: 4px; position: relative; overflow: hidden;
-  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.4s ease;
-}
-.stat-item:hover { transform: translateY(-8px); box-shadow: 0 20px 60px rgba(0,0,0,0.08); }
-.stat-item::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: var(--accent); }
-.stat-number { font-family: var(--font-heading); font-size: 3.5rem; font-weight: 800; color: var(--accent); display: block; line-height: 1; }
-.stat-label { font-size: 0.95rem; color: var(--text-muted); margin-top: 12px; font-weight: 500; }
+        .section-subtitle {
+            font-size: 1.05rem;
+            color: var(--neutral);
+            max-width: 540px;
+            line-height: 1.7;
+        }
 
-/* PROCESS */
-.process { padding: 100px 0; background: var(--accent); color: #fff; }
-.process .section-title { color: #fff; }
-.process .section-title span { color: rgba(255,255,255,0.7); }
-.process .section-sub { color: rgba(255,255,255,0.8); }
-.process .blue-line { background: rgba(255,255,255,0.4); }
-.process .eyebrow { color: rgba(255,255,255,0.7); }
-.timeline { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; position: relative; }
-.timeline::before { content: ''; position: absolute; top: 40px; left: 12%; right: 12%; height: 3px; background: rgba(255,255,255,0.2); }
-.timeline-step { text-align: center; padding: 0 16px; position: relative; }
-.step-num {
-  display: flex; align-items: center; justify-content: center;
-  width: 80px; height: 80px; border-radius: 50%;
-  background: #fff; color: var(--accent);
-  font-family: var(--font-heading); font-size: 2rem; font-weight: 800;
-  margin: 0 auto 24px; position: relative; z-index: 2;
-}
-.step-title { font-size: 1.1rem; margin-bottom: 8px; text-transform: uppercase; }
-.step-desc { font-size: 0.85rem; opacity: 0.8; line-height: 1.5; }
+        .section-header {
+            margin-bottom: 56px;
+        }
 
-/* GALLERY — MOSAIC LAYOUT */
-.gallery { padding: 100px 0; background: var(--bg-alt); }
-.gallery-grid {
-  display: grid;
-  grid-template-columns: 2fr 1fr 1fr;
-  grid-template-rows: auto auto;
-  gap: 16px;
-}
-.gallery-item { position: relative; overflow: hidden; border-radius: 12px; }
-.gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; min-height: 200px; }
-.gallery-item:hover img { transform: scale(1.05); }
-.gallery-item::after {
-  content: attr(data-title); position: absolute; bottom: 0; left: 0; right: 0; padding: 20px;
-  background: linear-gradient(transparent, rgba(0,0,0,0.7)); color: white; font-weight: 600;
-  font-family: var(--font-heading); text-transform: uppercase; letter-spacing: 1px; font-size: 0.85rem;
-  transform: translateY(100%); transition: transform 0.4s ease;
-}
-.gallery-item:hover::after { transform: translateY(0); }
-.gallery-item:nth-child(1) { grid-row: span 2; }
-.gallery-item:nth-child(1) img { min-height: 420px; }
-.gallery-item:nth-child(4) { grid-column: span 1; }
+        .section-header--center {
+            text-align: center;
+        }
 
-/* PARTNERS — PILL BADGES */
-.partners { padding: 80px 0; background: var(--bg); }
-.partners-grid { display: flex; justify-content: center; align-items: center; gap: 16px; flex-wrap: wrap; }
-.partner-badge {
-  font-family: var(--font-heading); font-size: 1rem; font-weight: 700;
-  color: var(--text); padding: 14px 28px; border: 2px solid #E5E7EB;
-  border-radius: 4px; transition: all 0.3s; text-transform: uppercase; letter-spacing: 2px;
-  background: var(--bg-card);
-}
-.partner-badge:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-light); transform: translateY(-2px); }
+        .section-header--center .section-subtitle {
+            margin: 0 auto;
+        }
 
-/* ENERGY */
-.energy { padding: 100px 0; background: var(--bg-alt); }
-.energy-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
-.energy-text h3 { font-size: 1.4rem; color: var(--accent); margin-bottom: 16px; text-transform: uppercase; }
-.energy-text p { color: var(--text-muted); margin-bottom: 20px; line-height: 1.7; }
-.energy-rating { display: flex; flex-direction: column; gap: 8px; }
-.energy-row { display: flex; align-items: center; gap: 12px; }
-.energy-label { font-family: var(--font-heading); font-weight: 700; font-size: 1rem; width: 60px; text-align: center; padding: 6px; color: #fff; border-radius: 2px; }
-.energy-bar-track { flex: 1; height: 28px; background: #E5E7EB; border-radius: 2px; overflow: hidden; }
-.energy-bar-fill { height: 100%; border-radius: 2px; display: flex; align-items: center; padding-left: 12px; color: #fff; font-size: 0.8rem; font-weight: 600; }
-.energy-a3 { background: #15803D; }
-.energy-a2 { background: #22C55E; }
-.energy-a1 { background: #4ADE80; }
-.energy-b { background: #FDE047; color: #854D0E!important; }
-.energy-d { background: #EF4444; }
+        section {
+            padding: 100px 0;
+        }
 
-/* TESTIMONIALS */
-.testimonials { padding: 100px 0; background: var(--bg); }
-.testimonials-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
-.testimonial-card {
-  background: var(--bg-alt); padding: 36px; border-radius: 4px; position: relative;
-  border-top: 4px solid var(--accent);
-  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.4s ease;
-}
-.testimonial-card:hover { transform: translateY(-8px); box-shadow: 0 20px 60px rgba(0,0,0,0.08); }
-.testimonial-stars { display: flex; gap: 4px; margin-bottom: 16px; }
-.testimonial-stars svg { width: 18px; height: 18px; color: var(--cta); fill: var(--cta); }
-.testimonial-text { font-size: 0.95rem; color: var(--text-muted); line-height: 1.7; margin-bottom: 24px; }
-.testimonial-author { font-weight: 700; font-size: 0.95rem; font-family: var(--font-heading); text-transform: uppercase; }
-.testimonial-city { font-size: 0.8rem; color: var(--text-muted); margin-top: 2px; }
+        /* ===== SCROLL REVEAL ===== */
+        .reveal {
+            opacity: 1;
+            transform: translateY(0);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
 
-/* CONTACT */
-.contact { padding: 100px 0; background: var(--bg-alt); }
-.contact-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 60px; }
-.contact-form { display: flex; flex-direction: column; gap: 16px; }
-.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-.form-group label { display: block; font-size: 0.8rem; color: var(--text-muted); margin-bottom: 6px; font-family: var(--font-heading); text-transform: uppercase; letter-spacing: 1px; font-weight: 600; }
-.form-group input, .form-group textarea {
-  width: 100%; padding: 14px 16px; background: #fff; border: 2px solid #E5E7EB;
-  color: var(--text); font-family: var(--font-body); font-size: 0.95rem;
-  transition: border-color 0.3s; outline: none; border-radius: 4px;
-}
-.form-group input:focus, .form-group textarea:focus { border-color: var(--accent); }
-.form-group textarea { resize: vertical; min-height: 120px; }
-.contact-info-card {
-  background: var(--accent); color: #fff; padding: 40px; border-radius: 4px;
-}
-.contact-info-card h3 { font-size: 1.4rem; margin-bottom: 32px; text-transform: uppercase; }
-.contact-detail { display: flex; align-items: flex-start; gap: 16px; margin-bottom: 28px; }
-.contact-detail svg { width: 22px; height: 22px; flex-shrink: 0; margin-top: 2px; }
-.contact-detail span { font-size: 0.95rem; line-height: 1.6; opacity: 0.9; }
-.map-placeholder {
-  width: 100%; height: 160px; background: rgba(255,255,255,0.1); border-radius: 4px;
-  display: flex; align-items: center; justify-content: center; opacity: 0.7;
-  font-size: 0.85rem; margin-top: 24px;
-}
+        .reveal--hidden {
+            opacity: 0;
+            transform: translateY(32px);
+        }
 
-/* FOOTER */
-footer { padding: 60px 0 24px; background: var(--text); color: #fff; }
-.footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 40px; }
-.footer-brand .logo { color: #fff; }
-.footer-brand .logo span { color: var(--accent); }
-.footer-brand p { color: rgba(255,255,255,0.5); font-size: 0.9rem; margin-top: 12px; }
-.footer-col h4 { font-size: 0.85rem; color: var(--accent); margin-bottom: 16px; text-transform: uppercase; letter-spacing: 2px; }
-.footer-col a { display: block; color: rgba(255,255,255,0.5); font-size: 0.85rem; margin-bottom: 10px; transition: color 0.3s; }
-.footer-col a:hover { color: #fff; }
-.footer-bottom { display: flex; justify-content: space-between; align-items: center; padding-top: 24px; border-top: 1px solid rgba(255,255,255,0.08); }
-.footer-bottom p { font-size: 0.8rem; color: rgba(255,255,255,0.4); }
-.social-icons { display: flex; gap: 16px; }
-.social-icons a svg { width: 20px; height: 20px; color: rgba(255,255,255,0.4); transition: color 0.3s; }
-.social-icons a:hover svg { color: var(--accent); }
+        @media (prefers-reduced-motion: reduce) {
+            .reveal, .reveal--hidden {
+                opacity: 1 !important;
+                transform: none !important;
+                transition: none !important;
+            }
+            html { scroll-behavior: auto; }
+        }
 
-/* MOBILE */
-@media (max-width: 1200px) {
-  .hero h1 { font-size: 3.5rem; }
-  .products-grid { grid-template-columns: repeat(3, 1fr); }
-}
-@media (max-width: 768px) {
-  .hamburger { display: flex; }
-  nav { display: none; }
-  .hero h1 { font-size: 2.8rem; }
-  .hero-content { padding: 120px 24px 60px; }
-  .products-grid { grid-template-columns: repeat(2, 1fr); }
-  .product-card:first-child { grid-row: span 1; }
-  .stats-grid { grid-template-columns: repeat(2, 1fr); }
-  .timeline { grid-template-columns: repeat(2, 1fr); gap: 32px; }
-  .timeline::before { display: none; }
-  .gallery-grid { grid-template-columns: repeat(2, 1fr); }
-  .gallery-item:nth-child(1) { grid-row: span 1; }
-  .gallery-item:nth-child(1) img { min-height: 200px; }
-  .testimonials-grid { grid-template-columns: 1fr; }
-  .contact-grid { grid-template-columns: 1fr; }
-  .energy-grid { grid-template-columns: 1fr; }
-  .footer-grid { grid-template-columns: 1fr 1fr; }
-  .form-row { grid-template-columns: 1fr; }
-  .section-title { font-size: 2rem; }
-}
-@media (max-width: 390px) {
-  .hero h1 { font-size: 2.2rem; }
-  .products-grid { grid-template-columns: 1fr; }
-  .stats-grid { grid-template-columns: 1fr 1fr; gap: 16px; }
-  .gallery-grid { grid-template-columns: 1fr; }
-  .footer-grid { grid-template-columns: 1fr; }
-  .hero-buttons { flex-direction: column; }
-  .partners-grid { gap: 12px; }
-}
-</style>
+        /* ===== NAVIGATION ===== */
+        .nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 1000;
+            padding: 0 24px;
+            height: 72px;
+            display: flex;
+            align-items: center;
+            transition: background 0.3s, box-shadow 0.3s;
+        }
+
+        .nav--scrolled {
+            background: rgba(255,255,255,0.97);
+            box-shadow: 0 1px 0 rgba(0,0,0,0.06);
+            backdrop-filter: blur(12px);
+        }
+
+        .nav__inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .nav__logo {
+            font-family: var(--font-heading);
+            font-size: 1.6rem;
+            letter-spacing: 0.06em;
+            color: #fff;
+            transition: color 0.3s;
+        }
+
+        .nav--scrolled .nav__logo { color: var(--primary); }
+
+        .nav__logo span {
+            color: var(--accent);
+        }
+
+        .nav__links {
+            display: flex;
+            gap: 32px;
+            align-items: center;
+        }
+
+        .nav__links a {
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: rgba(255,255,255,0.85);
+            letter-spacing: 0.02em;
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        .nav__links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px; left: 0;
+            width: 0; height: 2px;
+            background: var(--accent);
+            transition: width 0.3s;
+        }
+
+        .nav__links a:hover::after { width: 100%; }
+
+        .nav--scrolled .nav__links a { color: var(--text); }
+
+        .nav__cta {
+            font-size: 0.8rem !important;
+            font-weight: 600 !important;
+            padding: 10px 24px;
+            background: var(--accent);
+            color: #fff !important;
+            border-radius: 4px;
+            transition: background 0.3s, transform 0.2s;
+        }
+
+        .nav__cta:hover { background: #e64400; transform: translateY(-1px); }
+        .nav__cta::after { display: none !important; }
+
+        /* Hamburger */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 8px;
+            z-index: 1001;
+        }
+
+        .hamburger span {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background: #fff;
+            transition: transform 0.3s, opacity 0.3s, background 0.3s;
+        }
+
+        .nav--scrolled .hamburger span { background: var(--text); }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+            background: var(--text);
+        }
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -5px);
+            background: var(--text);
+        }
+
+        /* Mobile menu */
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: #fff;
+            z-index: 999;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 32px;
+        }
+
+        .mobile-menu.open { display: flex; }
+
+        .mobile-menu a {
+            font-family: var(--font-heading);
+            font-size: 2rem;
+            color: var(--primary);
+            letter-spacing: 0.06em;
+            transition: color 0.3s;
+        }
+
+        .mobile-menu a:hover { color: var(--accent); }
+
+        @media (max-width: 768px) {
+            .nav__links { display: none; }
+            .hamburger { display: flex; }
+        }
+
+        /* ===== HERO ===== */
+        .hero {
+            position: relative;
+            height: 100vh;
+            min-height: 600px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        .hero__bg {
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+        }
+
+        .hero__bg img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .hero__overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                to bottom,
+                rgba(13,17,23,0.2) 0%,
+                rgba(13,17,23,0.45) 40%,
+                rgba(13,17,23,0.85) 100%
+            );
+            z-index: 1;
+        }
+
+        .hero__content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            padding: 0 24px;
+        }
+
+        .hero__eyebrow {
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 0.35em;
+            color: rgba(255,255,255,0.7);
+            margin-bottom: 24px;
+        }
+
+        .hero__title {
+            font-family: var(--font-heading);
+            font-size: clamp(3rem, 8vw, 6rem);
+            color: #fff;
+            line-height: 1;
+            margin-bottom: 24px;
+            letter-spacing: 0.04em;
+        }
+
+        .hero__desc {
+            font-size: 1.1rem;
+            color: rgba(255,255,255,0.75);
+            margin-bottom: 40px;
+            max-width: 520px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.7;
+        }
+
+        .hero__actions {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 14px 32px;
+            font-family: var(--font-body);
+            font-size: 0.9rem;
+            font-weight: 600;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+
+        .btn--primary {
+            background: var(--accent);
+            color: #fff;
+            border-color: var(--accent);
+        }
+
+        .btn--primary:hover {
+            background: #e64400;
+            border-color: #e64400;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(255,77,0,0.3);
+        }
+
+        .btn--outline {
+            background: transparent;
+            color: #fff;
+            border-color: rgba(255,255,255,0.5);
+        }
+
+        .btn--outline:hover {
+            border-color: #fff;
+            background: rgba(255,255,255,0.1);
+        }
+
+        .hero__scroll {
+            position: absolute;
+            bottom: 32px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 2;
+            animation: bounce 2s infinite;
+        }
+
+        .hero__scroll svg {
+            width: 24px;
+            height: 24px;
+            stroke: rgba(255,255,255,0.5);
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(8px); }
+        }
+
+        /* ===== PRODUCTS BENTO GRID ===== */
+        .products { background: var(--surface); }
+
+        .bento {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-auto-rows: 220px;
+            gap: 16px;
+        }
+
+        .bento__card {
+            background: #fff;
+            border: 1px solid rgba(0,0,0,0.06);
+            border-radius: 8px;
+            padding: 32px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .bento__card:hover {
+            background: var(--primary);
+            transform: scale(1.02);
+            border-color: var(--primary);
+        }
+
+        .bento__card:hover .bento__icon svg { stroke: var(--accent); }
+        .bento__card:hover .bento__title { color: #fff; }
+        .bento__card:hover .bento__desc { color: rgba(255,255,255,0.7); }
+
+        .bento__card--tall { grid-row: span 2; }
+        .bento__card--wide { grid-column: span 2; }
+
+        .bento__icon {
+            margin-bottom: 16px;
+        }
+
+        .bento__icon svg {
+            width: 40px;
+            height: 40px;
+            stroke: var(--primary);
+            stroke-width: 1.5;
+            fill: none;
+            transition: stroke 0.4s;
+        }
+
+        .bento__title {
+            font-family: var(--font-heading);
+            font-size: 1.6rem;
+            letter-spacing: 0.04em;
+            color: var(--primary);
+            margin-bottom: 6px;
+            transition: color 0.4s;
+        }
+
+        .bento__desc {
+            font-size: 0.88rem;
+            color: var(--neutral);
+            transition: color 0.4s;
+        }
+
+        @media (max-width: 768px) {
+            .bento {
+                grid-template-columns: 1fr;
+                grid-auto-rows: auto;
+            }
+            .bento__card--tall,
+            .bento__card--wide {
+                grid-row: span 1;
+                grid-column: span 1;
+            }
+            .bento__card { padding: 24px; min-height: 160px; }
+        }
+
+        /* ===== STATS ===== */
+        .stats {
+            background: var(--text);
+            color: #fff;
+            padding: 80px 0;
+        }
+
+        .stats__grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 32px;
+            text-align: center;
+        }
+
+        .stats__number {
+            font-family: var(--font-heading);
+            font-size: clamp(3rem, 6vw, 4.5rem);
+            color: #fff;
+            letter-spacing: 0.02em;
+            line-height: 1;
+            margin-bottom: 8px;
+        }
+
+        .stats__label {
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.5);
+            font-weight: 500;
+            letter-spacing: 0.04em;
+        }
+
+        @media (max-width: 768px) {
+            .stats__grid { grid-template-columns: repeat(2, 1fr); gap: 40px; }
+        }
+
+        /* ===== PROCESS TIMELINE ===== */
+        .process { background: var(--bg); }
+
+        .timeline {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            position: relative;
+            padding-top: 40px;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            top: 60px;
+            left: 10%;
+            right: 10%;
+            height: 2px;
+            background: rgba(0,0,0,0.08);
+        }
+
+        .timeline__step {
+            flex: 1;
+            text-align: center;
+            position: relative;
+        }
+
+        .timeline__number {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: var(--primary);
+            color: #fff;
+            font-family: var(--font-heading);
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .timeline__title {
+            font-family: var(--font-heading);
+            font-size: 1.3rem;
+            color: var(--primary);
+            margin-bottom: 8px;
+            letter-spacing: 0.04em;
+        }
+
+        .timeline__desc {
+            font-size: 0.85rem;
+            color: var(--neutral);
+            max-width: 180px;
+            margin: 0 auto;
+            line-height: 1.5;
+        }
+
+        @media (max-width: 768px) {
+            .timeline {
+                flex-direction: column;
+                gap: 40px;
+                padding-left: 40px;
+            }
+            .timeline::before {
+                top: 0; bottom: 0;
+                left: 23px;
+                right: auto;
+                width: 2px;
+                height: 100%;
+            }
+            .timeline__step {
+                text-align: left;
+                display: flex;
+                gap: 20px;
+                align-items: flex-start;
+            }
+            .timeline__number {
+                margin: 0;
+                flex-shrink: 0;
+            }
+            .timeline__desc { margin: 0; }
+        }
+
+        /* ===== GALLERY ===== */
+        .gallery { background: var(--surface); }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-auto-rows: 250px;
+            gap: 8px;
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .gallery-item:nth-child(1) { grid-row: span 2; }
+        .gallery-item:nth-child(4) { grid-row: span 2; }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+
+        .gallery-item:hover img { transform: scale(1.05); }
+
+        .gallery-item__overlay {
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            padding: 24px;
+            background: linear-gradient(to top, rgba(13,17,23,0.85), transparent);
+            transform: translateY(100%);
+            transition: transform 0.4s ease;
+        }
+
+        .gallery-item:hover .gallery-item__overlay {
+            transform: translateY(0);
+        }
+
+        .gallery-item__title {
+            font-family: var(--font-heading);
+            font-size: 1.2rem;
+            color: #fff;
+            letter-spacing: 0.04em;
+        }
+
+        .gallery-item__location {
+            font-size: 0.8rem;
+            color: rgba(255,255,255,0.6);
+            margin-top: 4px;
+        }
+
+        @media (max-width: 768px) {
+            .gallery-grid {
+                grid-template-columns: 1fr 1fr;
+                grid-auto-rows: 200px;
+            }
+            .gallery-item:nth-child(1),
+            .gallery-item:nth-child(4) {
+                grid-row: span 1;
+            }
+        }
+
+        @media (max-width: 390px) {
+            .gallery-grid {
+                grid-template-columns: 1fr;
+                grid-auto-rows: 220px;
+            }
+        }
+
+        /* ===== PARTNERS ===== */
+        .partners {
+            background: var(--primary);
+            padding: 60px 0;
+        }
+
+        .partners .eyebrow { color: rgba(255,255,255,0.4); }
+        .partners .section-title { color: #fff; }
+
+        .partners__grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            justify-content: center;
+        }
+
+        .partners__pill {
+            padding: 12px 28px;
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 100px;
+            color: rgba(255,255,255,0.7);
+            font-size: 0.88rem;
+            font-weight: 500;
+            letter-spacing: 0.02em;
+            transition: all 0.3s;
+            cursor: default;
+        }
+
+        .partners__pill:hover {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: #fff;
+        }
+
+        /* ===== ENERGY ===== */
+        .energy { background: var(--bg); }
+
+        .energy__grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 48px;
+            text-align: center;
+        }
+
+        .energy__item { display: flex; flex-direction: column; align-items: center; }
+
+        .energy__circle {
+            width: 140px;
+            height: 140px;
+            position: relative;
+            margin-bottom: 24px;
+        }
+
+        .energy__circle svg {
+            width: 140px;
+            height: 140px;
+            transform: rotate(-90deg);
+        }
+
+        .energy__circle-bg {
+            fill: none;
+            stroke: var(--surface);
+            stroke-width: 6;
+        }
+
+        .energy__circle-fill {
+            fill: none;
+            stroke: var(--accent);
+            stroke-width: 6;
+            stroke-linecap: round;
+            stroke-dasharray: 377;
+            stroke-dashoffset: 377;
+            transition: stroke-dashoffset 1.5s ease;
+        }
+
+        .energy__circle-value {
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            font-family: var(--font-heading);
+            font-size: 1.8rem;
+            color: var(--primary);
+            letter-spacing: 0.02em;
+        }
+
+        .energy__title {
+            font-family: var(--font-heading);
+            font-size: 1.3rem;
+            color: var(--primary);
+            margin-bottom: 8px;
+            letter-spacing: 0.04em;
+        }
+
+        .energy__desc {
+            font-size: 0.85rem;
+            color: var(--neutral);
+            line-height: 1.6;
+            max-width: 260px;
+        }
+
+        @media (max-width: 768px) {
+            .energy__grid { grid-template-columns: 1fr; gap: 48px; }
+        }
+
+        /* ===== TESTIMONIALS ===== */
+        .testimonials { background: var(--surface); }
+
+        .testimonial {
+            max-width: 700px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .testimonial__quote-mark {
+            font-family: Georgia, serif;
+            font-size: 6rem;
+            line-height: 0.5;
+            color: var(--accent);
+            opacity: 0.3;
+            margin-bottom: 16px;
+            display: block;
+        }
+
+        .testimonial__text {
+            font-size: 1.25rem;
+            color: var(--text);
+            line-height: 1.8;
+            font-style: italic;
+            margin-bottom: 32px;
+        }
+
+        .testimonial__author {
+            font-family: var(--font-heading);
+            font-size: 1.1rem;
+            letter-spacing: 0.06em;
+            color: var(--primary);
+        }
+
+        .testimonial__location {
+            font-size: 0.85rem;
+            color: var(--neutral);
+            margin-top: 4px;
+        }
+
+        .testimonials__dots {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+            margin-top: 40px;
+        }
+
+        .testimonials__dot {
+            width: 8px; height: 8px;
+            border-radius: 50%;
+            background: rgba(0,0,0,0.15);
+            cursor: pointer;
+            transition: background 0.3s, transform 0.3s;
+            border: none;
+        }
+
+        .testimonials__dot.active {
+            background: var(--accent);
+            transform: scale(1.3);
+        }
+
+        /* ===== CONTACT ===== */
+        .contact { background: var(--bg); }
+
+        .contact__grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 64px;
+            align-items: start;
+        }
+
+        .contact__form { display: flex; flex-direction: column; gap: 32px; }
+
+        .form-group { position: relative; }
+
+        .form-group label {
+            display: block;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--neutral);
+            margin-bottom: 8px;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 12px 0;
+            font-family: var(--font-body);
+            font-size: 1rem;
+            color: var(--text);
+            background: transparent;
+            border: none;
+            border-bottom: 2px solid rgba(0,0,0,0.1);
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            border-color: var(--accent);
+        }
+
+        .form-group textarea { resize: vertical; min-height: 80px; }
+
+        .btn--submit {
+            width: 100%;
+            padding: 16px;
+            background: var(--accent);
+            color: #fff;
+            border: none;
+            font-family: var(--font-body);
+            font-size: 0.95rem;
+            font-weight: 600;
+            letter-spacing: 0.04em;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.2s;
+        }
+
+        .btn--submit:hover {
+            background: #e64400;
+            transform: translateY(-2px);
+        }
+
+        .contact__info { display: flex; flex-direction: column; gap: 32px; }
+
+        .contact__info-item {
+            display: flex;
+            gap: 16px;
+            align-items: flex-start;
+        }
+
+        .contact__info-icon {
+            flex-shrink: 0;
+            width: 44px;
+            height: 44px;
+            background: var(--surface);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .contact__info-icon svg {
+            width: 20px;
+            height: 20px;
+            stroke: var(--primary);
+            stroke-width: 1.5;
+            fill: none;
+        }
+
+        .contact__info-label {
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--neutral);
+            margin-bottom: 4px;
+        }
+
+        .contact__info-value {
+            font-size: 1rem;
+            color: var(--text);
+            font-weight: 500;
+        }
+
+        .contact__map {
+            margin-top: 16px;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid rgba(0,0,0,0.06);
+        }
+
+        .contact__map iframe {
+            width: 100%;
+            height: 220px;
+            border: 0;
+        }
+
+        @media (max-width: 768px) {
+            .contact__grid { grid-template-columns: 1fr; gap: 48px; }
+        }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            background: var(--text);
+            color: rgba(255,255,255,0.6);
+            padding: 64px 0 32px;
+        }
+
+        .footer__grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 48px;
+            margin-bottom: 48px;
+        }
+
+        .footer__brand-name {
+            font-family: var(--font-heading);
+            font-size: 1.6rem;
+            color: #fff;
+            letter-spacing: 0.06em;
+            margin-bottom: 12px;
+        }
+
+        .footer__brand-name span { color: var(--accent); }
+
+        .footer__brand-desc {
+            font-size: 0.88rem;
+            line-height: 1.7;
+            max-width: 280px;
+        }
+
+        .footer__heading {
+            font-family: var(--font-heading);
+            font-size: 1rem;
+            color: #fff;
+            letter-spacing: 0.1em;
+            margin-bottom: 20px;
+        }
+
+        .footer__list { display: flex; flex-direction: column; gap: 10px; }
+
+        .footer__list a {
+            font-size: 0.88rem;
+            color: rgba(255,255,255,0.5);
+            transition: color 0.3s;
+        }
+
+        .footer__list a:hover { color: var(--accent); }
+
+        .footer__social {
+            display: flex;
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        .footer__social a {
+            width: 40px; height: 40px;
+            border-radius: 50%;
+            border: 1px solid rgba(255,255,255,0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+
+        .footer__social a:hover {
+            background: var(--accent);
+            border-color: var(--accent);
+        }
+
+        .footer__social svg {
+            width: 16px; height: 16px;
+            fill: rgba(255,255,255,0.6);
+            transition: fill 0.3s;
+        }
+
+        .footer__social a:hover svg { fill: #fff; }
+
+        .footer__bottom {
+            border-top: 1px solid rgba(255,255,255,0.08);
+            padding-top: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.8rem;
+        }
+
+        .footer__bottom a { transition: color 0.3s; }
+        .footer__bottom a:hover { color: var(--accent); }
+
+        @media (max-width: 768px) {
+            .footer__grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+            .footer__bottom { flex-direction: column; gap: 8px; text-align: center; }
+        }
+
+        @media (max-width: 390px) {
+            .footer__grid { grid-template-columns: 1fr; }
+        }
+
+        /* ===== UTILITIES ===== */
+        @media (max-width: 390px) {
+            section { padding: 64px 0; }
+            .section-title { font-size: 2rem; }
+            .hero__title { font-size: 2.5rem; }
+            .hero__desc { font-size: 0.95rem; }
+        }
+    </style>
 </head>
 <body>
 
-<!-- HEADER -->
-<header>
-  <div class="header-inner">
-    <a href="#" class="logo">Про<span>Винд</span></a>
-    <nav id="mainNav">
-      <a href="#hero">Начало</a>
-      <a href="#products">Продукти</a>
-      <a href="#why-us">За нас</a>
-      <a href="#gallery">Проекти</a>
-      <a href="#contact">Контакти</a>
-      <a href="#contact" class="cta-btn header-cta">Безплатно замерване</a>
+    <!-- NAVIGATION -->
+    <nav class="nav" id="nav">
+        <div class="nav__inner">
+            <a href="#" class="nav__logo">ПРО<span>ВИНД</span></a>
+            <div class="nav__links">
+                <a href="#products">Продукти</a>
+                <a href="#process">Процес</a>
+                <a href="#gallery">Проекти</a>
+                <a href="#energy">Технологии</a>
+                <a href="#contact">Контакти</a>
+                <a href="#contact" class="nav__cta">Безплатна оферта</a>
+            </div>
+            <button class="hamburger" id="hamburger" aria-label="Меню">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
     </nav>
-    <button class="hamburger" id="hamburger" aria-label="Меню">
-      <span></span><span></span><span></span>
-    </button>
-  </div>
-</header>
 
-<!-- MOBILE OVERLAY -->
-<div class="mobile-overlay" id="mobileOverlay">
-  <button class="mobile-close" id="mobileClose" aria-label="Затвори">
-    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-  </button>
-  <nav class="mobile-nav-links">
-    <a href="#hero">Начало</a>
-    <a href="#products">Продукти</a>
-    <a href="#why-us">За нас</a>
-    <a href="#gallery">Проекти</a>
-    <a href="#contact">Контакти</a>
-    <a href="#contact" class="mobile-cta">Безплатно замерване</a>
-  </nav>
-</div>
-
-<!-- HERO — FULL-WIDTH CINEMATIC -->
-<section class="hero" id="hero">
-  <div class="hero-content">
-    <span class="hero-tag">Технологии от бъдещето</span>
-    <h1>Модерна <span>дограма</span> за модерни домове</h1>
-    <p>Иновативни решения за PVC и алуминиева дограма с висока енергийна ефективност. Безплатно замерване и оферта до 24 часа навсякъде в България.</p>
-    <div class="hero-buttons">
-      <a href="#contact" class="cta-btn">Безплатно замерване</a>
-      <a href="#products" class="cta-btn-alt">Вижте продуктите</a>
-    </div>
-  </div>
-</section>
-
-<!-- PRODUCTS — BENTO GRID -->
-<section class="products" id="products">
-  <div class="container">
-    <span class="eyebrow">НАШИТЕ РЕШЕНИЯ</span>
-    <h2 class="section-title reveal">Нашите <span>продукти</span></h2>
-    <span class="blue-line"></span>
-    <p class="section-sub">Комплексни решения за остъкляване и врати — от стандартни прозорци до панорамни плъзгащи системи.</p>
-    <div class="products-grid">
-      <div class="product-card reveal">
-        <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="6" y="6" width="36" height="36" rx="1"/><line x1="24" y1="6" x2="24" y2="42"/><line x1="6" y1="24" x2="24" y2="24"/></svg>
-        <h3>PVC Дограма</h3>
-        <p>Пет- и шесткамерни профили от Rehau и VEKA. Клас А, с тройно стъкло. Висока топло- и шумоизолация при достъпна цена.</p>
-      </div>
-      <div class="product-card reveal">
-        <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="6" y="6" width="36" height="36" rx="1"/><line x1="24" y1="6" x2="24" y2="42"/><circle cx="22" cy="24" r="1.5" fill="currentColor"/><circle cx="26" cy="24" r="1.5" fill="currentColor"/></svg>
-        <h3>Алуминиева Дограма</h3>
-        <p>Тънки профили с термично прекъсване. Максимална светлина, минимална рамка.</p>
-      </div>
-      <div class="product-card reveal">
-        <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="12" y="4" width="24" height="40" rx="2"/><circle cx="30" cy="26" r="2" fill="currentColor"/><line x1="12" y1="16" x2="36" y2="16" opacity="0.3"/></svg>
-        <h3>Входни Врати</h3>
-        <p>Бронирани врати с многоточково заключване. Сигурност и елегантен дизайн.</p>
-      </div>
-      <div class="product-card reveal">
-        <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="12" y="4" width="24" height="40" rx="2"/><rect x="16" y="8" width="16" height="14" rx="1" fill="none"/><circle cx="30" cy="28" r="2" fill="currentColor"/></svg>
-        <h3>Интериорни Врати</h3>
-        <p>МДФ, CPL и масивни врати. Модерни, класически и минималистични модели.</p>
-      </div>
-      <div class="product-card reveal">
-        <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="4" y="8" width="18" height="32" rx="1"/><rect x="26" y="8" width="18" height="32" rx="1"/><path d="M22 24 L26 24" stroke-dasharray="2 2"/></svg>
-        <h3>Плъзгащи Системи</h3>
-        <p>HST и PSK системи за панорамно остъкляване. До 6 метра ширина.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- WHY US -->
-<section class="why-us" id="why-us">
-  <div class="container">
-    <span class="eyebrow">ЗАЩО ДА ИЗБЕРЕТЕ НАС</span>
-    <h2 class="section-title reveal">Нашите <span>Предимства</span></h2>
-    <span class="blue-line"></span>
-    <p class="section-sub">Цифри, които говорят сами за себе си. 15 години опит и хиляди доволни клиенти.</p>
-    <div class="stats-grid">
-      <div class="stat-item reveal">
-        <span class="stat-number" data-count="15" data-suffix="+">15+</span>
-        <span class="stat-label">Години опит в бранша</span>
-      </div>
-      <div class="stat-item reveal">
-        <span class="stat-number" data-count="5000" data-suffix="+">5000+</span>
-        <span class="stat-label">Завършени обекта</span>
-      </div>
-      <div class="stat-item reveal">
-        <span class="stat-number">0 лв</span>
-        <span class="stat-label">Безплатно замерване</span>
-      </div>
-      <div class="stat-item reveal">
-        <span class="stat-number" data-count="10" data-suffix=" г.">10 г.</span>
-        <span class="stat-label">Гаранция на продуктите</span>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- PROCESS -->
-<section class="process" id="process">
-  <div class="container">
-    <span class="eyebrow">КАК РАБОТИМ</span>
-    <h2 class="section-title reveal">Работен <span>Процес</span></h2>
-    <span class="blue-line"></span>
-    <p class="section-sub">Четири прости стъпки от първия контакт до готовия монтаж.</p>
-    <div class="timeline">
-      <div class="timeline-step reveal">
-        <div class="step-num">01</div>
-        <h4 class="step-title">Замерване</h4>
-        <p class="step-desc">Идваме на обекта безплатно и измерваме всички отвори с лазерна прецизност.</p>
-      </div>
-      <div class="timeline-step reveal">
-        <div class="step-num">02</div>
-        <h4 class="step-title">Оферта до 24ч</h4>
-        <p class="step-desc">Получавате персонализирана оферта с варианти и визуализация до 24 часа.</p>
-      </div>
-      <div class="timeline-step reveal">
-        <div class="step-num">03</div>
-        <h4 class="step-title">Производство</h4>
-        <p class="step-desc">Продуктите се изработват по ваши размери в наши фабрики с немска технология.</p>
-      </div>
-      <div class="timeline-step reveal">
-        <div class="step-num">04</div>
-        <h4 class="step-title">Монтаж</h4>
-        <p class="step-desc">Сертифициран екип извършва монтажа по RAL стандарт. Гаранция 10 години.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- GALLERY — MOSAIC -->
-<section class="gallery" id="gallery">
-  <div class="container">
-    <span class="eyebrow">НАШИ ПРОЕКТИ</span>
-    <h2 class="section-title reveal">Галерия <span>проекти</span></h2>
-    <span class="blue-line"></span>
-    <p class="section-sub">Част от обектите, които сме завършили с гордост.</p>
-    <div class="gallery-grid">
-      <div class="gallery-item" data-title="Жилищен комплекс — София">
-        <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&q=80" alt="Модерна къща" loading="eager">
-      </div>
-      <div class="gallery-item" data-title="Частна къща — Пловдив">
-        <img src="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=800&q=80" alt="Интериор с прозорци" loading="eager">
-      </div>
-      <div class="gallery-item" data-title="Офис сграда — Варна">
-        <img src="https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=800&q=80" alt="PVC дограма" loading="eager">
-      </div>
-      <div class="gallery-item" data-title="Вила — Созопол">
-        <img src="https://images.unsplash.com/photo-1600573472592-401b489a3cdc?w=800&q=80" alt="Плъзгащи врати" loading="eager">
-      </div>
-      <div class="gallery-item" data-title="Апартамент — Бургас">
-        <img src="https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=800&q=80" alt="Входна врата" loading="eager">
-      </div>
-      <div class="gallery-item" data-title="Търговски обект — Стара Загора">
-        <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&q=80" alt="Фасада" loading="eager">
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- PARTNERS — PILL BADGES -->
-<section class="partners">
-  <div class="container">
-    <span class="eyebrow">НАШИТЕ ПАРТНЬОРИ</span>
-    <h2 class="section-title reveal">Нашите <span>Партньори</span></h2>
-    <span class="blue-line" style="margin-bottom:48px"></span>
-    <div class="partners-grid">
-      <span class="partner-badge">REHAU</span>
-      <span class="partner-badge">VEKA</span>
-      <span class="partner-badge">SALAMANDER</span>
-      <span class="partner-badge">SCHÜCO</span>
-      <span class="partner-badge">REYNAERS</span>
-      <span class="partner-badge">ALUMIL</span>
-    </div>
-  </div>
-</section>
-
-<!-- ENERGY EFFICIENCY -->
-<section class="energy" id="energy">
-  <div class="container">
-    <span class="eyebrow">ЕНЕРГИЙНА ЕФЕКТИВНОСТ</span>
-    <h2 class="section-title reveal">Енергийна <span>ефективност</span></h2>
-    <span class="blue-line"></span>
-    <p class="section-sub">Правилната дограма спестява до 40% от разходите за отопление.</p>
-    <div class="energy-grid">
-      <div class="energy-text reveal">
-        <h3>Инвестиция, която се изплаща</h3>
-        <p>Съвременните профилни системи с тройно остъкляване постигат U-стойности до 0.7 W/m²K, което ги прави едни от най-ефективните на пазара.</p>
-        <p>Нашите специалисти ще ви помогнат да изберете оптималната комбинация от профил, стъклопакет и фурнитура спрямо вашия бюджет и нужди от изолация.</p>
-      </div>
-      <div class="energy-rating reveal">
-        <div class="energy-row">
-          <span class="energy-label energy-a3">A+++</span>
-          <div class="energy-bar-track"><div class="energy-bar-fill energy-a3" style="width:95%">Тристъклен + аргон</div></div>
-        </div>
-        <div class="energy-row">
-          <span class="energy-label energy-a2">A++</span>
-          <div class="energy-bar-track"><div class="energy-bar-fill energy-a2" style="width:82%">Premium PVC</div></div>
-        </div>
-        <div class="energy-row">
-          <span class="energy-label energy-a1">A+</span>
-          <div class="energy-bar-track"><div class="energy-bar-fill energy-a1" style="width:68%">Стандартна PVC</div></div>
-        </div>
-        <div class="energy-row">
-          <span class="energy-label energy-b" style="background:#FDE047;color:#854D0E">B</span>
-          <div class="energy-bar-track"><div class="energy-bar-fill" style="width:45%;background:#FDE047;color:#854D0E">Двустъклен пакет</div></div>
-        </div>
-        <div class="energy-row">
-          <span class="energy-label energy-d">D</span>
-          <div class="energy-bar-track"><div class="energy-bar-fill energy-d" style="width:25%">Стара дограма</div></div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- TESTIMONIALS -->
-<section class="testimonials" id="testimonials">
-  <div class="container">
-    <span class="eyebrow">ОТЗИВИ</span>
-    <h2 class="section-title reveal">Клиентите за <span>нас</span></h2>
-    <span class="blue-line"></span>
-    <p class="section-sub">Доверието на хиляди клиенти е нашата най-голяма награда.</p>
-    <div class="testimonials-grid">
-      <div class="testimonial-card reveal">
-        <div class="testimonial-stars">
-          <svg viewBox="0 0 20 20"><path d="M10 1l2.39 4.84 5.34.78-3.87 3.77.91 5.32L10 13.27l-4.77 2.51.91-5.32L2.27 6.69l5.34-.78L10 1z"/></svg>
-          <svg viewBox="0 0 20 20"><path d="M10 1l2.39 4.84 5.34.78-3.87 3.77.91 5.32L10 13.27l-4.77 2.51.91-5.32L2.27 6.69l5.34-.78L10 1z"/></svg>
-          <svg viewBox="0 0 20 20"><path d="M10 1l2.39 4.84 5.34.78-3.87 3.77.91 5.32L10 13.27l-4.77 2.51.91-5.32L2.27 6.69l5.34-.78L10 1z"/></svg>
-          <svg viewBox="0 0 20 20"><path d="M10 1l2.39 4.84 5.34.78-3.87 3.77.91 5.32L10 13.27l-4.77 2.51.91-5.32L2.27 6.69l5.34-.78L10 1z"/></svg>
-          <svg viewBox="0 0 20 20"><path d="M10 1l2.39 4.84 5.34.78-3.87 3.77.91 5.32L10 13.27l-4.77 2.51.91-5.32L2.27 6.69l5.34-.78L10 1z"/></svg>
-        </div>
-        <p class="testimonial-text">Качество и бързина — получих оферта за 3 часа, а монтажът беше завършен перфектно за два дни. Шумоизолацията е невероятна!</p>
-        <p class="testimonial-author">Димитър Колев</p>
-        <p class="testimonial-city">София, кв. Младост</p>
-      </div>
-      <div class="testimonial-card reveal">
-        <div class="testimonial-stars">
-          <svg viewBox="0 0 20 20"><path d="M10 1l2.39 4.84 5.34.78-3.87 3.77.91 5.32L10 13.27l-4.77 2.51.91-5.32L2.27 6.69l5.34-.78L10 1z"/></svg>
-          <svg viewBox="0 0 20 20"><path d="M10 1l2.39 4.84 5.34.78-3.87 3.77.91 5.32L10 13.27l-4.77 2.51.91-5.32L2.27 6.69l5.34-.78L10 1z"/></svg>
-          <svg viewBox="0 0 20 20"><path d="M10 1l2.39 4.84 5.34.78-3.87 3.77.91 5.32L10 13.27l-4.77 2.51.91-5.32L2.27 6.69l5.34-.78L10 1z"/></svg>
-          <svg viewBox="0 0 20 20"><path d="M10 1l2.39 4.84 5.34.78-3.87 3.77.91 5.32L10 13.27l-4.77 2.51.91-5.32L2.27 6.69l5.34-.78L10 1z"/></svg>
-          <svg viewBox="0 0 20 20"><path d="M10 1l2.39 4.84 5.34.78-3.87 3.77.91 5.32L10 13.27l-4.77 2.51.91-5.32L2.27 6.69l5.34-.78L10 1z"/></svg>
-        </div>
-        <p class="testimonial-text">Сменихме дограмата на цялата къща — 14 прозореца и 3 врати. Екипът работи бързо и прецизно, а резултатът надмина очакванията ни.</p>
-        <p class="testimonial-author">Елена Маринова</p>
-        <p class="testimonial-city">Пловдив, кв. Тракия</p>
-      </div>
-      <div class="testimonial-card reveal">
-        <div class="testimonial-stars">
-          <svg viewBox="0 0 20 20"><path d="M10 1l2.39 4.84 5.34.78-3.87 3.77.91 5.32L10 13.27l-4.77 2.51.91-5.32L2.27 6.69l5.34-.78L10 1z"/></svg>
-          <svg viewBox="0 0 20 20"><path d="M10 1l2.39 4.84 5.34.78-3.87 3.77.91 5.32L10 13.27l-4.77 2.51.91-5.32L2.27 6.69l5.34-.78L10 1z"/></svg>
-          <svg viewBox="0 0 20 20"><path d="M10 1l2.39 4.84 5.34.78-3.87 3.77.91 5.32L10 13.27l-4.77 2.51.91-5.32L2.27 6.69l5.34-.78L10 1z"/></svg>
-          <svg viewBox="0 0 20 20"><path d="M10 1l2.39 4.84 5.34.78-3.87 3.77.91 5.32L10 13.27l-4.77 2.51.91-5.32L2.27 6.69l5.34-.78L10 1z"/></svg>
-          <svg viewBox="0 0 20 20"><path d="M10 1l2.39 4.84 5.34.78-3.87 3.77.91 5.32L10 13.27l-4.77 2.51.91-5.32L2.27 6.69l5.34-.78L10 1z"/></svg>
-        </div>
-        <p class="testimonial-text">Избрахме алуминиева плъзгаща система за терасата. Панорамната гледка е невероятна, а изолацията е на ниво. Абсолютна препоръка!</p>
-        <p class="testimonial-author">Иван Тодоров</p>
-        <p class="testimonial-city">Варна, кв. Чайка</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- CONTACT -->
-<section class="contact" id="contact">
-  <div class="container">
-    <span class="eyebrow">КОНТАКТИ</span>
-    <h2 class="section-title reveal">Свържете се <span>с нас</span></h2>
-    <span class="blue-line"></span>
-    <p class="section-sub">Заявете безплатно замерване или поискайте оферта — отговаряме до 24 часа.</p>
-    <div class="contact-grid">
-      <form class="contact-form" onsubmit="event.preventDefault(); alert('Благодарим! Ще се свържем с вас скоро.')">
-        <div class="form-row">
-          <div class="form-group">
-            <label for="name">Име</label>
-            <input type="text" id="name" name="name" placeholder="Вашето име" required>
-          </div>
-          <div class="form-group">
-            <label for="phone">Телефон</label>
-            <input type="tel" id="phone" name="phone" placeholder="+359 88 123 4567" required>
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="email">Имейл</label>
-          <input type="email" id="email" name="email" placeholder="email@example.com">
-        </div>
-        <div class="form-group">
-          <label for="message">Съобщение</label>
-          <textarea id="message" name="message" placeholder="Какво ви трябва? Тип дограма, брой прозорци, приблизителни размери..."></textarea>
-        </div>
-        <button type="submit" class="cta-btn" style="border:none;font-family:var(--font-heading);font-size:1rem;padding:16px 32px;text-transform:uppercase;letter-spacing:2px;">Изпратете запитване</button>
-      </form>
-      <div class="contact-info-card">
-        <h3>Контактна информация</h3>
-        <div class="contact-detail">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-          <span>бул. България 120<br>1404 София, България</span>
-        </div>
-        <div class="contact-detail">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-          <span>+359 2 987 6543<br>+359 88 765 4321</span>
-        </div>
-        <div class="contact-detail">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-          <span>office@provind.bg</span>
-        </div>
-        <div class="contact-detail">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-          <span>Пон–Пет: 08:00–18:00<br>Събота: 09:00–14:00</span>
-        </div>
-        <div class="map-placeholder">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="margin-right:6px"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-          Google карта
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- FOOTER -->
-<footer>
-  <div class="container">
-    <div class="footer-grid">
-      <div class="footer-brand">
-        <span class="logo">Про<span>Винд</span></span>
-        <p>Качество за вашия дом от 2008. PVC и алуминиева дограма, входни и интериорни врати за цяла България.</p>
-      </div>
-      <div class="footer-col">
-        <h4>Продукти</h4>
-        <a href="#products">PVC Дограма</a>
-        <a href="#products">Алуминиева Дограма</a>
-        <a href="#products">Входни Врати</a>
-        <a href="#products">Интериорни Врати</a>
-        <a href="#products">Плъзгащи Системи</a>
-      </div>
-      <div class="footer-col">
-        <h4>Компания</h4>
-        <a href="#why-us">За нас</a>
+    <!-- MOBILE MENU -->
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="#products">Продукти</a>
+        <a href="#process">Процес</a>
         <a href="#gallery">Проекти</a>
+        <a href="#energy">Технологии</a>
         <a href="#testimonials">Отзиви</a>
-        <a href="#energy">Енергийна ефективност</a>
-      </div>
-      <div class="footer-col">
-        <h4>Контакти</h4>
-        <a href="tel:+35929876543">+359 2 987 6543</a>
-        <a href="mailto:office@provind.bg">office@provind.bg</a>
-        <a href="#contact">Заявка за замерване</a>
-      </div>
+        <a href="#contact">Контакти</a>
+        <a href="#contact" class="btn btn--primary" style="margin-top:16px;">Безплатна оферта</a>
     </div>
-    <div class="footer-bottom">
-      <p>&copy; 2008–2026 ПроВинд ЕООД. Всички права запазени.</p>
-      <div class="social-icons">
-        <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
-        <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
-        <a href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a>
-      </div>
-    </div>
-  </div>
-</footer>
 
-<script>
-// Mobile menu
-const hamburger = document.querySelector('.hamburger');
-const overlay = document.getElementById('mobileOverlay');
-const closeBtn = document.getElementById('mobileClose');
-hamburger.addEventListener('click', () => overlay.classList.add('active'));
-closeBtn.addEventListener('click', () => overlay.classList.remove('active'));
-overlay.querySelectorAll('a').forEach(link => {
-  link.addEventListener('click', () => overlay.classList.remove('active'));
-});
-document.addEventListener('keydown', (e) => {
-  if (e.key === 'Escape') overlay.classList.remove('active');
-});
+    <!-- HERO -->
+    <section class="hero" id="hero">
+        <div class="hero__bg">
+            <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1600&q=80" alt="Модерен дом с панорамна дограма" loading="eager">
+        </div>
+        <div class="hero__overlay"></div>
+        <div class="hero__content">
+            <p class="hero__eyebrow">ТЕХНОЛОГИИ &bull; КАЧЕСТВО &bull; ПРЕЦИЗНОСТ</p>
+            <h1 class="hero__title">ДОГРАМА И ВРАТИ ЗА МОДЕРНИ ДОМОВЕ</h1>
+            <p class="hero__desc">Премиум PVC и алуминиева дограма с немска прецизност. Качество за вашия дом от 2008.</p>
+            <div class="hero__actions">
+                <a href="#contact" class="btn btn--primary">Поискайте оферта</a>
+                <a href="#products" class="btn btn--outline">Разгледайте продуктите</a>
+            </div>
+        </div>
+        <a href="#products" class="hero__scroll" aria-label="Scroll down">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+        </a>
+    </section>
 
-// Scroll reveal
-window.addEventListener('load', () => {
-  document.querySelectorAll('.reveal').forEach(el => el.classList.add('animate'));
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-        observer.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.15 });
-  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-});
+    <!-- PRODUCTS BENTO GRID -->
+    <section class="products" id="products">
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="eyebrow">Продуктова гама</span>
+                <h2 class="section-title">НАШИТЕ РЕШЕНИЯ</h2>
+                <p class="section-subtitle">Пълна гама от дограма и врати — от енергоефективни PVC профили до елегантни алуминиеви системи.</p>
+            </div>
+            <div class="bento reveal">
+                <!-- PVC — tall -->
+                <div class="bento__card bento__card--tall">
+                    <div class="bento__icon">
+                        <svg viewBox="0 0 40 40"><rect x="4" y="4" width="32" height="32" rx="2"/><line x1="20" y1="4" x2="20" y2="36"/><line x1="4" y1="20" x2="20" y2="20"/></svg>
+                    </div>
+                    <h3 class="bento__title">PVC ДОГРАМА</h3>
+                    <p class="bento__desc">5- и 7-камерни профили REHAU и VEKA с максимална енергийна ефективност.</p>
+                </div>
+                <!-- Aluminium -->
+                <div class="bento__card">
+                    <div class="bento__icon">
+                        <svg viewBox="0 0 40 40"><rect x="4" y="4" width="32" height="32" rx="1"/><line x1="4" y1="20" x2="36" y2="20"/><line x1="20" y1="4" x2="20" y2="20"/></svg>
+                    </div>
+                    <h3 class="bento__title">АЛУМИНИЕВА ДОГРАМА</h3>
+                    <p class="bento__desc">Тънки профили, големи стъклени площи, модерен облик.</p>
+                </div>
+                <!-- Entrance doors -->
+                <div class="bento__card">
+                    <div class="bento__icon">
+                        <svg viewBox="0 0 40 40"><rect x="10" y="4" width="20" height="32" rx="2"/><circle cx="26" cy="22" r="1.5"/><line x1="10" y1="4" x2="10" y2="36"/></svg>
+                    </div>
+                    <h3 class="bento__title">ВХОДНИ ВРАТИ</h3>
+                    <p class="bento__desc">Бронирани и ПВЦ входни врати — сигурност и стил.</p>
+                </div>
+                <!-- Interior doors -->
+                <div class="bento__card">
+                    <div class="bento__icon">
+                        <svg viewBox="0 0 40 40"><rect x="8" y="4" width="24" height="32" rx="2"/><circle cx="27" cy="22" r="1.5"/><path d="M8 36 L20 28 L8 20" fill="none"/></svg>
+                    </div>
+                    <h3 class="bento__title">ИНТЕРИОРНИ ВРАТИ</h3>
+                    <p class="bento__desc">Ламинирани, фурнировани и лакирани врати за всеки интериор.</p>
+                </div>
+                <!-- Sliding systems — wide -->
+                <div class="bento__card bento__card--wide">
+                    <div class="bento__icon">
+                        <svg viewBox="0 0 40 40"><rect x="2" y="6" width="16" height="28" rx="1"/><rect x="22" y="6" width="16" height="28" rx="1"/><line x1="10" y1="2" x2="10" y2="6"/><line x1="30" y1="2" x2="30" y2="6"/><path d="M18 20 L22 20" stroke-dasharray="2 2"/></svg>
+                    </div>
+                    <h3 class="bento__title">ПЛЪЗГАЩИ СИСТЕМИ</h3>
+                    <p class="bento__desc">HST, PSK и паралелно-плъзгащи системи за максимално отваряне към градината или терасата.</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-// Animated stat counters
-function animateCounters() {
-  document.querySelectorAll('[data-count]').forEach(el => {
-    const target = parseInt(el.dataset.count);
-    const suffix = el.dataset.suffix || '';
-    const duration = 2000;
-    const start = performance.now();
-    function update(now) {
-      const progress = Math.min((now - start) / duration, 1);
-      const eased = 1 - Math.pow(1 - progress, 3);
-      el.textContent = Math.floor(target * eased).toLocaleString() + suffix;
-      if (progress < 1) requestAnimationFrame(update);
-    }
-    requestAnimationFrame(update);
-  });
-}
-const statsObserver = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      animateCounters();
-      statsObserver.disconnect();
-    }
-  });
-}, { threshold: 0.3 });
-const statsSection = document.querySelector('.stats-grid');
-if (statsSection) statsObserver.observe(statsSection);
-</script>
+    <!-- STATS -->
+    <section class="stats" id="stats">
+        <div class="container">
+            <div class="stats__grid reveal">
+                <div class="stats__item">
+                    <div class="stats__number" data-count="15">0</div>
+                    <div class="stats__suffix" style="display:none;">+</div>
+                    <div class="stats__label">Години опит</div>
+                </div>
+                <div class="stats__item">
+                    <div class="stats__number" data-count="5000">0</div>
+                    <div class="stats__suffix" style="display:none;">+</div>
+                    <div class="stats__label">Реализирани обекта</div>
+                </div>
+                <div class="stats__item">
+                    <div class="stats__number" data-count="24" data-suffix="ч">0</div>
+                    <div class="stats__label">Оферта</div>
+                </div>
+                <div class="stats__item">
+                    <div class="stats__number" data-count="10">0</div>
+                    <div class="stats__label">Години гаранция</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PROCESS -->
+    <section class="process" id="process">
+        <div class="container">
+            <div class="section-header section-header--center reveal">
+                <span class="eyebrow">Как работим</span>
+                <h2 class="section-title">ОТ ИДЕЯ ДО МОНТАЖ</h2>
+                <p class="section-subtitle">Четири стъпки до перфектния резултат — без компромиси с качеството.</p>
+            </div>
+            <div class="timeline reveal">
+                <div class="timeline__step">
+                    <div class="timeline__number">01</div>
+                    <div>
+                        <h3 class="timeline__title">ЗАМЕРВАНЕ</h3>
+                        <p class="timeline__desc">Безплатно посещение на обекта и прецизно замерване с лазерна техника.</p>
+                    </div>
+                </div>
+                <div class="timeline__step">
+                    <div class="timeline__number">02</div>
+                    <div>
+                        <h3 class="timeline__title">ОФЕРТА</h3>
+                        <p class="timeline__desc">Детайлна оферта до 24 часа с визуализация и технически спецификации.</p>
+                    </div>
+                </div>
+                <div class="timeline__step">
+                    <div class="timeline__number">03</div>
+                    <div>
+                        <h3 class="timeline__title">ПРОИЗВОДСТВО</h3>
+                        <p class="timeline__desc">Изработка в собствен цех с немско оборудване и стриктен контрол.</p>
+                    </div>
+                </div>
+                <div class="timeline__step">
+                    <div class="timeline__number">04</div>
+                    <div>
+                        <h3 class="timeline__title">МОНТАЖ</h3>
+                        <p class="timeline__desc">Професионален монтаж от сертифицирани екипи по RAL стандарт.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- GALLERY -->
+    <section class="gallery" id="gallery">
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="eyebrow">Портфолио</span>
+                <h2 class="section-title">РЕАЛИЗИРАНИ ПРОЕКТИ</h2>
+                <p class="section-subtitle">Избрани обекти от нашата практика — жилищни, офисни и обществени сгради.</p>
+            </div>
+            <div class="gallery-grid reveal">
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&q=80" alt="Еднофамилна къща с панорамна дограма" loading="eager">
+                    <div class="gallery-item__overlay">
+                        <div class="gallery-item__title">Резиденция Витоша</div>
+                        <div class="gallery-item__location">София, Драгалевци</div>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&q=80" alt="Модерен интериор с алуминиева дограма" loading="eager">
+                    <div class="gallery-item__overlay">
+                        <div class="gallery-item__title">Апартамент Лозенец</div>
+                        <div class="gallery-item__location">София, Лозенец</div>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=800&q=80" alt="Къща с френски прозорци" loading="eager">
+                    <div class="gallery-item__overlay">
+                        <div class="gallery-item__title">Вила Созопол</div>
+                        <div class="gallery-item__location">Созопол, Буджака</div>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=800&q=80" alt="Панорамна тераса" loading="eager">
+                    <div class="gallery-item__overlay">
+                        <div class="gallery-item__title">Офис сграда Младост</div>
+                        <div class="gallery-item__location">София, Младост 4</div>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=800&q=80" alt="Минималистичен дом" loading="eager">
+                    <div class="gallery-item__overlay">
+                        <div class="gallery-item__title">Къща Бояна</div>
+                        <div class="gallery-item__location">София, Бояна</div>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1600573472592-401b489a3cdc?w=800&q=80" alt="Модерна фасада" loading="eager">
+                    <div class="gallery-item__overlay">
+                        <div class="gallery-item__title">Хотел Марина</div>
+                        <div class="gallery-item__location">Варна, Златни пясъци</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PARTNERS -->
+    <section class="partners" id="partners">
+        <div class="container">
+            <div class="section-header section-header--center reveal">
+                <span class="eyebrow">Доверени партньори</span>
+                <h2 class="section-title">РАБОТИМ С НАЙ-ДОБРИТЕ</h2>
+            </div>
+            <div class="partners__grid reveal">
+                <div class="partners__pill">REHAU</div>
+                <div class="partners__pill">VEKA</div>
+                <div class="partners__pill">Schüco</div>
+                <div class="partners__pill">Reynaers</div>
+                <div class="partners__pill">ROTO</div>
+                <div class="partners__pill">Siegenia</div>
+                <div class="partners__pill">Guardian Glass</div>
+                <div class="partners__pill">Saint-Gobain</div>
+                <div class="partners__pill">Salamander</div>
+                <div class="partners__pill">MACO</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ENERGY -->
+    <section class="energy" id="energy">
+        <div class="container">
+            <div class="section-header section-header--center reveal">
+                <span class="eyebrow">Енергийна ефективност</span>
+                <h2 class="section-title">ТЕХНОЛОГИИ ОТ БЪДЕЩЕТО</h2>
+                <p class="section-subtitle">Нашите системи отговарят на най-строгите европейски стандарти за топлоизолация и шумоизолация.</p>
+            </div>
+            <div class="energy__grid reveal">
+                <div class="energy__item">
+                    <div class="energy__circle" data-progress="80">
+                        <svg viewBox="0 0 140 140">
+                            <circle class="energy__circle-bg" cx="70" cy="70" r="60"/>
+                            <circle class="energy__circle-fill" cx="70" cy="70" r="60"/>
+                        </svg>
+                        <div class="energy__circle-value">0.8</div>
+                    </div>
+                    <h3 class="energy__title">U-VALUE (W/M²K)</h3>
+                    <p class="energy__desc">Коефициент на топлопреминаване — сред най-ниските на пазара за максимална изолация.</p>
+                </div>
+                <div class="energy__item">
+                    <div class="energy__circle" data-progress="75">
+                        <svg viewBox="0 0 140 140">
+                            <circle class="energy__circle-bg" cx="70" cy="70" r="60"/>
+                            <circle class="energy__circle-fill" cx="70" cy="70" r="60"/>
+                        </svg>
+                        <div class="energy__circle-value">45dB</div>
+                    </div>
+                    <h3 class="energy__title">ШУМОИЗОЛАЦИЯ</h3>
+                    <p class="energy__desc">Намаление на външния шум до 45 децибела — тишина дори на оживени булеварди.</p>
+                </div>
+                <div class="energy__item">
+                    <div class="energy__circle" data-progress="40">
+                        <svg viewBox="0 0 140 140">
+                            <circle class="energy__circle-bg" cx="70" cy="70" r="60"/>
+                            <circle class="energy__circle-fill" cx="70" cy="70" r="60"/>
+                        </svg>
+                        <div class="energy__circle-value">40%</div>
+                    </div>
+                    <h3 class="energy__title">СПЕСТЕНА ЕНЕРГИЯ</h3>
+                    <p class="energy__desc">Средно 40% по-ниски сметки за отопление и климатизация с нашата дограма.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TESTIMONIALS -->
+    <section class="testimonials" id="testimonials">
+        <div class="container">
+            <div class="section-header section-header--center reveal">
+                <span class="eyebrow">Какво казват клиентите</span>
+                <h2 class="section-title">ОТЗИВИ</h2>
+            </div>
+            <div class="testimonial reveal" id="testimonialSlider">
+                <span class="testimonial__quote-mark">&ldquo;</span>
+                <p class="testimonial__text" id="testimonialText">Смених цялата дограма на апартамента и разликата е невероятна. Шумът от булеварда просто изчезна, а сметките за парно паднаха с една трета. Екипът беше точен, бърз и изключително коректен.</p>
+                <div class="testimonial__author" id="testimonialAuthor">Мария Петрова</div>
+                <div class="testimonial__location" id="testimonialLocation">София, Люлин</div>
+            </div>
+            <div class="testimonials__dots" id="testimonialDots">
+                <button class="testimonials__dot active" data-index="0" aria-label="Отзив 1"></button>
+                <button class="testimonials__dot" data-index="1" aria-label="Отзив 2"></button>
+                <button class="testimonials__dot" data-index="2" aria-label="Отзив 3"></button>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section class="contact" id="contact">
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="eyebrow">Свържете се с нас</span>
+                <h2 class="section-title">ПОИСКАЙТЕ БЕЗПЛАТНА ОФЕРТА</h2>
+                <p class="section-subtitle">Попълнете формата или ни се обадете директно. Отговаряме до 24 часа.</p>
+            </div>
+            <div class="contact__grid reveal">
+                <form class="contact__form" onsubmit="event.preventDefault(); alert('Благодарим! Ще се свържем с вас до 24 часа.');">
+                    <div class="form-group">
+                        <label for="name">Вашето име</label>
+                        <input type="text" id="name" name="name" required placeholder="Иван Иванов">
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Телефон</label>
+                        <input type="tel" id="phone" name="phone" required placeholder="0888 123 456">
+                    </div>
+                    <div class="form-group">
+                        <label for="service">Интересувам се от</label>
+                        <select id="service" name="service">
+                            <option value="">Изберете услуга</option>
+                            <option value="pvc">PVC дограма</option>
+                            <option value="alu">Алуминиева дограма</option>
+                            <option value="entrance">Входни врати</option>
+                            <option value="interior">Интериорни врати</option>
+                            <option value="sliding">Плъзгащи системи</option>
+                            <option value="other">Друго</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Съобщение</label>
+                        <textarea id="message" name="message" placeholder="Опишете накратко вашия проект..."></textarea>
+                    </div>
+                    <button type="submit" class="btn--submit">ИЗПРАТЕТЕ ЗАПИТВАНЕ</button>
+                </form>
+                <div class="contact__info">
+                    <div class="contact__info-item">
+                        <div class="contact__info-icon">
+                            <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+                        </div>
+                        <div>
+                            <div class="contact__info-label">Телефон</div>
+                            <div class="contact__info-value">0888 123 456</div>
+                        </div>
+                    </div>
+                    <div class="contact__info-item">
+                        <div class="contact__info-icon">
+                            <svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="22,4 12,13 2,4"/></svg>
+                        </div>
+                        <div>
+                            <div class="contact__info-label">Имейл</div>
+                            <div class="contact__info-value">office@provind.bg</div>
+                        </div>
+                    </div>
+                    <div class="contact__info-item">
+                        <div class="contact__info-icon">
+                            <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                        </div>
+                        <div>
+                            <div class="contact__info-label">Адрес & Шоурум</div>
+                            <div class="contact__info-value">бул. Цариградско шосе 120<br>1784 София</div>
+                        </div>
+                    </div>
+                    <div class="contact__info-item">
+                        <div class="contact__info-icon">
+                            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                        </div>
+                        <div>
+                            <div class="contact__info-label">Работно време</div>
+                            <div class="contact__info-value">Пон–Пет: 08:30–17:30<br>Събота: 09:00–14:00</div>
+                        </div>
+                    </div>
+                    <div class="contact__map">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2932.5!2d23.38!3d42.67!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDLCsDQwJzEyLjAiTiAyM8KwMjInNDguMCJF!5e0!3m2!1sbg!2sbg!4v1" allowfullscreen loading="lazy" title="Карта"></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer" id="footer">
+        <div class="container">
+            <div class="footer__grid">
+                <div>
+                    <div class="footer__brand-name">ПРО<span>ВИНД</span></div>
+                    <p class="footer__brand-desc">Качество за вашия дом от 2008. Премиум дограма и врати с немска прецизност и 10 години гаранция.</p>
+                    <div class="footer__social">
+                        <a href="#" aria-label="Facebook">
+                            <svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+                        </a>
+                        <a href="#" aria-label="Instagram">
+                            <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="12" r="5" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="17.5" cy="6.5" r="1.5"/></svg>
+                        </a>
+                        <a href="#" aria-label="YouTube">
+                            <svg viewBox="0 0 24 24"><path d="M22.54 6.42a2.78 2.78 0 00-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 00-1.94 2A29 29 0 001 11.75a29 29 0 00.46 5.33A2.78 2.78 0 003.4 19.1c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 001.94-2 29 29 0 00.46-5.25 29 29 0 00-.46-5.33z"/><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02" fill="#fff"/></svg>
+                        </a>
+                    </div>
+                </div>
+                <div>
+                    <div class="footer__heading">ПРОДУКТИ</div>
+                    <ul class="footer__list">
+                        <li><a href="#products">PVC дограма</a></li>
+                        <li><a href="#products">Алуминиева дограма</a></li>
+                        <li><a href="#products">Входни врати</a></li>
+                        <li><a href="#products">Интериорни врати</a></li>
+                        <li><a href="#products">Плъзгащи системи</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <div class="footer__heading">КОМПАНИЯ</div>
+                    <ul class="footer__list">
+                        <li><a href="#">За нас</a></li>
+                        <li><a href="#gallery">Проекти</a></li>
+                        <li><a href="#testimonials">Отзиви</a></li>
+                        <li><a href="#">Кариери</a></li>
+                        <li><a href="#">Блог</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <div class="footer__heading">КОНТАКТИ</div>
+                    <ul class="footer__list">
+                        <li><a href="tel:0888123456">0888 123 456</a></li>
+                        <li><a href="mailto:office@provind.bg">office@provind.bg</a></li>
+                        <li><a href="#">бул. Цариградско шосе 120</a></li>
+                        <li><a href="#">1784 София</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer__bottom">
+                <span>&copy; 2008–2026 ПроВинд ЕООД. Всички права запазени.</span>
+                <span><a href="#">Поверителност</a> &middot; <a href="#">Условия за ползване</a></span>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        /* ===== NAVIGATION SCROLL ===== */
+        const nav = document.getElementById('nav');
+        const hamburger = document.getElementById('hamburger');
+        const mobileMenu = document.getElementById('mobileMenu');
+
+        window.addEventListener('scroll', () => {
+            nav.classList.toggle('nav--scrolled', window.scrollY > 60);
+        }, { passive: true });
+
+        /* ===== MOBILE MENU ===== */
+        hamburger.addEventListener('click', () => {
+            const isOpen = mobileMenu.classList.toggle('open');
+            hamburger.classList.toggle('active');
+            document.body.style.overflow = isOpen ? 'hidden' : '';
+        });
+
+        mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.remove('open');
+                hamburger.classList.remove('active');
+                document.body.style.overflow = '';
+            });
+        });
+
+        /* ===== SCROLL REVEAL ===== */
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+        if (!prefersReducedMotion) {
+            const revealEls = document.querySelectorAll('.reveal');
+            revealEls.forEach(el => el.classList.add('reveal--hidden'));
+
+            const revealObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.remove('reveal--hidden');
+                        revealObserver.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+            revealEls.forEach(el => revealObserver.observe(el));
+        }
+
+        /* ===== STAT COUNTERS ===== */
+        const counters = document.querySelectorAll('.stats__number[data-count]');
+        let countersAnimated = false;
+
+        function animateCounters() {
+            if (countersAnimated) return;
+            countersAnimated = true;
+
+            counters.forEach(counter => {
+                const target = parseInt(counter.dataset.count);
+                const suffix = counter.dataset.suffix || '';
+                const hasPlusSuffix = counter.closest('.stats__item').querySelector('.stats__suffix');
+                const duration = 2000;
+                const start = performance.now();
+
+                function update(now) {
+                    const elapsed = now - start;
+                    const progress = Math.min(elapsed / duration, 1);
+                    const eased = 1 - Math.pow(1 - progress, 3);
+                    const current = Math.round(eased * target);
+
+                    let display = current.toLocaleString('bg-BG');
+                    if (suffix) display += suffix;
+                    if (hasPlusSuffix && progress >= 1) display += '+';
+
+                    counter.textContent = display;
+
+                    if (progress < 1) requestAnimationFrame(update);
+                }
+
+                requestAnimationFrame(update);
+            });
+        }
+
+        const statsObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateCounters();
+                    statsObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.3 });
+
+        const statsSection = document.getElementById('stats');
+        if (statsSection) statsObserver.observe(statsSection);
+
+        /* ===== ENERGY CIRCLES ===== */
+        const energyCircles = document.querySelectorAll('.energy__circle');
+        const circumference = 2 * Math.PI * 60; // r=60
+
+        const energyObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const progress = parseInt(entry.target.dataset.progress) / 100;
+                    const fillCircle = entry.target.querySelector('.energy__circle-fill');
+                    const offset = circumference * (1 - progress);
+                    fillCircle.style.strokeDashoffset = offset;
+                    energyObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        energyCircles.forEach(circle => energyObserver.observe(circle));
+
+        /* ===== TESTIMONIALS ===== */
+        const testimonials = [
+            {
+                text: 'Смених цялата дограма на апартамента и разликата е невероятна. Шумът от булеварда просто изчезна, а сметките за парно паднаха с една трета. Екипът беше точен, бърз и изключително коректен.',
+                author: 'Мария Петрова',
+                location: 'София, Люлин'
+            },
+            {
+                text: 'Избрахме алуминиева дограма за новата ни къща и не съжаляваме. Тънките профили пропускат максимално светлина, а качеството на монтажа е безупречно. Препоръчвам ги без колебание.',
+                author: 'Георги Димитров',
+                location: 'Пловдив, Кючук Париж'
+            },
+            {
+                text: 'За офис сградата ни избрахме ПроВинд заради съотношението цена-качество. Целият процес — от замерването до монтажа — мина гладко и в срок. Вече втора година нямаме нито един проблем.',
+                author: 'Елена Тодорова',
+                location: 'Варна, Център'
+            }
+        ];
+
+        const textEl = document.getElementById('testimonialText');
+        const authorEl = document.getElementById('testimonialAuthor');
+        const locationEl = document.getElementById('testimonialLocation');
+        const dots = document.querySelectorAll('.testimonials__dot');
+        let currentTestimonial = 0;
+
+        function showTestimonial(index) {
+            currentTestimonial = index;
+            const t = testimonials[index];
+            textEl.style.opacity = '0';
+            setTimeout(() => {
+                textEl.textContent = t.text;
+                authorEl.textContent = t.author;
+                locationEl.textContent = t.location;
+                textEl.style.opacity = '1';
+            }, 300);
+            dots.forEach((d, i) => d.classList.toggle('active', i === index));
+        }
+
+        dots.forEach(dot => {
+            dot.addEventListener('click', () => {
+                showTestimonial(parseInt(dot.dataset.index));
+            });
+        });
+
+        // Auto-rotate every 6s
+        setInterval(() => {
+            showTestimonial((currentTestimonial + 1) % testimonials.length);
+        }, 6000);
+
+        textEl.style.transition = 'opacity 0.3s ease';
+    </script>
+
 </body>
 </html>
