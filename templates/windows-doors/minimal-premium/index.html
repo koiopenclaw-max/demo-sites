@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ПроВинд — Премиум Дограма и Врати | Прецизност и Елегантност от 2008</title>
-<meta name="description" content="ПроВинд — премиум PVC и алуминиева дограма, входни и интериорни врати. Швейцарска прецизност, немско качество.">
+<title>ПроВинд — PVC и Алуминиева Дограма | Безплатно замерване</title>
+<meta name="description" content="Спестете до 40% от отоплението с премиум PVC и алуминиева дограма. 5000+ обекта, 10 години гаранция. Безплатно замерване до 48 часа.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
@@ -203,9 +203,7 @@ ul { list-style: none; }
   transform: translateY(100%); transition: transform 0.4s ease; border-radius: 0 0 8px 8px;
 }
 .gallery-item:hover::after { transform: translateY(0); }
-.gallery-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.4), transparent 50%); opacity: 0; transition: opacity 0.3s; display: flex; align-items: flex-end; padding: 20px; }
-.gallery-item:hover .gallery-overlay { opacity: 1; }
-.gallery-overlay span { color: #fff; font-size: 0.85rem; font-weight: 500; }
+/* Gallery overlays handled by ::after pseudo-element */
 @media (max-width: 768px) {
   .gallery-grid { grid-template-columns: repeat(2, 1fr); }
 }
@@ -253,7 +251,7 @@ ul { list-style: none; }
 .testimonials { background: #FAFAFA; }
 .testimonials-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
 .testimonial-card { background: #fff; border-radius: 10px; padding: 36px; border: 1px solid #E5E7EB; transition: border-color 0.2s, box-shadow 0.25s; }
-.testimonial-card:hover { border-color: rgba(13, 148, 136, 0.2); box-shadow: 0 8px 24px rgba(0,0,0,0.04); }
+.testimonial-card:hover { border-color: rgba(13, 148, 136, 0.2); box-shadow: 0 20px 60px rgba(0,0,0,0.08); transform: translateY(-8px); }
 .t-rating { display: flex; gap: 3px; margin-bottom: 18px; }
 .t-rating svg { width: 16px; height: 16px; color: #FBBF24; }
 .t-quote { font-size: 0.92rem; color: #64748B; line-height: 1.75; margin-bottom: 24px; position: relative; padding-left: 20px; border-left: 2px solid #E5E7EB; }
@@ -354,8 +352,8 @@ ul { list-style: none; }
     <div class="hero-grid">
       <div class="hero-content">
         <div class="hero-overline">Премиум дограма и врати</div>
-        <h1>Прецизност в<br>всеки <em>детайл</em></h1>
-        <p>Немско и австрийско качество за вашия дом. PVC и алуминиева дограма с безкомпромисна топлоизолация, минималистичен дизайн и тиха работа на механизмите.</p>
+        <h1>Студ, шум и<br>високи <em>сметки?</em></h1>
+        <p>Старата дограма ви коства стотици левове всяка зима — и ви лишава от тишина и комфорт. С нашата PVC и алуминиева дограма спестявате до 40% от отоплението, спите в пълна тишина и повишавате стойността на имота си.</p>
         <div class="hero-ctas">
           <a href="#контакти" class="btn-primary">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6A19.79 19.79 0 012.12 4.18 2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
@@ -380,8 +378,8 @@ ul { list-style: none; }
     <div class="section-header">
       <span class="section-overline">Продуктова гама</span>
       <span class="eyebrow">ПРОДУКТОВА ГАМА</span>
-      <h2>Нашите Продукти</h2>
-      <p>Прецизно изработена дограма и врати от водещи европейски производители — за жилища, офиси и архитектурни проекти.</p>
+      <h2>Решения за всеки проект</h2>
+      <p>Всеки дом е различен — затова предлагаме пълна гама профили и системи. Изберете идеалното съчетание на изолация, дизайн и бюджет.</p>
     </div>
     <div class="products-grid">
       <!-- PVC -->
@@ -394,7 +392,7 @@ ul { list-style: none; }
           </svg>
         </div>
         <h3>PVC Дограма</h3>
-        <p>Пет- и шесткамерни профили Rehau и VEKA с отлична звуко- и топлоизолация. Клас А по RAL стандарт.</p>
+        <p>5- и 6-камерни профили Rehau и VEKA (клас А по RAL) — задържат топлината до 3 пъти по-добре от стара дограма. Резултат: по-ниски сметки от първия месец.</p>
         <span class="card-arrow">Научете повече <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
       </div>
       <!-- Aluminium -->
@@ -408,7 +406,7 @@ ul { list-style: none; }
           </svg>
         </div>
         <h3>Алуминиева Дограма</h3>
-        <p>Ултратънки профили Schüco и Reynaers за максимално остъкляване. Идеални за панорамни фасади.</p>
+        <p>Ултратънки профили Schüco и Reynaers — до 30% повече светлина от PVC. Идеални когато искате панорамна гледка без масивни рамки.</p>
         <span class="card-arrow">Научете повече <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
       </div>
       <!-- Entry Doors -->
@@ -421,7 +419,7 @@ ul { list-style: none; }
           </svg>
         </div>
         <h3>Входни Врати</h3>
-        <p>RC2/RC3 клас на взломоустойчивост с многоточково заключване. Термопанели с U-стойност до 0.87 W/m²K.</p>
+        <p>RC2/RC3 взломоустойчивост с многоточково заключване — спите спокойно. Термопанел с U-стойност 0.87 W/m²K спира студа още на прага.</p>
         <span class="card-arrow">Научете повече <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
       </div>
       <!-- Interior Doors -->
@@ -434,7 +432,7 @@ ul { list-style: none; }
           </svg>
         </div>
         <h3>Интериорни Врати</h3>
-        <p>Безфалцови врати с невидими панти и безшумно затваряне. Естествен фурнир, лак или стъкло.</p>
+        <p>Безфалцови врати с невидими панти — модерен, чист вид без видими механизми. Безшумно затваряне, което усещате (и не чувате) от първия ден.</p>
         <span class="card-arrow">Научете повече <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
       </div>
       <!-- Sliding -->
@@ -448,7 +446,7 @@ ul { list-style: none; }
           </svg>
         </div>
         <h3>Плъзгащи Системи</h3>
-        <p>HST и PSK системи до 6 метра ширина. Плавно плъзгане с едно докосване и перфектна херметичност.</p>
+        <p>HST и PSK системи до 6 метра — отваряте цяла стена с едно докосване. Градината влиза в дневната, без компромис с изолацията.</p>
         <span class="card-arrow">Научете повече <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
       </div>
     </div>
@@ -461,29 +459,29 @@ ul { list-style: none; }
     <div class="section-header">
       <span class="section-overline">Защо ПроВинд</span>
       <span class="eyebrow">ДОВЕРИЕ И КАЧЕСТВО</span>
-      <h2>Нашите Предимства</h2>
-      <p>Повече от 15 години изграждаме репутация чрез качество, прозрачност и дългосрочни гаранции.</p>
+      <h2>Защо 5000+ семейства ни избраха</h2>
+      <p>Преди — дограма от неизвестен доставчик, без гаранция, с проблеми още първата зима. След нас — 10 години спокойствие, доказани с всеки един от 5000+ обекта.</p>
     </div>
     <div class="stats-grid">
-      <div class="stat-item">
+      <div class="stat-item reveal">
         <div class="stat-number" data-count="15" data-suffix="+">15+</div>
         <div class="stat-label">Години опит</div>
-        <div class="stat-desc">На пазара от 2008 с постоянно растящ екип от специалисти</div>
+        <div class="stat-desc">На пазара от 2008 — знаем какво работи и какво не</div>
       </div>
-      <div class="stat-item">
+      <div class="stat-item reveal">
         <div class="stat-number" data-count="5000" data-suffix="+">5000+</div>
         <div class="stat-label">Реализирани обекта</div>
-        <div class="stat-desc">Жилищни, офисни и промишлени обекти из цяла България</div>
+        <div class="stat-desc">Жилища, офиси и търговски обекти в цяла България</div>
       </div>
-      <div class="stat-item">
+      <div class="stat-item reveal">
         <div class="stat-number">0 лв</div>
         <div class="stat-label">Безплатно замерване</div>
-        <div class="stat-desc">Наш специалист идва на място без допълнително заплащане</div>
+        <div class="stat-desc">Идваме на място, мерим и съветваме — без ангажимент</div>
       </div>
-      <div class="stat-item">
+      <div class="stat-item reveal">
         <div class="stat-number" data-count="10" data-suffix="">10</div>
         <div class="stat-label">Години гаранция</div>
-        <div class="stat-desc">Пълна гаранция за продукт и монтаж — спокойствие за години</div>
+        <div class="stat-desc">Пълна гаранция за продукт и монтаж — ако нещо тръгне наляво, ние поправяме</div>
       </div>
     </div>
   </div>
@@ -495,29 +493,29 @@ ul { list-style: none; }
     <div class="section-header">
       <span class="section-overline">Процес</span>
       <span class="eyebrow">КАК РАБОТИМ</span>
-      <h2>Работен Процес</h2>
-      <p>Прозрачен процес без изненади — от първия контакт до финалния монтаж.</p>
+      <h2>От обаждане до нова дограма — 4 стъпки</h2>
+      <p>Без скрити разходи, без изненади. Знаете точно какво, кога и за колко.</p>
     </div>
     <div class="process-track">
-      <div class="process-step">
+      <div class="process-step reveal">
         <div class="step-dot">01</div>
-        <h3>Замерване</h3>
-        <p>Техник идва на място, измерва прецизно и обсъжда вашите предпочитания за профил, цвят и стъклопакет.</p>
+        <h3>Безплатно замерване</h3>
+        <p>Обаждате се — техник идва до 48 часа. Мери прецизно, обсъжда вариантите и ви съветва без ангажимент.</p>
       </div>
-      <div class="process-step">
+      <div class="process-step reveal">
         <div class="step-dot">02</div>
-        <h3>Оферта до 24ч</h3>
-        <p>Получавате детайлна оферта с точна цена до 24 часа — прозрачно, без скрити разходи.</p>
+        <h3>Точна цена до 24ч</h3>
+        <p>Получавате детайлна оферта с крайна цена — включва продукт, монтаж и демонтаж на старата дограма.</p>
       </div>
-      <div class="process-step">
+      <div class="process-step reveal">
         <div class="step-dot">03</div>
-        <h3>Производство</h3>
-        <p>Изработка по индивидуални размери с оригинални материали от Rehau, VEKA, Schüco или Reynaers.</p>
+        <h3>Изработка по размер</h3>
+        <p>Всяко изделие се произвежда индивидуално за вашия отвор — от оригинални профили Rehau, VEKA, Schüco.</p>
       </div>
-      <div class="process-step">
+      <div class="process-step reveal">
         <div class="step-dot">04</div>
-        <h3>Монтаж</h3>
-        <p>Професионален монтаж от сертифициран екип по RAL стандарт — бързо, чисто и прецизно.</p>
+        <h3>Монтаж за 1 ден</h3>
+        <p>Сертифициран екип по RAL стандарт. Стандартен апартамент — за един работен ден. Почистваме след себе си.</p>
       </div>
     </div>
   </div>
@@ -643,11 +641,11 @@ ul { list-style: none; }
     <div class="section-header">
       <span class="section-overline">Отзиви</span>
       <span class="eyebrow">ОТЗИВИ</span>
-      <h2>Какво казват клиентите</h2>
-      <p>Реални мнения от хора, които ни се довериха за своя дом или офис.</p>
+      <h2>Какво казват хората, които ни избраха</h2>
+      <p>Не ни вярвайте на думата — вижте какво споделят реалните ни клиенти.</p>
     </div>
     <div class="testimonials-grid">
-      <div class="testimonial-card">
+      <div class="testimonial-card reveal">
         <div class="t-rating">
           <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
           <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
@@ -655,7 +653,7 @@ ul { list-style: none; }
           <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
           <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
         </div>
-        <p class="t-quote">Сменихме дограмата в целия апартамент и не съжаляваме нито за секунда. Разликата в топлоизолацията е огромна — сметките за парно намаляха с над 30%. Екипът беше изключително прецизен и акуратен.</p>
+        <p class="t-quote">Миналата зима плащахме 280 лв. на месец за парно. Тази зима — 190 лв. Единственото, което сменихме, е дограмата. Екипът на ПроВинд мина за един ден и нямаше нито една драскотина по стените.</p>
         <div class="t-author">
           <div class="t-avatar">МП</div>
           <div>
@@ -664,7 +662,7 @@ ul { list-style: none; }
           </div>
         </div>
       </div>
-      <div class="testimonial-card">
+      <div class="testimonial-card reveal">
         <div class="t-rating">
           <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
           <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
@@ -672,7 +670,7 @@ ul { list-style: none; }
           <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
           <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
         </div>
-        <p class="t-quote">Избрахме HST плъзгаща система за дневната — 4 метра панорамна врата. Отваря и затваря с едно докосване. Монтажът мина за един ден, без щети по стените. Безупречно обслужване от замерването до края.</p>
+        <p class="t-quote">Жена ми мечтаеше за панорамна врата към градината. Избрахме 4-метрова HST система и честно — не очаквах такъв ефект. Дневната изглежда два пъти по-голяма. Децата буквално живеят на терасата.</p>
         <div class="t-author">
           <div class="t-avatar">ГИ</div>
           <div>
@@ -681,7 +679,7 @@ ul { list-style: none; }
           </div>
         </div>
       </div>
-      <div class="testimonial-card">
+      <div class="testimonial-card reveal">
         <div class="t-rating">
           <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
           <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
@@ -689,7 +687,7 @@ ul { list-style: none; }
           <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
           <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
         </div>
-        <p class="t-quote">За новата ни къща до Варна избрахме алуминиева дограма Schüco. Профилите са изключително тънки, а стъклото — от пода до тавана. Изглежда като от архитектурно списание. Абсолютна препоръка за ПроВинд!</p>
+        <p class="t-quote">Архитектът ни каза, че алуминиевите профили на Schüco са най-тънките на пазара. Когато видяхме резултата — стъкло от пода до тавана и почти невидими рамки — разбрахме защо. Съседите вече питат кой ни е правил дограмата.</p>
         <div class="t-author">
           <div class="t-avatar">ЕН</div>
           <div>
@@ -708,8 +706,8 @@ ul { list-style: none; }
     <div class="section-header">
       <span class="section-overline">Контакти</span>
       <span class="eyebrow">КОНТАКТИ</span>
-      <h2>Заявете безплатна консултация</h2>
-      <p>Попълнете формата и наш консултант ще се свърже с вас до 2 часа в работно време.</p>
+      <h2>Готови ли сте да спрете да плащате за студ?</h2>
+      <p>Попълнете формата за безплатно замерване — наш специалист ще се обади до 2 часа. Без ангажимент, без натиск.</p>
     </div>
     <div class="contact-layout">
       <form class="contact-form" onsubmit="event.preventDefault(); alert('Благодарим за запитването! Ще се свържем с вас скоро.');">
