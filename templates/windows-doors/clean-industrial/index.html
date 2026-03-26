@@ -25,24 +25,72 @@ a { text-decoration: none; color: inherit; }
 img { max-width: 100%; display: block; }
 .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
 
-.section-title { text-align: center; font-size: 2.4rem; margin-bottom: 8px; }
+/* Grain overlay */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.03;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  z-index: 9998;
+}
+
+/* Eyebrow */
+.eyebrow {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--accent);
+  display: block;
+  margin-bottom: 12px;
+  text-align: center;
+}
+
+.section-title { text-align: center; font-size: 2.8rem; margin-bottom: 8px; }
 .section-title span { color: var(--accent); }
 .section-sub { text-align: center; color: var(--text-muted); max-width: 620px; margin: 0 auto 56px; font-size: 1.05rem; }
 .blue-line { display: block; width: 60px; height: 4px; background: var(--accent); margin: 12px auto 0; }
 
+/* Reveal */
+.reveal {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.reveal.animate { opacity: 0; transform: translateY(30px); }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+@media (prefers-reduced-motion: reduce) { .reveal { transition: none !important; } }
+
+/* Buttons */
 .cta-btn {
   display: inline-block; padding: 14px 32px; background: var(--cta); color: #fff;
   font-weight: 700; font-size: 0.95rem; border: none; cursor: pointer;
   border-radius: 4px; transition: background 0.3s, transform 0.2s;
   font-family: var(--font-heading); text-transform: uppercase; letter-spacing: 1px;
+  position: relative; overflow: hidden; z-index: 1;
 }
+.cta-btn::before {
+  content: ''; position: absolute; inset: 0; background: rgba(0,0,0,0.15);
+  transform: scaleX(0); transform-origin: right;
+  transition: transform 0.4s cubic-bezier(0.65, 0, 0.35, 1); z-index: -1;
+}
+.cta-btn:hover::before { transform: scaleX(1); transform-origin: left; }
 .cta-btn:hover { background: var(--cta-hover); transform: translateY(-2px); }
 .cta-btn-alt {
   display: inline-block; padding: 14px 32px; background: var(--accent); color: #fff;
   font-weight: 700; font-size: 0.95rem; border: none; cursor: pointer;
   border-radius: 4px; transition: background 0.3s, transform 0.2s;
   font-family: var(--font-heading); text-transform: uppercase; letter-spacing: 1px;
+  position: relative; overflow: hidden; z-index: 1;
 }
+.cta-btn-alt::before {
+  content: ''; position: absolute; inset: 0; background: rgba(0,0,0,0.15);
+  transform: scaleX(0); transform-origin: right;
+  transition: transform 0.4s cubic-bezier(0.65, 0, 0.35, 1); z-index: -1;
+}
+.cta-btn-alt:hover::before { transform: scaleX(1); transform-origin: left; }
 .cta-btn-alt:hover { background: #1D4ED8; transform: translateY(-2px); }
 
 /* HEADER */
@@ -67,41 +115,69 @@ nav a:hover { color: var(--accent); }
 .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 8px; }
 .hamburger span { display: block; width: 26px; height: 3px; background: var(--text); transition: all 0.3s; border-radius: 2px; }
 
-/* HERO */
-.hero {
-  position: relative; min-height: 100vh; display: flex; align-items: center;
-  background: var(--bg);
+/* Mobile Overlay */
+.mobile-overlay {
+  position: fixed; inset: 0; background: #FFFFFF; z-index: 9999;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 32px;
+  opacity: 0; visibility: hidden; transition: opacity 0.3s ease, visibility 0.3s ease;
 }
-.hero-inner {
-  display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center;
-  max-width: 1200px; margin: 0 auto; padding: 120px 24px 80px;
-}
-.hero-text .hero-tag {
-  display: inline-block; background: var(--accent-light); color: var(--accent);
-  font-family: var(--font-heading); font-size: 0.8rem; font-weight: 700;
-  text-transform: uppercase; letter-spacing: 2px; padding: 6px 16px;
-  border-radius: 4px; margin-bottom: 24px;
-}
-.hero-text h1 { font-size: 3.5rem; line-height: 1.05; margin-bottom: 20px; text-transform: uppercase; }
-.hero-text h1 span { color: var(--accent); }
-.hero-text p { font-size: 1.15rem; color: var(--text-muted); margin-bottom: 32px; max-width: 480px; line-height: 1.7; }
-.hero-buttons { display: flex; gap: 16px; flex-wrap: wrap; }
-.hero-image { position: relative; border-radius: 8px; overflow: hidden; }
-.hero-image img { width: 100%; height: 500px; object-fit: cover; border-radius: 8px; }
-.hero-image::after {
-  content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 4px; background: var(--accent);
+.mobile-overlay.active { opacity: 1; visibility: visible; }
+.mobile-close { position: absolute; top: 20px; right: 20px; background: none; border: none; cursor: pointer; padding: 12px; z-index: 10000; color: #0D1117; }
+.mobile-nav-links { display: flex; flex-direction: column; align-items: center; gap: 24px; }
+.mobile-nav-links a { font-family: var(--font-heading); font-size: 1.8rem; font-weight: 700; color: #0D1117; text-transform: uppercase; letter-spacing: 2px; transition: color 0.3s; }
+.mobile-nav-links a:hover { color: var(--accent); }
+.mobile-nav-links .mobile-cta {
+  display: inline-block; padding: 16px 36px; background: #FF6B35; color: #fff;
+  font-family: var(--font-heading); font-size: 1rem; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 2px; border-radius: 4px; margin-top: 12px;
 }
 
-/* PRODUCTS */
-.products { padding: 100px 0; background: var(--bg-alt); }
-.products-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 20px; }
-.product-card {
-  background: var(--bg-card); border-left: 4px solid var(--accent); padding: 32px 20px;
-  transition: all 0.3s; position: relative;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+/* HERO — FULL WIDTH CINEMATIC */
+.hero {
+  position: relative; min-height: 100vh; display: flex; align-items: center;
+  background: url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1600&q=80') center/cover no-repeat;
 }
-.product-card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(37,99,235,0.12); }
+.hero::before {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(135deg, rgba(13,17,23,0.88) 0%, rgba(37,99,235,0.4) 100%);
+}
+.hero-content {
+  position: relative; z-index: 2; text-align: center; width: 100%;
+  max-width: 900px; margin: 0 auto; padding: 140px 24px 100px; color: #fff;
+}
+.hero-tag {
+  display: inline-block; background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.2);
+  color: #DBEAFE; font-family: var(--font-heading); font-size: 0.85rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 3px; padding: 8px 20px; border-radius: 4px; margin-bottom: 28px;
+}
+.hero h1 { font-size: 4.5rem; line-height: 0.95; margin-bottom: 24px; text-transform: uppercase; letter-spacing: -1px; }
+.hero h1 span { color: var(--cta); }
+.hero p { font-size: 1.2rem; color: rgba(255,255,255,0.8); margin-bottom: 36px; max-width: 600px; margin-left: auto; margin-right: auto; line-height: 1.7; }
+.hero-buttons { display: flex; gap: 16px; flex-wrap: wrap; justify-content: center; }
+
+/* PRODUCTS — BENTO GRID */
+.products { padding: 100px 0; background: var(--bg-alt); }
+.products-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: auto auto;
+  gap: 20px;
+}
+.product-card {
+  background: var(--bg-card); border-left: 4px solid var(--accent); padding: 32px 24px;
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.4s ease;
+  position: relative; box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+}
+.product-card:hover { transform: translateY(-8px); box-shadow: 0 20px 60px rgba(37,99,235,0.12); }
+.product-card:first-child {
+  grid-row: span 2;
+  border-left: 6px solid var(--cta);
+  padding: 48px 32px;
+}
+.product-card:first-child h3 { font-size: 1.4rem; }
+.product-card:first-child p { font-size: 0.95rem; }
 .product-card svg { width: 44px; height: 44px; margin-bottom: 16px; color: var(--accent); }
+.product-card:first-child svg { width: 56px; height: 56px; }
 .product-card h3 { font-size: 1rem; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.5px; }
 .product-card p { font-size: 0.85rem; color: var(--text-muted); line-height: 1.5; }
 
@@ -111,7 +187,9 @@ nav a:hover { color: var(--accent); }
 .stat-item {
   text-align: center; padding: 40px 20px; background: var(--bg-alt);
   border-radius: 4px; position: relative; overflow: hidden;
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.4s ease;
 }
+.stat-item:hover { transform: translateY(-8px); box-shadow: 0 20px 60px rgba(0,0,0,0.08); }
 .stat-item::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: var(--accent); }
 .stat-number { font-family: var(--font-heading); font-size: 3.5rem; font-weight: 800; color: var(--accent); display: block; line-height: 1; }
 .stat-label { font-size: 0.95rem; color: var(--text-muted); margin-top: 12px; font-weight: 500; }
@@ -122,6 +200,7 @@ nav a:hover { color: var(--accent); }
 .process .section-title span { color: rgba(255,255,255,0.7); }
 .process .section-sub { color: rgba(255,255,255,0.8); }
 .process .blue-line { background: rgba(255,255,255,0.4); }
+.process .eyebrow { color: rgba(255,255,255,0.7); }
 .timeline { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; position: relative; }
 .timeline::before { content: ''; position: absolute; top: 40px; left: 12%; right: 12%; height: 3px; background: rgba(255,255,255,0.2); }
 .timeline-step { text-align: center; padding: 0 16px; position: relative; }
@@ -134,29 +213,39 @@ nav a:hover { color: var(--accent); }
 }
 .step-title { font-size: 1.1rem; margin-bottom: 8px; text-transform: uppercase; }
 .step-desc { font-size: 0.85rem; opacity: 0.8; line-height: 1.5; }
-.step-arrow { display: none; }
 
-/* GALLERY */
+/* GALLERY — MOSAIC LAYOUT */
 .gallery { padding: 100px 0; background: var(--bg-alt); }
-.gallery-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
-.gallery-item { position: relative; overflow: hidden; border-radius: 4px; aspect-ratio: 16/10; }
-.gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s; }
-.gallery-item:hover img { transform: scale(1.06); }
-.gallery-overlay {
-  position: absolute; inset: 0; background: linear-gradient(to top, rgba(37,99,235,0.7) 0%, transparent 60%);
-  display: flex; align-items: flex-end; padding: 20px; opacity: 0; transition: opacity 0.3s;
+.gallery-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  grid-template-rows: auto auto;
+  gap: 16px;
 }
-.gallery-item:hover .gallery-overlay { opacity: 1; }
-.gallery-overlay span { color: #fff; font-family: var(--font-heading); font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; }
+.gallery-item { position: relative; overflow: hidden; border-radius: 12px; }
+.gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; min-height: 200px; }
+.gallery-item:hover img { transform: scale(1.05); }
+.gallery-item::after {
+  content: attr(data-title); position: absolute; bottom: 0; left: 0; right: 0; padding: 20px;
+  background: linear-gradient(transparent, rgba(0,0,0,0.7)); color: white; font-weight: 600;
+  font-family: var(--font-heading); text-transform: uppercase; letter-spacing: 1px; font-size: 0.85rem;
+  transform: translateY(100%); transition: transform 0.4s ease;
+}
+.gallery-item:hover::after { transform: translateY(0); }
+.gallery-item:nth-child(1) { grid-row: span 2; }
+.gallery-item:nth-child(1) img { min-height: 420px; }
+.gallery-item:nth-child(4) { grid-column: span 1; }
 
-/* PARTNERS */
+/* PARTNERS — PILL BADGES */
 .partners { padding: 80px 0; background: var(--bg); }
-.partners-grid { display: flex; justify-content: center; align-items: center; gap: 60px; flex-wrap: wrap; }
+.partners-grid { display: flex; justify-content: center; align-items: center; gap: 16px; flex-wrap: wrap; }
 .partner-badge {
-  font-family: var(--font-heading); font-size: 1.5rem; font-weight: 700;
-  color: var(--text); opacity: 0.2; transition: all 0.3s; text-transform: uppercase; letter-spacing: 3px;
+  font-family: var(--font-heading); font-size: 1rem; font-weight: 700;
+  color: var(--text); padding: 14px 28px; border: 2px solid #E5E7EB;
+  border-radius: 4px; transition: all 0.3s; text-transform: uppercase; letter-spacing: 2px;
+  background: var(--bg-card);
 }
-.partner-badge:hover { opacity: 0.8; color: var(--accent); }
+.partner-badge:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-light); transform: translateY(-2px); }
 
 /* ENERGY */
 .energy { padding: 100px 0; background: var(--bg-alt); }
@@ -171,9 +260,7 @@ nav a:hover { color: var(--accent); }
 .energy-a3 { background: #15803D; }
 .energy-a2 { background: #22C55E; }
 .energy-a1 { background: #4ADE80; }
-.energy-a { background: #86EFAC; color: #166534!important; }
 .energy-b { background: #FDE047; color: #854D0E!important; }
-.energy-c { background: #FB923C; }
 .energy-d { background: #EF4444; }
 
 /* TESTIMONIALS */
@@ -182,7 +269,9 @@ nav a:hover { color: var(--accent); }
 .testimonial-card {
   background: var(--bg-alt); padding: 36px; border-radius: 4px; position: relative;
   border-top: 4px solid var(--accent);
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.4s ease;
 }
+.testimonial-card:hover { transform: translateY(-8px); box-shadow: 0 20px 60px rgba(0,0,0,0.08); }
 .testimonial-stars { display: flex; gap: 4px; margin-bottom: 16px; }
 .testimonial-stars svg { width: 18px; height: 18px; color: var(--cta); fill: var(--cta); }
 .testimonial-text { font-size: 0.95rem; color: var(--text-muted); line-height: 1.7; margin-bottom: 24px; }
@@ -232,21 +321,22 @@ footer { padding: 60px 0 24px; background: var(--text); color: #fff; }
 
 /* MOBILE */
 @media (max-width: 1200px) {
-  .hero-text h1 { font-size: 2.8rem; }
+  .hero h1 { font-size: 3.5rem; }
   .products-grid { grid-template-columns: repeat(3, 1fr); }
 }
 @media (max-width: 768px) {
   .hamburger { display: flex; }
-  nav { display: none; position: absolute; top: 100%; left: 0; right: 0; background: #fff; flex-direction: column; padding: 20px 24px; gap: 12px; box-shadow: 0 8px 24px rgba(0,0,0,0.08); }
-  nav.active { display: flex; }
-  .hero-inner { grid-template-columns: 1fr; padding: 100px 24px 60px; gap: 40px; }
-  .hero-image img { height: 300px; }
-  .hero-text h1 { font-size: 2.4rem; }
+  nav { display: none; }
+  .hero h1 { font-size: 2.8rem; }
+  .hero-content { padding: 120px 24px 60px; }
   .products-grid { grid-template-columns: repeat(2, 1fr); }
+  .product-card:first-child { grid-row: span 1; }
   .stats-grid { grid-template-columns: repeat(2, 1fr); }
   .timeline { grid-template-columns: repeat(2, 1fr); gap: 32px; }
   .timeline::before { display: none; }
   .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+  .gallery-item:nth-child(1) { grid-row: span 1; }
+  .gallery-item:nth-child(1) img { min-height: 200px; }
   .testimonials-grid { grid-template-columns: 1fr; }
   .contact-grid { grid-template-columns: 1fr; }
   .energy-grid { grid-template-columns: 1fr; }
@@ -255,13 +345,13 @@ footer { padding: 60px 0 24px; background: var(--text); color: #fff; }
   .section-title { font-size: 2rem; }
 }
 @media (max-width: 390px) {
-  .hero-text h1 { font-size: 2rem; }
+  .hero h1 { font-size: 2.2rem; }
   .products-grid { grid-template-columns: 1fr; }
   .stats-grid { grid-template-columns: 1fr 1fr; gap: 16px; }
   .gallery-grid { grid-template-columns: 1fr; }
   .footer-grid { grid-template-columns: 1fr; }
   .hero-buttons { flex-direction: column; }
-  .partners-grid { gap: 24px; }
+  .partners-grid { gap: 12px; }
 }
 </style>
 </head>
@@ -285,52 +375,63 @@ footer { padding: 60px 0 24px; background: var(--text); color: #fff; }
   </div>
 </header>
 
-<!-- HERO -->
+<!-- MOBILE OVERLAY -->
+<div class="mobile-overlay" id="mobileOverlay">
+  <button class="mobile-close" id="mobileClose" aria-label="Затвори">
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+  </button>
+  <nav class="mobile-nav-links">
+    <a href="#hero">Начало</a>
+    <a href="#products">Продукти</a>
+    <a href="#why-us">За нас</a>
+    <a href="#gallery">Проекти</a>
+    <a href="#contact">Контакти</a>
+    <a href="#contact" class="mobile-cta">Безплатно замерване</a>
+  </nav>
+</div>
+
+<!-- HERO — FULL-WIDTH CINEMATIC -->
 <section class="hero" id="hero">
-  <div class="hero-inner">
-    <div class="hero-text">
-      <span class="hero-tag">Технологии от бъдещето</span>
-      <h1>Модерна <span>дограма</span> за модерни домове</h1>
-      <p>Иновативни решения за PVC и алуминиева дограма с висока енергийна ефективност. Безплатно замерване и оферта до 24 часа навсякъде в България.</p>
-      <div class="hero-buttons">
-        <a href="#contact" class="cta-btn">Безплатно замерване</a>
-        <a href="#products" class="cta-btn-alt">Вижте продуктите</a>
-      </div>
-    </div>
-    <div class="hero-image">
-      <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80" alt="Модерна къща с дограма">
+  <div class="hero-content">
+    <span class="hero-tag">Технологии от бъдещето</span>
+    <h1>Модерна <span>дограма</span> за модерни домове</h1>
+    <p>Иновативни решения за PVC и алуминиева дограма с висока енергийна ефективност. Безплатно замерване и оферта до 24 часа навсякъде в България.</p>
+    <div class="hero-buttons">
+      <a href="#contact" class="cta-btn">Безплатно замерване</a>
+      <a href="#products" class="cta-btn-alt">Вижте продуктите</a>
     </div>
   </div>
 </section>
 
-<!-- PRODUCTS -->
+<!-- PRODUCTS — BENTO GRID -->
 <section class="products" id="products">
   <div class="container">
-    <h2 class="section-title">Нашите <span>продукти</span></h2>
+    <span class="eyebrow">НАШИТЕ РЕШЕНИЯ</span>
+    <h2 class="section-title reveal">Нашите <span>продукти</span></h2>
     <span class="blue-line"></span>
     <p class="section-sub">Комплексни решения за остъкляване и врати — от стандартни прозорци до панорамни плъзгащи системи.</p>
     <div class="products-grid">
-      <div class="product-card">
+      <div class="product-card reveal">
         <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="6" y="6" width="36" height="36" rx="1"/><line x1="24" y1="6" x2="24" y2="42"/><line x1="6" y1="24" x2="24" y2="24"/></svg>
         <h3>PVC Дограма</h3>
-        <p>Пет- и шесткамерни профили от Rehau и VEKA. Клас А, с тройно стъкло.</p>
+        <p>Пет- и шесткамерни профили от Rehau и VEKA. Клас А, с тройно стъкло. Висока топло- и шумоизолация при достъпна цена.</p>
       </div>
-      <div class="product-card">
+      <div class="product-card reveal">
         <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="6" y="6" width="36" height="36" rx="1"/><line x1="24" y1="6" x2="24" y2="42"/><circle cx="22" cy="24" r="1.5" fill="currentColor"/><circle cx="26" cy="24" r="1.5" fill="currentColor"/></svg>
         <h3>Алуминиева Дограма</h3>
         <p>Тънки профили с термично прекъсване. Максимална светлина, минимална рамка.</p>
       </div>
-      <div class="product-card">
+      <div class="product-card reveal">
         <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="12" y="4" width="24" height="40" rx="2"/><circle cx="30" cy="26" r="2" fill="currentColor"/><line x1="12" y1="16" x2="36" y2="16" opacity="0.3"/></svg>
         <h3>Входни Врати</h3>
         <p>Бронирани врати с многоточково заключване. Сигурност и елегантен дизайн.</p>
       </div>
-      <div class="product-card">
+      <div class="product-card reveal">
         <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="12" y="4" width="24" height="40" rx="2"/><rect x="16" y="8" width="16" height="14" rx="1" fill="none"/><circle cx="30" cy="28" r="2" fill="currentColor"/></svg>
         <h3>Интериорни Врати</h3>
         <p>МДФ, CPL и масивни врати. Модерни, класически и минималистични модели.</p>
       </div>
-      <div class="product-card">
+      <div class="product-card reveal">
         <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="4" y="8" width="18" height="32" rx="1"/><rect x="26" y="8" width="18" height="32" rx="1"/><path d="M22 24 L26 24" stroke-dasharray="2 2"/></svg>
         <h3>Плъзгащи Системи</h3>
         <p>HST и PSK системи за панорамно остъкляване. До 6 метра ширина.</p>
@@ -342,24 +443,25 @@ footer { padding: 60px 0 24px; background: var(--text); color: #fff; }
 <!-- WHY US -->
 <section class="why-us" id="why-us">
   <div class="container">
-    <h2 class="section-title">Нашите <span>Предимства</span></h2>
+    <span class="eyebrow">ЗАЩО ДА ИЗБЕРЕТЕ НАС</span>
+    <h2 class="section-title reveal">Нашите <span>Предимства</span></h2>
     <span class="blue-line"></span>
     <p class="section-sub">Цифри, които говорят сами за себе си. 15 години опит и хиляди доволни клиенти.</p>
     <div class="stats-grid">
-      <div class="stat-item">
-        <span class="stat-number">15+</span>
+      <div class="stat-item reveal">
+        <span class="stat-number" data-count="15" data-suffix="+">15+</span>
         <span class="stat-label">Години опит в бранша</span>
       </div>
-      <div class="stat-item">
-        <span class="stat-number">5000+</span>
+      <div class="stat-item reveal">
+        <span class="stat-number" data-count="5000" data-suffix="+">5000+</span>
         <span class="stat-label">Завършени обекта</span>
       </div>
-      <div class="stat-item">
+      <div class="stat-item reveal">
         <span class="stat-number">0 лв</span>
         <span class="stat-label">Безплатно замерване</span>
       </div>
-      <div class="stat-item">
-        <span class="stat-number">10 г.</span>
+      <div class="stat-item reveal">
+        <span class="stat-number" data-count="10" data-suffix=" г.">10 г.</span>
         <span class="stat-label">Гаранция на продуктите</span>
       </div>
     </div>
@@ -369,26 +471,27 @@ footer { padding: 60px 0 24px; background: var(--text); color: #fff; }
 <!-- PROCESS -->
 <section class="process" id="process">
   <div class="container">
-    <h2 class="section-title">Работен <span>Процес</span></h2>
+    <span class="eyebrow">КАК РАБОТИМ</span>
+    <h2 class="section-title reveal">Работен <span>Процес</span></h2>
     <span class="blue-line"></span>
     <p class="section-sub">Четири прости стъпки от първия контакт до готовия монтаж.</p>
     <div class="timeline">
-      <div class="timeline-step">
+      <div class="timeline-step reveal">
         <div class="step-num">01</div>
         <h4 class="step-title">Замерване</h4>
         <p class="step-desc">Идваме на обекта безплатно и измерваме всички отвори с лазерна прецизност.</p>
       </div>
-      <div class="timeline-step">
+      <div class="timeline-step reveal">
         <div class="step-num">02</div>
         <h4 class="step-title">Оферта до 24ч</h4>
         <p class="step-desc">Получавате персонализирана оферта с варианти и визуализация до 24 часа.</p>
       </div>
-      <div class="timeline-step">
+      <div class="timeline-step reveal">
         <div class="step-num">03</div>
         <h4 class="step-title">Производство</h4>
         <p class="step-desc">Продуктите се изработват по ваши размери в наши фабрики с немска технология.</p>
       </div>
-      <div class="timeline-step">
+      <div class="timeline-step reveal">
         <div class="step-num">04</div>
         <h4 class="step-title">Монтаж</h4>
         <p class="step-desc">Сертифициран екип извършва монтажа по RAL стандарт. Гаранция 10 години.</p>
@@ -397,45 +500,41 @@ footer { padding: 60px 0 24px; background: var(--text); color: #fff; }
   </div>
 </section>
 
-<!-- GALLERY -->
+<!-- GALLERY — MOSAIC -->
 <section class="gallery" id="gallery">
   <div class="container">
-    <h2 class="section-title">Галерия <span>проекти</span></h2>
+    <span class="eyebrow">НАШИ ПРОЕКТИ</span>
+    <h2 class="section-title reveal">Галерия <span>проекти</span></h2>
     <span class="blue-line"></span>
     <p class="section-sub">Част от обектите, които сме завършили с гордост.</p>
     <div class="gallery-grid">
-      <div class="gallery-item">
+      <div class="gallery-item" data-title="Жилищен комплекс — София">
         <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&q=80" alt="Модерна къща" loading="eager">
-        <div class="gallery-overlay"><span>Жилищен комплекс, София</span></div>
       </div>
-      <div class="gallery-item">
+      <div class="gallery-item" data-title="Частна къща — Пловдив">
         <img src="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=800&q=80" alt="Интериор с прозорци" loading="eager">
-        <div class="gallery-overlay"><span>Частна къща, Пловдив</span></div>
       </div>
-      <div class="gallery-item">
+      <div class="gallery-item" data-title="Офис сграда — Варна">
         <img src="https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=800&q=80" alt="PVC дограма" loading="eager">
-        <div class="gallery-overlay"><span>Офис сграда, Варна</span></div>
       </div>
-      <div class="gallery-item">
+      <div class="gallery-item" data-title="Вила — Созопол">
         <img src="https://images.unsplash.com/photo-1600573472592-401b489a3cdc?w=800&q=80" alt="Плъзгащи врати" loading="eager">
-        <div class="gallery-overlay"><span>Вила, Созопол</span></div>
       </div>
-      <div class="gallery-item">
+      <div class="gallery-item" data-title="Апартамент — Бургас">
         <img src="https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=800&q=80" alt="Входна врата" loading="eager">
-        <div class="gallery-overlay"><span>Апартамент, Бургас</span></div>
       </div>
-      <div class="gallery-item">
+      <div class="gallery-item" data-title="Търговски обект — Стара Загора">
         <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&q=80" alt="Фасада" loading="eager">
-        <div class="gallery-overlay"><span>Търговски обект, Стара Загора</span></div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- PARTNERS -->
+<!-- PARTNERS — PILL BADGES -->
 <section class="partners">
   <div class="container">
-    <h2 class="section-title">Нашите <span>Партньори</span></h2>
+    <span class="eyebrow">НАШИТЕ ПАРТНЬОРИ</span>
+    <h2 class="section-title reveal">Нашите <span>Партньори</span></h2>
     <span class="blue-line" style="margin-bottom:48px"></span>
     <div class="partners-grid">
       <span class="partner-badge">REHAU</span>
@@ -451,16 +550,17 @@ footer { padding: 60px 0 24px; background: var(--text); color: #fff; }
 <!-- ENERGY EFFICIENCY -->
 <section class="energy" id="energy">
   <div class="container">
-    <h2 class="section-title">Енергийна <span>ефективност</span></h2>
+    <span class="eyebrow">ЕНЕРГИЙНА ЕФЕКТИВНОСТ</span>
+    <h2 class="section-title reveal">Енергийна <span>ефективност</span></h2>
     <span class="blue-line"></span>
     <p class="section-sub">Правилната дограма спестява до 40% от разходите за отопление.</p>
     <div class="energy-grid">
-      <div class="energy-text">
+      <div class="energy-text reveal">
         <h3>Инвестиция, която се изплаща</h3>
         <p>Съвременните профилни системи с тройно остъкляване постигат U-стойности до 0.7 W/m²K, което ги прави едни от най-ефективните на пазара.</p>
         <p>Нашите специалисти ще ви помогнат да изберете оптималната комбинация от профил, стъклопакет и фурнитура спрямо вашия бюджет и нужди от изолация.</p>
       </div>
-      <div class="energy-rating">
+      <div class="energy-rating reveal">
         <div class="energy-row">
           <span class="energy-label energy-a3">A+++</span>
           <div class="energy-bar-track"><div class="energy-bar-fill energy-a3" style="width:95%">Тристъклен + аргон</div></div>
@@ -489,11 +589,12 @@ footer { padding: 60px 0 24px; background: var(--text); color: #fff; }
 <!-- TESTIMONIALS -->
 <section class="testimonials" id="testimonials">
   <div class="container">
-    <h2 class="section-title">Клиентите за <span>нас</span></h2>
+    <span class="eyebrow">ОТЗИВИ</span>
+    <h2 class="section-title reveal">Клиентите за <span>нас</span></h2>
     <span class="blue-line"></span>
     <p class="section-sub">Доверието на хиляди клиенти е нашата най-голяма награда.</p>
     <div class="testimonials-grid">
-      <div class="testimonial-card">
+      <div class="testimonial-card reveal">
         <div class="testimonial-stars">
           <svg viewBox="0 0 20 20"><path d="M10 1l2.39 4.84 5.34.78-3.87 3.77.91 5.32L10 13.27l-4.77 2.51.91-5.32L2.27 6.69l5.34-.78L10 1z"/></svg>
           <svg viewBox="0 0 20 20"><path d="M10 1l2.39 4.84 5.34.78-3.87 3.77.91 5.32L10 13.27l-4.77 2.51.91-5.32L2.27 6.69l5.34-.78L10 1z"/></svg>
@@ -505,7 +606,7 @@ footer { padding: 60px 0 24px; background: var(--text); color: #fff; }
         <p class="testimonial-author">Димитър Колев</p>
         <p class="testimonial-city">София, кв. Младост</p>
       </div>
-      <div class="testimonial-card">
+      <div class="testimonial-card reveal">
         <div class="testimonial-stars">
           <svg viewBox="0 0 20 20"><path d="M10 1l2.39 4.84 5.34.78-3.87 3.77.91 5.32L10 13.27l-4.77 2.51.91-5.32L2.27 6.69l5.34-.78L10 1z"/></svg>
           <svg viewBox="0 0 20 20"><path d="M10 1l2.39 4.84 5.34.78-3.87 3.77.91 5.32L10 13.27l-4.77 2.51.91-5.32L2.27 6.69l5.34-.78L10 1z"/></svg>
@@ -517,7 +618,7 @@ footer { padding: 60px 0 24px; background: var(--text); color: #fff; }
         <p class="testimonial-author">Елена Маринова</p>
         <p class="testimonial-city">Пловдив, кв. Тракия</p>
       </div>
-      <div class="testimonial-card">
+      <div class="testimonial-card reveal">
         <div class="testimonial-stars">
           <svg viewBox="0 0 20 20"><path d="M10 1l2.39 4.84 5.34.78-3.87 3.77.91 5.32L10 13.27l-4.77 2.51.91-5.32L2.27 6.69l5.34-.78L10 1z"/></svg>
           <svg viewBox="0 0 20 20"><path d="M10 1l2.39 4.84 5.34.78-3.87 3.77.91 5.32L10 13.27l-4.77 2.51.91-5.32L2.27 6.69l5.34-.78L10 1z"/></svg>
@@ -536,7 +637,8 @@ footer { padding: 60px 0 24px; background: var(--text); color: #fff; }
 <!-- CONTACT -->
 <section class="contact" id="contact">
   <div class="container">
-    <h2 class="section-title">Свържете се <span>с нас</span></h2>
+    <span class="eyebrow">КОНТАКТИ</span>
+    <h2 class="section-title reveal">Свържете се <span>с нас</span></h2>
     <span class="blue-line"></span>
     <p class="section-sub">Заявете безплатно замерване или поискайте оферта — отговаряме до 24 часа.</p>
     <div class="contact-grid">
@@ -630,30 +732,59 @@ footer { padding: 60px 0 24px; background: var(--text); color: #fff; }
 </footer>
 
 <script>
-const hamburger = document.getElementById('hamburger');
-const nav = document.getElementById('mainNav');
-hamburger.addEventListener('click', () => {
-  nav.classList.toggle('active');
-  const spans = hamburger.querySelectorAll('span');
-  if (nav.classList.contains('active')) {
-    spans[0].style.transform = 'rotate(45deg) translate(5px, 5px)';
-    spans[1].style.opacity = '0';
-    spans[2].style.transform = 'rotate(-45deg) translate(5px, -5px)';
-  } else {
-    spans[0].style.transform = 'none';
-    spans[1].style.opacity = '1';
-    spans[2].style.transform = 'none';
-  }
+// Mobile menu
+const hamburger = document.querySelector('.hamburger');
+const overlay = document.getElementById('mobileOverlay');
+const closeBtn = document.getElementById('mobileClose');
+hamburger.addEventListener('click', () => overlay.classList.add('active'));
+closeBtn.addEventListener('click', () => overlay.classList.remove('active'));
+overlay.querySelectorAll('a').forEach(link => {
+  link.addEventListener('click', () => overlay.classList.remove('active'));
 });
-nav.querySelectorAll('a').forEach(link => {
-  link.addEventListener('click', () => {
-    nav.classList.remove('active');
-    const spans = hamburger.querySelectorAll('span');
-    spans[0].style.transform = 'none';
-    spans[1].style.opacity = '1';
-    spans[2].style.transform = 'none';
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') overlay.classList.remove('active');
+});
+
+// Scroll reveal
+window.addEventListener('load', () => {
+  document.querySelectorAll('.reveal').forEach(el => el.classList.add('animate'));
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+});
+
+// Animated stat counters
+function animateCounters() {
+  document.querySelectorAll('[data-count]').forEach(el => {
+    const target = parseInt(el.dataset.count);
+    const suffix = el.dataset.suffix || '';
+    const duration = 2000;
+    const start = performance.now();
+    function update(now) {
+      const progress = Math.min((now - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      el.textContent = Math.floor(target * eased).toLocaleString() + suffix;
+      if (progress < 1) requestAnimationFrame(update);
+    }
+    requestAnimationFrame(update);
   });
-});
+}
+const statsObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      animateCounters();
+      statsObserver.disconnect();
+    }
+  });
+}, { threshold: 0.3 });
+const statsSection = document.querySelector('.stats-grid');
+if (statsSection) statsObserver.observe(statsSection);
 </script>
 </body>
 </html>
