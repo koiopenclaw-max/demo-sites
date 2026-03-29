@@ -25,12 +25,13 @@
 <meta name="twitter:title" content="Счетоводна къща Емпика — София">
 <meta name="twitter:description" content="Счетоводни услуги, ТРЗ, данъчни консултации, регистрация на фирми и онлайн услуги в София.">
 <meta name="twitter:image" content="cover.png">
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Work+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Work+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-:root{--teal:#00b4d8;--coral:#ff6b6b;--dark:#0d1117;--white:#ffffff;--gray:#f0f2f5;--light-dark:#161b22}
+:root{--teal:#1a5276;--coral:#c8963e;--dark:#0d1117;--white:#ffffff;--gray:#f5f3ef;--light-dark:#161b22;--accent-light:rgba(200,150,62,.1)}
 body{font-family:'Work Sans',sans-serif;color:var(--dark);background:var(--white);overflow-x:hidden}
-h1,h2,h3{font-family:'Syne',sans-serif;font-weight:700}
+h1,h2,h3{font-family:'Playfair Display',serif;font-weight:700}
 a{text-decoration:none;color:inherit}
 .reveal{opacity:0;transform:translateY(35px);transition:opacity .6s ease,transform .6s ease}
 .reveal.visible{opacity:1;transform:translateY(0)}
@@ -43,9 +44,10 @@ nav.scrolled{background:rgba(255,255,255,.97);box-shadow:0 2px 20px rgba(0,0,0,.
 .nav-logo{display:flex;align-items:center}
 .nav-logo img{height:60px;width:auto}
 .nav-links{display:flex;gap:2rem;list-style:none;align-items:center}
-.nav-links a{font-size:.85rem;font-weight:500;color:var(--dark);transition:color .3s}
-.nav-links a:hover{color:var(--teal)}
-.nav-cta-btn{background:linear-gradient(135deg,var(--teal),var(--coral));color:var(--white)!important;padding:.6rem 1.5rem;border-radius:50px;font-weight:600;-webkit-text-fill-color:var(--white)!important}
+.nav-links a{font-size:.85rem;font-weight:500;color:var(--dark);transition:color .2s}
+.nav-links a:hover{color:var(--coral)}
+.nav-cta-btn{background:var(--teal);color:var(--white)!important;padding:.6rem 1.5rem;border-radius:6px;font-weight:600;-webkit-text-fill-color:var(--white)!important;transition:background .2s}
+.nav-cta-btn:hover{background:#154360!important}
 .hamburger{display:none;cursor:pointer;z-index:301;position:relative;width:30px;height:24px;flex-shrink:0;-webkit-tap-highlight-color:transparent}
 .hamburger span{display:block;width:24px;height:2.5px;background:var(--dark);border-radius:2px;position:absolute;left:3px;transition:all .3s ease}
 .hamburger span:nth-child(1){top:0}
@@ -58,55 +60,55 @@ nav.scrolled{background:rgba(255,255,255,.97);box-shadow:0 2px 20px rgba(0,0,0,.
 .mobile-overlay.show{display:block;opacity:1;pointer-events:auto}
 .hero{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;background:var(--white)}
 .hero-left{display:flex;flex-direction:column;justify-content:center;padding:4rem 3rem 4rem 6vw}
-.hero-badge{display:inline-flex;align-items:center;gap:.5rem;background:rgba(0,180,216,.08);color:var(--teal);padding:.4rem 1rem;border-radius:50px;font-size:.75rem;font-weight:600;letter-spacing:.5px;text-transform:uppercase;margin-bottom:2rem;width:fit-content}
+.hero-badge{display:inline-flex;align-items:center;gap:.5rem;background:var(--accent-light);color:var(--coral);padding:.4rem 1rem;border-radius:4px;font-size:.75rem;font-weight:600;letter-spacing:.5px;text-transform:uppercase;margin-bottom:2rem;width:fit-content}
 .hero-badge::before{content:'';width:8px;height:8px;background:var(--teal);border-radius:50%;animation:pulse 2s infinite}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
 .hero h1{font-size:clamp(2.2rem,5vw,3.8rem);line-height:1.1;margin-bottom:1.5rem}
-.hero h1 .gradient{background:linear-gradient(135deg,var(--teal),var(--coral));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hero h1 .gradient{color:var(--coral);-webkit-text-fill-color:var(--coral)}
 .hero p{color:#555;font-size:1.05rem;line-height:1.7;margin-bottom:2.5rem;max-width:450px}
 .hero-btns{display:flex;gap:1rem;flex-wrap:wrap}
-.btn-gradient{display:inline-flex;align-items:center;gap:.5rem;background:linear-gradient(135deg,var(--teal),var(--coral));color:var(--white);padding:.9rem 2rem;border-radius:50px;font-weight:600;font-size:.9rem;border:none;cursor:pointer;transition:transform .3s,box-shadow .3s}
-.btn-gradient:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(0,180,216,.3)}
-.btn-ghost{display:inline-flex;align-items:center;gap:.5rem;background:transparent;color:var(--dark);padding:.9rem 2rem;border-radius:50px;font-weight:600;font-size:.9rem;border:2px solid #ddd;cursor:pointer;transition:border-color .3s}
-.btn-ghost:hover{border-color:var(--teal)}
-.hero-right{position:relative;overflow:hidden;background:linear-gradient(135deg,#f0f7ff,#e8f4fd)}
+.btn-gradient{display:inline-flex;align-items:center;gap:.5rem;background:var(--teal);color:var(--white);padding:.9rem 2rem;border-radius:6px;font-weight:600;font-size:.9rem;border:none;cursor:pointer;transition:transform .2s,box-shadow .2s,background .2s}
+.btn-gradient:hover{transform:translateY(-2px);box-shadow:0 8px 25px rgba(26,82,118,.25);background:#154360}
+.btn-ghost{display:inline-flex;align-items:center;gap:.5rem;background:transparent;color:var(--dark);padding:.9rem 2rem;border-radius:6px;font-weight:600;font-size:.9rem;border:2px solid #ddd;cursor:pointer;transition:border-color .2s,background .2s}
+.btn-ghost:hover{border-color:var(--teal);background:rgba(26,82,118,.04)}
+.hero-right{position:relative;overflow:hidden;background:#1a5276}
 .hero-right img{width:100%;height:100%;object-fit:contain;object-position:center}
-.hero-right::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(0,180,216,.15),rgba(255,107,107,.1))}
+.hero-right::after{content:'';position:absolute;inset:0;background:rgba(26,82,118,.08)}
 .blob{position:absolute;border-radius:50%;filter:blur(80px);opacity:.15;pointer-events:none;z-index:0}
 .services{padding:6rem 2rem;background:var(--gray);position:relative;overflow:hidden}
 .services .blob-1{width:400px;height:400px;background:var(--teal);top:-100px;right:-100px}
 .services .blob-2{width:300px;height:300px;background:var(--coral);bottom:-50px;left:-50px}
 .section-header{text-align:center;max-width:600px;margin:0 auto 4rem;position:relative;z-index:1}
-.section-tag{display:inline-block;background:linear-gradient(135deg,var(--teal),var(--coral));color:var(--white);padding:.3rem 1rem;border-radius:50px;font-size:.7rem;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:1rem}
+.section-tag{display:inline-block;background:var(--teal);color:var(--white);padding:.3rem 1rem;border-radius:4px;font-size:.7rem;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:1rem}
 .section-header h2{font-size:clamp(2rem,4vw,2.8rem);margin-bottom:.8rem}
 .section-header p{color:#666;line-height:1.7}
 .bento-grid{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:auto auto;gap:1.5rem;position:relative;z-index:1}
-.bento-item{background:var(--white);border-radius:16px;padding:2rem;overflow:hidden;transition:transform .3s,box-shadow .3s;position:relative}
+.bento-item{background:var(--white);border-radius:8px;padding:2rem;overflow:hidden;transition:transform .2s,box-shadow .2s;position:relative;border:1px solid rgba(26,82,118,.08)}
 .bento-item:hover{transform:translateY(-4px);box-shadow:0 12px 40px rgba(0,0,0,.08)}
 .bento-item.large{grid-column:span 2}
 .bento-item.tall{grid-row:span 2}
 .bento-item.img-card{padding:0}
 .bento-item.img-card img{width:100%;height:100%;object-fit:cover;min-height:250px}
-.bento-icon{width:50px;height:50px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.5rem;margin-bottom:1.2rem}
-.bento-icon.teal{background:rgba(0,180,216,.1)}
-.bento-icon.coral{background:rgba(255,107,107,.1)}
+.bento-icon{width:50px;height:50px;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:1.5rem;margin-bottom:1.2rem}
+.bento-icon.teal{background:var(--accent-light)}
+.bento-icon.coral{background:rgba(26,82,118,.08)}
 .bento-item h3{font-size:1.2rem;margin-bottom:.6rem}
 .bento-item p{color:#666;font-size:.9rem;line-height:1.7}
 .process{padding:6rem 2rem;background:var(--white)}
 .process-steps{max-width:1000px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:2rem}
 .step{text-align:center;position:relative}
-.step::after{content:'';position:absolute;top:30px;right:-50%;width:100%;height:2px;background:linear-gradient(90deg,var(--teal),var(--coral));opacity:.3}
+.step::after{content:'';position:absolute;top:30px;right:-50%;width:100%;height:2px;background:var(--coral);opacity:.3}
 .step:last-child::after{display:none}
-.step-number{width:60px;height:60px;border-radius:50%;background:linear-gradient(135deg,var(--teal),var(--coral));color:var(--white);display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-size:1.3rem;font-weight:700;margin:0 auto 1.2rem;position:relative;z-index:1}
+.step-number{width:60px;height:60px;border-radius:50%;background:var(--teal);color:var(--white);display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:700;margin:0 auto 1.2rem;position:relative;z-index:1}
 .step h3{font-size:1rem;margin-bottom:.5rem}
 .step p{color:#666;font-size:.85rem;line-height:1.6}
-.process-img{max-width:1000px;margin:3rem auto 0;border-radius:16px;overflow:hidden}
+.process-img{max-width:1000px;margin:3rem auto 0;border-radius:12px;overflow:hidden}
 .process-img img{width:100%;height:350px;object-fit:cover;display:block}
 .faq{padding:6rem 2rem;background:var(--gray)}
 .faq-container{max-width:800px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start}
 .faq-left h2{font-size:clamp(2rem,3.5vw,2.5rem);margin-bottom:1rem}
 .faq-left p{color:#666;line-height:1.7;margin-bottom:1.5rem}
-.faq-left img{width:100%;border-radius:16px;height:250px;object-fit:cover}
+.faq-left img{width:100%;border-radius:12px;height:250px;object-fit:cover}
 .faq-item{border-bottom:2px solid #e0e0e0;padding:1.2rem 0}
 .faq-q{display:flex;justify-content:space-between;align-items:center;cursor:pointer;font-weight:600;font-size:.95rem}
 .faq-q .arrow{font-size:1.2rem;transition:transform .3s;color:var(--teal)}
@@ -119,15 +121,15 @@ nav.scrolled{background:rgba(255,255,255,.97);box-shadow:0 2px 20px rgba(0,0,0,.
 .contact h2{font-size:clamp(2rem,4vw,3rem);margin-bottom:1rem}
 .contact>div>p{color:rgba(255,255,255,.6);margin-bottom:3rem;font-size:1.05rem}
 .contact-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-bottom:3rem}
-.contact-card{background:var(--light-dark);border-radius:16px;padding:2rem;text-align:center;transition:transform .3s}
-.contact-card:hover{transform:translateY(-4px)}
+.contact-card{background:var(--light-dark);border-radius:8px;padding:2rem;text-align:center;transition:transform .2s,box-shadow .2s}
+.contact-card:hover{transform:translateY(-4px);box-shadow:0 8px 25px rgba(0,0,0,.2)}
 .contact-card .emoji{font-size:2rem;margin-bottom:1rem}
-.contact-card h4{font-family:'Syne',sans-serif;font-size:.9rem;margin-bottom:.5rem}
+.contact-card h4{font-family:'Playfair Display',serif;font-size:.9rem;margin-bottom:.5rem}
 .contact-card a,.contact-card span.info{color:var(--teal);font-size:.9rem}
 .contact-card .sub{color:rgba(255,255,255,.4);font-size:.75rem;margin-top:.3rem}
 .contact-form{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
-.contact-form input,.contact-form textarea{padding:1rem;background:var(--light-dark);border:2px solid transparent;border-radius:12px;color:var(--white);font-family:inherit;font-size:.9rem;transition:border-color .3s}
-.contact-form input:focus,.contact-form textarea:focus{outline:none;border-color:var(--teal)}
+.contact-form input,.contact-form textarea{padding:1rem;background:var(--light-dark);border:2px solid transparent;border-radius:6px;color:var(--white);font-family:inherit;font-size:.9rem;transition:border-color .2s}
+.contact-form input:focus,.contact-form textarea:focus{outline:none;border-color:var(--coral)}
 .contact-form input::placeholder,.contact-form textarea::placeholder{color:rgba(255,255,255,.3)}
 .contact-form textarea{grid-column:span 2;height:120px;resize:vertical}
 .contact-form .btn-gradient{grid-column:span 2;justify-content:center}
@@ -135,7 +137,11 @@ nav.scrolled{background:rgba(255,255,255,.97);box-shadow:0 2px 20px rgba(0,0,0,.
 .map-container iframe{width:100%;height:300px;border:0;filter:brightness(.9);transition:filter .3s}
 .map-container:hover iframe{filter:brightness(1)}
 footer{background:var(--dark);border-top:1px solid rgba(255,255,255,.05);padding:2rem;text-align:center;color:rgba(255,255,255,.4);font-size:.8rem}
-footer a{color:var(--teal)}
+footer a{color:var(--coral);transition:color .2s}
+footer a:hover{color:#e0a94a}
+.faq-q:hover{color:var(--teal)}
+.contact-card a{transition:color .2s}
+.contact-card a:hover{color:var(--coral)!important}
 @media(max-width:768px){
   .hero{grid-template-columns:1fr}
   .hero-right{height:300px}
@@ -334,7 +340,7 @@ footer a{color:var(--teal)}
   </div>
   <div class="bento-grid">
     <div class="bento-item large reveal">
-      <div class="bento-icon teal">📊</div>
+      <div class="bento-icon teal"><i class="fas fa-calculator" style="color:var(--teal)"></i></div>
       <h3>Счетоводни услуги</h3>
       <p>Текущо счетоводно обслужване, осчетоводяване на документи, изготвяне на отчети, годишно приключване и цялостна подкрепа за финансовата отчетност на фирмата.</p>
     </div>
@@ -345,22 +351,22 @@ footer a{color:var(--teal)}
       <img src="https://images.unsplash.com/photo-1553877522-43269d4ea984?w=800" alt="Екип на Емпика" loading="lazy">
     </div>
     <div class="bento-item reveal">
-      <div class="bento-icon coral">👥</div>
+      <div class="bento-icon coral"><i class="fas fa-users" style="color:var(--teal)"></i></div>
       <h3>ТРЗ и Личен състав</h3>
       <p>Администриране на персонал, трудови и граждански договори, ведомости, фишове, осигуровки, болнични, отпуски и пълна документация за служителите.</p>
     </div>
     <div class="bento-item reveal">
-      <div class="bento-icon teal">📋</div>
+      <div class="bento-icon teal"><i class="fas fa-file-invoice-dollar" style="color:var(--teal)"></i></div>
       <h3>Данъчни консултации</h3>
       <p>Практически насоки по данъчни казуси, текущо съответствие, съдействие при проверки и ясни решения за вашия бизнес.</p>
     </div>
     <div class="bento-item reveal">
-      <div class="bento-icon coral">🔍</div>
+      <div class="bento-icon coral"><i class="fas fa-building" style="color:var(--teal)"></i></div>
       <h3>Регистрация на фирми</h3>
       <p>Съдействие при избор на форма, подготовка на документи и административни стъпки за стартиране на нова фирма.</p>
     </div>
     <div class="bento-item reveal">
-      <div class="bento-icon teal">🏢</div>
+      <div class="bento-icon teal"><i class="fas fa-laptop" style="color:var(--teal)"></i></div>
       <h3>Онлайн услуги</h3>
       <p>Дистанционно обслужване, обмен на документи, онлайн комуникация и бърза координация за клиенти, които ценят удобството и навременността.</p>
     </div>
@@ -386,19 +392,19 @@ footer a{color:var(--teal)}
   <!-- Why choose us - detailed -->
   <div style="max-width:1000px;margin:3rem auto 0;display:grid;grid-template-columns:1fr 1fr;gap:1.5rem">
     <div class="bento-item reveal" style="background:var(--gray);border-radius:16px;padding:2rem">
-      <h3 style="font-size:1rem;margin-bottom:.6rem">🛡️ Гарантирано съответствие</h3>
+      <h3 style="font-size:1rem;margin-bottom:.6rem"><i class="fas fa-shield-halved" style="color:var(--coral);margin-right:.4rem"></i> Гарантирано съответствие</h3>
       <p style="color:#666;font-size:.85rem;line-height:1.7">Гарантираме счетоводни услуги, съобразени изцяло, както с българското, така и със законодателствата на чуждестранните ни клиенти.</p>
     </div>
     <div class="bento-item reveal" style="background:var(--gray);border-radius:16px;padding:2rem">
-      <h3 style="font-size:1rem;margin-bottom:.6rem">🧘 Спокойствие за вас</h3>
+      <h3 style="font-size:1rem;margin-bottom:.6rem"><i class="fas fa-handshake" style="color:var(--coral);margin-right:.4rem"></i> Спокойствие за вас</h3>
       <p style="color:#666;font-size:.85rem;line-height:1.7">Не е нужно да се притеснявате за документи, данъчни и осигурителни отношения, счетоводство — оставете рутинните действия на нас.</p>
     </div>
     <div class="bento-item reveal" style="background:var(--gray);border-radius:16px;padding:2rem">
-      <h3 style="font-size:1rem;margin-bottom:.6rem">💰 Оптимизация на разходите</h3>
+      <h3 style="font-size:1rem;margin-bottom:.6rem"><i class="fas fa-chart-line" style="color:var(--coral);margin-right:.4rem"></i> Оптимизация на разходите</h3>
       <p style="color:#666;font-size:.85rem;line-height:1.7">Получавате специалист ТРЗ, счетоводител, главен счетоводител и одитор — всичко на цената на месечна такса, без нужда от собствен счетоводен отдел.</p>
     </div>
     <div class="bento-item reveal" style="background:var(--gray);border-radius:16px;padding:2rem">
-      <h3 style="font-size:1rem;margin-bottom:.6rem">🔒 Сигурност и конфиденциалност</h3>
+      <h3 style="font-size:1rem;margin-bottom:.6rem"><i class="fas fa-lock" style="color:var(--coral);margin-right:.4rem"></i> Сигурност и конфиденциалност</h3>
       <p style="color:#666;font-size:.85rem;line-height:1.7">Счетоводна къща „Емпика" гарантира сигурност и конфиденциалност за Вас и Вашия бизнес. Правим финансовите процеси прозрачни и сигурни.</p>
     </div>
   </div>
@@ -440,23 +446,23 @@ footer a{color:var(--teal)}
 <section class="contact" id="contact">
   <div class="blob blob-1"></div>
   <div class="contact-container reveal">
-    <h2>Свържете се с <span class="gradient" style="background:linear-gradient(135deg,var(--teal),var(--coral));-webkit-background-clip:text;-webkit-text-fill-color:transparent">нас</span></h2>
+    <h2>Свържете се с <span style="color:var(--coral)">нас</span></h2>
     <p>Безплатна консултация за вашия бизнес. Обадете се или ни пишете.</p>
     <div class="contact-cards">
       <div class="contact-card">
-        <div class="emoji">☎</div>
+        <div class="emoji"><i class="fas fa-phone" style="color:var(--coral)"></i></div>
         <h4>Телефони</h4>
         <a href="tel:+359889986662">+359 88 998 6662</a>
       </div>
       <div class="contact-card">
-        <div class="emoji">✉</div>
+        <div class="emoji"><i class="fas fa-envelope" style="color:var(--coral)"></i></div>
         <h4>Имейл</h4>
         <a href="mailto:empika@abv.bg">empika@abv.bg</a>
         <div class="sub">Пон–Пет: 09:00 – 17:30</div>
         <div class="sub"><a href="https://facebook.com/empikabg" style="color:var(--teal)">facebook.com/empikabg</a></div>
       </div>
       <div class="contact-card">
-        <div class="emoji">📍</div>
+        <div class="emoji"><i class="fas fa-location-dot" style="color:var(--coral)"></i></div>
         <h4>Адрес</h4>
         <span style="color:rgba(255,255,255,.6);font-size:.9rem">София<br>1000 София</span>
       </div>
