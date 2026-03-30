@@ -5,9 +5,9 @@
       "slug": "дентален-център-искрови",
       "name": "Дентален център Искрови",
       "action": "building",
-      "status": "pending",
+      "status": "in_progress",
       "createdAt": "2026-03-30T16:11:03.594Z",
-      "startedAt": null,
+      "startedAt": "2026-03-30T16:11:24.348Z",
       "completedAt": null,
       "error": null,
       "result": null
