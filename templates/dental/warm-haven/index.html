@@ -7,7 +7,7 @@
   <meta name="description" content="Д-р Иванова Дентал предлага модерна стоматология, имплантология, естетични процедури и човешко отношение в сърцето на София.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&family=Source+Sans+3:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
     * {
       box-sizing: border-box;
@@ -16,22 +16,23 @@
     }
 
     :root {
-      --bg-primary: #0F0F0F;
-      --bg-secondary: #1A1A1A;
-      --bg-elevated: #242424;
-      --text-primary: #F5F5F5;
-      --text-secondary: #A0A0A0;
-      --accent: #C9A96E;
-      --accent-light: #D4BA7A;
-      --accent-dark: #B8943D;
+      --bg-primary: #FFF8F0;
+      --bg-secondary: #FFFFFF;
+      --bg-elevated: #FFF0E0;
+      --text-primary: #2D2D2D;
+      --text-secondary: #6B5B4D;
+      --accent: #C4704A;
+      --accent-light: #D4845E;
+      --accent-dark: #A85C3A;
+      --warm: #E8D5C0;
       --white: #FFFFFF;
-      --success: #4CAF50;
-      --shadow-soft: 0 20px 60px rgba(0, 0, 0, 0.28);
-      --shadow-gold: 0 16px 40px rgba(201, 169, 110, 0.16);
-      --border-soft: 1px solid rgba(255, 255, 255, 0.08);
+      --footer-bg: #3A2E24;
+      --shadow-soft: 0 24px 56px rgba(120, 76, 45, 0.12);
+      --shadow-card: 0 18px 40px rgba(196, 112, 74, 0.12);
+      --border-soft: 1px solid rgba(196, 112, 74, 0.14);
       --container: 1200px;
-      --radius-lg: 24px;
-      --radius-md: 16px;
+      --radius-lg: 28px;
+      --radius-md: 18px;
       --radius-sm: 12px;
       --transition: 0.28s ease;
     }
@@ -42,11 +43,11 @@
     }
 
     body {
-      font-family: "Inter", sans-serif;
+      font-family: "Source Sans 3", sans-serif;
       font-size: 1rem;
       line-height: 1.7;
       color: var(--text-primary);
-      background: var(--bg-primary);
+      background: radial-gradient(circle at top, rgba(232, 213, 192, 0.45), transparent 34%), var(--bg-primary);
       overflow-x: hidden;
     }
 
@@ -88,9 +89,9 @@
     .section-label {
       display: block;
       margin-bottom: 16px;
-      font-size: 0.78rem;
-      font-weight: 600;
-      letter-spacing: 0.15em;
+      font-size: 0.8rem;
+      font-weight: 800;
+      letter-spacing: 0.14em;
       text-transform: uppercase;
       color: var(--accent);
       text-align: center;
@@ -98,16 +99,16 @@
 
     .section-title {
       margin: 0 auto 18px;
-      max-width: 760px;
-      font-family: "Playfair Display", serif;
-      font-size: clamp(2rem, 3.5vw, 2.8rem);
-      line-height: 1.15;
+      max-width: 780px;
+      font-family: "Nunito", sans-serif;
+      font-size: clamp(2.1rem, 3.5vw, 3rem);
+      line-height: 1.12;
       text-align: center;
       color: var(--text-primary);
     }
 
     .section-intro {
-      max-width: 640px;
+      max-width: 680px;
       margin: 0 auto 58px;
       color: var(--text-secondary);
       text-align: left;
@@ -117,8 +118,7 @@
     .hero-title em,
     .about-copy h2 em {
       color: var(--accent);
-      font-style: italic;
-      font-weight: 400;
+      font-style: normal;
     }
 
     .site-header {
@@ -132,10 +132,10 @@
     }
 
     .site-header.scrolled {
-      background: rgba(15, 15, 15, 0.95);
-      backdrop-filter: blur(20px);
-      box-shadow: 0 12px 36px rgba(0, 0, 0, 0.25);
-      border-color: rgba(255, 255, 255, 0.08);
+      background: rgba(255, 248, 240, 0.96);
+      backdrop-filter: blur(16px);
+      box-shadow: 0 16px 34px rgba(84, 54, 32, 0.1);
+      border-color: rgba(196, 112, 74, 0.12);
     }
 
     .header-inner {
@@ -147,8 +147,9 @@
     }
 
     .logo {
-      font-family: "Playfair Display", serif;
-      font-size: 1.7rem;
+      font-family: "Nunito", sans-serif;
+      font-size: 1.75rem;
+      font-weight: 800;
       letter-spacing: 0.01em;
       color: var(--text-primary);
       white-space: nowrap;
@@ -168,6 +169,7 @@
     .footer-links a {
       position: relative;
       color: var(--text-secondary);
+      font-weight: 600;
       transition: color var(--transition);
     }
 
@@ -178,7 +180,7 @@
       left: 0;
       bottom: -6px;
       width: 100%;
-      height: 1px;
+      height: 2px;
       background: var(--accent);
       transform: scaleX(0);
       transform-origin: left;
@@ -209,15 +211,15 @@
       display: inline-flex;
       align-items: center;
       gap: 10px;
-      color: var(--accent);
-      font-weight: 600;
+      color: var(--accent-dark);
+      font-weight: 700;
       transition: color var(--transition), transform var(--transition);
     }
 
     .header-phone:hover,
     .header-phone:focus-visible {
-      color: var(--accent-light);
-      transform: scale(1.02);
+      color: var(--accent);
+      transform: translateY(-1px);
     }
 
     .icon-inline {
@@ -236,39 +238,40 @@
       align-items: center;
       justify-content: center;
       gap: 10px;
-      min-height: 52px;
+      min-height: 54px;
       padding: 0 24px;
       border-radius: 999px;
-      font-weight: 600;
+      font-weight: 700;
       white-space: nowrap;
     }
 
     .btn-primary {
-      background: var(--accent);
-      color: var(--bg-primary);
-      box-shadow: 0 14px 30px rgba(201, 169, 110, 0.22);
+      background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+      color: var(--white);
+      box-shadow: 0 16px 34px rgba(196, 112, 74, 0.28);
     }
 
     .btn-primary:hover,
     .btn-primary:focus-visible,
     .submit-btn:hover,
     .submit-btn:focus-visible {
-      background: var(--accent-light);
-      transform: scale(1.02);
-      box-shadow: 0 16px 34px rgba(201, 169, 110, 0.28);
+      background: linear-gradient(135deg, var(--accent-light), var(--accent));
+      transform: translateY(-2px);
+      box-shadow: 0 18px 38px rgba(196, 112, 74, 0.32);
     }
 
     .btn-outline {
-      border: 1px solid rgba(255, 255, 255, 0.22);
+      border: 1px solid rgba(255, 255, 255, 0.58);
       color: var(--white);
-      background: rgba(255, 255, 255, 0.02);
+      background: rgba(255, 248, 240, 0.12);
+      backdrop-filter: blur(8px);
     }
 
     .btn-outline:hover,
     .btn-outline:focus-visible {
-      border-color: rgba(255, 255, 255, 0.45);
-      background: rgba(255, 255, 255, 0.08);
-      transform: scale(1.02);
+      border-color: rgba(255, 255, 255, 0.92);
+      background: rgba(255, 248, 240, 0.24);
+      transform: translateY(-2px);
     }
 
     .menu-toggle {
@@ -276,12 +279,20 @@
       width: 48px;
       height: 48px;
       border-radius: 50%;
-      border: 1px solid rgba(255, 255, 255, 0.14);
+      border: 1px solid rgba(196, 112, 74, 0.24);
+      background: rgba(255, 255, 255, 0.78);
       align-items: center;
       justify-content: center;
       flex-direction: column;
       gap: 5px;
-      color: var(--white);
+      color: var(--text-primary);
+      transition: border-color var(--transition), background var(--transition);
+    }
+
+    .menu-toggle:hover,
+    .menu-toggle:focus-visible {
+      border-color: rgba(196, 112, 74, 0.48);
+      background: var(--white);
     }
 
     .menu-toggle span {
@@ -318,8 +329,9 @@
       min-height: 100vh;
       display: flex;
       align-items: center;
-      background: #000;
+      background: #d8b8a3;
       isolation: isolate;
+      overflow: hidden;
     }
 
     .hero::before {
@@ -330,18 +342,21 @@
       background-size: cover;
       background-position: center;
       z-index: -2;
+      transform: scale(1.02);
     }
 
     .hero::after {
       content: "";
       position: absolute;
       inset: 0;
-      background: rgba(0, 0, 0, 0.6);
+      background:
+        linear-gradient(90deg, rgba(58, 46, 36, 0.68) 0%, rgba(58, 46, 36, 0.48) 42%, rgba(196, 112, 74, 0.24) 100%),
+        linear-gradient(180deg, rgba(255, 248, 240, 0.12), rgba(255, 248, 240, 0.06));
       z-index: -1;
     }
 
     .hero-content {
-      width: min(680px, calc(100% - 40px));
+      width: min(700px, calc(100% - 40px));
       margin-left: 8%;
       padding: 150px 0 110px;
     }
@@ -353,30 +368,30 @@
       padding: 10px 16px;
       margin-bottom: 26px;
       border-radius: 999px;
-      border: 1px solid rgba(201, 169, 110, 0.4);
-      background: rgba(15, 15, 15, 0.45);
-      color: var(--text-primary);
-      font-size: 0.92rem;
-      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.32);
+      background: rgba(255, 248, 240, 0.16);
+      color: var(--white);
+      font-size: 0.94rem;
+      backdrop-filter: blur(10px);
     }
 
     .hero-badge .badge-star {
-      color: var(--accent);
+      color: #ffd08a;
     }
 
     .hero-title {
       margin-bottom: 20px;
-      font-family: "Playfair Display", serif;
-      font-size: clamp(2.8rem, 5vw, 4.2rem);
-      line-height: 1.05;
+      font-family: "Nunito", sans-serif;
+      font-size: clamp(2.9rem, 5vw, 4.5rem);
+      line-height: 1.03;
       color: var(--white);
     }
 
     .hero-subtitle {
-      max-width: 600px;
+      max-width: 620px;
       margin-bottom: 34px;
-      color: rgba(245, 245, 245, 0.82);
-      font-size: 1.05rem;
+      color: rgba(255, 248, 240, 0.9);
+      font-size: 1.08rem;
     }
 
     .hero-actions {
@@ -386,9 +401,10 @@
     }
 
     .trust-strip {
-      border-top: 1px solid rgba(255, 255, 255, 0.08);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-      background: #111111;
+      border-top: 1px solid rgba(196, 112, 74, 0.12);
+      border-bottom: 1px solid rgba(196, 112, 74, 0.12);
+      background: rgba(255, 255, 255, 0.72);
+      backdrop-filter: blur(10px);
     }
 
     .trust-grid {
@@ -402,20 +418,21 @@
     }
 
     .trust-item + .trust-item {
-      border-left: 1px solid rgba(255, 255, 255, 0.08);
+      border-left: 1px solid rgba(196, 112, 74, 0.12);
     }
 
     .trust-number {
       display: block;
       margin-bottom: 6px;
-      font-family: "Playfair Display", serif;
-      font-size: 2rem;
+      font-family: "Nunito", sans-serif;
+      font-size: 2.1rem;
+      font-weight: 800;
       color: var(--accent);
     }
 
     .trust-text {
       color: var(--text-secondary);
-      font-size: 0.95rem;
+      font-size: 0.98rem;
     }
 
     .services-grid {
@@ -429,7 +446,7 @@
     .contact-form,
     .contact-panel {
       background: var(--bg-secondary);
-      border: 1px solid rgba(255, 255, 255, 0.06);
+      border: var(--border-soft);
       border-radius: var(--radius-md);
     }
 
@@ -437,17 +454,16 @@
       position: relative;
       padding: 30px;
       overflow: hidden;
-      transition: transform var(--transition), border-color var(--transition), box-shadow var(--transition);
+      transition: transform var(--transition), border-color var(--transition), box-shadow var(--transition), background var(--transition);
     }
 
     .service-card::before {
       content: "";
       position: absolute;
-      top: 0;
-      left: 0;
+      inset: 0 auto auto 0;
       width: 100%;
-      height: 2px;
-      background: var(--accent);
+      height: 4px;
+      background: linear-gradient(90deg, var(--accent), var(--accent-light));
       transform: scaleX(0);
       transform-origin: left;
       transition: transform var(--transition);
@@ -455,9 +471,10 @@
 
     .service-card:hover,
     .service-card:focus-within {
-      transform: translateY(-4px);
-      border-color: rgba(201, 169, 110, 0.3);
-      box-shadow: var(--shadow-gold);
+      transform: translateY(-5px);
+      background: #fffdf9;
+      border-color: rgba(196, 112, 74, 0.24);
+      box-shadow: var(--shadow-card);
     }
 
     .service-card:hover::before,
@@ -469,13 +486,13 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      width: 56px;
-      height: 56px;
+      width: 58px;
+      height: 58px;
       margin-bottom: 22px;
-      border-radius: 14px;
-      background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+      border-radius: 16px;
+      background: linear-gradient(135deg, var(--accent-light), var(--accent-dark));
       color: var(--white);
-      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.18);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.24);
     }
 
     .service-icon i {
@@ -485,8 +502,9 @@
 
     .service-card h3 {
       margin-bottom: 12px;
-      font-family: "Playfair Display", serif;
-      font-size: 1.48rem;
+      font-family: "Nunito", sans-serif;
+      font-size: 1.52rem;
+      line-height: 1.2;
       color: var(--text-primary);
     }
 
@@ -499,14 +517,14 @@
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      color: var(--accent);
-      font-weight: 600;
+      color: var(--accent-dark);
+      font-weight: 700;
     }
 
     .service-link:hover,
     .service-link:focus-visible {
-      color: var(--accent-light);
-      transform: scale(1.02);
+      color: var(--accent);
+      transform: translateX(2px);
     }
 
     .service-link i {
@@ -515,7 +533,7 @@
     }
 
     .about-section {
-      background: var(--bg-secondary);
+      background: linear-gradient(180deg, rgba(232, 213, 192, 0.32), rgba(255, 248, 240, 0.4));
     }
 
     .about-grid {
@@ -531,7 +549,7 @@
 
     .about-photo-wrap {
       position: relative;
-      border-radius: 12px;
+      border-radius: var(--radius-lg);
       overflow: visible;
     }
 
@@ -539,19 +557,19 @@
       width: 100%;
       height: 500px;
       object-fit: cover;
-      border-radius: 12px;
+      border-radius: var(--radius-lg);
       box-shadow: var(--shadow-soft);
     }
 
     .about-photo-wrap::after {
       content: "";
       position: absolute;
-      right: -18px;
-      bottom: -18px;
+      right: -20px;
+      bottom: -20px;
       width: 42%;
       height: 42%;
-      border: 3px solid var(--accent);
-      border-radius: 12px;
+      border: 3px solid rgba(196, 112, 74, 0.35);
+      border-radius: 24px;
       z-index: -1;
     }
 
@@ -560,24 +578,27 @@
       left: 24px;
       bottom: 24px;
       padding: 18px 20px;
-      border-radius: 16px;
-      background: rgba(201, 169, 110, 0.95);
-      color: var(--bg-primary);
-      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.3);
+      border-radius: 18px;
+      background: rgba(255, 248, 240, 0.94);
+      color: var(--text-primary);
+      border: 1px solid rgba(196, 112, 74, 0.18);
+      box-shadow: 0 18px 40px rgba(120, 76, 45, 0.16);
     }
 
     .experience-badge strong {
       display: block;
       font-size: 2rem;
       line-height: 1;
-      font-family: "Playfair Display", serif;
+      font-family: "Nunito", sans-serif;
+      font-weight: 800;
+      color: var(--accent);
     }
 
     .experience-badge span {
       display: block;
       margin-top: 4px;
-      font-size: 0.88rem;
-      font-weight: 600;
+      font-size: 0.9rem;
+      font-weight: 700;
     }
 
     .about-copy .section-label,
@@ -589,9 +610,9 @@
     .about-copy h2 {
       max-width: 620px;
       margin-bottom: 24px;
-      font-family: "Playfair Display", serif;
-      font-size: clamp(2rem, 3.4vw, 2.8rem);
-      line-height: 1.12;
+      font-family: "Nunito", sans-serif;
+      font-size: clamp(2rem, 3.4vw, 2.9rem);
+      line-height: 1.1;
     }
 
     .about-copy p {
@@ -611,17 +632,17 @@
       align-items: center;
       gap: 12px;
       color: var(--text-primary);
-      font-weight: 500;
+      font-weight: 600;
     }
 
     .feature-icon {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      width: 28px;
-      height: 28px;
+      width: 30px;
+      height: 30px;
       border-radius: 50%;
-      background: rgba(201, 169, 110, 0.16);
+      background: rgba(196, 112, 74, 0.14);
       color: var(--accent);
       flex-shrink: 0;
     }
@@ -643,6 +664,17 @@
       gap: 20px;
     }
 
+    .badge-card {
+      display: inline-flex;
+      align-items: center;
+      gap: 14px;
+      padding: 16px 24px;
+      background: var(--bg-secondary);
+      border: var(--border-soft);
+      border-radius: 16px;
+      box-shadow: 0 10px 26px rgba(120, 76, 45, 0.08);
+    }
+
     .gallery-grid {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -653,9 +685,10 @@
       position: relative;
       aspect-ratio: 4 / 3;
       overflow: hidden;
-      border-radius: 16px;
+      border-radius: 20px;
       background: var(--bg-secondary);
-      border: 1px solid rgba(255, 255, 255, 0.06);
+      border: var(--border-soft);
+      box-shadow: 0 14px 30px rgba(120, 76, 45, 0.08);
     }
 
     .gallery-item img {
@@ -671,9 +704,9 @@
       display: flex;
       align-items: flex-end;
       padding: 22px;
-      background: linear-gradient(to top, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.12) 58%);
+      background: linear-gradient(to top, rgba(58, 46, 36, 0.86), rgba(58, 46, 36, 0.12) 58%);
       color: var(--white);
-      font-weight: 600;
+      font-weight: 700;
     }
 
     .gallery-item:hover img,
@@ -682,7 +715,7 @@
     }
 
     .testimonials {
-      background: var(--bg-secondary);
+      background: linear-gradient(180deg, rgba(255, 240, 224, 0.6), rgba(255, 248, 240, 0.3));
     }
 
     .testimonials-grid {
@@ -693,15 +726,15 @@
 
     .testimonial-card {
       padding: 30px;
-      background: var(--bg-elevated);
+      background: rgba(255, 255, 255, 0.92);
       transition: transform var(--transition), border-color var(--transition), box-shadow var(--transition);
     }
 
     .testimonial-card:hover,
     .testimonial-card:focus-within {
       transform: translateY(-4px);
-      border-color: rgba(201, 169, 110, 0.28);
-      box-shadow: var(--shadow-gold);
+      border-color: rgba(196, 112, 74, 0.24);
+      box-shadow: var(--shadow-card);
     }
 
     .stars {
@@ -742,11 +775,11 @@
     .faq-list {
       max-width: 860px;
       margin: 0 auto;
-      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      border-top: 1px solid rgba(196, 112, 74, 0.16);
     }
 
     .faq-item {
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      border-bottom: 1px solid rgba(196, 112, 74, 0.16);
     }
 
     .faq-question {
@@ -757,13 +790,14 @@
       gap: 18px;
       padding: 24px 0;
       color: var(--text-primary);
-      font-weight: 600;
+      font-weight: 700;
       text-align: left;
+      transition: color var(--transition);
     }
 
     .faq-question:hover,
     .faq-question:focus-visible {
-      color: var(--accent-light);
+      color: var(--accent);
     }
 
     .faq-plus {
@@ -774,7 +808,7 @@
       height: 34px;
       flex-shrink: 0;
       border-radius: 50%;
-      border: 1px solid rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(196, 112, 74, 0.18);
       color: var(--accent);
       transition: transform var(--transition), border-color var(--transition), color var(--transition), background var(--transition);
     }
@@ -786,9 +820,9 @@
 
     .faq-item.active .faq-plus {
       transform: rotate(45deg);
-      border-color: rgba(201, 169, 110, 0.35);
-      background: rgba(201, 169, 110, 0.1);
-      color: var(--accent-light);
+      border-color: rgba(196, 112, 74, 0.4);
+      background: rgba(196, 112, 74, 0.08);
+      color: var(--accent-dark);
     }
 
     .faq-answer {
@@ -811,7 +845,7 @@
     }
 
     .contact {
-      background: var(--bg-secondary);
+      background: linear-gradient(180deg, rgba(232, 213, 192, 0.35), rgba(255, 255, 255, 0.64));
     }
 
     .contact-grid {
@@ -823,13 +857,15 @@
     .contact-panel,
     .contact-form {
       padding: 34px;
+      box-shadow: 0 12px 28px rgba(120, 76, 45, 0.08);
     }
 
     .contact-panel h3,
     .contact-form h3 {
       margin-bottom: 12px;
-      font-family: "Playfair Display", serif;
+      font-family: "Nunito", sans-serif;
       font-size: 2rem;
+      line-height: 1.15;
     }
 
     .contact-panel > p,
@@ -855,8 +891,8 @@
       justify-content: center;
       width: 48px;
       height: 48px;
-      border-radius: 8px;
-      background: rgba(201, 169, 110, 0.12);
+      border-radius: 12px;
+      background: rgba(196, 112, 74, 0.1);
       color: var(--accent);
       flex-shrink: 0;
     }
@@ -879,7 +915,7 @@
 
     .contact-item a:hover,
     .contact-item a:focus-visible {
-      color: var(--accent-light);
+      color: var(--accent);
     }
 
     .form-grid {
@@ -900,30 +936,35 @@
 
     .field label {
       color: var(--text-primary);
-      font-weight: 500;
+      font-weight: 700;
     }
 
     .field input,
     .field textarea {
       width: 100%;
       padding: 14px 16px;
-      border-radius: 12px;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      background: var(--bg-secondary);
+      border-radius: 14px;
+      border: 1px solid rgba(196, 112, 74, 0.16);
+      background: #fffdf9;
       color: var(--text-primary);
       transition: border-color var(--transition), background var(--transition), box-shadow var(--transition);
     }
 
     .field input::placeholder,
     .field textarea::placeholder {
-      color: #7d7d7d;
+      color: #8a7768;
+    }
+
+    .field input:hover,
+    .field textarea:hover {
+      border-color: rgba(196, 112, 74, 0.28);
     }
 
     .field input:focus,
     .field textarea:focus {
       outline: none;
-      border-color: rgba(201, 169, 110, 0.5);
-      box-shadow: 0 0 0 3px rgba(201, 169, 110, 0.12);
+      border-color: rgba(196, 112, 74, 0.5);
+      box-shadow: 0 0 0 4px rgba(196, 112, 74, 0.12);
     }
 
     .field textarea {
@@ -933,15 +974,15 @@
 
     .submit-btn {
       width: 100%;
-      min-height: 54px;
+      min-height: 56px;
       border-radius: 999px;
-      background: var(--accent);
-      color: var(--bg-primary);
-      font-weight: 700;
+      background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+      color: var(--white);
+      font-weight: 800;
     }
 
     .site-footer {
-      background: #0A0A0A;
+      background: var(--footer-bg);
       padding-top: 72px;
     }
 
@@ -955,19 +996,20 @@
     .footer-brand p,
     .footer-links li,
     .footer-contact li {
-      color: var(--text-secondary);
+      color: rgba(255, 248, 240, 0.72);
     }
 
     .footer-brand .logo {
       display: inline-block;
       margin-bottom: 14px;
+      color: var(--white);
     }
 
     .footer-title {
       margin-bottom: 14px;
-      font-family: "Playfair Display", serif;
+      font-family: "Nunito", sans-serif;
       font-size: 1.3rem;
-      color: var(--text-primary);
+      color: var(--white);
     }
 
     .footer-links,
@@ -976,11 +1018,16 @@
       gap: 10px;
     }
 
+    .footer-contact a:hover,
+    .footer-contact a:focus-visible {
+      color: var(--white);
+    }
+
     .footer-bottom {
       padding: 22px 0 28px;
-      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      border-top: 1px solid rgba(255, 248, 240, 0.1);
       text-align: center;
-      color: var(--text-secondary);
+      color: rgba(255, 248, 240, 0.72);
     }
 
     @media (max-width: 968px) {
@@ -1002,7 +1049,7 @@
         position: fixed;
         inset: 0;
         z-index: 999;
-        background: #0F0F0F;
+        background: #fff4e7;
         padding: 120px 24px 40px;
         display: flex;
         flex-direction: column;
@@ -1020,7 +1067,8 @@
 
       .mobile-panel a {
         font-size: 1.5rem;
-        font-family: "Playfair Display", serif;
+        font-family: "Nunito", sans-serif;
+        font-weight: 800;
         color: var(--text-primary);
       }
 
@@ -1028,8 +1076,7 @@
         display: inline-flex;
         align-items: center;
         gap: 10px;
-        color: var(--accent);
-        font-weight: 600;
+        color: var(--accent-dark);
       }
 
       .hero-content {
@@ -1051,7 +1098,7 @@
 
       .trust-item + .trust-item {
         border-left: 0;
-        border-top: 1px solid rgba(255, 255, 255, 0.08);
+        border-top: 1px solid rgba(196, 112, 74, 0.12);
       }
 
       .feature-grid,
@@ -1074,7 +1121,7 @@
       }
 
       .logo {
-        font-size: 1.4rem;
+        font-size: 1.42rem;
       }
 
       .hero-badge {
@@ -1256,21 +1303,21 @@
         <h2 class="section-title">Оценена клиника с доказани стандарти</h2>
         <p class="section-intro">Пациентите ни избират заради последователно качество, ясна комуникация и прозрачни условия на лечение.</p>
         <div class="badges-row">
-          <div style="display:inline-flex;align-items:center;gap:12px;padding:16px 24px;background:#1A1A1A;border:1px solid rgba(255,255,255,0.08);border-radius:12px;">
+          <div class="badge-card">
             <svg width="36" height="36" viewBox="0 0 48 48" aria-hidden="true"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>
             <div>
               <div style="display:flex;align-items:center;gap:4px;">
-                <span style="font-size:1.5rem;font-weight:700;color:#F5F5F5;">4.9</span>
+                <span style="font-size:1.5rem;font-weight:800;color:#2D2D2D;">4.9</span>
                 <svg width="100" height="20" viewBox="0 0 100 20" aria-hidden="true"><polygon fill="#FBBC05" points="10,1 12.5,7 19,8 14,12 15.5,19 10,15.5 4.5,19 6,12 1,8 7.5,7"/><polygon fill="#FBBC05" points="30,1 32.5,7 39,8 34,12 35.5,19 30,15.5 24.5,19 26,12 21,8 27.5,7"/><polygon fill="#FBBC05" points="50,1 52.5,7 59,8 54,12 55.5,19 50,15.5 44.5,19 46,12 41,8 47.5,7"/><polygon fill="#FBBC05" points="70,1 72.5,7 79,8 74,12 75.5,19 70,15.5 64.5,19 66,12 61,8 67.5,7"/><polygon fill="#FBBC05" points="90,1 92.5,7 99,8 94,12 95.5,19 90,15.5 84.5,19 86,12 81,8 87.5,7"/></svg>
               </div>
-              <span style="font-size:0.85rem;color:#A0A0A0;">Базирано на 127 отзива</span>
+              <span style="font-size:0.85rem;color:#6B5B4D;">Базирано на 127 отзива</span>
             </div>
           </div>
-          <div style="display:inline-flex;align-items:center;gap:14px;padding:14px 24px;background:#1A1A1A;border:1px solid rgba(255,255,255,0.08);border-radius:10px;">
+          <div class="badge-card" style="padding:14px 24px;">
             <img src="nhif-logo.png" alt="НЗОК лого" width="48" height="53" style="object-fit:contain;">
             <div>
-              <div style="font-weight:700;color:#90CAF9;font-size:1rem;">Договор с НЗОК</div>
-              <div style="font-size:0.8rem;color:#A0A0A0;">Работим с Национална<br>здравноосигурителна каса</div>
+              <div style="font-weight:800;color:#2d6aa8;font-size:1rem;">Договор с НЗОК</div>
+              <div style="font-size:0.8rem;color:#6B5B4D;">Работим с Национална<br>здравноосигурителна каса</div>
             </div>
           </div>
         </div>
