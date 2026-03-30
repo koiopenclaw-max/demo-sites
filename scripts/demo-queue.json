@@ -1,18 +1,6 @@
 {
   "tasks": [
     {
-      "id": 1774887063594,
-      "slug": "дентален-център-искрови",
-      "name": "Дентален център Искрови",
-      "action": "building",
-      "status": "in_progress",
-      "createdAt": "2026-03-30T16:11:03.594Z",
-      "startedAt": "2026-03-30T16:11:24.348Z",
-      "completedAt": null,
-      "error": null,
-      "result": null
-    },
-    {
       "id": 1774887305083,
       "slug": "дентален-център-искрови",
       "name": "Дентален център Искрови",
@@ -667,6 +655,18 @@
       "completedAt": "2026-03-30T16:10:21.692Z",
       "error": null,
       "result": "Brief enriched → brief_final"
+    },
+    {
+      "id": 1774887063594,
+      "slug": "дентален-център-искрови",
+      "name": "Дентален център Искрови",
+      "action": "building",
+      "status": "done",
+      "createdAt": "2026-03-30T16:11:03.594Z",
+      "startedAt": "2026-03-30T16:11:24.348Z",
+      "completedAt": "2026-03-30T16:20:09.529Z",
+      "error": null,
+      "result": "Demo built (validated, 1 attempts): https://koiopenclaw-max.github.io/demo-sites/demos/%D0%B4%D0%B5%D0%BD%D1%82%D0%B0%D0%BB%D0%B5%D0%BD-%D1%86%D0%B5%D0%BD%D1%82%D1%8A%D1%80-%D0%B8%D1%81%D0%BA%D1%80%D0%BE%D0%B2%D0%B8/"
     }
   ],
   "version": 1
