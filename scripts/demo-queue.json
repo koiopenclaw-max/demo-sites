@@ -1,18 +1,5 @@
 {
-  "tasks": [
-    {
-      "id": 1774887004230,
-      "slug": "дентален-център-искрови",
-      "name": "Дентален център Искрови",
-      "action": "qa_submitted",
-      "status": "in_progress",
-      "createdAt": "2026-03-30T16:10:04.230Z",
-      "startedAt": "2026-03-30T16:10:19.062Z",
-      "completedAt": null,
-      "error": null,
-      "result": null
-    }
-  ],
+  "tasks": [],
   "completed": [
     {
       "id": 1773819482814,
@@ -643,6 +630,18 @@
       "completedAt": "2026-03-30T16:04:41.553Z",
       "error": null,
       "result": "Brief готов. Ниша: стоматология. 6 въпроса."
+    },
+    {
+      "id": 1774887004230,
+      "slug": "дентален-център-искрови",
+      "name": "Дентален център Искрови",
+      "action": "qa_submitted",
+      "status": "done",
+      "createdAt": "2026-03-30T16:10:04.230Z",
+      "startedAt": "2026-03-30T16:10:19.062Z",
+      "completedAt": "2026-03-30T16:10:21.692Z",
+      "error": null,
+      "result": "Brief enriched → brief_final"
     }
   ],
   "version": 1
