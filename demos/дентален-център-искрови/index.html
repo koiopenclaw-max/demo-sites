@@ -1,0 +1,1799 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Дентален център Искрови | Стоматологичен център в Шумен</title>
+  <meta name="description" content="Дентален център Искрови в Шумен предлага естетична стоматология, ортодонтия Damon, имплантология, лазерни процедури и безболезнено лечение за цялото семейство.">
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": ["Dentist", "LocalBusiness"],
+      "name": "Дентален център Искрови",
+      "image": "https://images.unsplash.com/photo-1629909613654-28e377c37b09?w=1400",
+      "email": "dentist@iskrovi.com",
+      "telephone": "+35954801020",
+      "url": "https://iskrovi.com/",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "ул. Граф Игнатиев №13",
+        "addressLocality": "Шумен",
+        "postalCode": "9700",
+        "addressCountry": "BG"
+      },
+      "openingHoursSpecification": [
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": ["Monday", "Tuesday", "Thursday"],
+          "opens": "09:00",
+          "closes": "17:00"
+        },
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": ["Wednesday", "Friday"],
+          "opens": "09:00",
+          "closes": "12:00"
+        },
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": ["Wednesday", "Friday"],
+          "opens": "15:00",
+          "closes": "17:00"
+        }
+      ],
+      "department": [
+        {
+          "@type": "Dentist",
+          "name": "Д-р Найден Искров",
+          "medicalSpecialty": "Протетична стоматология"
+        },
+        {
+          "@type": "Dentist",
+          "name": "Д-р Валентина Искрова",
+          "medicalSpecialty": "Обща стоматология"
+        },
+        {
+          "@type": "Dentist",
+          "name": "Д-р Десислава Искрова",
+          "medicalSpecialty": "Ортодонтия"
+        }
+      ]
+    }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f7f5f0;
+      --bg-soft: #fbf9f4;
+      --paper: #fffdf8;
+      --card: #e8dfd1;
+      --text: #1a1a1a;
+      --muted: #5d5a55;
+      --teal: #1b4d4e;
+      --teal-deep: #113839;
+      --gold: #c5975b;
+      --gold-hover: #d4a76a;
+      --line: rgba(27, 77, 78, 0.14);
+      --shadow-lg: 0 30px 70px rgba(17, 56, 57, 0.12);
+      --shadow-md: 0 18px 38px rgba(17, 56, 57, 0.1);
+      --shadow-sm: 0 8px 20px rgba(17, 56, 57, 0.08);
+      --radius-xl: 32px;
+      --radius-lg: 24px;
+      --radius-md: 18px;
+      --radius-sm: 12px;
+      --container: min(1180px, calc(100vw - 2rem));
+      --header-height: 88px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Outfit", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(197, 151, 91, 0.14), transparent 30%),
+        radial-gradient(circle at 85% 15%, rgba(27, 77, 78, 0.09), transparent 22%),
+        var(--bg);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    body.menu-open {
+      overflow: hidden;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button,
+    input,
+    select,
+    textarea {
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+      border: 0;
+      background: none;
+    }
+
+    .container {
+      width: var(--container);
+      margin: 0 auto;
+    }
+
+    .section {
+      padding: 7rem 0;
+      position: relative;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.65rem;
+      color: var(--teal);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      font-size: 0.82rem;
+      font-weight: 600;
+      margin-bottom: 1.15rem;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 42px;
+      height: 1px;
+      background: rgba(27, 77, 78, 0.35);
+    }
+
+    h1, h2, h3, h4 {
+      font-family: "Playfair Display", serif;
+      line-height: 1.05;
+      margin: 0;
+      letter-spacing: -0.02em;
+    }
+
+    h1 {
+      font-size: clamp(3.25rem, 7vw, 6.3rem);
+    }
+
+    h2 {
+      font-size: clamp(2.35rem, 4vw, 4.2rem);
+      max-width: 11ch;
+    }
+
+    h3 {
+      font-size: 1.5rem;
+    }
+
+    p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 1.03rem;
+    }
+
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 2rem;
+      align-items: end;
+      margin-bottom: 3rem;
+    }
+
+    .section-head p {
+      max-width: 34rem;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.7rem;
+      min-height: 56px;
+      padding: 0 1.45rem;
+      border-radius: 999px;
+      font-weight: 600;
+      transition: transform 220ms ease, box-shadow 220ms ease, background-color 220ms ease, border-color 220ms ease, color 220ms ease;
+      will-change: transform;
+    }
+
+    .btn:hover,
+    .btn:focus-visible {
+      transform: translateY(-2px) scale(1.02);
+      box-shadow: 0 16px 28px rgba(17, 56, 57, 0.14);
+    }
+
+    .btn:focus-visible,
+    .menu-toggle:focus-visible,
+    .faq-trigger:focus-visible,
+    .nav a:focus-visible,
+    .social a:focus-visible,
+    input:focus-visible,
+    select:focus-visible,
+    textarea:focus-visible {
+      outline: 2px solid var(--gold);
+      outline-offset: 3px;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--gold), var(--gold-hover));
+      color: #fff;
+      box-shadow: 0 12px 24px rgba(197, 151, 91, 0.24);
+    }
+
+    .btn-secondary {
+      border: 1px solid rgba(255, 255, 255, 0.38);
+      color: #fff;
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(10px);
+    }
+
+    .btn-outline {
+      border: 1px solid rgba(27, 77, 78, 0.24);
+      color: var(--teal);
+      background: rgba(255, 255, 255, 0.54);
+    }
+
+    .site-header {
+      position: fixed;
+      inset: 0 0 auto;
+      z-index: 40;
+      padding: 1rem 0;
+      transition: padding 220ms ease, background-color 220ms ease, box-shadow 220ms ease, backdrop-filter 220ms ease, border-color 220ms ease;
+    }
+
+    .site-header.is-scrolled {
+      padding: 0.55rem 0;
+      background: rgba(247, 245, 240, 0.68);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(27, 77, 78, 0.08);
+      box-shadow: 0 10px 30px rgba(17, 56, 57, 0.08);
+    }
+
+    .header-shell {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      min-height: 56px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.9rem;
+      position: relative;
+      z-index: 42;
+    }
+
+    .brand-mark {
+      width: 46px;
+      height: 46px;
+      border-radius: 16px;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(145deg, rgba(27, 77, 78, 0.1), rgba(197, 151, 91, 0.18));
+      border: 1px solid rgba(27, 77, 78, 0.08);
+      color: var(--teal);
+    }
+
+    .brand-text strong,
+    .brand-text span {
+      display: block;
+    }
+
+    .brand-text strong {
+      font-family: "Playfair Display", serif;
+      font-size: 1.35rem;
+      color: var(--teal);
+    }
+
+    .brand-text span {
+      color: rgba(26, 26, 26, 0.62);
+      font-size: 0.82rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .header-controls {
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      gap: 1.6rem;
+    }
+
+    .nav a {
+      position: relative;
+      color: rgba(26, 26, 26, 0.8);
+      font-weight: 500;
+    }
+
+    .nav a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -0.4rem;
+      width: 100%;
+      height: 1px;
+      background: var(--gold);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 220ms ease;
+    }
+
+    .nav a:hover::after,
+    .nav a:focus-visible::after {
+      transform: scaleX(1);
+    }
+
+    .header-phone {
+      font-weight: 600;
+      color: var(--teal);
+      white-space: nowrap;
+    }
+
+    .menu-toggle {
+      display: none;
+      position: relative;
+      z-index: 42;
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      border: 1px solid rgba(27, 77, 78, 0.12);
+      background: rgba(255, 255, 255, 0.72);
+      backdrop-filter: blur(10px);
+    }
+
+    .menu-toggle span {
+      position: absolute;
+      left: 50%;
+      width: 22px;
+      height: 2px;
+      background: var(--teal);
+      border-radius: 999px;
+      transition: transform 220ms ease, opacity 220ms ease;
+    }
+
+    .menu-toggle span:nth-child(1) { transform: translate(-50%, -7px); }
+    .menu-toggle span:nth-child(2) { transform: translate(-50%, 0); }
+    .menu-toggle span:nth-child(3) { transform: translate(-50%, 7px); }
+
+    .menu-toggle[aria-expanded="true"] span:nth-child(1) { transform: translate(-50%, 0) rotate(45deg); }
+    .menu-toggle[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+    .menu-toggle[aria-expanded="true"] span:nth-child(3) { transform: translate(-50%, 0) rotate(-45deg); }
+
+    .mobile-menu {
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(circle at top right, rgba(197, 151, 91, 0.14), transparent 24%),
+        rgba(17, 56, 57, 0.97);
+      color: #fff;
+      display: grid;
+      place-items: center;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 260ms ease, visibility 260ms ease;
+      z-index: 41;
+    }
+
+    .mobile-menu.is-open {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .mobile-menu nav {
+      display: grid;
+      gap: 1.4rem;
+      text-align: center;
+      padding: 2rem;
+    }
+
+    .mobile-menu a,
+    .mobile-menu .mobile-phone {
+      font-size: clamp(1.4rem, 4vw, 2.3rem);
+      font-family: "Playfair Display", serif;
+      opacity: 0;
+      transform: translateY(16px);
+      transition: transform 360ms ease, opacity 360ms ease;
+    }
+
+    .mobile-menu.is-open a,
+    .mobile-menu.is-open .mobile-phone {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .mobile-menu.is-open a:nth-child(1) { transition-delay: 70ms; }
+    .mobile-menu.is-open a:nth-child(2) { transition-delay: 120ms; }
+    .mobile-menu.is-open a:nth-child(3) { transition-delay: 170ms; }
+    .mobile-menu.is-open a:nth-child(4) { transition-delay: 220ms; }
+    .mobile-menu.is-open a:nth-child(5) { transition-delay: 270ms; }
+    .mobile-menu.is-open .mobile-phone { transition-delay: 320ms; }
+
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: calc(var(--header-height) + 2.25rem) 0 4.5rem;
+      position: relative;
+      overflow: clip;
+    }
+
+    .hero::before,
+    .hero::after {
+      content: "";
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(30px);
+      opacity: 0.4;
+      pointer-events: none;
+    }
+
+    .hero::before {
+      width: 300px;
+      height: 300px;
+      background: rgba(197, 151, 91, 0.18);
+      top: 8%;
+      left: -80px;
+    }
+
+    .hero::after {
+      width: 360px;
+      height: 360px;
+      background: rgba(27, 77, 78, 0.12);
+      right: -100px;
+      bottom: 5%;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 0.95fr);
+      align-items: center;
+      gap: 2.8rem;
+    }
+
+    .hero-copy {
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero-copy p {
+      max-width: 37rem;
+      font-size: 1.1rem;
+      margin-top: 1.5rem;
+    }
+
+    .hero-copy .accent-word {
+      color: var(--gold);
+      font-style: italic;
+      font-weight: 600;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin: 2rem 0 1.7rem;
+    }
+
+    .trust-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+    }
+
+    .trust-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55rem;
+      padding: 0.9rem 1rem;
+      border-radius: 999px;
+      background: rgba(255, 253, 248, 0.78);
+      border: 1px solid rgba(27, 77, 78, 0.08);
+      box-shadow: var(--shadow-sm);
+      color: var(--teal);
+      font-weight: 500;
+    }
+
+    .hero-visual {
+      position: relative;
+      min-height: 480px;
+      max-height: 560px;
+      border-radius: clamp(28px, 4vw, 44px);
+      overflow: hidden;
+      box-shadow: var(--shadow-lg);
+    }
+
+    .hero-visual::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(90deg, rgba(17, 56, 57, 0.48) 0%, rgba(17, 56, 57, 0.08) 30%, rgba(17, 56, 57, 0.12) 100%),
+        linear-gradient(180deg, rgba(255, 255, 255, 0) 55%, rgba(17, 56, 57, 0.2) 100%);
+    }
+
+    .hero-visual img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .float-card {
+      position: absolute;
+      z-index: 2;
+      padding: 1rem 1.15rem;
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.18);
+      border: 1px solid rgba(255, 255, 255, 0.26);
+      backdrop-filter: blur(18px);
+      box-shadow: 0 18px 36px rgba(17, 56, 57, 0.15);
+      color: #fff;
+      min-width: 180px;
+    }
+
+    .float-card strong {
+      display: block;
+      font-size: 2rem;
+      line-height: 1;
+      margin-bottom: 0.4rem;
+    }
+
+    .float-card span {
+      color: rgba(255, 255, 255, 0.86);
+    }
+
+    .float-card.card-top {
+      top: 1.4rem;
+      right: 1.4rem;
+    }
+
+    .float-card.card-bottom {
+      left: 1.4rem;
+      bottom: 1.4rem;
+    }
+
+    .services-grid,
+    .testimonials-grid,
+    .faq-grid,
+    .contact-grid,
+    .footer-grid {
+      display: grid;
+      gap: 1.4rem;
+    }
+
+    .services-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .card {
+      background: rgba(255, 253, 248, 0.86);
+      border: 1px solid rgba(27, 77, 78, 0.1);
+      border-radius: 26px;
+      padding: 1.6rem;
+      box-shadow: var(--shadow-sm);
+      transition: transform 220ms ease, box-shadow 220ms ease, border-color 220ms ease;
+    }
+
+    .card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(197, 151, 91, 0.5);
+      box-shadow: var(--shadow-md);
+    }
+
+    .service-icon {
+      width: 64px;
+      height: 64px;
+      border-radius: 20px;
+      display: grid;
+      place-items: center;
+      margin-bottom: 1.25rem;
+    }
+
+    .service-card:nth-child(1) .service-icon { background: linear-gradient(145deg, rgba(27, 77, 78, 0.14), rgba(27, 77, 78, 0.04)); }
+    .service-card:nth-child(2) .service-icon { background: linear-gradient(145deg, rgba(197, 151, 91, 0.2), rgba(197, 151, 91, 0.06)); }
+    .service-card:nth-child(3) .service-icon { background: linear-gradient(145deg, rgba(126, 164, 166, 0.2), rgba(27, 77, 78, 0.06)); }
+    .service-card:nth-child(4) .service-icon { background: linear-gradient(145deg, rgba(232, 223, 209, 0.9), rgba(197, 151, 91, 0.08)); }
+    .service-card:nth-child(5) .service-icon { background: linear-gradient(145deg, rgba(197, 151, 91, 0.16), rgba(27, 77, 78, 0.08)); }
+    .service-card:nth-child(6) .service-icon { background: linear-gradient(145deg, rgba(27, 77, 78, 0.08), rgba(232, 223, 209, 0.92)); }
+
+    .service-card h3 {
+      margin-bottom: 0.8rem;
+    }
+
+    .service-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55rem;
+      margin-top: 1.3rem;
+      font-weight: 600;
+      color: var(--teal);
+    }
+
+    .service-link svg {
+      transition: transform 220ms ease;
+    }
+
+    .service-card:hover .service-link svg {
+      transform: translateX(4px);
+    }
+
+    .about-wrap {
+      display: grid;
+      grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
+      gap: 3rem;
+      align-items: center;
+    }
+
+    .about-visuals {
+      position: relative;
+      min-height: 640px;
+    }
+
+    .about-image {
+      position: absolute;
+      overflow: hidden;
+      border-radius: 30px;
+      box-shadow: var(--shadow-lg);
+    }
+
+    .about-image.large {
+      inset: 0 12% 14% 0;
+    }
+
+    .about-image.small {
+      width: 46%;
+      right: 0;
+      bottom: 0;
+      aspect-ratio: 0.9;
+      border: 10px solid rgba(247, 245, 240, 0.92);
+    }
+
+    .about-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .about-copy h2 {
+      max-width: 13ch;
+      margin-bottom: 1.2rem;
+    }
+
+    .about-copy p + p {
+      margin-top: 1rem;
+    }
+
+    .badge-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.85rem 1rem;
+      margin-top: 2rem;
+    }
+
+    .badge {
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      padding: 0.95rem 1rem;
+      border-radius: 18px;
+      background: rgba(255, 253, 248, 0.9);
+      border: 1px solid rgba(27, 77, 78, 0.08);
+    }
+
+    .badge svg {
+      flex: 0 0 auto;
+      color: var(--gold);
+    }
+
+    .process-section {
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0), rgba(232, 223, 209, 0.28)),
+        var(--bg-soft);
+    }
+
+    .process-track {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 1.1rem;
+      position: relative;
+    }
+
+    .process-track::before {
+      content: "";
+      position: absolute;
+      top: 54px;
+      left: 8%;
+      right: 8%;
+      border-top: 2px dashed rgba(27, 77, 78, 0.18);
+      z-index: 0;
+    }
+
+    .process-card {
+      position: relative;
+      z-index: 1;
+      padding: 0.8rem 0.6rem 0.2rem 0;
+    }
+
+    .process-number {
+      width: 108px;
+      height: 108px;
+      border-radius: 28px;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(145deg, rgba(255, 253, 248, 0.98), rgba(232, 223, 209, 0.8));
+      border: 1px solid rgba(27, 77, 78, 0.08);
+      box-shadow: var(--shadow-sm);
+      color: var(--teal);
+      font-family: "Playfair Display", serif;
+      font-size: 3rem;
+      margin-bottom: 1.4rem;
+    }
+
+    .process-card h3 {
+      margin-bottom: 0.65rem;
+    }
+
+    .testimonials-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .testimonial {
+      position: relative;
+      overflow: hidden;
+      min-height: 100%;
+      transform-style: preserve-3d;
+      transition: transform 220ms ease, box-shadow 220ms ease;
+    }
+
+    .testimonial:hover {
+      transform: rotateX(1.2deg) rotateY(-1.4deg) translateY(-6px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .quote-mark {
+      position: absolute;
+      top: -8px;
+      right: 16px;
+      font-family: "Playfair Display", serif;
+      font-size: 6.5rem;
+      line-height: 1;
+      color: rgba(197, 151, 91, 0.18);
+      pointer-events: none;
+    }
+
+    .stars {
+      display: flex;
+      gap: 0.2rem;
+      color: var(--gold);
+      margin-bottom: 1rem;
+    }
+
+    .testimonial p {
+      font-size: 1.04rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .person {
+      display: flex;
+      align-items: center;
+      gap: 0.9rem;
+    }
+
+    .avatar {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(145deg, rgba(27, 77, 78, 0.14), rgba(197, 151, 91, 0.18));
+      color: var(--teal);
+      font-weight: 700;
+    }
+
+    .faq-grid {
+      grid-template-columns: 1.05fr 0.95fr;
+      align-items: start;
+    }
+
+    .faq-list {
+      display: grid;
+      gap: 0.9rem;
+    }
+
+    .faq-item {
+      background: rgba(255, 253, 248, 0.9);
+      border: 1px solid rgba(27, 77, 78, 0.1);
+      border-radius: 22px;
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .faq-trigger {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      padding: 1.3rem 1.4rem;
+      text-align: left;
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    .faq-icon {
+      flex: 0 0 auto;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      background: rgba(27, 77, 78, 0.07);
+      transition: transform 220ms ease, background-color 220ms ease;
+    }
+
+    .faq-item.is-open .faq-icon {
+      transform: rotate(45deg);
+      background: rgba(197, 151, 91, 0.22);
+    }
+
+    .faq-panel {
+      display: grid;
+      grid-template-rows: 0fr;
+      transition: grid-template-rows 260ms ease;
+    }
+
+    .faq-item.is-open .faq-panel {
+      grid-template-rows: 1fr;
+    }
+
+    .faq-panel > div {
+      overflow: hidden;
+    }
+
+    .faq-panel p {
+      padding: 0 1.4rem 1.35rem;
+    }
+
+    .faq-aside {
+      background: linear-gradient(160deg, var(--teal), var(--teal-deep));
+      color: #fff;
+      border-radius: 34px;
+      padding: 2rem;
+      position: sticky;
+      top: calc(var(--header-height) + 1.5rem);
+      overflow: hidden;
+      box-shadow: var(--shadow-lg);
+    }
+
+    .faq-aside::before,
+    .cta-banner::before,
+    .cta-banner::after {
+      content: "";
+      position: absolute;
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    .faq-aside::before {
+      width: 260px;
+      height: 260px;
+      background: rgba(197, 151, 91, 0.14);
+      top: -90px;
+      right: -100px;
+    }
+
+    .faq-aside h3 {
+      color: #fff;
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    .faq-aside p {
+      color: rgba(255, 255, 255, 0.78);
+      margin-bottom: 1.8rem;
+    }
+
+    .cta-banner {
+      padding: 0 0 7rem;
+    }
+
+    .cta-shell {
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(145deg, var(--teal), var(--teal-deep));
+      border-radius: 34px;
+      padding: 3rem;
+      color: #fff;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 2rem;
+      box-shadow: var(--shadow-lg);
+    }
+
+    .cta-banner::before {
+      width: 240px;
+      height: 240px;
+      background: rgba(197, 151, 91, 0.16);
+      top: 10px;
+      left: 10%;
+    }
+
+    .cta-banner::after {
+      width: 340px;
+      height: 340px;
+      background: rgba(255, 255, 255, 0.06);
+      right: -120px;
+      bottom: -120px;
+    }
+
+    .cta-shell h2 {
+      color: #fff;
+      max-width: 12ch;
+    }
+
+    .cta-shell p {
+      color: rgba(255, 255, 255, 0.76);
+      max-width: 32rem;
+      margin-top: 1rem;
+    }
+
+    .cta-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .contact-grid {
+      grid-template-columns: 0.9fr 1.1fr;
+      align-items: start;
+    }
+
+    .contact-card,
+    .contact-form,
+    .map-frame {
+      background: rgba(255, 253, 248, 0.9);
+      border: 1px solid rgba(27, 77, 78, 0.1);
+      border-radius: 28px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .contact-card {
+      padding: 2rem;
+    }
+
+    .contact-list {
+      display: grid;
+      gap: 1.15rem;
+      margin-top: 1.6rem;
+    }
+
+    .contact-item {
+      display: flex;
+      gap: 0.9rem;
+      align-items: flex-start;
+    }
+
+    .contact-item strong {
+      display: block;
+      color: var(--teal);
+      margin-bottom: 0.2rem;
+    }
+
+    .contact-form {
+      padding: 2rem;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1rem;
+    }
+
+    .field {
+      display: grid;
+      gap: 0.45rem;
+    }
+
+    .field.full {
+      grid-column: 1 / -1;
+    }
+
+    label {
+      font-weight: 500;
+      color: var(--teal);
+    }
+
+    input,
+    select,
+    textarea {
+      width: 100%;
+      border-radius: 16px;
+      border: 1px solid rgba(27, 77, 78, 0.14);
+      background: #fff;
+      min-height: 54px;
+      padding: 0.9rem 1rem;
+      color: var(--text);
+    }
+
+    textarea {
+      min-height: 140px;
+      resize: vertical;
+    }
+
+    .map-frame {
+      overflow: hidden;
+      margin-top: 1.2rem;
+      min-height: 260px;
+    }
+
+    .map-frame iframe {
+      width: 100%;
+      min-height: 260px;
+      border: 0;
+      display: block;
+    }
+
+    .site-footer {
+      background: #132f30;
+      color: rgba(255, 255, 255, 0.78);
+      padding: 5rem 0 1.4rem;
+    }
+
+    .footer-grid {
+      grid-template-columns: 1.2fr 0.8fr 0.8fr 1fr;
+      gap: 2rem;
+      margin-bottom: 2.4rem;
+    }
+
+    .site-footer h3,
+    .site-footer h4 {
+      color: #fff;
+      margin-bottom: 1rem;
+    }
+
+    .footer-links {
+      display: grid;
+      gap: 0.65rem;
+    }
+
+    .social {
+      display: flex;
+      gap: 0.8rem;
+      margin-top: 1.4rem;
+    }
+
+    .social a {
+      width: 44px;
+      height: 44px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.08);
+      transition: transform 220ms ease, background-color 220ms ease;
+    }
+
+    .social a:hover {
+      transform: translateY(-3px);
+      background: rgba(197, 151, 91, 0.2);
+    }
+
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      padding-top: 1.4rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.09);
+      font-size: 0.94rem;
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 700ms ease, transform 700ms ease;
+      transition-delay: var(--delay, 0ms);
+    }
+
+    .reveal.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Hero reveals immediately — no waiting for scroll */
+    .hero .reveal {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 1100px) {
+      .nav,
+      .header-phone,
+      .header-controls > .btn {
+        display: none;
+      }
+
+      .menu-toggle {
+        display: inline-block;
+      }
+
+      .hero-grid,
+      .about-wrap,
+      .faq-grid,
+      .contact-grid,
+      .cta-shell {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        padding-bottom: 4.5rem;
+      }
+
+      .hero-visual {
+        min-height: 60vh;
+      }
+
+      .services-grid,
+      .testimonials-grid,
+      .process-track,
+      .footer-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .process-track::before {
+        display: none;
+      }
+
+      .faq-aside {
+        position: relative;
+        top: auto;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .section {
+        padding: 5.25rem 0;
+      }
+
+      .section-head {
+        display: block;
+        margin-bottom: 2.2rem;
+      }
+
+      .section-head p {
+        margin-top: 1rem;
+      }
+
+      .services-grid,
+      .testimonials-grid,
+      .process-track,
+      .footer-grid,
+      .badge-grid,
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-copy p {
+        font-size: 1rem;
+      }
+
+      .hero-visual {
+        min-height: 480px;
+      }
+
+      .float-card {
+        min-width: 150px;
+      }
+
+      .about-visuals {
+        min-height: 520px;
+      }
+
+      .about-image.large {
+        inset: 0 10% 20% 0;
+      }
+
+      .about-image.small {
+        width: 58%;
+      }
+
+      .cta-shell {
+        padding: 2.2rem;
+      }
+
+      .footer-bottom {
+        flex-direction: column;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      *,
+      *::before,
+      *::after {
+        animation: none !important;
+        transition: none !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header" id="site-header">
+    <div class="container header-shell">
+      <a class="brand" href="#top" aria-label="Дентален център Искрови начало">
+        <span class="brand-mark" aria-hidden="true">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <path d="M12 2.5c2.9 0 5.4 1.5 7 4.1 1.3 2.1 1.8 4.7 1 7.1-.6 1.8-1.8 3.5-2.8 5.1-.7 1.1-1.3 2.1-1.7 3.1-.2.4-.5.6-.9.6-.5 0-.8-.3-1-.8l-1.4-5.1c-.1-.3-.4-.5-.7-.5s-.6.2-.7.5l-1.4 5.1c-.1.5-.5.8-1 .8-.4 0-.7-.2-.9-.6-.4-1-1-2-1.7-3.1-1-1.6-2.2-3.3-2.8-5.1-.8-2.4-.3-5 1-7.1C6.6 4 9.1 2.5 12 2.5Z" stroke="currentColor" stroke-width="1.6"/>
+          </svg>
+        </span>
+        <span class="brand-text">
+          <strong>Дентален център Искрови</strong>
+          <span>Стоматологичен център в Шумен</span>
+        </span>
+      </a>
+      <div class="header-controls">
+        <nav class="nav" aria-label="Основна навигация">
+          <a href="#services">Услуги</a>
+          <a href="#about">За нас</a>
+          <a href="#process">Как работим</a>
+          <a href="#testimonials">Отзиви</a>
+          <a href="#contact">Контакти</a>
+        </nav>
+        <a class="header-phone" href="tel:+35954801020">054 801 020</a>
+        <a class="btn btn-primary" href="#contact">Запази час</a>
+        <button class="menu-toggle" type="button" aria-label="Отвори меню" aria-expanded="false" aria-controls="mobile-menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <div class="mobile-menu" id="mobile-menu" aria-hidden="true">
+    <nav aria-label="Мобилна навигация">
+      <a href="#services">Услуги</a>
+      <a href="#about">За нас</a>
+      <a href="#process">Как работим</a>
+      <a href="#testimonials">Отзиви</a>
+      <a href="#contact">Контакти</a>
+      <a class="mobile-phone" href="tel:+35954801020">054 801 020</a>
+    </nav>
+  </div>
+
+  <main id="top">
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-copy reveal">
+          <span class="eyebrow">Модерна семейна стоматология</span>
+          <h1>Усмивки с <span class="accent-word">прецизност</span>, спокойствие и грижа</h1>
+          <p>Дентален център Искрови в Шумен посреща цялото семейство с безболезнено лечение, дигитална диагностика, пълна стерилност и индивидуален лечебен план за всеки пациент.</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#contact">Запази час</a>
+            <a class="btn btn-outline" href="#services">Нашите услуги</a>
+          </div>
+          <div class="trust-row" aria-label="Доверие">
+            <div class="trust-pill"><svg width="16" height="16" viewBox="0 0 24 24" fill="#C5975B" stroke="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg> Спешна помощ при травми и абсцеси</div>
+            <div class="trust-pill"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#1B4D4E" stroke-width="1.8" stroke-linecap="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg> 3 кабинета и дигитални рентгени</div>
+            <div class="trust-pill"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#1B4D4E" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 10h18"/><path d="M7 15h2"/></svg> Плащане с Visa, Mastercard и Maestro</div>
+          </div>
+        </div>
+        <div class="hero-visual reveal" style="--delay: 120ms;">
+          <img src="https://images.unsplash.com/photo-1629909613654-28e377c37b09?w=1400" alt="Модерен интериор на дентална клиника" loading="eager">
+          <div class="float-card card-top">
+            <strong>3</strong>
+            <span>Стоматологични кабинета</span>
+          </div>
+          <div class="float-card card-bottom">
+            <strong>Damon</strong>
+            <span>Ортодонтия за всички възрасти</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="services">
+      <div class="container">
+        <div class="section-head reveal">
+          <div>
+            <span class="eyebrow">Реални услуги от практиката</span>
+            <h2>Лечение, естетика и диагностика под един покрив</h2>
+          </div>
+          <p>Екипът работи с фокус върху безболезненото лечение, съвременните материали и решения, които възстановяват функцията, здравето и уверената усмивка.</p>
+        </div>
+        <div class="services-grid">
+          <article class="card service-card reveal">
+            <div class="service-icon" aria-hidden="true">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#1B4D4E" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2c-1.7 0-3 .8-3.8 2-.5.8-1.5 1.2-2.5 1.2C4.2 5.2 3 6.5 3 8.2c0 1.2.5 2.3 1.2 3.2.8 1 1.3 2.5 1.3 4.1V18c0 2 1.5 4 3.5 4s2.5-1 3-2c.5 1 1 2 3 2s3.5-2 3.5-4v-2.5c0-1.6.5-3.1 1.3-4.1.7-.9 1.2-2 1.2-3.2 0-1.7-1.2-3-2.7-3-1 0-2-.4-2.5-1.2C15 2.8 13.7 2 12 2z"/></svg>
+            </div>
+            <h3>Лечение на кариес и кореново лечение</h3>
+            <p>Лекуваме кариеси с фотополимери и извършваме ендодонтско лечение с внимание към комфорта, точната диагноза и дългосрочната прогноза.</p>
+            <a class="service-link" href="#contact">Научи повече <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+          </article>
+          <article class="card service-card reveal" style="--delay: 70ms;">
+            <div class="service-icon" aria-hidden="true">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#1B4D4E" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3c-1.5 0-3 1-3 3.5 0 2 .7 3.5 1.5 5 .6 1.2 1 2.8 1 4.5 0 2.5 1 5 2.5 5s2-1.5 2-3c.3-1 .7-1 1-1s.7 0 1 1c0 1.5.5 3 2 3s2.5-2.5 2.5-5c0-1.7.4-3.3 1-4.5.8-1.5 1.5-3 1.5-5C20 4 18.5 3 17 3c-1.7 0-3 1-4 2.5-.3.5-.7.5-1 .5s-.7 0-1-.5C10 4 8.7 3 7 3z"/></svg>
+            </div>
+            <h3>Пародонтология и профилактика</h3>
+            <p>Почистване на зъбен камък с ултразвук, грижа за венците и диспансеризация, които намаляват риска от усложнения и поддържат стабилно орално здраве.</p>
+            <a class="service-link" href="#contact">Научи повече <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+          </article>
+          <article class="card service-card reveal" style="--delay: 140ms;">
+            <div class="service-icon" aria-hidden="true">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#1B4D4E" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.5 4.5L18 9l-4.5 1.5L12 15l-1.5-4.5L6 9l4.5-1.5L12 3z"/><path d="M19 14l.75 2.25L22 17l-2.25.75L19 20l-.75-2.25L16 17l2.25-.75z"/><path d="M5 17l.5 1.5L7 19l-1.5.5L5 21l-.5-1.5L3 19l1.5-.5z"/></svg>
+            </div>
+            <h3>Естетична стоматология</h3>
+            <p>Избелване, бондинг, фотополимерни фасети, керамични корони и мостове за естествена визия, по-добра функция и увереност в усмивката.</p>
+            <a class="service-link" href="#contact">Научи повече <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+          </article>
+          <article class="card service-card reveal">
+            <div class="service-icon" aria-hidden="true">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#1B4D4E" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 2h6l-1 4H10L9 2z"/><rect x="10" y="6" width="4" height="3" rx=".5"/><path d="M10.5 9l-1 12c0 .6.9 1 2.5 1s2.5-.4 2.5-1l-1-12"/><path d="M10 12h4M10.2 15h3.6M10.5 18h3"/></svg>
+            </div>
+            <h3>Протетика и имплантология</h3>
+            <p>Изработваме металокерамика, протези и имплантологични решения, когато е нужна сигурна реконструкция след липсващи или силно увредени зъби.</p>
+            <a class="service-link" href="#contact">Научи повече <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+          </article>
+          <article class="card service-card reveal" style="--delay: 70ms;">
+            <div class="service-icon" aria-hidden="true">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#1B4D4E" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h18"/><rect x="5" y="10" width="3" height="4" rx=".8"/><rect x="10.5" y="10" width="3" height="4" rx=".8"/><rect x="16" y="10" width="3" height="4" rx=".8"/><path d="M6.5 10V8M6.5 14v2M12 10V8M12 14v2M17.5 10V8M17.5 14v2"/></svg>
+            </div>
+            <h3>Ортодонтия Damon</h3>
+            <p>Пасивните самолигиращи брекети Damon осигуряват по-комфортно лечение, по-малко посещения и отличен контрол при деца, тийнейджъри и възрастни.</p>
+            <a class="service-link" href="#contact">Научи повече <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+          </article>
+          <article class="card service-card reveal" style="--delay: 140ms;">
+            <div class="service-icon" aria-hidden="true">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#1B4D4E" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5c0 5-3 8.5-7 10-4-1.5-7-5-7-10V6l7-3z"/><path d="M9 12l2 2 4-4"/></svg>
+            </div>
+            <h3>Лазерна и хирургична стоматология</h3>
+            <p>Безжичният диоден лазер Doctor Smile подпомага хирургия, пародонтология, имплантология, ендодонтия, избелване и лечение на херпетични язви.</p>
+            <a class="service-link" href="#contact">Научи повече <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="about">
+      <div class="container about-wrap">
+        <div class="about-visuals reveal">
+          <div class="about-image large">
+            <img src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=600" alt="Стоматолог работи с пациент в модерна клиника" loading="lazy">
+          </div>
+          <div class="about-image small">
+            <img src="https://images.unsplash.com/photo-1606811841689-23dfddce3e95?w=600" alt="Подреден кабинет в дентална клиника" loading="lazy">
+          </div>
+        </div>
+        <div class="about-copy reveal" style="--delay: 100ms;">
+          <span class="eyebrow">За екипа</span>
+          <h2>Семейна практика с опит, технология и внимание към пациента</h2>
+          <p>Дентален център Искрови в гр. Шумен разполага с 3 стоматологични кабинета и дигитални рентгенови снимки, за да осигури бърза диагностика и последователно лечение на едно място.</p>
+          <p>Екипът включва д-р Найден Искров, дентист-ортопед, д-р Валентина Искрова, дентист специалист, и д-р Десислава Искрова, дентист ортодонт. За всяко лечение се изготвя индивидуален план според нуждите на пациента.</p>
+          <div class="badge-grid">
+            <div class="badge"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="m5 12 4 4 10-10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>3 стоматологични кабинета</div>
+            <div class="badge"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="m5 12 4 4 10-10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Дигитални рентгенови снимки</div>
+            <div class="badge"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="m5 12 4 4 10-10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Пълна стерилност</div>
+            <div class="badge"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="m5 12 4 4 10-10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Безболезнено лечение</div>
+            <div class="badge"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="m5 12 4 4 10-10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Damon брекети</div>
+            <div class="badge"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="m5 12 4 4 10-10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Плащане с карта</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section process-section" id="process">
+      <div class="container">
+        <div class="section-head reveal">
+          <div>
+            <span class="eyebrow">Подходът ни</span>
+            <h2>Ясен процес от спешния случай до дългосрочния резултат</h2>
+          </div>
+          <p>Независимо дали става дума за болка, естетична корекция или ортодонтско лечение, пациентът получава бърза ориентация, точна диагностика и план с реални очаквания.</p>
+        </div>
+        <div class="process-track">
+          <article class="process-card reveal">
+            <div class="process-number">1</div>
+            <h3>Свържете се с нас</h3>
+            <p>По телефона уточняваме дали става дума за спешен случай, консултация, профилактика или ортодонтско посещение и насочваме към подходящия специалист.</p>
+          </article>
+          <article class="process-card reveal" style="--delay: 80ms;">
+            <div class="process-number">2</div>
+            <h3>Преглед и диагностика</h3>
+            <p>Извършваме щателен преглед, дигитален рентген при нужда и обсъждаме всички възможности за лечение с яснота за последващите стъпки.</p>
+          </article>
+          <article class="process-card reveal" style="--delay: 160ms;">
+            <div class="process-number">3</div>
+            <h3>Лечение и възстановяване</h3>
+            <p>Използваме съвременни материали, щадящи техники и прецизна работа в областите на терапията, протетиката, ортодонтията и хирургията.</p>
+          </article>
+          <article class="process-card reveal" style="--delay: 240ms;">
+            <div class="process-number">4</div>
+            <h3>Контрол и поддръжка</h3>
+            <p>След терапията осигуряваме контролни прегледи, насоки за домашна грижа и профилактика, за да се запази резултатът във времето.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="testimonials">
+      <div class="container">
+        <div class="section-head reveal">
+          <div>
+            <span class="eyebrow">Предимства</span>
+            <h2>Защо пациентите избират Искрови</h2>
+          </div>
+          <p>Сайтът на клиниката акцентира върху бързата реакция при спешност, модерните материали и естетичния резултат, без компромис със спокойствието на пациента.</p>
+        </div>
+        <div class="testimonials-grid">
+          <article class="card testimonial reveal">
+            <div class="quote-mark">“</div>
+            <div class="stars" aria-label="5 от 5 звезди">★★★★★</div>
+            <p>“При счупване, травма или абсцес реагираме бързо и насочваме пациента към най-подходящото лечение без излишно забавяне.”</p>
+            <div class="person">
+              <div class="avatar" aria-hidden="true">01</div>
+              <div><strong>Спешна стоматологична помощ</strong><br><span>Счупвания, травми, абсцеси</span></div>
+            </div>
+          </article>
+          <article class="card testimonial reveal" style="--delay: 90ms;">
+            <div class="quote-mark">“</div>
+            <div class="stars" aria-label="5 от 5 звезди">★★★★★</div>
+            <p>“Естетичната стоматология тук включва избелване, бондинг, фасети, керамични корони и мостове с фокус върху естествената визия.”</p>
+            <div class="person">
+              <div class="avatar" aria-hidden="true">02</div>
+              <div><strong>Естетични решения</strong><br><span>Бондинг, фасети, корони, мостове</span></div>
+            </div>
+          </article>
+          <article class="card testimonial reveal" style="--delay: 180ms;">
+            <div class="quote-mark">“</div>
+            <div class="stars" aria-label="5 от 5 звезди">★★★★★</div>
+            <p>“Пациентите разчитат на индивидуални планове, безболезнено лечение и среда, която помага да се преодолее страхът от посещение при зъболекар.”</p>
+            <div class="person">
+              <div class="avatar" aria-hidden="true">03</div>
+              <div><strong>Спокойно преживяване</strong><br><span>Индивидуален план и щадящ подход</span></div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="faq">
+      <div class="container faq-grid">
+        <div class="reveal">
+          <span class="eyebrow">Често задавани въпроси</span>
+          <h2>Полезна информация преди посещение в центъра</h2>
+          <div class="faq-list" role="list">
+            <article class="faq-item is-open">
+              <button class="faq-trigger" type="button" aria-expanded="true">
+                Къде се намира денталният център?
+                <span class="faq-icon" aria-hidden="true">+</span>
+              </button>
+              <div class="faq-panel">
+                <div><p>Адресът е гр. Шумен, ул. „Граф Игнатиев“ №13, 9700 Шумен, до хотел Шумен. Локацията е удобна както за жители на града, така и за пациенти от региона.</p></div>
+              </div>
+            </article>
+            <article class="faq-item">
+              <button class="faq-trigger" type="button" aria-expanded="false">
+                Какво е работното време?
+                <span class="faq-icon" aria-hidden="true">+</span>
+              </button>
+              <div class="faq-panel">
+                <div><p>Понеделник, вторник и четвъртък работим от 9:00 до 17:00 ч. В сряда и петък сме на разположение от 9:00 до 12:00 ч. и от 15:00 до 17:00 ч. Събота и неделя са почивни.</p></div>
+              </div>
+            </article>
+            <article class="faq-item">
+              <button class="faq-trigger" type="button" aria-expanded="false">
+                Какви ортодонтски решения предлагате?
+                <span class="faq-icon" aria-hidden="true">+</span>
+              </button>
+              <div class="faq-panel">
+                <div><p>Клиниката работи със система брекети Damon, която е пасивна самолигираща система. Тя е подходяща за деца и възрастни и често позволява по-малко посещения и по-комфортно лечение.</p></div>
+              </div>
+            </article>
+            <article class="faq-item">
+              <button class="faq-trigger" type="button" aria-expanded="false">
+                Какви технологии използвате?
+                <span class="faq-icon" aria-hidden="true">+</span>
+              </button>
+              <div class="faq-panel">
+                <div><p>В центъра се използват дигитални рентгенови снимки и безжичен диоден лазер Doctor Smile за хирургия, пародонтология, имплантология, ендодонтия и избелване.</p></div>
+              </div>
+            </article>
+            <article class="faq-item">
+              <button class="faq-trigger" type="button" aria-expanded="false">
+                Приемате ли плащане с карта?
+                <span class="faq-icon" aria-hidden="true">+</span>
+              </button>
+              <div class="faq-panel">
+                <div><p>Да. Дентален център Искрови приема дебитни и кредитни карти, включително Visa, Mastercard и Maestro, освен стандартните начини на плащане.</p></div>
+              </div>
+            </article>
+            <article class="faq-item">
+              <button class="faq-trigger" type="button" aria-expanded="false">
+                Какви случаи обслужвате спешно?
+                <span class="faq-icon" aria-hidden="true">+</span>
+              </button>
+              <div class="faq-panel">
+                <div><p>Приоритетно се реагира при счупвания, травми, абсцеси и други остри състояния. Най-бързият начин е да се обадите по телефона, за да ви насочим веднага.</p></div>
+              </div>
+            </article>
+          </div>
+        </div>
+        <aside class="faq-aside reveal" style="--delay: 100ms;">
+          <h3>Търсите най-бърз контакт?</h3>
+          <p>Обадете се на регистратурата или директно за ортодонтска консултация. Ще ви насочим към точния специалист и ще предложим подходящ час.</p>
+          <a class="btn btn-primary" href="tel:+35954801020">Обадете се: 054 801 020</a>
+        </aside>
+      </div>
+    </section>
+
+    <section class="cta-banner">
+      <div class="container">
+        <div class="cta-shell reveal">
+          <div>
+            <span class="eyebrow" style="color: rgba(255,255,255,0.72);">Записване на час</span>
+            <h2>Свържете се с Дентален център Искрови още днес</h2>
+            <p>При нужда от профилактика, естетична корекция, ортодонтия или спешна помощ ще получите бърз контакт, ясна информация и внимателно отношение от първото обаждане.</p>
+          </div>
+          <div class="cta-actions">
+            <a class="btn btn-secondary" href="tel:+35954801020">054 801 020</a>
+            <a class="btn btn-primary" href="#contact">Запази час</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="contact">
+      <div class="container">
+        <div class="section-head reveal">
+          <div>
+            <span class="eyebrow">Контакти</span>
+            <h2>Запишете час или ни посетете в центъра на Шумен</h2>
+          </div>
+          <p>Свържете се с нас за консултация, спешен случай, ортодонтско лечение или профилактичен преглед. Ще получите бърза обратна връзка в рамките на работния ден.</p>
+        </div>
+        <div class="contact-grid">
+          <div class="reveal">
+            <div class="contact-card">
+              <h3>Дентален център Искрови</h3>
+              <p>Стоматологичен център с екип от трима лекари, модерна апаратура и грижа за цялото семейство в гр. Шумен.</p>
+              <div class="contact-list">
+                <div class="contact-item">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 21s7-4.7 7-11a7 7 0 1 0-14 0c0 6.3 7 11 7 11Z" stroke="#C5975B" stroke-width="1.7"/><circle cx="12" cy="10" r="2.5" stroke="#C5975B" stroke-width="1.7"/></svg>
+                  <div><strong>Адрес</strong><span>ул. Граф Игнатиев №13, 9700 Шумен<br>до хотел Шумен</span></div>
+                </div>
+                <div class="contact-item">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M6.5 4.5h3l1.4 3.6-1.8 1.8a15 15 0 0 0 5 5l1.8-1.8 3.6 1.4v3a1.5 1.5 0 0 1-1.6 1.5C10.7 19 5 13.3 5 6.1A1.5 1.5 0 0 1 6.5 4.5Z" stroke="#C5975B" stroke-width="1.7" stroke-linejoin="round"/></svg>
+                  <div><strong>Телефон</strong><a href="tel:+35954801020">054 801 020</a><br><a href="tel:+359888708606">0888 708 606</a><br><a href="tel:+359888808619">Ортодонт: 0888 808 619</a></div>
+                </div>
+                <div class="contact-item">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M4 6.5h16v11H4z" stroke="#C5975B" stroke-width="1.7"/><path d="m5 8 7 5 7-5" stroke="#C5975B" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  <div><strong>Имейл</strong><a href="mailto:dentist@iskrovi.com">dentist@iskrovi.com</a></div>
+                </div>
+                <div class="contact-item">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8" stroke="#C5975B" stroke-width="1.7"/><path d="M12 7v5l3 2" stroke="#C5975B" stroke-width="1.7" stroke-linecap="round"/></svg>
+                  <div><strong>Работно време</strong><span>Пон, Вт, Чет: 9:00-17:00<br>Ср, Пет: 9:00-12:00 и 15:00-17:00<br>Събота и неделя: почивни</span></div>
+                </div>
+              </div>
+            </div>
+            <div class="map-frame">
+              <iframe title="Карта до Дентален център Искрови в Шумен" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps?q=%D1%83%D0%BB.+%D0%93%D1%80%D0%B0%D1%84+%D0%98%D0%B3%D0%BD%D0%B0%D1%82%D0%B8%D0%B5%D0%B2+13,+%D0%A8%D1%83%D0%BC%D0%B5%D0%BD&z=16&output=embed"></iframe>
+            </div>
+          </div>
+          <div class="contact-form reveal" style="--delay: 100ms;">
+            <h3>Изпратете запитване</h3>
+            <p style="margin-top: 0.7rem; margin-bottom: 1.5rem;">Попълнете формата и ще се свържем с вас в рамките на работния ден.</p>
+            <form>
+              <div class="form-grid">
+                <div class="field">
+                  <label for="name">Име</label>
+                  <input id="name" name="name" type="text" placeholder="Вашето име" autocomplete="name" required>
+                </div>
+                <div class="field">
+                  <label for="phone">Телефон</label>
+                  <input id="phone" name="phone" type="tel" placeholder="0888 708 606" autocomplete="tel" required>
+                </div>
+                <div class="field">
+                  <label for="email">Имейл</label>
+                  <input id="email" name="email" type="email" placeholder="dentist@iskrovi.com" autocomplete="email" required>
+                </div>
+                <div class="field">
+                  <label for="service">Услуга</label>
+                  <select id="service" name="service">
+                    <option>Изберете услуга</option>
+                    <option>Лечение на кариес и кореново лечение</option>
+                    <option>Пародонтология и профилактика</option>
+                    <option>Естетична стоматология</option>
+                    <option>Протетика и имплантология</option>
+                    <option>Ортодонтия Damon</option>
+                    <option>Лазерна и хирургична стоматология</option>
+                  </select>
+                </div>
+                <div class="field full">
+                  <label for="message">Съобщение</label>
+                  <textarea id="message" name="message" placeholder="Разкажете ни накратко как можем да помогнем."></textarea>
+                </div>
+              </div>
+              <div style="margin-top: 1.3rem;">
+                <button class="btn btn-primary" type="submit">Изпрати запитване</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <h3>Дентален център Искрови</h3>
+          <p>Стоматологичен център в Шумен с модерна диагностика, естетични решения, ортодонтия Damon и индивидуална грижа за всеки пациент.</p>
+          <div class="social" aria-label="Социални мрежи">
+            <a href="https://www.google.com/maps/search/?api=1&query=%D1%83%D0%BB.+%D0%93%D1%80%D0%B0%D1%84+%D0%98%D0%B3%D0%BD%D0%B0%D1%82%D0%B8%D0%B5%D0%B2+13,+%D0%A8%D1%83%D0%BC%D0%B5%D0%BD" aria-label="Карта">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M14 8h2.5V4.5H14c-3 0-5 2-5 5V12H6v3.5h3V20h3.5v-4.5H16L16.8 12h-4.3V9.7c0-1 .4-1.7 1.5-1.7Z" fill="currentColor"/></svg>
+            </a>
+            <a href="mailto:dentist@iskrovi.com" aria-label="Имейл">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><rect x="4" y="4" width="16" height="16" rx="4" stroke="currentColor" stroke-width="1.7"/><circle cx="12" cy="12" r="3.2" stroke="currentColor" stroke-width="1.7"/><circle cx="17.3" cy="6.7" r="1" fill="currentColor"/></svg>
+            </a>
+            <a href="tel:+359888708606" aria-label="Телефон">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M20.5 12.2c0-.6-.1-1.2-.2-1.7H12v3.2h4.8c-.2 1-.8 1.9-1.7 2.5v2h2.7c1.6-1.4 2.7-3.5 2.7-6Z" fill="currentColor"/><path d="M12 21c2.4 0 4.5-.8 6-2.3l-2.7-2c-.8.5-1.8.8-3.3.8-2.5 0-4.7-1.7-5.4-4H3.8v2.1A9 9 0 0 0 12 21Z" fill="currentColor"/><path d="M6.6 13.5a5.4 5.4 0 0 1 0-3V8.4H3.8a9 9 0 0 0 0 7.2l2.8-2.1Z" fill="currentColor"/><path d="M12 6.5c1.4 0 2.7.5 3.7 1.5l2.3-2.3A9 9 0 0 0 3.8 8.4l2.8 2.1c.7-2.3 2.9-4 5.4-4Z" fill="currentColor"/></svg>
+            </a>
+          </div>
+        </div>
+        <div>
+          <h4>Услуги</h4>
+          <div class="footer-links">
+            <a href="#services">Естетична стоматология</a>
+            <a href="#services">Ортодонтия Damon</a>
+            <a href="#services">Имплантология</a>
+            <a href="#services">Лазерни процедури</a>
+          </div>
+        </div>
+        <div>
+          <h4>Бързи връзки</h4>
+          <div class="footer-links">
+            <a href="#about">За клиниката</a>
+            <a href="#process">Как работим</a>
+            <a href="#testimonials">Отзиви</a>
+            <a href="#contact">Запази час</a>
+          </div>
+        </div>
+        <div>
+          <h4>Контакт</h4>
+          <div class="footer-links">
+            <span>ул. Граф Игнатиев №13, 9700 Шумен</span>
+            <a href="tel:+35954801020">054 801 020</a>
+            <a href="mailto:dentist@iskrovi.com">dentist@iskrovi.com</a>
+            <span>Пон, Вт, Чет: 9:00-17:00<br>Ср, Пет: 9:00-12:00 и 15:00-17:00</span>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2026 Дентален център Искрови. Всички права запазени.</span>
+        <span>Семейна стоматология в Шумен</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const header = document.getElementById("site-header");
+    const menuToggle = document.querySelector(".menu-toggle");
+    const mobileMenu = document.getElementById("mobile-menu");
+    const mobileLinks = mobileMenu.querySelectorAll("a");
+    const revealItems = document.querySelectorAll(".reveal");
+    const counters = document.querySelectorAll(".counter");
+    const faqItems = document.querySelectorAll(".faq-item");
+
+    const toggleHeaderState = () => {
+      header.classList.toggle("is-scrolled", window.scrollY > 12);
+    };
+
+    const setMenuState = (open) => {
+      document.body.classList.toggle("menu-open", open);
+      mobileMenu.classList.toggle("is-open", open);
+      mobileMenu.setAttribute("aria-hidden", String(!open));
+      menuToggle.setAttribute("aria-expanded", String(open));
+      menuToggle.setAttribute("aria-label", open ? "Затвори меню" : "Отвори меню");
+    };
+
+    menuToggle.addEventListener("click", () => {
+      const open = menuToggle.getAttribute("aria-expanded") !== "true";
+      setMenuState(open);
+    });
+
+    mobileLinks.forEach((link) => {
+      link.addEventListener("click", () => setMenuState(false));
+    });
+
+    window.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") {
+        setMenuState(false);
+      }
+    });
+
+    toggleHeaderState();
+    window.addEventListener("scroll", toggleHeaderState, { passive: true });
+
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-visible");
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.16 });
+
+    revealItems.forEach((item) => revealObserver.observe(item));
+
+    const animateCounter = (element) => {
+      const target = Number(element.dataset.target);
+      const decimals = String(element.dataset.target).includes(".") ? 1 : 0;
+      const duration = 1400;
+      const start = performance.now();
+
+      const step = (now) => {
+        const progress = Math.min((now - start) / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        const value = target * eased;
+        element.textContent = value.toFixed(decimals) + (decimals === 0 ? "+" : "");
+        if (progress < 1) {
+          requestAnimationFrame(step);
+        }
+      };
+
+      requestAnimationFrame(step);
+    };
+
+    const counterObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          animateCounter(entry.target);
+          counterObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.7 });
+
+    counters.forEach((counter) => counterObserver.observe(counter));
+
+    faqItems.forEach((item) => {
+      const trigger = item.querySelector(".faq-trigger");
+      trigger.addEventListener("click", () => {
+        const isOpen = item.classList.contains("is-open");
+        faqItems.forEach((entry) => {
+          entry.classList.remove("is-open");
+          entry.querySelector(".faq-trigger").setAttribute("aria-expanded", "false");
+        });
+        if (!isOpen) {
+          item.classList.add("is-open");
+          trigger.setAttribute("aria-expanded", "true");
+        }
+      });
+    });
+  </script>
+</body>
+</html>
