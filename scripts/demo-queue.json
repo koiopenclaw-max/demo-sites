@@ -1,18 +1,5 @@
 {
-  "tasks": [
-    {
-      "id": 1774886643716,
-      "slug": "дентален-център-искрови",
-      "name": "Дентален център Искрови",
-      "action": "briefing",
-      "status": "in_progress",
-      "createdAt": "2026-03-30T16:04:03.716Z",
-      "startedAt": "2026-03-30T16:04:22.842Z",
-      "completedAt": null,
-      "error": null,
-      "result": null
-    }
-  ],
+  "tasks": [],
   "completed": [
     {
       "id": 1773819482814,
@@ -631,6 +618,18 @@
       "completedAt": "2026-03-26T07:33:24.373Z",
       "error": null,
       "result": "Deployed to demo60.add.bg (repo: demo60-add-bg)"
+    },
+    {
+      "id": 1774886643716,
+      "slug": "дентален-център-искрови",
+      "name": "Дентален център Искрови",
+      "action": "briefing",
+      "status": "done",
+      "createdAt": "2026-03-30T16:04:03.716Z",
+      "startedAt": "2026-03-30T16:04:22.842Z",
+      "completedAt": "2026-03-30T16:04:41.553Z",
+      "error": null,
+      "result": "Brief готов. Ниша: стоматология. 6 въпроса."
     }
   ],
   "version": 1
