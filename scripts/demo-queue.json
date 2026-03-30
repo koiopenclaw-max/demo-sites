@@ -1,5 +1,18 @@
 {
-  "tasks": [],
+  "tasks": [
+    {
+      "id": 1774887004230,
+      "slug": "дентален-център-искрови",
+      "name": "Дентален център Искрови",
+      "action": "qa_submitted",
+      "status": "pending",
+      "createdAt": "2026-03-30T16:10:04.230Z",
+      "startedAt": null,
+      "completedAt": null,
+      "error": null,
+      "result": null
+    }
+  ],
   "completed": [
     {
       "id": 1773819482814,
