@@ -50,5 +50,10 @@
   "createdAt": "2026-03-31T11:08:17.685Z",
   "updatedAt": "2026-03-31T11:33:01.137Z",
   "niche": "дограма-врати",
-  "nicheOverride": "дограма-врати"
+  "nicheOverride": "дограма-врати",
+  "slopScore": 75,
+  "slopGrade": "B",
+  "slopOverride": [
+    "SLOP-07: hover/focus states exist in CSS, not visible in static screenshots"
+  ]
 }
