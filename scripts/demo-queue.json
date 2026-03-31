@@ -1,5 +1,18 @@
 {
-  "tasks": [],
+  "tasks": [
+    {
+      "id": 1774946104373,
+      "slug": "врати-кайлъка",
+      "name": "Врати кайлъка",
+      "action": "qa_submitted",
+      "status": "pending",
+      "createdAt": "2026-03-31T08:35:04.373Z",
+      "startedAt": null,
+      "completedAt": null,
+      "error": null,
+      "result": null
+    }
+  ],
   "completed": [
     {
       "id": 1773819482814,
