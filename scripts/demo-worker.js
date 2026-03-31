@@ -208,7 +208,8 @@ async function executeBriefing(task) {
     'хранителни': ['храни', 'месо', 'млечн', 'био', 'органич', 'ферм'],
     'земеделие': ['ферм', 'земедел', 'агро', 'лозе', 'овощ'],
     'строителство': ['строител', 'ремонт', 'строеж', 'архитект'],
-    'автосервиз': ['авто', 'сервиз', 'ремонт на кол', 'автомобил', 'гуми']
+    'автосервиз': ['авто', 'сервиз', 'ремонт на кол', 'автомобил', 'гуми'],
+    'дограма-врати': ['врат', 'дограм', 'прозор', 'pvc', 'алуминиев', 'стъклопакет', 'дървен', 'плъзгащ', 'двукрил', 'еднокрил', 'интериорн']
   };
   for (const [n, keywords] of Object.entries(nicheKeywords)) {
     if (keywords.some(k => allText.includes(k))) { niche = n; break; }
@@ -244,13 +245,19 @@ ${textContent ? textContent.substring(0, 1500) : 'Не е намерено съ�
   const qa = [];
   
   // Template selection if niche has templates
-  const TEMPLATE_NICHES = ['счетоводство']; // expand later
+  const TEMPLATE_NICHES = ['счетоводство', 'стоматология', 'дограма-врати'];
   if (TEMPLATE_NICHES.includes(niche)) {
+    // Map worker niche names to TEMPLATE_CATALOG keys in index.html
+    const NICHE_TO_CATALOG = {
+      'счетоводство': 'счетоводство',
+      'стоматология': 'стоматолог',
+      'дограма-врати': 'дограма-врати'
+    };
     qa.push({
       question: 'Кой темплейт да използваме за сайта?',
       answer: '',
       type: 'template_select',
-      niche: niche,
+      niche: NICHE_TO_CATALOG[niche] || niche,
       status: 'pending'
     });
   }
@@ -323,7 +330,17 @@ async function executeBuilding(task) {
     'b-trust': { repo: 'accounting-templates-alt', file: 'template-2-trust.html' },
     'b-modern-edge': { repo: 'accounting-templates-alt', file: 'template-3-modern-edge.html' },
     'b-warmth': { repo: 'accounting-templates-alt', file: 'template-4-warmth.html' },
-    'b-corporate': { repo: 'accounting-templates-alt', file: 'template-5-corporate.html' }
+    'b-corporate': { repo: 'accounting-templates-alt', file: 'template-5-corporate.html' },
+    // Dental templates
+    'dt-killer': { url: 'https://koiopenclaw-max.github.io/dental-killer-template/' },
+    'dt-noir-luxe': { url: 'https://koiopenclaw-max.github.io/dental-noir-template/' },
+    'dt-warm-haven': { url: 'https://koiopenclaw-max.github.io/dental-warm-template/' },
+    // Windows & Doors templates (local in demo-sites repo)
+    'wd-minimal-premium': { local: 'templates/windows-doors/minimal-premium/index.html' },
+    'wd-premium-dark': { local: 'templates/windows-doors/premium-dark/index.html' },
+    'wd-eco-modern': { local: 'templates/windows-doors/eco-modern/index.html' },
+    'wd-bold-industrial': { local: 'templates/windows-doors/clean-industrial/index.html' },
+    'wd-warm-natural': { local: 'templates/windows-doors/warm-natural/index.html' }
   };
   
   const tpl = TEMPLATE_MAP[templateId];
@@ -334,12 +351,31 @@ async function executeBuilding(task) {
   // Download template HTML
   let templateHtml = '';
   if (tpl) {
-    const tplUrl = `https://koiopenclaw-max.github.io/${tpl.repo}/${tpl.file}`;
-    log(`Downloading template: ${tplUrl}`);
-    try {
-      templateHtml = execSync(`curl -sL "${tplUrl}"`, { timeout: 15000, maxBuffer: 2 * 1024 * 1024 }).toString();
-    } catch (e) {
-      log(`Template download failed: ${e.message}`);
+    let tplUrl = '';
+    if (tpl.url) {
+      // Direct URL (e.g. dental templates on separate repos)
+      tplUrl = tpl.url;
+    } else if (tpl.local) {
+      // Local file in demo-sites repo
+      const localPath = path.join(DEMO_REPO, tpl.local);
+      log(`Reading local template: ${localPath}`);
+      try {
+        templateHtml = fs.readFileSync(localPath, 'utf-8');
+      } catch (e) {
+        log(`Local template read failed: ${e.message}`);
+      }
+    } else if (tpl.repo && tpl.file) {
+      // GitHub Pages URL from repo+file
+      tplUrl = `https://koiopenclaw-max.github.io/${tpl.repo}/${tpl.file}`;
+    }
+    
+    if (tplUrl && !templateHtml) {
+      log(`Downloading template: ${tplUrl}`);
+      try {
+        templateHtml = execSync(`curl -sL "${tplUrl}"`, { timeout: 15000, maxBuffer: 2 * 1024 * 1024 }).toString();
+      } catch (e) {
+        log(`Template download failed: ${e.message}`);
+      }
     }
   }
   
