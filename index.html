@@ -487,9 +487,40 @@ function changeNiche() {
   if (choice === null) return;
   const niche = choice.trim() || null;
   const all = db();
-  all[currentSlug].nicheOverride = niche;
-  all[currentSlug].niche = niche || 'друго';
-  all[currentSlug].updatedAt = new Date().toISOString();
+  const p = all[currentSlug];
+  p.nicheOverride = niche;
+  p.niche = niche || 'друго';
+  p.updatedAt = new Date().toISOString();
+
+  // Auto-manage template_select QA based on niche
+  const TEMPLATE_NICHES_MAP = {
+    'счетоводство': 'счетоводство',
+    'стоматология': 'стоматолог',
+    'дограма-врати': 'дограма-врати'
+  };
+  const catalogKey = TEMPLATE_NICHES_MAP[niche];
+  const qa = p.qa || [];
+  const existingIdx = qa.findIndex(q => q.type === 'template_select');
+
+  if (catalogKey) {
+    // Niche has templates — add or update template_select
+    const tplQ = {
+      question: 'Кой темплейт да използваме за сайта?',
+      answer: '', type: 'template_select',
+      niche: catalogKey, status: 'pending'
+    };
+    if (existingIdx >= 0) {
+      qa[existingIdx].niche = catalogKey;
+      qa[existingIdx].answer = ''; // reset selection
+    } else {
+      qa.unshift(tplQ);
+    }
+  } else {
+    // Niche has no templates — remove template_select if exists
+    if (existingIdx >= 0) qa.splice(existingIdx, 1);
+  }
+  p.qa = qa;
+
   dbSave(all);
   currentProject = all[currentSlug];
   renderDetail();
