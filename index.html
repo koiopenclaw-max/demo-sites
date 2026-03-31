@@ -644,11 +644,11 @@ const TEMPLATE_CATALOG = {
     sets: [
       {
         id: 'DT', name: 'Стоматолог — 3 стила',
-        baseUrl: 'https://koiopenclaw-max.github.io/demo-sites/templates/dental/',
+        baseUrl: '',
         templates: [
-          { id: 'dt-noir-luxe', name: 'Noir Luxe', file: 'noir-luxe/index.html', desc: 'Тъмна премиум тема, rose gold акценти. Елегантен лукс за водещи клиники.', colors: ['#0F0F0F','#C9A96E','#F5F5F5'] },
-          { id: 'dt-clean-medical', name: 'Clean Medical', file: 'clean-medical/index.html', desc: 'Светла медицинска тема, teal акценти. Чист, професионален, доверие.', colors: ['#F8FFFE','#0D9488','#1A1A2E'] },
-          { id: 'dt-warm-haven', name: 'Warm Haven', file: 'warm-haven/index.html', desc: 'Топла кремава тема, terracotta акценти. Семеен уют, детска стоматология.', colors: ['#FFF8F0','#C4704A','#2D2D2D'] },
+          { id: 'dt-killer', name: 'Killer', file: '', desc: 'Премиум тъмна тема, златни акценти. Смел, модерен, за амбициозни клиники.', colors: ['#1A1A1A','#C9A962','#FFFFFF'], url: 'https://koiopenclaw-max.github.io/dental-killer-template/' },
+          { id: 'dt-noir-luxe', name: 'Noir Luxe', file: '', desc: 'Тъмна премиум тема, rose gold акценти. Елегантен лукс за водещи клиники.', colors: ['#0F0F0F','#C9A96E','#F5F5F5'], url: 'https://koiopenclaw-max.github.io/dental-noir-template/' },
+          { id: 'dt-warm-haven', name: 'Warm Haven', file: '', desc: 'Топла кремава тема, terracotta акценти. Семеен уют, детска стоматология.', colors: ['#FFF8F0','#C4704A','#2D2D2D'], url: 'https://koiopenclaw-max.github.io/dental-warm-template/' },
         ]
       }
     ]
@@ -700,7 +700,7 @@ function renderTemplateSelect(q, idx, canEdit) {
         </h4>
         <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1rem">
           ${set.templates.map(t => {
-            const fullUrl = set.baseUrl + t.file;
+            const fullUrl = t.url || (set.baseUrl + t.file);
             const isSelected = selectedId === t.id;
             const borderColor = isSelected ? 'var(--accent)' : 'var(--border)';
             const bgColor = isSelected ? 'var(--accent-glow)' : 'var(--bg-card)';
