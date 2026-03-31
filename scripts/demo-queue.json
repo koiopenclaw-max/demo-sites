@@ -5,9 +5,9 @@
       "slug": "миг-трейд",
       "name": "Миг Трейд",
       "action": "building",
-      "status": "pending",
+      "status": "in_progress",
       "createdAt": "2026-03-31T11:41:04.336Z",
-      "startedAt": null,
+      "startedAt": "2026-03-31T11:41:19.243Z",
       "completedAt": null,
       "error": null,
       "result": null
