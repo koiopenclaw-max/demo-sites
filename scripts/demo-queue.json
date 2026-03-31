@@ -23,6 +23,18 @@
       "completedAt": null,
       "error": null,
       "result": null
+    },
+    {
+      "id": 1774956544297,
+      "slug": "врати-кайлъка",
+      "name": "Врати кайлъка",
+      "action": "deploying",
+      "status": "pending",
+      "createdAt": "2026-03-31T11:29:04.297Z",
+      "startedAt": null,
+      "completedAt": null,
+      "error": null,
+      "result": null
     }
   ],
   "completed": [
