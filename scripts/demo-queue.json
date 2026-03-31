@@ -5,9 +5,9 @@
       "slug": "стоянов-пласт",
       "name": "Стоянов Пласт",
       "action": "qa_submitted",
-      "status": "pending",
+      "status": "in_progress",
       "createdAt": "2026-03-31T11:27:05.645Z",
-      "startedAt": null,
+      "startedAt": "2026-03-31T11:33:03.984Z",
       "completedAt": null,
       "error": null,
       "result": null
