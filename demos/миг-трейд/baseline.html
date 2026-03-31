@@ -22,7 +22,7 @@
       --accent: #d2a74a;
       --accent-strong: #f1c76b;
       --shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
-      --radius: 8px;
+      --radius: 22px;
       --max: 1180px;
     }
 
@@ -36,10 +36,12 @@
 
     body {
       margin: 0;
-      font-family: "Segoe UI", "Roboto Condensed", Arial, sans-serif;
+      font-family: "Segoe UI", Arial, sans-serif;
       color: var(--text);
-      background: #0f1117;
-      border-top: 4px solid var(--accent);
+      background:
+        radial-gradient(circle at top left, rgba(210, 167, 74, 0.15), transparent 28%),
+        radial-gradient(circle at bottom right, rgba(83, 105, 151, 0.18), transparent 24%),
+        linear-gradient(180deg, #0c0f15, #121722 50%, #0d1016);
       line-height: 1.6;
     }
 
@@ -87,10 +89,10 @@
     .brand-mark {
       width: 44px;
       height: 44px;
-      border-radius: 4px;
+      border-radius: 14px;
       display: grid;
       place-items: center;
-      background: var(--accent);
+      background: linear-gradient(135deg, var(--accent), #7b5b1d);
       color: #111;
       font-weight: 800;
       box-shadow: var(--shadow);
@@ -99,7 +101,7 @@
     .menu-toggle {
       display: none;
       border: 1px solid var(--line);
-      border-radius: 4px;
+      border-radius: 12px;
       background: transparent;
       color: var(--text);
       padding: 10px 12px;
@@ -125,13 +127,6 @@
 
     .hero {
       padding: 76px 0 48px;
-      background-image: repeating-linear-gradient(
-        -45deg,
-        transparent,
-        transparent 40px,
-        rgba(210, 167, 74, 0.03) 40px,
-        rgba(210, 167, 74, 0.03) 42px
-      );
     }
 
     .hero-grid {
@@ -150,7 +145,8 @@
     .info-strip {
       border: 1px solid var(--line);
       border-radius: var(--radius);
-      background: var(--panel-strong);
+      background: var(--panel);
+      backdrop-filter: blur(16px);
       box-shadow: var(--shadow);
     }
 
@@ -163,7 +159,7 @@
       align-items: center;
       gap: 8px;
       border: 1px solid rgba(210, 167, 74, 0.26);
-      border-radius: 2px;
+      border-radius: 999px;
       padding: 8px 14px;
       color: var(--accent-strong);
       background: rgba(210, 167, 74, 0.08);
@@ -179,8 +175,6 @@
       font-size: clamp(2.4rem, 5vw, 4.8rem);
       line-height: 1.02;
       max-width: 11ch;
-      text-transform: uppercase;
-      letter-spacing: -0.02em;
     }
 
     .lead {
@@ -201,7 +195,7 @@
 
     .hero-points li {
       padding: 14px 16px;
-      border-radius: 4px;
+      border-radius: 16px;
       background: rgba(255, 255, 255, 0.03);
       color: var(--muted);
     }
@@ -563,8 +557,6 @@
       </div>
     </section>
 
-    <div style="height:6px;background:repeating-linear-gradient(90deg,var(--accent) 0,var(--accent) 20px,#111 20px,#111 40px);"></div>
-
     <section id="услуги">
       <div class="wrap">
         <div class="section-head">
@@ -588,7 +580,7 @@
           </article>
           <article class="feature">
             <h3>Метални решетки</h3>
-            <p>Метални решетки 12/12/1.5, 15/15/1.5, 20/20/1.5, решетки за врати и допълнителни метални конструкции.</p>
+            <p>Метални решетки 12/12/1.5, 15/15/1.5, 20/20/1.5, решетки за врати, както и решения за огради и портали.</p>
           </article>
         </div>
       </div>
@@ -698,7 +690,7 @@
             <strong>Адрес</strong>
             <p>София, Ломско шосе 210</p>
             <p>1220, България</p>
-            <p>Работно време: по уговорка за оглед и монтаж</p>
+            <p>Огледи и монтаж за София и София област.</p>
           </article>
         </div>
       </div>
