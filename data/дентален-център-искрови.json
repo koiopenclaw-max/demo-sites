@@ -41,7 +41,7 @@
   ],
   "demoUrl": "https://koiopenclaw-max.github.io/demo-sites/demos/%D0%B4%D0%B5%D0%BD%D1%82%D0%B0%D0%BB%D0%B5%D0%BD-%D1%86%D0%B5%D0%BD%D1%82%D1%8A%D1%80-%D0%B8%D1%81%D0%BA%D1%80%D0%BE%D0%B2%D0%B8/",
   "createdAt": "2026-03-30T16:02:26.990Z",
-  "updatedAt": "2026-03-31T08:25:08.185Z",
+  "updatedAt": "2026-03-31T08:25:15.860Z",
   "niche": "стоматология",
   "revisionHistory": [
     {
@@ -58,5 +58,37 @@
     }
   ],
   "currentRevision": null,
-  "deployDomain": "demo62.add.bg"
+  "deployDomain": "demo62.add.bg",
+  "dnsRecords": [
+    {
+      "type": "CNAME",
+      "name": "demo62.add.bg",
+      "value": "koiopenclaw-max.github.io",
+      "note": "Насочва към GitHub Pages"
+    },
+    {
+      "type": "A",
+      "name": "demo62.add.bg",
+      "value": "185.199.108.153",
+      "note": "GitHub Pages IP"
+    },
+    {
+      "type": "A",
+      "name": "demo62.add.bg",
+      "value": "185.199.109.153",
+      "note": "GitHub Pages IP (резервен)"
+    },
+    {
+      "type": "A",
+      "name": "demo62.add.bg",
+      "value": "185.199.110.153",
+      "note": "GitHub Pages IP (резервен)"
+    },
+    {
+      "type": "A",
+      "name": "demo62.add.bg",
+      "value": "185.199.111.153",
+      "note": "GitHub Pages IP (резервен)"
+    }
+  ]
 }
