@@ -1,18 +1,5 @@
 {
-  "tasks": [
-    {
-      "id": 1774960541022,
-      "slug": "стоянов-пласт",
-      "name": "Стоянов Пласт",
-      "action": "revisions",
-      "status": "in_progress",
-      "createdAt": "2026-03-31T12:35:41.022Z",
-      "startedAt": "2026-03-31T13:03:20.554Z",
-      "completedAt": null,
-      "error": null,
-      "result": null
-    }
-  ],
+  "tasks": [],
   "completed": [
     {
       "id": 1773819482814,
@@ -847,6 +834,18 @@
       "completedAt": "2026-03-31T13:03:19.124Z",
       "error": null,
       "result": "Revision validated (3 attempts, 6 files): https://koiopenclaw-max.github.io/demo-sites/demos/%D0%BC%D0%B8%D0%B3-%D1%82%D1%80%D0%B5%D0%B9%D0%B4/"
+    },
+    {
+      "id": 1774960541022,
+      "slug": "стоянов-пласт",
+      "name": "Стоянов Пласт",
+      "action": "revisions",
+      "status": "done",
+      "createdAt": "2026-03-31T12:35:41.022Z",
+      "startedAt": "2026-03-31T13:03:20.554Z",
+      "completedAt": "2026-03-31T13:26:14.535Z",
+      "error": null,
+      "result": "Revision validated (3 attempts, 12 files): https://koiopenclaw-max.github.io/demo-sites/demos/%D1%81%D1%82%D0%BE%D1%8F%D0%BD%D0%BE%D0%B2-%D0%BF%D0%BB%D0%B0%D1%81%D1%82/"
     }
   ],
   "version": 1
