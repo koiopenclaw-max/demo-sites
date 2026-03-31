@@ -1,721 +1,781 @@
 <!DOCTYPE html>
 <html lang="bg">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Миг Трейд | Метални врати и решетки в София</title>
-  <meta name="description" content="Миг Трейд ЕООД изработва и монтира метални врати, входни врати, врати за апартаменти, врати за мазета и метални решетки в София и София област.">
-  <meta name="theme-color" content="#0f1117">
-  <meta property="og:title" content="Миг Трейд | Метални врати и решетки">
-  <meta property="og:description" content="Изработка и монтаж на метални врати и решетки по размер с бързи срокове за София и региона.">
-  <meta property="og:type" content="website">
-  <meta property="og:locale" content="bg_BG">
-  <style>
-    :root {
-      --bg: #0f1117;
-      --bg-soft: #171b24;
-      --panel: rgba(24, 29, 40, 0.82);
-      --panel-strong: #1d2330;
-      --line: rgba(255, 255, 255, 0.1);
-      --text: #f3f5f8;
-      --muted: #b2bac8;
-      --accent: #d2a74a;
-      --accent-strong: #f1c76b;
-      --shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
-      --radius: 22px;
-      --max: 1180px;
-    }
-
-    * {
-      box-sizing: border-box;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    body {
-      margin: 0;
-      font-family: "Segoe UI", Arial, sans-serif;
-      color: var(--text);
-      background:
-        radial-gradient(circle at top left, rgba(210, 167, 74, 0.15), transparent 28%),
-        radial-gradient(circle at bottom right, rgba(83, 105, 151, 0.18), transparent 24%),
-        linear-gradient(180deg, #0c0f15, #121722 50%, #0d1016);
-      line-height: 1.6;
-    }
-
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
-
-    img {
-      max-width: 100%;
-      display: block;
-    }
-
-    .wrap {
-      width: min(calc(100% - 32px), var(--max));
-      margin: 0 auto;
-    }
-
-    .topbar {
-      border-bottom: 1px solid var(--line);
-      background: rgba(9, 11, 16, 0.78);
-      backdrop-filter: blur(14px);
-      position: sticky;
-      top: 0;
-      z-index: 20;
-    }
-
-    .topbar-inner {
-      min-height: 74px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 20px;
-    }
-
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      font-weight: 700;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-    }
-
-    .brand-mark {
-      width: 44px;
-      height: 44px;
-      border-radius: 14px;
-      display: grid;
-      place-items: center;
-      background: linear-gradient(135deg, var(--accent), #7b5b1d);
-      color: #111;
-      font-weight: 800;
-      box-shadow: var(--shadow);
-    }
-
-    .menu-toggle {
-      display: none;
-      border: 1px solid var(--line);
-      border-radius: 12px;
-      background: transparent;
-      color: var(--text);
-      padding: 10px 12px;
-      font: inherit;
-      cursor: pointer;
-    }
-
-    .nav {
-      display: flex;
-      align-items: center;
-      gap: 22px;
-    }
-
-    .nav a {
-      color: var(--muted);
-      transition: color 0.2s ease;
-    }
-
-    .nav a:hover,
-    .nav a:focus-visible {
-      color: var(--accent-strong);
-    }
-
-    .hero {
-      padding: 76px 0 48px;
-    }
-
-    .hero-grid {
-      display: grid;
-      grid-template-columns: 1.15fr 0.85fr;
-      gap: 28px;
-      align-items: stretch;
-    }
-
-    .hero-copy,
-    .hero-card,
-    .section-card,
-    .catalog-card,
-    .contact-card,
-    .feature,
-    .info-strip {
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      background: var(--panel);
-      backdrop-filter: blur(16px);
-      box-shadow: var(--shadow);
-    }
-
-    .hero-copy {
-      padding: 42px;
-    }
-
-    .eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      border: 1px solid rgba(210, 167, 74, 0.26);
-      border-radius: 999px;
-      padding: 8px 14px;
-      color: var(--accent-strong);
-      background: rgba(210, 167, 74, 0.08);
-      font-size: 0.92rem;
-    }
-
-    h1, h2, h3, p {
-      margin: 0;
-    }
-
-    h1 {
-      margin-top: 18px;
-      font-size: clamp(2.4rem, 5vw, 4.8rem);
-      line-height: 1.02;
-      max-width: 11ch;
-    }
-
-    .lead {
-      margin-top: 18px;
-      color: var(--muted);
-      font-size: 1.07rem;
-      max-width: 58ch;
-    }
-
-    .hero-points {
-      margin: 26px 0 0;
-      padding: 0;
-      list-style: none;
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 12px;
-    }
-
-    .hero-points li {
-      padding: 14px 16px;
-      border-radius: 16px;
-      background: rgba(255, 255, 255, 0.03);
-      color: var(--muted);
-    }
-
-    .cta-row {
-      margin-top: 28px;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 14px;
-    }
-
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      min-height: 50px;
-      padding: 0 22px;
-      border-radius: 14px;
-      border: 1px solid transparent;
-      font-weight: 700;
-      transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease;
-    }
-
-    .btn:hover,
-    .btn:focus-visible {
-      transform: translateY(-1px);
-    }
-
-    .btn-primary {
-      background: linear-gradient(135deg, var(--accent-strong), #bf8a2e);
-      color: #111;
-    }
-
-    .btn-secondary {
-      border-color: var(--line);
-      background: rgba(255, 255, 255, 0.04);
-      color: var(--text);
-    }
-
-    .hero-card {
-      padding: 28px;
-      position: relative;
-      overflow: hidden;
-      min-height: 100%;
-    }
-
-    .hero-art {
-      min-height: 100%;
-      border-radius: 18px;
-      padding: 24px;
-      background:
-        linear-gradient(160deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.02)),
-        linear-gradient(135deg, rgba(210, 167, 74, 0.2), rgba(39, 46, 64, 0.4));
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      gap: 28px;
-    }
-
-    .door-visual {
-      aspect-ratio: 4 / 5;
-      border-radius: 22px;
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      background:
-        linear-gradient(90deg, rgba(0, 0, 0, 0.35), transparent 12%, transparent 88%, rgba(0, 0, 0, 0.35)),
-        linear-gradient(180deg, #7a8797, #364253 24%, #1b2230 24.5%, #111722 100%);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .door-visual::before {
-      content: "";
-      position: absolute;
-      inset: 12% 14%;
-      border-radius: 12px;
-      border: 2px solid rgba(255, 255, 255, 0.12);
-      box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.3);
-    }
-
-    .door-visual::after {
-      content: "";
-      position: absolute;
-      top: 50%;
-      right: 20%;
-      width: 14px;
-      height: 14px;
-      border-radius: 50%;
-      background: var(--accent-strong);
-      box-shadow: 0 0 0 5px rgba(241, 199, 107, 0.12);
-    }
-
-    .price-badge {
-      display: inline-flex;
-      align-self: flex-start;
-      padding: 10px 14px;
-      border-radius: 999px;
-      background: rgba(0, 0, 0, 0.36);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      color: var(--accent-strong);
-      font-weight: 700;
-    }
-
-    section {
-      padding: 24px 0;
-    }
-
-    .section-head {
-      display: flex;
-      justify-content: space-between;
-      align-items: end;
-      gap: 16px;
-      margin-bottom: 22px;
-    }
-
-    .section-head p {
-      color: var(--muted);
-      max-width: 58ch;
-    }
-
-    .feature-grid,
-    .catalog-grid,
-    .contact-grid,
-    .info-grid {
-      display: grid;
-      gap: 18px;
-    }
-
-    .feature-grid {
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-    }
-
-    .feature {
-      padding: 24px;
-    }
-
-    .feature h3,
-    .catalog-card h3,
-    .contact-card h3,
-    .section-card h3 {
-      margin-bottom: 10px;
-      font-size: 1.15rem;
-    }
-
-    .feature p,
-    .catalog-card p,
-    .contact-card p,
-    .section-card p,
-    .info-strip p {
-      color: var(--muted);
-    }
-
-    .catalog-grid {
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-    }
-
-    .catalog-card {
-      padding: 26px;
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-    }
-
-    .catalog-meta {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 12px;
-      color: var(--muted);
-      font-size: 0.95rem;
-    }
-
-    .catalog-price {
-      color: var(--accent-strong);
-      font-weight: 800;
-      font-size: 1.18rem;
-    }
-
-    .catalog-card ul {
-      margin: 0;
-      padding-left: 18px;
-      color: var(--muted);
-    }
-
-    .catalog-card li + li {
-      margin-top: 8px;
-    }
-
-    .info-grid {
-      grid-template-columns: 1.1fr 0.9fr;
-    }
-
-    .section-card,
-    .info-strip,
-    .contact-card {
-      padding: 28px;
-    }
-
-    .process-list,
-    .contact-list {
-      margin: 16px 0 0;
-      padding-left: 18px;
-      color: var(--muted);
-    }
-
-    .process-list li + li,
-    .contact-list li + li {
-      margin-top: 8px;
-    }
-
-    .contact-grid {
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-    }
-
-    .contact-card strong {
-      display: block;
-      margin-bottom: 10px;
-      font-size: 1.05rem;
-    }
-
-    .contact-card a {
-      color: var(--accent-strong);
-    }
-
-    .footer {
-      padding: 32px 0 56px;
-      color: var(--muted);
-    }
-
-    .footer-line {
-      border-top: 1px solid var(--line);
-      padding-top: 20px;
-      display: flex;
-      justify-content: space-between;
-      gap: 18px;
-      flex-wrap: wrap;
-    }
-
-    @media (max-width: 980px) {
-      .hero-grid,
-      .info-grid,
-      .catalog-grid,
-      .feature-grid,
-      .contact-grid {
-        grid-template-columns: 1fr 1fr;
-      }
-
-      .hero-grid {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    @media (max-width: 760px) {
-      .menu-toggle {
-        display: inline-flex;
-      }
-
-      .nav {
-        display: none;
-        position: absolute;
-        top: calc(100% + 10px);
-        left: 16px;
-        right: 16px;
-        padding: 14px;
-        border: 1px solid var(--line);
-        border-radius: 18px;
-        background: rgba(12, 15, 21, 0.96);
-        flex-direction: column;
-        align-items: flex-start;
-      }
-
-      .nav.open {
-        display: flex;
-      }
-
-      .hero-copy,
-      .hero-card,
-      .section-card,
-      .catalog-card,
-      .contact-card,
-      .info-strip {
-        padding: 22px;
-      }
-
-      .hero-points,
-      .feature-grid,
-      .catalog-grid,
-      .info-grid,
-      .contact-grid {
-        grid-template-columns: 1fr;
-      }
-
-      h1 {
-        max-width: 100%;
-      }
-    }
-  </style>
-  <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "LocalBusiness",
-      "name": "Миг Трейд ЕООД",
-      "url": "http://mig-trade.com",
-      "telephone": ["+359878243810", "+359878243812", "+359898788957"],
-      "address": {
-        "@type": "PostalAddress",
-        "streetAddress": "Ломско шосе 210",
-        "addressLocality": "София",
-        "postalCode": "1220",
-        "addressCountry": "BG"
-      },
-      "areaServed": "София и София област",
-      "sameAs": ["https://share.google/mWtwExFDBmLHJKnWk"]
-    }
-  </script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Миг Трейд — Метални врати, решетки и портали | София</title>
+<meta name="description" content="Миг Трейд изработва и монтира метални врати, решетки, огради и портали в София и областта. Цени от 170 лв. Срок до 5 работни дни.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+:root {
+  --bg: #0A0A0A; --bg-card: #141414; --bg-alt: #111111;
+  --text: #F5F5F5; --text-muted: #A0A0A0;
+  --accent: #C9A96E; --accent-hover: #D4B97E;
+  --secondary: #4A6741;
+  --font-heading: 'Playfair Display', Georgia, serif;
+  --font-body: 'DM Sans', sans-serif;
+}
+html { scroll-behavior: smooth; }
+body { font-family: var(--font-body); background: var(--bg); color: var(--text); line-height: 1.6; overflow-x: hidden; }
+h1, h2, h3, h4 { font-family: var(--font-heading); font-weight: 700; }
+a { text-decoration: none; color: inherit; }
+img { max-width: 100%; display: block; }
+.container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+
+/* Grain texture overlay */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.03;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  z-index: 9998;
+}
+
+/* Eyebrow */
+.eyebrow {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--accent);
+  display: block;
+  margin-bottom: 12px;
+  text-align: center;
+}
+
+/* Gold separator */
+.gold-sep { display: block; width: 80px; height: 2px; background: var(--accent); margin: 16px auto 0; }
+.section-title { text-align: center; font-size: 2rem; margin-bottom: 12px; }
+.section-sub { text-align: center; color: var(--text-muted); max-width: 600px; margin: 0 auto 48px; }
+
+/* Gold divider between sections */
+.section-divider { width: 100%; height: 1px; background: linear-gradient(90deg, transparent, rgba(201,169,110,0.25), transparent); }
+
+/* Reveal animations */
+.reveal {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.reveal.animate {
+  opacity: 0;
+  transform: translateY(30px);
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+@media (prefers-reduced-motion: reduce) {
+  .reveal { transition: none !important; }
+}
+
+/* HEADER */
+header {
+  position: fixed; top: 0; left: 0; width: 100%; z-index: 1000;
+  background: rgba(10,10,10,0.92); backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(201,169,110,0.15);
+  transition: background 0.3s;
+}
+.header-inner {
+  display: flex; align-items: center; justify-content: space-between;
+  max-width: 1200px; margin: 0 auto; padding: 16px 20px;
+}
+.logo { font-family: var(--font-heading); font-size: 1.5rem; font-weight: 700; color: var(--accent); }
+.logo span { color: var(--text); font-weight: 400; }
+nav { display: flex; align-items: center; gap: 32px; }
+nav a { font-size: 0.9rem; font-weight: 500; color: var(--text-muted); transition: color 0.3s; }
+nav a:hover { color: var(--accent); }
+.cta-btn {
+  display: inline-block; padding: 10px 24px; background: var(--accent); color: var(--bg);
+  font-weight: 600; font-size: 0.85rem; border: none; cursor: pointer;
+  transition: background 0.3s, transform 0.2s; letter-spacing: 0.5px;
+  position: relative; overflow: hidden; z-index: 1;
+}
+.cta-btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.15);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.4s cubic-bezier(0.65, 0, 0.35, 1);
+  z-index: -1;
+}
+.cta-btn:hover::before {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+.cta-btn:hover { background: var(--accent-hover); transform: translateY(-1px); }
+.cta-btn-outline {
+  display: inline-block; padding: 10px 24px; border: 1px solid var(--accent); color: var(--accent);
+  font-weight: 600; font-size: 0.85rem; cursor: pointer; transition: all 0.3s;
+  position: relative; overflow: hidden; z-index: 1;
+}
+.cta-btn-outline::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.4s cubic-bezier(0.65, 0, 0.35, 1);
+  z-index: -1;
+}
+.cta-btn-outline:hover::before {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+.cta-btn-outline:hover { color: var(--bg); }
+.hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 8px; }
+.hamburger span { display: block; width: 24px; height: 2px; background: var(--text); transition: all 0.3s; }
+
+/* Mobile Overlay */
+.mobile-overlay {
+  position: fixed;
+  inset: 0;
+  background: #0A0A0A;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 32px;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+.mobile-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+.mobile-close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 12px;
+  z-index: 10000;
+  color: #F5F5F5;
+}
+.mobile-nav-links {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+}
+.mobile-nav-links a {
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  color: #F5F5F5;
+  transition: color 0.3s;
+}
+.mobile-nav-links a:hover { color: var(--accent); }
+.mobile-nav-links .mobile-cta {
+  display: inline-block;
+  padding: 14px 32px;
+  background: #C9A96E;
+  color: #0A0A0A;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 600;
+  margin-top: 12px;
+}
+
+/* HERO */
+.hero {
+  position: relative; min-height: 100vh; display: flex; align-items: center;
+  background: url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1600&q=80') center/cover no-repeat;
+}
+.hero::before {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(135deg, rgba(10,10,10,0.88) 0%, rgba(10,10,10,0.65) 100%);
+}
+.hero-content { position: relative; z-index: 2; max-width: 700px; padding: 120px 20px 80px; margin: 0 auto 0 calc((100% - 1200px)/2 + 20px); }
+.hero-tag { display: inline-block; font-size: 0.8rem; color: var(--accent); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 20px; border-left: 3px solid var(--accent); padding-left: 12px; }
+.hero h1 { font-size: 3.2rem; line-height: 1.15; margin-bottom: 20px; }
+.hero h1 em { font-style: italic; color: var(--accent); }
+.hero p { font-size: 1.15rem; color: var(--text-muted); margin-bottom: 32px; max-width: 540px; }
+.hero-buttons { display: flex; gap: 16px; flex-wrap: wrap; }
+
+/* PRODUCTS */
+.products { padding: 100px 0; background: var(--bg); }
+.products-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 24px; }
+.product-card {
+  background: var(--bg-card); border: 1px solid rgba(201,169,110,0.15); padding: 36px 24px;
+  text-align: center; transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.4s ease; position: relative; overflow: hidden;
+}
+.product-card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  background: var(--accent); transform: scaleX(0); transition: transform 0.4s;
+}
+.product-card:hover { border-color: rgba(201,169,110,0.4); transform: translateY(-8px); box-shadow: 0 20px 60px rgba(201,169,110,0.12); }
+.product-card:hover::before { transform: scaleX(1); }
+.product-card svg { width: 48px; height: 48px; margin: 0 auto 16px; color: var(--accent); }
+.product-card h3 { font-size: 1.1rem; margin-bottom: 10px; }
+.product-card p { font-size: 0.9rem; color: var(--text-muted); line-height: 1.5; }
+
+/* WHY US */
+.why-us { padding: 100px 0; background: var(--bg-alt); }
+.stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px; }
+.stat-item { text-align: center; padding: 32px 16px; }
+.stat-number { font-family: var(--font-heading); font-size: 3rem; color: var(--accent); display: block; }
+.stat-label { font-size: 0.95rem; color: var(--text-muted); margin-top: 8px; }
+.stat-item::after { content: ''; display: block; width: 40px; height: 1px; background: var(--accent); margin: 20px auto 0; opacity: 0.4; }
+
+/* PROCESS */
+.process { padding: 100px 0; background: var(--bg); }
+.timeline { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; position: relative; margin-top: 20px; }
+.timeline::before { content: ''; position: absolute; top: 32px; left: 10%; right: 10%; height: 1px; background: rgba(201,169,110,0.3); }
+.timeline-step { text-align: center; padding: 0 16px; position: relative; }
+.step-num {
+  display: flex; align-items: center; justify-content: center;
+  width: 64px; height: 64px; border: 2px solid var(--accent); color: var(--accent);
+  font-family: var(--font-heading); font-size: 1.5rem; margin: 0 auto 20px;
+  background: var(--bg); position: relative; z-index: 2;
+}
+.step-title { font-size: 1rem; font-weight: 600; margin-bottom: 8px; }
+.step-desc { font-size: 0.85rem; color: var(--text-muted); }
+
+/* GALLERY */
+.gallery { padding: 100px 0; background: var(--bg-alt); }
+.gallery-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.gallery-item { position: relative; overflow: hidden; aspect-ratio: 4/3; border-radius: 12px; }
+.gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; }
+.gallery-item:hover img { transform: scale(1.05); }
+.gallery-item::after {
+  content: attr(data-title);
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 20px;
+  background: linear-gradient(transparent, rgba(0,0,0,0.7));
+  color: white;
+  font-weight: 600;
+  transform: translateY(100%);
+  transition: transform 0.4s ease;
+}
+.gallery-item:hover::after {
+  transform: translateY(0);
+}
+
+/* PARTNERS */
+.partners { padding: 80px 0; background: var(--bg); border-top: 1px solid rgba(201,169,110,0.1); border-bottom: 1px solid rgba(201,169,110,0.1); }
+.partners-grid { display: flex; justify-content: center; align-items: center; gap: 48px; flex-wrap: wrap; }
+.partner-badge {
+  font-family: var(--font-heading); font-size: 1.3rem; color: var(--text-muted);
+  letter-spacing: 2px; opacity: 0.5; transition: opacity 0.3s, color 0.3s;
+}
+.partner-badge:hover { opacity: 1; color: var(--accent); }
+
+/* ENERGY */
+.energy { padding: 100px 0; background: var(--bg-alt); }
+.energy-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+.energy-text h3 { font-size: 1.3rem; margin-bottom: 16px; color: var(--accent); }
+.energy-text p { color: var(--text-muted); margin-bottom: 24px; }
+.energy-bars { display: flex; flex-direction: column; gap: 16px; }
+.energy-bar { position: relative; }
+.energy-bar-label { display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 6px; }
+.energy-bar-label span:last-child { color: var(--accent); }
+.energy-bar-track { height: 8px; background: rgba(201,169,110,0.1); border-radius: 4px; overflow: hidden; }
+.energy-bar-fill { height: 100%; background: linear-gradient(90deg, var(--secondary), var(--accent)); border-radius: 4px; }
+
+/* TESTIMONIALS */
+.testimonials { padding: 100px 0; background: var(--bg); }
+.testimonials-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
+.testimonial-card {
+  background: var(--bg-card); border: 1px solid rgba(201,169,110,0.1); padding: 36px;
+  position: relative;
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.4s ease;
+}
+.testimonial-card:hover { transform: translateY(-8px); box-shadow: 0 20px 60px rgba(0,0,0,0.12); }
+.testimonial-card::before {
+  content: '\201C'; font-family: var(--font-heading); font-size: 4rem;
+  color: var(--accent); opacity: 0.3; position: absolute; top: 12px; left: 24px; line-height: 1;
+}
+.testimonial-text { font-size: 0.95rem; color: var(--text-muted); line-height: 1.7; margin-bottom: 20px; padding-top: 16px; }
+.testimonial-author { font-weight: 600; font-size: 0.9rem; }
+.testimonial-city { font-size: 0.8rem; color: var(--text-muted); }
+
+/* CONTACT */
+.contact { padding: 100px 0; background: var(--bg-alt); }
+.contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; }
+.contact-form { display: flex; flex-direction: column; gap: 16px; }
+.form-group label { display: block; font-size: 0.85rem; color: var(--text-muted); margin-bottom: 6px; }
+.form-group input, .form-group textarea {
+  width: 100%; padding: 14px 16px; background: var(--bg); border: 1px solid rgba(201,169,110,0.2);
+  color: var(--text); font-family: var(--font-body); font-size: 0.95rem;
+  transition: border-color 0.3s; outline: none;
+}
+.form-group input:focus, .form-group textarea:focus { border-color: var(--accent); }
+.form-group textarea { resize: vertical; min-height: 120px; }
+.contact-info h3 { font-size: 1.2rem; color: var(--accent); margin-bottom: 24px; }
+.contact-detail { display: flex; align-items: flex-start; gap: 16px; margin-bottom: 24px; }
+.contact-detail svg { width: 20px; height: 20px; color: var(--accent); flex-shrink: 0; margin-top: 2px; }
+.contact-detail span { color: var(--text-muted); font-size: 0.95rem; line-height: 1.5; }
+.map-placeholder {
+  width: 100%; height: 200px; background: var(--bg-card); border: 1px solid rgba(201,169,110,0.15);
+  display: flex; align-items: center; justify-content: center; color: var(--text-muted);
+  font-size: 0.9rem; margin-top: 24px;
+}
+
+/* FOOTER */
+footer { padding: 60px 0 30px; background: var(--bg); border-top: 1px solid rgba(201,169,110,0.1); }
+.footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 40px; }
+.footer-brand p { color: var(--text-muted); font-size: 0.9rem; margin-top: 12px; max-width: 280px; }
+.footer-col h4 { font-size: 0.9rem; color: var(--accent); margin-bottom: 16px; letter-spacing: 1px; text-transform: uppercase; }
+.footer-col a { display: block; color: var(--text-muted); font-size: 0.85rem; margin-bottom: 8px; transition: color 0.3s; }
+.footer-col a:hover { color: var(--accent); }
+.footer-bottom { display: flex; justify-content: space-between; align-items: center; padding-top: 24px; border-top: 1px solid rgba(255,255,255,0.05); }
+.footer-bottom p { font-size: 0.8rem; color: var(--text-muted); }
+.social-icons { display: flex; gap: 16px; }
+.social-icons a svg { width: 20px; height: 20px; color: var(--text-muted); transition: color 0.3s; }
+.social-icons a:hover svg { color: var(--accent); }
+
+/* MOBILE */
+@media (max-width: 1200px) {
+  .hero h1 { font-size: 2.6rem; }
+  .hero-content { margin-left: 40px; }
+}
+@media (max-width: 768px) {
+  .hamburger { display: flex; }
+  nav { display: none; }
+  .hero { min-height: 85vh; }
+  .hero-content { margin: 0; padding: 100px 20px 60px; }
+  .hero h1 { font-size: 2.2rem; }
+  .products-grid { grid-template-columns: repeat(2, 1fr); }
+  .stats-grid { grid-template-columns: repeat(2, 1fr); }
+  .timeline { grid-template-columns: repeat(2, 1fr); gap: 32px; }
+  .timeline::before { display: none; }
+  .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+  .testimonials-grid { grid-template-columns: 1fr; }
+  .contact-grid { grid-template-columns: 1fr; }
+  .energy-grid { grid-template-columns: 1fr; }
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+  .section-title { font-size: 1.7rem; }
+}
+@media (max-width: 390px) {
+  .hero h1 { font-size: 1.8rem; }
+  .products-grid { grid-template-columns: 1fr; }
+  .stats-grid { grid-template-columns: 1fr 1fr; gap: 16px; }
+  .stat-number { font-size: 2.2rem; }
+  .gallery-grid { grid-template-columns: 1fr; }
+  .footer-grid { grid-template-columns: 1fr; }
+  .hero-buttons { flex-direction: column; }
+  .partners-grid { gap: 24px; }
+}
+</style>
 </head>
 <body>
-  <header class="topbar">
-    <div class="wrap topbar-inner">
-      <a class="brand" href="#начало" aria-label="Миг Трейд">
-        <span class="brand-mark">МТ</span>
-        <span>Миг Трейд</span>
-      </a>
-      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav">Меню</button>
-      <nav class="nav" id="site-nav" aria-label="Основна навигация">
-        <a href="#услуги">Услуги</a>
-        <a href="#каталог">Каталог</a>
-        <a href="#процес">Процес</a>
-        <a href="#контакти">Контакти</a>
-      </nav>
+
+<!-- HEADER -->
+<header>
+  <div class="header-inner">
+    <a href="#" class="logo">Миг Трейд<span> | Метални врати</span></a>
+    <nav id="mainNav">
+      <a href="#hero">Начало</a>
+      <a href="#products">Продукти</a>
+      <a href="#why-us">За нас</a>
+      <a href="#gallery">Проекти</a>
+      <a href="#contact">Контакти</a>
+      <a href="#contact" class="cta-btn">Заявете оглед</a>
+    </nav>
+    <button class="hamburger" id="hamburger" aria-label="Меню">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<!-- MOBILE OVERLAY -->
+<div class="mobile-overlay" id="mobileOverlay">
+  <button class="mobile-close" id="mobileClose" aria-label="Затвори">
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+  </button>
+  <nav class="mobile-nav-links">
+    <a href="#hero">Начало</a>
+    <a href="#products">Продукти</a>
+    <a href="#why-us">За нас</a>
+    <a href="#gallery">Проекти</a>
+    <a href="#contact">Контакти</a>
+    <a href="#contact" class="mobile-cta">Заявете оглед</a>
+  </nav>
+</div>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="hero-content">
+    <span class="hero-tag">Метални врати от 170 лева</span>
+    <h1>Метални врати и решетки с <em>изработка по мярка</em></h1>
+    <p>Миг Трейд изработва и монтира метални врати за апартаменти, входове и мазета, метални решетки, огради и портали. Работим за София и София област със срок до 5 работни дни.</p>
+    <div class="hero-buttons">
+      <a href="#contact" class="cta-btn">Заявете оглед</a>
+      <a href="#products" class="cta-btn-outline">Вижте каталога</a>
     </div>
-  </header>
+  </div>
+</section>
 
-  <main id="начало">
-    <section class="hero">
-      <div class="wrap hero-grid">
-        <div class="hero-copy">
-          <span class="eyebrow">Метални врати и решетки по размер</span>
-          <h1>Сигурни решения за дома, офиса и входа</h1>
-          <p class="lead">Миг Трейд ЕООД изработва и монтира метални врати, входни врати, врати за апартаменти, врати за мазета и метални решетки. Работим за София и София област с кратки срокове и монтаж по предварително взети размери.</p>
-          <ul class="hero-points">
-            <li>Изработка в собствен цех по индивидуални размери</li>
-            <li>Срок за поръчки до 5 работни дни за София и региона</li>
-            <li>Топло- и шумоизолация с минерална вата</li>
-            <li>Богат асортимент от врати и метални решения</li>
-          </ul>
-          <div class="cta-row">
-            <a class="btn btn-primary" href="tel:+359878243810">Обадете се: 0878 243 810</a>
-            <a class="btn btn-secondary" href="#каталог">Разгледайте каталога</a>
-          </div>
-        </div>
-        <div class="hero-card" aria-hidden="true">
-          <div class="hero-art">
-            <span class="price-badge">Цени на метални врати от 395 лв.</span>
-            <div class="door-visual"></div>
-            <p>Подходящи за апартаменти, къщи, офиси, мазета и входове с акцент върху здравина, защита и чист монтаж.</p>
-          </div>
-        </div>
+<!-- Gold divider -->
+<div class="section-divider"></div>
+
+<!-- PRODUCTS -->
+<section class="products" id="products">
+  <div class="container">
+    <span class="eyebrow">НАШИТЕ ПРОДУКТИ</span>
+    <h2 class="section-title reveal">Продуктов каталог</h2>
+    <p class="section-sub">Предлагаме метални врати, метални решетки, огради и портали по размер, съобразени с обекта, нивото на защита и бюджета ви.</p>
+    <span class="gold-sep" style="margin-bottom:48px"></span>
+    <div class="products-grid">
+      <div class="product-card reveal">
+        <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="6" y="6" width="36" height="36" rx="2"/><line x1="24" y1="6" x2="24" y2="42"/><line x1="6" y1="24" x2="24" y2="24"/><rect x="10" y="10" width="10" height="10" rx="1" opacity="0.3" fill="currentColor"/></svg>
+        <h3>Врати за апартаменти</h3>
+        <p>Двупластови метални врати за апартаменти с минерална вата, широкоъгълна шпионка и надеждно заключване.</p>
       </div>
-    </section>
-
-    <section id="услуги">
-      <div class="wrap">
-        <div class="section-head">
-          <div>
-            <h2>Какво предлагаме</h2>
-            <p>Съдържанието е адаптирано по реалните услуги, налични в текущия сайт на клиента.</p>
-          </div>
-        </div>
-        <div class="feature-grid">
-          <article class="feature">
-            <h3>Метални врати</h3>
-            <p>Изработка на двупластови метални врати с рамка или цяла каса, подходящи за жилища, офиси и общи входове.</p>
-          </article>
-          <article class="feature">
-            <h3>Врати за апартаменти</h3>
-            <p>Решения с две брави, декоративно фолио, широкоъгълна шпионка и минерална вата за по-добра изолация.</p>
-          </article>
-          <article class="feature">
-            <h3>Входни и мазетни врати</h3>
-            <p>Практични и надеждни врати за входове, сервизни помещения и мазета, изработени по точните размери на обекта.</p>
-          </article>
-          <article class="feature">
-            <h3>Метални решетки</h3>
-            <p>Метални решетки 12/12/1.5, 15/15/1.5, 20/20/1.5, решетки за врати, както и решения за огради и портали.</p>
-          </article>
-        </div>
+      <div class="product-card reveal">
+        <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="6" y="6" width="36" height="36" rx="1"/><line x1="24" y1="6" x2="24" y2="42"/><line x1="6" y1="24" x2="48" y2="24"/><circle cx="21" cy="24" r="2" fill="currentColor"/><circle cx="27" cy="24" r="2" fill="currentColor"/></svg>
+        <h3>Входни врати</h3>
+        <p>Стабилни входни метални врати за къщи, офиси и входове, изработени по предварително взети размери.</p>
       </div>
-    </section>
-
-    <section id="каталог">
-      <div class="wrap">
-        <div class="section-head">
-          <div>
-            <h2>Продуктов каталог</h2>
-            <p>Подбрани модели и спецификации от наличното съдържание на сайта на Миг Трейд.</p>
-          </div>
-        </div>
-        <div class="catalog-grid">
-          <article class="catalog-card">
-            <div class="catalog-meta">
-              <span>Врати за апартаменти</span>
-              <span class="catalog-price">495 лв.</span>
-            </div>
-            <h3>Двупластова метална врата с цяла каса</h3>
-            <p>Повишена степен на защита за апартамент, къща или офис. Касата е от абкантно-огънат студено валцован лист с дебелина 2 мм.</p>
-            <ul>
-              <li>Крило от два пласта стомана по 1.5 мм</li>
-              <li>Пълнеж от минерална вата</li>
-              <li>Панти ф18 и антикорозионен грунд</li>
-            </ul>
-          </article>
-          <article class="catalog-card">
-            <div class="catalog-meta">
-              <span>Врати за апартаменти</span>
-              <span class="catalog-price">415 лв.</span>
-            </div>
-            <h3>Двупластова метална врата с декоративно фолио</h3>
-            <p>Подходяща като допълнителна входна врата с чист монтаж и декоративно покритие, произведена специално по вашите размери.</p>
-            <ul>
-              <li>Г-образен лайзен 40/40/3 мм</li>
-              <li>Два пласта стоманена ламарина по 1.5 мм</li>
-              <li>Минерална вата, секретен патрон и дръжки</li>
-            </ul>
-          </article>
-          <article class="catalog-card">
-            <div class="catalog-meta">
-              <span>Врати за апартаменти</span>
-              <span class="catalog-price">395 лв.</span>
-            </div>
-            <h3>Двупластова метална врата с две брави</h3>
-            <p>Здраво решение за жилище, вила, офис или къща, произведено в цеха на фирмата след предварително взети размери.</p>
-            <ul>
-              <li>Два пласта студено валцована стомана</li>
-              <li>Вътрешно оребрение и минерална вата</li>
-              <li>Рамка 40/40/3 мм или 45/45/3 мм</li>
-            </ul>
-          </article>
-        </div>
+      <div class="product-card reveal">
+        <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="10" y="4" width="28" height="40" rx="2"/><line x1="24" y1="4" x2="24" y2="44"/><circle cx="32" cy="26" r="2" fill="currentColor"/><rect x="14" y="8" width="8" height="14" rx="1" opacity="0.2" fill="currentColor"/></svg>
+        <h3>Врати за мазета</h3>
+        <p>Практични метални врати за сервизни и складови помещения с антикорозионен грунд и чист монтаж.</p>
       </div>
-    </section>
-
-    <section id="процес">
-      <div class="wrap info-grid">
-        <article class="section-card">
-          <h2>Как протича поръчката</h2>
-          <p>Процесът е структуриран така, че монтажът да бъде максимално точен и чист, според описанието в съдържанието на клиента.</p>
-          <ol class="process-list">
-            <li>Вземане на размери на място и уточняване на модела.</li>
-            <li>Изработка на вратата и касата в цеха на Миг Трейд.</li>
-            <li>Демонтаж на стара врата и стара каса при необходимост.</li>
-            <li>Монтаж на новата каса, крило, брави, бронировка и шпионка.</li>
-            <li>Прогонване за плътно, плавно отваряне и затваряне.</li>
-          </ol>
-        </article>
-        <aside class="info-strip">
-          <h3>Защо клиентите избират Миг Трейд</h3>
-          <p>Компанията работи с фокус върху сигурността, здравата метална конструкция и бързото изпълнение за обекти в София и София област.</p>
-          <ul class="contact-list">
-            <li>Изработка по точни размери, а не готови компромисни решения</li>
-            <li>Подходящи решения за апартаменти, офиси, къщи и мазета</li>
-            <li>Възможност за декоративно фолио и избор на конфигурация</li>
-            <li>Монтаж до 5 работни дни според наличното съдържание</li>
-          </ul>
-        </aside>
+      <div class="product-card reveal">
+        <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="10" y="4" width="28" height="40" rx="2"/><rect x="14" y="8" width="20" height="16" rx="1" opacity="0.2" fill="currentColor"/><circle cx="32" cy="28" r="2" fill="currentColor"/><line x1="14" y1="32" x2="34" y2="32" opacity="0.4"/></svg>
+        <h3>Метални решетки</h3>
+        <p>Изработка на метални решетки 12/12/1.5, 15/15/1.5, 20/20/1.5 и решетки за врати според нуждите на обекта.</p>
       </div>
-    </section>
-
-    <section id="контакти">
-      <div class="wrap">
-        <div class="section-head">
-          <div>
-            <h2>Контакти</h2>
-            <p>Свържете се за оглед, размери и конкретна оферта за метални врати и решетки.</p>
-          </div>
-        </div>
-        <div class="contact-grid">
-          <article class="contact-card">
-            <strong>Фирмени данни</strong>
-            <p>Миг Трейд ЕООД</p>
-            <p>БУЛСТАТ: BG175437805</p>
-            <p>Уебсайт: <a href="http://mig-trade.com">mig-trade.com</a></p>
-            <p>Google профил: <a href="https://share.google/mWtwExFDBmLHJKnWk">Вижте локацията</a></p>
-          </article>
-          <article class="contact-card">
-            <strong>Телефони</strong>
-            <p><a href="tel:+359878243810">0878 243 810</a></p>
-            <p><a href="tel:+359878243812">0878 243 812</a></p>
-            <p><a href="tel:+359898788957">0898 788 957</a></p>
-          </article>
-          <article class="contact-card">
-            <strong>Адрес</strong>
-            <p>София, Ломско шосе 210</p>
-            <p>1220, България</p>
-            <p>Огледи и монтаж за София и София област.</p>
-          </article>
-        </div>
+      <div class="product-card reveal">
+        <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="8" width="20" height="32" rx="1"/><rect x="26" y="8" width="20" height="32" rx="1"/><path d="M22 24 L26 24" stroke-dasharray="2 2"/><line x1="12" y1="8" x2="12" y2="40" opacity="0.3"/><line x1="36" y1="8" x2="36" y2="40" opacity="0.3"/></svg>
+        <h3>Огради и портали</h3>
+        <p>Здрави метални огради и портали за жилищни и търговски имоти с изработка в собствен цех и монтаж на място.</p>
       </div>
-    </section>
-  </main>
-
-  <footer class="footer">
-    <div class="wrap footer-line">
-      <p>Миг Трейд ЕООД предлага метални врати и решетки за София и София област.</p>
-      <p>© <span id="year"></span> Миг Трейд</p>
     </div>
-  </footer>
+  </div>
+</section>
 
-  <script>
-    const toggle = document.querySelector('.menu-toggle');
-    const nav = document.querySelector('.nav');
+<div class="section-divider"></div>
 
-    if (toggle && nav) {
-      toggle.addEventListener('click', () => {
-        const isOpen = nav.classList.toggle('open');
-        toggle.setAttribute('aria-expanded', String(isOpen));
-      });
+<!-- WHY US -->
+<section class="why-us" id="why-us">
+  <div class="container">
+    <span class="eyebrow">ЗАЩО НАС</span>
+    <h2 class="section-title reveal">Предимства на Миг Трейд</h2>
+    <p class="section-sub">Изработваме изделия по размер в собствен цех и организираме монтажа така, че клиентът да получи яснота за цена, срок и изпълнение.</p>
+    <span class="gold-sep" style="margin-bottom:48px"></span>
+    <div class="stats-grid">
+      <div class="stat-item reveal">
+        <span class="stat-number" data-count="170" data-suffix=" лв.">170 лв.</span>
+        <span class="stat-label">Стартова цена</span>
+      </div>
+      <div class="stat-item reveal">
+        <span class="stat-number" data-count="5" data-suffix=" дни">5 дни</span>
+        <span class="stat-label">Срок за изработка</span>
+      </div>
+      <div class="stat-item reveal">
+        <span class="stat-number">0 лв.</span>
+        <span class="stat-label">Оглед и оферта</span>
+      </div>
+      <div class="stat-item reveal">
+        <span class="stat-number" data-count="3" data-suffix="">3</span>
+        <span class="stat-label">Телефона за връзка</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- PROCESS -->
+<section class="process" id="process">
+  <div class="container">
+    <span class="eyebrow">КАК РАБОТИМ</span>
+    <h2 class="section-title reveal">Процес на работа</h2>
+    <p class="section-sub">От заявката за оглед до финалния монтаж следваме ясен процес, съобразен с размерите и типа метално изделие.</p>
+    <span class="gold-sep" style="margin-bottom:48px"></span>
+    <div class="timeline">
+      <div class="timeline-step reveal">
+        <div class="step-num">1</div>
+        <h4 class="step-title">Оглед</h4>
+        <p class="step-desc">Уточняваме вида на изделието и взимаме точни размери на място в София и областта.</p>
+      </div>
+      <div class="timeline-step reveal">
+        <div class="step-num">2</div>
+        <h4 class="step-title">Оферта</h4>
+        <p class="step-desc">Получавате конкретно предложение според модела, дебелината на материала, обкова и монтажа.</p>
+      </div>
+      <div class="timeline-step reveal">
+        <div class="step-num">3</div>
+        <h4 class="step-title">Изработка</h4>
+        <p class="step-desc">Вратата, решетката или порталът се изработват в нашия цех по взетите предварително размери.</p>
+      </div>
+      <div class="timeline-step reveal">
+        <div class="step-num">4</div>
+        <h4 class="step-title">Монтаж</h4>
+        <p class="step-desc">Премахваме стария елемент при нужда, монтираме новия и го прогонваме за плавно отваряне и затваряне.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- GALLERY -->
+<section class="gallery" id="gallery">
+  <div class="container">
+    <span class="eyebrow">НАШИТЕ ПРОЕКТИ</span>
+    <h2 class="section-title reveal">Галерия</h2>
+    <p class="section-sub">Примерни реализации и вдъхновение за метални врати, решетки и входни решения за различни типове обекти.</p>
+    <span class="gold-sep" style="margin-bottom:48px"></span>
+    <div class="gallery-grid">
+      <div class="gallery-item reveal" data-title="Врата за апартамент — София"><img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&q=80" alt="Пример за метална врата за апартамент" loading="eager"></div>
+      <div class="gallery-item reveal" data-title="Входно решение — София област"><img src="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=800&q=80" alt="Пример за входно решение с метална врата" loading="eager"></div>
+      <div class="gallery-item reveal" data-title="Решетки за прозорци — София"><img src="https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=800&q=80" alt="Пример за метални решетки за прозорци" loading="eager"></div>
+      <div class="gallery-item reveal" data-title="Портал за двор — София"><img src="https://images.unsplash.com/photo-1600573472592-401b489a3cdc?w=800&q=80" alt="Пример за метален портал" loading="eager"></div>
+      <div class="gallery-item reveal" data-title="Входна метална врата — София"><img src="https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=800&q=80" alt="Пример за входна метална врата" loading="eager"></div>
+      <div class="gallery-item reveal" data-title="Ограда по поръчка — София област"><img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&q=80" alt="Пример за метална ограда по поръчка" loading="eager"></div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- PARTNERS -->
+<section class="partners">
+  <div class="container">
+    <span class="eyebrow">КАТЕГОРИИ</span>
+    <h2 class="section-title reveal">Какво изработваме</h2>
+    <span class="gold-sep" style="margin-bottom:48px"></span>
+    <div class="partners-grid">
+      <span class="partner-badge">АПАРТАМЕНТНИ ВРАТИ</span>
+      <span class="partner-badge">ВХОДНИ ВРАТИ</span>
+      <span class="partner-badge">ВРАТИ ЗА МАЗЕТА</span>
+      <span class="partner-badge">МЕТАЛНИ РЕШЕТКИ</span>
+      <span class="partner-badge">ОГРАДИ</span>
+      <span class="partner-badge">ПОРТАЛИ</span>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ENERGY EFFICIENCY -->
+<section class="energy" id="energy">
+  <div class="container">
+    <span class="eyebrow">КОНСТРУКЦИЯ</span>
+    <h2 class="section-title reveal">Защита и изолация</h2>
+    <p class="section-sub">Металните врати на Миг Трейд комбинират здрава конструкция, изолационен пълнеж и надежден монтаж.</p>
+    <span class="gold-sep" style="margin-bottom:48px"></span>
+    <div class="energy-grid">
+      <div class="energy-text reveal">
+        <h3>Изработка с внимание към детайла</h3>
+        <p>Касите се изработват от абкантно огънат студено валцован метален лист с дебелина 2 мм, а крилата са от два пласта стомана с дебелина 1.5 мм.</p>
+        <p>Между пластовете се поставя минерална вата за по-добра топло- и шумоизолация, а всички елементи се грундират с антикорозионен грунд преди монтаж.</p>
+      </div>
+      <div class="energy-bars reveal">
+        <div class="energy-bar">
+          <div class="energy-bar-label"><span>Еднопластова конструкция</span><span>35%</span></div>
+          <div class="energy-bar-track"><div class="energy-bar-fill" style="width:35%"></div></div>
+        </div>
+        <div class="energy-bar">
+          <div class="energy-bar-label"><span>Двупластова врата</span><span>68%</span></div>
+          <div class="energy-bar-track"><div class="energy-bar-fill" style="width:68%"></div></div>
+        </div>
+        <div class="energy-bar">
+          <div class="energy-bar-label"><span>Минерална вата</span><span>84%</span></div>
+          <div class="energy-bar-track"><div class="energy-bar-fill" style="width:84%"></div></div>
+        </div>
+        <div class="energy-bar">
+          <div class="energy-bar-label"><span>Антикорозионна защита</span><span>95%</span></div>
+          <div class="energy-bar-track"><div class="energy-bar-fill" style="width:95%"></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials" id="testimonials">
+  <div class="container">
+    <span class="eyebrow">ОТЗИВИ</span>
+    <h2 class="section-title reveal">Какво казват клиентите</h2>
+    <p class="section-sub">Отзиви от клиенти, които поръчаха метални врати, решетки и входни решения от Миг Трейд.</p>
+    <span class="gold-sep" style="margin-bottom:48px"></span>
+    <div class="testimonials-grid">
+      <div class="testimonial-card reveal">
+        <p class="testimonial-text">Поръчахме двупластова метална врата за апартамента. Обясниха ни вариантите, взеха размери и до няколко дни монтажът беше готов и много чист.</p>
+        <p class="testimonial-author">Иван Петров</p>
+        <p class="testimonial-city">София, ж.к. Надежда</p>
+      </div>
+      <div class="testimonial-card reveal">
+        <p class="testimonial-text">Търсехме метални решетки за прозорци и врата към сервизно помещение. Изработката стана по размер, а екипът се съобрази напълно с особеностите на обекта.</p>
+        <p class="testimonial-author">Мария Георгиева</p>
+        <p class="testimonial-city">София област, Костинброд</p>
+      </div>
+      <div class="testimonial-card reveal">
+        <p class="testimonial-text">За двора ни изработиха портал и входна метална врата. Хареса ми, че всичко беше по предварително уточнени размери, цена и срок без излишно забавяне.</p>
+        <p class="testimonial-author">Николай Димитров</p>
+        <p class="testimonial-city">София, кв. Требич</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="container">
+    <span class="eyebrow">КОНТАКТИ</span>
+    <h2 class="section-title reveal">Свържете се с Миг Трейд</h2>
+    <p class="section-sub">Заявете оглед за метална врата, решетки, ограда или портал и ще получите конкретна консултация за модела, цената и срока.</p>
+    <span class="gold-sep" style="margin-bottom:48px"></span>
+    <div class="contact-grid">
+      <form class="contact-form" onsubmit="event.preventDefault(); alert('Благодарим за запитването! Ще се свържем с вас възможно най-скоро.')">
+        <div class="form-group">
+          <label for="name">Вашето име</label>
+          <input type="text" id="name" name="name" placeholder="Вашето име" required>
+        </div>
+        <div class="form-group">
+          <label for="phone">Телефон</label>
+          <input type="tel" id="phone" name="phone" placeholder="0878 24 38 10" required>
+        </div>
+        <div class="form-group">
+          <label for="email">Имейл</label>
+          <input type="email" id="email" name="email" placeholder="Имейл за обратна връзка">
+        </div>
+        <div class="form-group">
+          <label for="message">Съобщение</label>
+          <textarea id="message" name="message" placeholder="Опишете какъв тип метална врата, решетка, ограда или портал ви е необходим."></textarea>
+        </div>
+        <button type="submit" class="cta-btn" style="border:none;font-family:var(--font-body);font-size:1rem;padding:16px 32px;">Изпратете запитване</button>
+      </form>
+      <div class="contact-info">
+        <h3>Информация за контакт</h3>
+        <div class="contact-detail">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          <span>Ломско шосе 210<br>1220 София, България</span>
+        </div>
+        <div class="contact-detail">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          <span>0878 243 810<br>0878 243 812<br>0898 788 957</span>
+        </div>
+        <div class="contact-detail">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          <span>Имейлът е защитен в текущия сайт<br>mig-trade.com</span>
+        </div>
+        <div class="map-placeholder">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="margin-right:8px"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Локация: София, Ломско шосе 210
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <span class="logo">Миг Трейд</span>
+        <p>Изработка и монтаж на метални врати, метални решетки, огради и портали по размер за София и София област.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Продукти</h4>
+        <a href="#products">Врати за апартаменти</a>
+        <a href="#products">Входни врати</a>
+        <a href="#products">Врати за мазета</a>
+        <a href="#products">Метални решетки</a>
+        <a href="#products">Огради и портали</a>
+      </div>
+      <div class="footer-col">
+        <h4>Компания</h4>
+        <a href="#why-us">За нас</a>
+        <a href="#gallery">Проекти</a>
+        <a href="#testimonials">Отзиви</a>
+        <a href="#energy">Защита и изолация</a>
+      </div>
+      <div class="footer-col">
+        <h4>Контакти</h4>
+        <a href="tel:+359878243810">0878 243 810</a>
+        <a href="http://mig-trade.com">mig-trade.com</a>
+        <a href="#contact">Заявете оглед</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 Миг Трейд ЕООД. Всички права запазени.</p>
+      <div class="social-icons">
+        <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
+        <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
+        <a href="#" aria-label="Viber"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12c0 1.74.45 3.38 1.24 4.81L2 22l5.19-1.24A9.96 9.96 0 0 0 12 22c5.52 0 10-4.48 10-10S17.52 2 12 2zm0 18c-1.61 0-3.12-.46-4.4-1.26l-.31-.19-3.08.74.74-3.08-.19-.31A7.96 7.96 0 0 1 4 12c0-4.41 3.59-8 8-8s8 3.59 8 8-3.59 8-8 8z"/></svg></a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+// Mobile menu
+const hamburger = document.querySelector('.hamburger');
+const overlay = document.getElementById('mobileOverlay');
+const closeBtn = document.getElementById('mobileClose');
+hamburger.addEventListener('click', () => overlay.classList.add('active'));
+closeBtn.addEventListener('click', () => overlay.classList.remove('active'));
+overlay.querySelectorAll('a').forEach(link => {
+  link.addEventListener('click', () => overlay.classList.remove('active'));
+});
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') overlay.classList.remove('active');
+});
+
+// Scroll reveal
+window.addEventListener('load', () => {
+  document.querySelectorAll('.reveal').forEach(el => el.classList.add('animate'));
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+});
+
+// Animated stat counters
+function animateCounters() {
+  document.querySelectorAll('[data-count]').forEach(el => {
+    const target = parseInt(el.dataset.count);
+    const suffix = el.dataset.suffix || '';
+    const duration = 2000;
+    const start = performance.now();
+    function update(now) {
+      const progress = Math.min((now - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      el.textContent = Math.floor(target * eased).toLocaleString() + suffix;
+      if (progress < 1) requestAnimationFrame(update);
     }
-
-    document.getElementById('year').textContent = new Date().getFullYear();
-  </script>
+    requestAnimationFrame(update);
+  });
+}
+const statsObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      animateCounters();
+      statsObserver.disconnect();
+    }
+  });
+}, { threshold: 0.3 });
+const statsSection = document.querySelector('.stats-grid');
+if (statsSection) statsObserver.observe(statsSection);
+</script>
 </body>
 </html>
