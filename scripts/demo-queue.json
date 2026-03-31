@@ -1,18 +1,6 @@
 {
   "tasks": [
     {
-      "id": 1774956425645,
-      "slug": "стоянов-пласт",
-      "name": "Стоянов Пласт",
-      "action": "qa_submitted",
-      "status": "in_progress",
-      "createdAt": "2026-03-31T11:27:05.645Z",
-      "startedAt": "2026-03-31T11:33:03.984Z",
-      "completedAt": null,
-      "error": null,
-      "result": null
-    },
-    {
       "id": 1774956544297,
       "slug": "врати-кайлъка",
       "name": "Врати кайлъка",
@@ -787,6 +775,18 @@
       "completedAt": "2026-03-31T11:33:02.604Z",
       "error": null,
       "result": "Demo built (validated, 1 attempts): https://koiopenclaw-max.github.io/demo-sites/demos/%D0%BC%D0%B8%D0%B3-%D1%82%D1%80%D0%B5%D0%B9%D0%B4/"
+    },
+    {
+      "id": 1774956425645,
+      "slug": "стоянов-пласт",
+      "name": "Стоянов Пласт",
+      "action": "qa_submitted",
+      "status": "done",
+      "createdAt": "2026-03-31T11:27:05.645Z",
+      "startedAt": "2026-03-31T11:33:03.984Z",
+      "completedAt": "2026-03-31T11:33:08.165Z",
+      "error": null,
+      "result": "Brief enriched → brief_final"
     }
   ],
   "version": 1
