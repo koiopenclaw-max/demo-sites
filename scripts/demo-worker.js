@@ -416,31 +416,43 @@ async function executeBuilding(task) {
   fs.writeFileSync(path.join(buildDir, 'brief.md'), data.brief || '');
   
   // Build prompt for Codex
-  const prompt = `You are building a demo website for "${data.name}".
+  // CRITICAL: Template must be preserved 1:1. Only text content changes.
+  const prompt = `You are customizing a website template for "${data.name}".
 
-TASK: Adapt the template HTML with the client's real content.
+## CRITICAL RULE: COPY TEMPLATE EXACTLY — CHANGE ONLY TEXT
 
-INPUT FILES IN THIS DIRECTORY:
-- template.html — the base template to customize
-- client-content.txt — scraped text from the client's current website
-- brief.md — the project brief with all requirements
+The file template.html contains an APPROVED design. The client has chosen this exact design.
+Your job is to produce index.html which is a COPY of template.html with ONLY the text content replaced.
 
-INSTRUCTIONS:
-1. Read template.html — this is the design to keep
-2. Read client-content.txt — extract: business name, services, contacts, phone, address, working hours
-3. Read brief.md — follow any specific instructions
-4. Replace ALL placeholder text in the template with the client's real data:
-   - Business name: ${data.name}
-   - Keep the visual design, colors, and layout exactly as-is
-   - Replace placeholder services with real services from client content
-   - Replace contact info (phone, email, address) with real data
-   - Replace working hours if provided
-   - Keep stock images unless client-specific ones are mentioned
-5. Output ONLY the final index.html file in this directory
-6. The file must be a complete, self-contained HTML file (all CSS/JS inline)
-7. All text must be in Bulgarian
+## WHAT YOU MUST NOT CHANGE:
+- CSS (no modifications to any styles, colors, variables, fonts, spacing, layout)
+- HTML structure (no adding/removing sections, no changing class names or IDs)
+- JavaScript (copy as-is)
+- Image URLs (keep all Unsplash/stock images as-is)
+- SVG icons (copy as-is)
+- Animations, transitions, hover effects (copy as-is)
 
-OUTPUT: Save the final file as index.html in this directory.
+## WHAT YOU MUST CHANGE (text only):
+- Business name: Replace the template business name with "${data.name}"
+- <title> and <meta description>: Update for "${data.name}"
+- Services/products: Replace template service names and descriptions with real ones from client-content.txt
+- Contact info: Replace phone, email, address with real data from client-content.txt and brief.md
+- Testimonials: Rewrite to match the business type (keep the same format/structure)
+- Footer: Update business name, copyright, contact links
+- Any other visible text: Adapt to match the client's business
+
+## INPUT FILES:
+- template.html — THE APPROVED DESIGN. Copy this file as your starting point.
+- client-content.txt — Text scraped from the client's current website. Extract: services, phone numbers, email, address, working hours, pricing.
+- brief.md — Project brief with requirements and client answers.
+
+## PROCESS:
+1. \`cp template.html index.html\`
+2. Read client-content.txt and brief.md to understand the business
+3. Edit index.html — find-and-replace ONLY the text content
+4. Verify: diff template.html index.html should show ONLY text changes, zero CSS/HTML structure changes
+
+## OUTPUT: Save as index.html in this directory.
 
 When completely finished, run: echo "BUILD_COMPLETE" > /tmp/demo-build-done-${task.slug}`;
 
@@ -479,20 +491,21 @@ When completely finished, run: echo "BUILD_COMPLETE" > /tmp/demo-build-done-${ta
     if (buildAttempt > 1) {
       // Retry: re-run Codex with Claude's feedback
       log(`Build retry ${buildAttempt}/${MAX_BUILD_ATTEMPTS} with feedback...`);
-      const retryPrompt = `You are building a demo website for "${data.name}".
+      const retryPrompt = `You are fixing a website for "${data.name}".
 
-PREVIOUS BUILD FAILED VISUAL VALIDATION. Here is the feedback:
+PREVIOUS BUILD FAILED VISUAL VALIDATION. Feedback:
 ${buildClaudeFeedback}
+
+CRITICAL: The design must match template.html EXACTLY (same CSS, layout, structure).
+Only fix the specific issues above. Do NOT rewrite CSS or change the layout.
 
 INPUT FILES:
 - current.html — the previous attempt (fix the issues listed above)
-${templateHtml ? '- template.html — the design template for reference' : ''}
+${templateHtml ? '- template.html — the APPROVED design. current.html must look identical except for text content.' : ''}
 - client-content.txt — scraped content from client
 - brief.md — project brief
 
-Fix ALL the issues listed above. Save the result as index.html.
-Keep the design professional, clean, and human-friendly.
-All text in Bulgarian. All images must load (use Unsplash if no client images).`;
+Fix the issues. Save as index.html. All text in Bulgarian.`;
 
       fs.writeFileSync(path.join(buildDir, 'PROMPT.md'), retryPrompt);
       // Copy previous output as current for iterative fix
