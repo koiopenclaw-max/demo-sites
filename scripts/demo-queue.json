@@ -1,18 +1,5 @@
 {
-  "tasks": [
-    {
-      "id": 1774957264336,
-      "slug": "миг-трейд",
-      "name": "Миг Трейд",
-      "action": "building",
-      "status": "in_progress",
-      "createdAt": "2026-03-31T11:41:04.336Z",
-      "startedAt": "2026-03-31T11:41:19.243Z",
-      "completedAt": null,
-      "error": null,
-      "result": null
-    }
-  ],
+  "tasks": [],
   "completed": [
     {
       "id": 1773819482814,
@@ -799,6 +786,18 @@
       "completedAt": "2026-03-31T11:33:14.854Z",
       "error": null,
       "result": "Deployed to demo65.add.bg (repo: demo65-add-bg)"
+    },
+    {
+      "id": 1774957264336,
+      "slug": "миг-трейд",
+      "name": "Миг Трейд",
+      "action": "building",
+      "status": "done",
+      "createdAt": "2026-03-31T11:41:04.336Z",
+      "startedAt": "2026-03-31T11:41:19.243Z",
+      "completedAt": "2026-03-31T11:44:55.353Z",
+      "error": null,
+      "result": "Demo built (validated, 1 attempts): https://koiopenclaw-max.github.io/demo-sites/demos/%D0%BC%D0%B8%D0%B3-%D1%82%D1%80%D0%B5%D0%B9%D0%B4/"
     }
   ],
   "version": 1
