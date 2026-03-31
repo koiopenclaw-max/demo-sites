@@ -9,6 +9,13 @@
   "brief": "# Задание: Миг Трейд — Редизайн\n\n## За клиента\n**Миг Трейд** — дограма-врати\nКлиента иска нов сайт, модерен и подходящ за настоящите клиенти ползващи мобилни устройства. Иска продуктов каталог за предлганите продукти. Използвай съдържанеито от сайта, снимки, описания, цени и др\n\n## Текущо съдържание\nМиг Трейд Метални врати от 170 лева | Начало Данни за контакт с нас: Фирма: Миг Трейд ЕООД БУЛСТАТ: BG175437805&nbsp; Email: Този имейл адрес е защитен от спам ботове. Трябва да имате пусната JavaScript поддръжка, за да го видите. GSM: 0878243810 GSM: 0878243812 GSM: 0898788957 Enable Ginger Cannot connect to Ginger Check your internet connection or reload the browser Disable in this text field Edit Edit in Ginger Edit in Ginger &times; Enable Ginger Cannot connect to Ginger Check your internet connection or reload the browser Disable in this text field Edit Edit in Ginger Edit in Ginger &times; Карта на сайта Enable Ginger Cannot connect to Ginger Check your internet connection or reload the browser Disable in this text field Edit Edit in Ginger Edit in Ginger &times; Начало Метални врати Метални решетки Огради и портали Галерия Контакти Метални врати Метални врати Врати за апартаменти Входни врати Врати за мазета Цени на метални врати Метални решетки Метални решетки Метални решетки 12/12/1.5 Метални решетки 15/15/1.5 Метални решетки 20/20/1.5 Метални решетки за врати Цени на метални решетки Бисквитки Този сайт използва бисквитки (cookies), за да ви предоставим по-качествена услуга. Ако продължите да използвате сайта ни, се съгласявате с това. Приемам Абонамент чрез RSS Двупластови метални врати с цяла каса Метална врата с цяла каса. &nbsp; Цена 495 лева &nbsp; Този тип врати предлагат още по-висока степен на защита и са подходящи за вашият апартамент, къща или офис. &nbsp; \n\n## Препоръки\n- Модерен, mobile-first дизайн\n- SEO оптимизация (Schema.org, meta tags)\n- Бързо зареждане (оптимизирани изображения)\n- Ясен CTA (Call to Action)\n- Контактна информация на видно място",
   "qa": [
     {
+      "question": "Кой темплейт да използваме за сайта?",
+      "answer": "",
+      "type": "template_select",
+      "niche": "дограма-врати",
+      "status": "pending"
+    },
+    {
       "question": "Има ли бизнесът лого (SVG/PNG с прозрачен фон)?",
       "answer": "",
       "type": "text"
@@ -41,7 +48,7 @@
   ],
   "demoUrl": null,
   "createdAt": "2026-03-31T11:08:17.685Z",
-  "updatedAt": "2026-03-31T11:10:42.163Z",
+  "updatedAt": "2026-03-31T11:20:52.000Z",
   "niche": "дограма-врати",
   "nicheOverride": "дограма-врати"
 }
