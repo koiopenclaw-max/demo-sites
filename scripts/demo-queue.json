@@ -5,9 +5,9 @@
       "slug": "врати-кайлъка",
       "name": "Врати кайлъка",
       "action": "briefing",
-      "status": "pending",
+      "status": "in_progress",
       "createdAt": "2026-03-31T08:29:04.192Z",
-      "startedAt": null,
+      "startedAt": "2026-03-31T08:29:20.932Z",
       "completedAt": null,
       "error": null,
       "result": null
