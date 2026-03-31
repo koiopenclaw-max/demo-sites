@@ -1,5 +1,18 @@
 {
-  "tasks": [],
+  "tasks": [
+    {
+      "id": 1774955645495,
+      "slug": "стоянов-пласт",
+      "name": "Стоянов Пласт",
+      "action": "briefing",
+      "status": "pending",
+      "createdAt": "2026-03-31T11:14:05.495Z",
+      "startedAt": null,
+      "completedAt": null,
+      "error": null,
+      "result": null
+    }
+  ],
   "completed": [
     {
       "id": 1773819482814,
