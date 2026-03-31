@@ -23,8 +23,8 @@
       --brand-dark: #7c2d12;
       --accent: #d6a35d;
       --shadow: 0 24px 60px rgba(30, 20, 10, 0.12);
-      --radius: 24px;
-      --radius-sm: 16px;
+      --radius: 12px;
+      --radius-sm: 8px;
       --max: 1180px;
     }
 
@@ -40,10 +40,7 @@
       margin: 0;
       font-family: Georgia, "Times New Roman", serif;
       color: var(--ink);
-      background:
-        radial-gradient(circle at top left, rgba(214, 163, 93, 0.28), transparent 35%),
-        radial-gradient(circle at right 20%, rgba(154, 52, 18, 0.18), transparent 30%),
-        linear-gradient(180deg, #f8f4ed 0%, #efe7db 100%);
+      background: #f6f1e8;
     }
 
     a {
@@ -109,6 +106,12 @@
 
     .nav-links a {
       color: var(--muted);
+      transition: color 0.2s ease;
+    }
+
+    .nav-links a:hover {
+      color: var(--brand);
+      text-decoration: underline;
     }
 
     .cta {
@@ -168,7 +171,7 @@
       display: inline-block;
       margin-bottom: 16px;
       padding: 8px 14px;
-      border-radius: 999px;
+      border-radius: 4px;
       background: rgba(154, 52, 18, 0.1);
       color: var(--brand-dark);
       font-size: 0.86rem;
@@ -263,13 +266,17 @@
 
     .stats {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: 1.4fr 1fr;
       gap: 14px;
+    }
+
+    .stats .stat:last-child {
+      grid-column: 1 / -1;
     }
 
     .stat {
       padding: 18px;
-      border-radius: 18px;
+      border-radius: 6px;
       background: rgba(255, 255, 255, 0.72);
       border: 1px solid rgba(27, 27, 27, 0.08);
     }
@@ -301,12 +308,18 @@
 
     .cards {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: 1.2fr 0.9fr 0.9fr;
       gap: 20px;
     }
 
     .card {
       padding: 28px;
+      transition: box-shadow 0.2s ease, transform 0.2s ease;
+    }
+
+    .card:hover {
+      box-shadow: 0 32px 72px rgba(30, 20, 10, 0.18);
+      transform: translateY(-2px);
     }
 
     .card h3 {
@@ -325,7 +338,7 @@
     .icon {
       width: 52px;
       height: 52px;
-      border-radius: 16px;
+      border-radius: 8px;
       display: grid;
       place-items: center;
       margin-bottom: 18px;
