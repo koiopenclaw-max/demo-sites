@@ -1,18 +1,5 @@
 {
-  "tasks": [
-    {
-      "id": 1774945744894,
-      "slug": "дентален-център-искрови",
-      "name": "Дентален център Искрови",
-      "action": "deploying",
-      "status": "in_progress",
-      "createdAt": "2026-03-31T08:29:04.894Z",
-      "startedAt": "2026-03-31T08:29:25.228Z",
-      "completedAt": null,
-      "error": null,
-      "result": null
-    }
-  ],
+  "tasks": [],
   "completed": [
     {
       "id": 1773819482814,
@@ -691,6 +678,18 @@
       "completedAt": "2026-03-31T08:29:23.709Z",
       "error": null,
       "result": "Brief готов. Ниша: друго. 6 въпроса."
+    },
+    {
+      "id": 1774945744894,
+      "slug": "дентален-център-искрови",
+      "name": "Дентален център Искрови",
+      "action": "deploying",
+      "status": "done",
+      "createdAt": "2026-03-31T08:29:04.894Z",
+      "startedAt": "2026-03-31T08:29:25.228Z",
+      "completedAt": "2026-03-31T08:29:31.560Z",
+      "error": null,
+      "result": "Deployed to demo62.add.bg (repo: demo62-add-bg)"
     }
   ],
   "version": 1
