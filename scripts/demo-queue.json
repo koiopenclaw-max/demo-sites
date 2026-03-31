@@ -1,18 +1,5 @@
 {
-  "tasks": [
-    {
-      "id": 1774957624179,
-      "slug": "миг-трейд",
-      "name": "Миг Трейд",
-      "action": "building",
-      "status": "in_progress",
-      "createdAt": "2026-03-31T11:47:04.179Z",
-      "startedAt": "2026-03-31T11:47:19.788Z",
-      "completedAt": null,
-      "error": null,
-      "result": null
-    }
-  ],
+  "tasks": [],
   "completed": [
     {
       "id": 1773819482814,
@@ -809,6 +796,18 @@
       "createdAt": "2026-03-31T11:41:04.336Z",
       "startedAt": "2026-03-31T11:41:19.243Z",
       "completedAt": "2026-03-31T11:44:55.353Z",
+      "error": null,
+      "result": "Demo built (validated, 1 attempts): https://koiopenclaw-max.github.io/demo-sites/demos/%D0%BC%D0%B8%D0%B3-%D1%82%D1%80%D0%B5%D0%B9%D0%B4/"
+    },
+    {
+      "id": 1774957624179,
+      "slug": "миг-трейд",
+      "name": "Миг Трейд",
+      "action": "building",
+      "status": "done",
+      "createdAt": "2026-03-31T11:47:04.179Z",
+      "startedAt": "2026-03-31T11:47:19.788Z",
+      "completedAt": "2026-03-31T11:53:17.653Z",
       "error": null,
       "result": "Demo built (validated, 1 attempts): https://koiopenclaw-max.github.io/demo-sites/demos/%D0%BC%D0%B8%D0%B3-%D1%82%D1%80%D0%B5%D0%B9%D0%B4/"
     }
