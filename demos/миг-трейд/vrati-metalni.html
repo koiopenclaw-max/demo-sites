@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Миг Трейд — Метални врати | София</title>
+<meta name="description" content="Метални врати за апартаменти, входове и мазета с реални цени, описания и снимки от стария сайт на Миг Трейд.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+:root {
+  --bg: #0A0A0A; --bg-card: #141414; --bg-alt: #111111;
+  --text: #F5F5F5; --text-muted: #A0A0A0;
+  --accent: #C9A96E; --accent-hover: #D4B97E;
+  --secondary: #4A6741;
+  --font-heading: 'Playfair Display', Georgia, serif;
+  --font-body: 'DM Sans', sans-serif;
+}
+html { scroll-behavior: smooth; }
+body { font-family: var(--font-body); background: var(--bg); color: var(--text); line-height: 1.6; overflow-x: hidden; }
+h1, h2, h3, h4 { font-family: var(--font-heading); font-weight: 700; }
+a { text-decoration: none; color: inherit; }
+img { max-width: 100%; display: block; }
+.container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+
+/* Grain texture overlay */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.03;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  z-index: 9998;
+}
+
+/* Eyebrow */
+.eyebrow {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--accent);
+  display: block;
+  margin-bottom: 12px;
+  text-align: center;
+}
+
+/* Gold separator */
+.gold-sep { display: block; width: 80px; height: 2px; background: var(--accent); margin: 16px auto 0; }
+.section-title { text-align: center; font-size: 2rem; margin-bottom: 12px; }
+.section-sub { text-align: center; color: var(--text-muted); max-width: 600px; margin: 0 auto 48px; }
+
+/* Gold divider between sections */
+.section-divider { width: 100%; height: 1px; background: linear-gradient(90deg, transparent, rgba(201,169,110,0.25), transparent); }
+
+/* Reveal animations */
+.reveal {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.reveal.animate {
+  opacity: 0;
+  transform: translateY(30px);
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+@media (prefers-reduced-motion: reduce) {
+  .reveal { transition: none !important; }
+}
+
+/* HEADER */
+header {
+  position: fixed; top: 0; left: 0; width: 100%; z-index: 1000;
+  background: rgba(10,10,10,0.92); backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(201,169,110,0.15);
+  transition: background 0.3s;
+}
+.header-inner {
+  display: flex; align-items: center; justify-content: space-between;
+  max-width: 1200px; margin: 0 auto; padding: 16px 20px;
+}
+.logo { font-family: var(--font-heading); font-size: 1.5rem; font-weight: 700; color: var(--accent); }
+.logo span { color: var(--text); font-weight: 400; }
+nav { display: flex; align-items: center; gap: 32px; }
+nav a { font-size: 0.9rem; font-weight: 500; color: var(--text-muted); transition: color 0.3s; }
+nav a:hover { color: var(--accent); }
+.cta-btn {
+  display: inline-block; padding: 10px 24px; background: var(--accent); color: var(--bg);
+  font-weight: 600; font-size: 0.85rem; border: none; cursor: pointer;
+  transition: background 0.3s, transform 0.2s; letter-spacing: 0.5px;
+  position: relative; overflow: hidden; z-index: 1;
+}
+.cta-btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.15);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.4s cubic-bezier(0.65, 0, 0.35, 1);
+  z-index: -1;
+}
+.cta-btn:hover::before {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+.cta-btn:hover { background: var(--accent-hover); transform: translateY(-1px); }
+.cta-btn-outline {
+  display: inline-block; padding: 10px 24px; border: 1px solid var(--accent); color: var(--accent);
+  font-weight: 600; font-size: 0.85rem; cursor: pointer; transition: all 0.3s;
+  position: relative; overflow: hidden; z-index: 1;
+}
+.cta-btn-outline::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.4s cubic-bezier(0.65, 0, 0.35, 1);
+  z-index: -1;
+}
+.cta-btn-outline:hover::before {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+.cta-btn-outline:hover { color: var(--bg); }
+.hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 8px; }
+.hamburger span { display: block; width: 24px; height: 2px; background: var(--text); transition: all 0.3s; }
+
+/* Mobile Overlay */
+.mobile-overlay {
+  position: fixed;
+  inset: 0;
+  background: #0A0A0A;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 32px;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+.mobile-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+.mobile-close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 12px;
+  z-index: 10000;
+  color: #F5F5F5;
+}
+.mobile-nav-links {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+}
+.mobile-nav-links a {
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  color: #F5F5F5;
+  transition: color 0.3s;
+}
+.mobile-nav-links a:hover { color: var(--accent); }
+.mobile-nav-links .mobile-cta {
+  display: inline-block;
+  padding: 14px 32px;
+  background: #C9A96E;
+  color: #0A0A0A;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 600;
+  margin-top: 12px;
+}
+
+/* HERO */
+.hero {
+  position: relative; min-height: 100vh; display: flex; align-items: center;
+  background: url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1600&q=80') center/cover no-repeat;
+}
+.hero::before {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(135deg, rgba(10,10,10,0.88) 0%, rgba(10,10,10,0.65) 100%);
+}
+.hero-content { position: relative; z-index: 2; max-width: 700px; padding: 120px 20px 80px; margin: 0 auto 0 calc((100% - 1200px)/2 + 20px); }
+.hero-tag { display: inline-block; font-size: 0.8rem; color: var(--accent); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 20px; border-left: 3px solid var(--accent); padding-left: 12px; }
+.hero h1 { font-size: 3.2rem; line-height: 1.15; margin-bottom: 20px; }
+.hero h1 em { font-style: italic; color: var(--accent); }
+.hero p { font-size: 1.15rem; color: var(--text-muted); margin-bottom: 32px; max-width: 540px; }
+.hero-buttons { display: flex; gap: 16px; flex-wrap: wrap; }
+
+/* PRODUCTS */
+.products { padding: 100px 0; background: var(--bg); }
+.products-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 24px; }
+.product-card {
+  background: var(--bg-card); border: 1px solid rgba(201,169,110,0.15); padding: 36px 24px;
+  text-align: center; transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.4s ease; position: relative; overflow: hidden;
+}
+.product-card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  background: var(--accent); transform: scaleX(0); transition: transform 0.4s;
+}
+.product-card:hover { border-color: rgba(201,169,110,0.4); transform: translateY(-8px); box-shadow: 0 20px 60px rgba(201,169,110,0.12); }
+.product-card:hover::before { transform: scaleX(1); }
+.product-card svg { width: 48px; height: 48px; margin: 0 auto 16px; color: var(--accent); }
+.product-card h3 { font-size: 1.1rem; margin-bottom: 10px; }
+.product-card p { font-size: 0.9rem; color: var(--text-muted); line-height: 1.5; }
+
+/* WHY US */
+.why-us { padding: 100px 0; background: var(--bg-alt); }
+.stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px; }
+.stat-item { text-align: center; padding: 32px 16px; }
+.stat-number { font-family: var(--font-heading); font-size: 3rem; color: var(--accent); display: block; }
+.stat-label { font-size: 0.95rem; color: var(--text-muted); margin-top: 8px; }
+.stat-item::after { content: ''; display: block; width: 40px; height: 1px; background: var(--accent); margin: 20px auto 0; opacity: 0.4; }
+
+/* PROCESS */
+.process { padding: 100px 0; background: var(--bg); }
+.timeline { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; position: relative; margin-top: 20px; }
+.timeline::before { content: ''; position: absolute; top: 32px; left: 10%; right: 10%; height: 1px; background: rgba(201,169,110,0.3); }
+.timeline-step { text-align: center; padding: 0 16px; position: relative; }
+.step-num {
+  display: flex; align-items: center; justify-content: center;
+  width: 64px; height: 64px; border: 2px solid var(--accent); color: var(--accent);
+  font-family: var(--font-heading); font-size: 1.5rem; margin: 0 auto 20px;
+  background: var(--bg); position: relative; z-index: 2;
+}
+.step-title { font-size: 1rem; font-weight: 600; margin-bottom: 8px; }
+.step-desc { font-size: 0.85rem; color: var(--text-muted); }
+
+/* GALLERY */
+.gallery { padding: 100px 0; background: var(--bg-alt); }
+.gallery-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.gallery-item { position: relative; overflow: hidden; aspect-ratio: 4/3; border-radius: 12px; }
+.gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; }
+.gallery-item:hover img { transform: scale(1.05); }
+.gallery-item::after {
+  content: attr(data-title);
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 20px;
+  background: linear-gradient(transparent, rgba(0,0,0,0.7));
+  color: white;
+  font-weight: 600;
+  transform: translateY(100%);
+  transition: transform 0.4s ease;
+}
+.gallery-item:hover::after {
+  transform: translateY(0);
+}
+
+/* PARTNERS */
+.partners { padding: 80px 0; background: var(--bg); border-top: 1px solid rgba(201,169,110,0.1); border-bottom: 1px solid rgba(201,169,110,0.1); }
+.partners-grid { display: flex; justify-content: center; align-items: center; gap: 48px; flex-wrap: wrap; }
+.partner-badge {
+  font-family: var(--font-heading); font-size: 1.3rem; color: var(--text-muted);
+  letter-spacing: 2px; opacity: 0.5; transition: opacity 0.3s, color 0.3s;
+}
+.partner-badge:hover { opacity: 1; color: var(--accent); }
+
+/* ENERGY */
+.energy { padding: 100px 0; background: var(--bg-alt); }
+.energy-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+.energy-text h3 { font-size: 1.3rem; margin-bottom: 16px; color: var(--accent); }
+.energy-text p { color: var(--text-muted); margin-bottom: 24px; }
+.energy-bars { display: flex; flex-direction: column; gap: 16px; }
+.energy-bar { position: relative; }
+.energy-bar-label { display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 6px; }
+.energy-bar-label span:last-child { color: var(--accent); }
+.energy-bar-track { height: 8px; background: rgba(201,169,110,0.1); border-radius: 4px; overflow: hidden; }
+.energy-bar-fill { height: 100%; background: linear-gradient(90deg, var(--secondary), var(--accent)); border-radius: 4px; }
+
+/* TESTIMONIALS */
+.testimonials { padding: 100px 0; background: var(--bg); }
+.testimonials-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
+.testimonial-card {
+  background: var(--bg-card); border: 1px solid rgba(201,169,110,0.1); padding: 36px;
+  position: relative;
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.4s ease;
+}
+.testimonial-card:hover { transform: translateY(-8px); box-shadow: 0 20px 60px rgba(0,0,0,0.12); }
+.testimonial-card::before {
+  content: '\201C'; font-family: var(--font-heading); font-size: 4rem;
+  color: var(--accent); opacity: 0.3; position: absolute; top: 12px; left: 24px; line-height: 1;
+}
+.testimonial-text { font-size: 0.95rem; color: var(--text-muted); line-height: 1.7; margin-bottom: 20px; padding-top: 16px; }
+.testimonial-author { font-weight: 600; font-size: 0.9rem; }
+.testimonial-city { font-size: 0.8rem; color: var(--text-muted); }
+
+/* CONTACT */
+.contact { padding: 100px 0; background: var(--bg-alt); }
+.contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; }
+.contact-form { display: flex; flex-direction: column; gap: 16px; }
+.form-group label { display: block; font-size: 0.85rem; color: var(--text-muted); margin-bottom: 6px; }
+.form-group input, .form-group textarea {
+  width: 100%; padding: 14px 16px; background: var(--bg); border: 1px solid rgba(201,169,110,0.2);
+  color: var(--text); font-family: var(--font-body); font-size: 0.95rem;
+  transition: border-color 0.3s; outline: none;
+}
+.form-group input:focus, .form-group textarea:focus { border-color: var(--accent); }
+.form-group textarea { resize: vertical; min-height: 120px; }
+.contact-info h3 { font-size: 1.2rem; color: var(--accent); margin-bottom: 24px; }
+.contact-detail { display: flex; align-items: flex-start; gap: 16px; margin-bottom: 24px; }
+.contact-detail svg { width: 20px; height: 20px; color: var(--accent); flex-shrink: 0; margin-top: 2px; }
+.contact-detail span { color: var(--text-muted); font-size: 0.95rem; line-height: 1.5; }
+.map-placeholder {
+  width: 100%; height: 200px; background: var(--bg-card); border: 1px solid rgba(201,169,110,0.15);
+  display: flex; align-items: center; justify-content: center; color: var(--text-muted);
+  font-size: 0.9rem; margin-top: 24px;
+}
+
+/* FOOTER */
+footer { padding: 60px 0 30px; background: var(--bg); border-top: 1px solid rgba(201,169,110,0.1); }
+.footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 40px; }
+.footer-brand p { color: var(--text-muted); font-size: 0.9rem; margin-top: 12px; max-width: 280px; }
+.footer-col h4 { font-size: 0.9rem; color: var(--accent); margin-bottom: 16px; letter-spacing: 1px; text-transform: uppercase; }
+.footer-col a { display: block; color: var(--text-muted); font-size: 0.85rem; margin-bottom: 8px; transition: color 0.3s; }
+.footer-col a:hover { color: var(--accent); }
+.footer-bottom { display: flex; justify-content: space-between; align-items: center; padding-top: 24px; border-top: 1px solid rgba(255,255,255,0.05); }
+.footer-bottom p { font-size: 0.8rem; color: var(--text-muted); }
+.social-icons { display: flex; gap: 16px; }
+.social-icons a svg { width: 20px; height: 20px; color: var(--text-muted); transition: color 0.3s; }
+.social-icons a:hover svg { color: var(--accent); }
+
+/* MOBILE */
+@media (max-width: 1200px) {
+  .hero h1 { font-size: 2.6rem; }
+  .hero-content { margin-left: 40px; }
+}
+@media (max-width: 768px) {
+  .hamburger { display: flex; }
+  nav { display: none; }
+  .hero { min-height: 85vh; }
+  .hero-content { margin: 0; padding: 100px 20px 60px; }
+  .hero h1 { font-size: 2.2rem; }
+  .products-grid { grid-template-columns: repeat(2, 1fr); }
+  .stats-grid { grid-template-columns: repeat(2, 1fr); }
+  .timeline { grid-template-columns: repeat(2, 1fr); gap: 32px; }
+  .timeline::before { display: none; }
+  .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+  .testimonials-grid { grid-template-columns: 1fr; }
+  .contact-grid { grid-template-columns: 1fr; }
+  .energy-grid { grid-template-columns: 1fr; }
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+  .section-title { font-size: 1.7rem; }
+}
+@media (max-width: 390px) {
+  .hero h1 { font-size: 1.8rem; }
+  .products-grid { grid-template-columns: 1fr; }
+  .stats-grid { grid-template-columns: 1fr 1fr; gap: 16px; }
+  .stat-number { font-size: 2.2rem; }
+  .gallery-grid { grid-template-columns: 1fr; }
+  .footer-grid { grid-template-columns: 1fr; }
+  .hero-buttons { flex-direction: column; }
+  .partners-grid { gap: 24px; }
+}
+</style>
+</head>
+<body>
+<!-- HEADER -->
+<header>
+  <div class="header-inner">
+    <a href="index.html" class="logo">Миг Трейд<span> | Метални врати</span></a>
+    <nav id="mainNav">
+      <a href="index.html">Начало</a> <a href="vrati-metalni.html">Метални врати</a> <a href="metalni-reshetki.html">Метални решетки</a> <a href="ogradi-i-portali.html">Огради и портали</a> <a href="galeriia.html">Галерия</a> <a href="zaiavka-za-ogled.html" class="cta-btn">Заявете оглед</a>
+    </nav>
+    <button class="hamburger" id="hamburger" aria-label="Меню">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<!-- MOBILE OVERLAY -->
+<div class="mobile-overlay" id="mobileOverlay">
+  <button class="mobile-close" id="mobileClose" aria-label="Затвори">
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+  </button>
+  <nav class="mobile-nav-links">
+    <a href="index.html">Начало</a> <a href="vrati-metalni.html">Метални врати</a> <a href="metalni-reshetki.html">Метални решетки</a> <a href="ogradi-i-portali.html">Огради и портали</a> <a href="galeriia.html">Галерия</a> <a href="zaiavka-za-ogled.html" class="mobile-cta">Заявете оглед</a>
+  </nav>
+</div>
+
+<!-- HERO -->
+<section class="hero" id="hero" style="background-image:url('https://mig-trade.com/images/metalni-vrati/dvuplastova-metalna-vrata-s-edna-brava.jpg')">
+  <div class="hero-content">
+    <span class="hero-tag">Метални врати</span>
+    <h1>Метални врати по мярка за апартаменти, входове и мазета</h1>
+    <p>Прехвърлени са моделите, цените, снимките и описанията от оригиналната продуктова страница за метални врати.</p>
+    <div class="hero-buttons">
+      <a href="zaiavka-za-ogled.html" class="cta-btn">Заявете оглед</a>
+      <a href="#details" class="cta-btn-outline">Вижте повече</a>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<section class="products" id="products">
+  <div class="container">
+    <span class="eyebrow">ОСНОВНО СЪДЪРЖАНИЕ</span>
+    <h2 class="section-title reveal">Модели и акценти</h2>
+    <p class="section-sub">Събрани са основните заглавия, цени и типове изделия от съответната оригинална страница.</p>
+    <span class="gold-sep" style="margin-bottom:48px"></span>
+    <div class="products-grid">
+      <div class="product-card reveal"><h3>Двупластова метална врата с една брава</h3><p>Цена 365 лева Произвеждат се в нашият цех, по взетите предварително размери</p></div>
+<div class="product-card reveal"><h3>Еднопластови метални врати със секретна брава и бронировка</h3><p>Цена 230 лева Както и останалите метални изделия, тези метални врати също се произвеждат в нашият цех, специално за вас и вашите нужди</p></div>
+<div class="product-card reveal"><h3>Двупластови метални врати с фолио</h3><p>Цена 415 лева Този тип метални врати са изключително подходящ и за допълнителна врата на вашата врата на апартамента ви</p></div>
+<div class="product-card reveal"><h3>Двупластови метални врати с цяла каса</h3><p>Цена 495 лева Този тип врати предлагат още по-висока степен на защита и са подходящи за вашият апартамент, къща или офис</p></div>
+<div class="product-card reveal"><h3>Двупластови метални врати с две брави</h3><p>Цена 395 лева Подходящи метални врати за вашето жилище, вила, офис или къща</p></div>
+<div class="product-card reveal"><h3>Еднопластови метални врати за мазе</h3><p>Цена 170 лева Всички метални изделия, предлагани от компанията ни се изработват в нашият цех, след като вземем размерите ви т</p></div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<section class="why-us" id="why-us">
+  <div class="container">
+    <span class="eyebrow">БЪРЗИ ДАННИ</span>
+    <h2 class="section-title reveal">Ключови параметри</h2>
+    <p class="section-sub">Кратки показатели за цените, сроковете, снимките и наличната информация по страницата.</p>
+    <span class="gold-sep" style="margin-bottom:48px"></span>
+    <div class="stats-grid">
+      <div class="stat-item reveal"><span class="stat-number" data-count="170" data-suffix=" лв.">170 лв.</span><span class="stat-label">Стартова цена</span></div>
+<div class="stat-item reveal"><span class="stat-number" data-count="5" data-suffix=" дни">5 дни</span><span class="stat-label">Срок до монтаж</span></div>
+<div class="stat-item reveal"><span class="stat-number">0 лв.</span><span class="stat-label">Оглед и оферта</span></div>
+<div class="stat-item reveal"><span class="stat-number" data-count="15" data-suffix="">15</span><span class="stat-label">Описани модела</span></div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<section class="process" id="process">
+  <div class="container">
+    <span class="eyebrow">КАК РАБОТИМ</span>
+    <h2 class="section-title reveal">Процес на работа</h2>
+    <p class="section-sub">От заявката за оглед до финалния монтаж следваме ясен процес, съобразен с размерите и типа метално изделие.</p>
+    <span class="gold-sep" style="margin-bottom:48px"></span>
+    <div class="timeline">
+
+      <div class="timeline-step reveal">
+        <div class="step-num">1</div>
+        <h4 class="step-title">Оглед</h4>
+        <p class="step-desc">Уточняваме вида на изделието и взимаме точни размери на място в София и областта.</p>
+      </div>
+      <div class="timeline-step reveal">
+        <div class="step-num">2</div>
+        <h4 class="step-title">Оферта</h4>
+        <p class="step-desc">Получавате конкретно предложение според модела, дебелината на материала, обкова и монтажа.</p>
+      </div>
+      <div class="timeline-step reveal">
+        <div class="step-num">3</div>
+        <h4 class="step-title">Изработка</h4>
+        <p class="step-desc">Вратата, решетката или порталът се изработват в нашия цех по взетите предварително размери.</p>
+      </div>
+      <div class="timeline-step reveal">
+        <div class="step-num">4</div>
+        <h4 class="step-title">Монтаж</h4>
+        <p class="step-desc">Премахваме стария елемент при нужда, монтираме новия и го прогонваме за плавно отваряне и затваряне.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<section class="gallery" id="gallery">
+  <div class="container">
+    <span class="eyebrow">СНИМКИ</span>
+    <h2 class="section-title reveal">Галерия</h2>
+    <p class="section-sub">Използвани са наличните изображения от стария сайт за конкретната категория.</p>
+    <span class="gold-sep" style="margin-bottom:48px"></span>
+    <div class="gallery-grid">
+      <div class="gallery-item reveal" data-title="Двупластова метална врата с една брава"><img src="https://mig-trade.com/images/metalni-vrati/dvuplastova-metalna-vrata-s-edna-brava.jpg" alt="Двупластова метална врата с една брава" loading="eager"></div>
+<div class="gallery-item reveal" data-title="Еднопластови метални врати със секретна брава и бронировка"><img src="https://mig-trade.com/images/metalni-vrati/dvuplastova-metalna-vrata-s-edna-brava1.jpg" alt="Еднопластови метални врати със секретна брава и бронировка" loading="eager"></div>
+<div class="gallery-item reveal" data-title="Двупластови метални врати с фолио"><img src="https://mig-trade.com/images/metalni-vrati/dvpl-vrata-edna-brava.jpg" alt="Двупластови метални врати с фолио" loading="eager"></div>
+<div class="gallery-item reveal" data-title="Двупластови метални врати с цяла каса"><img src="https://mig-trade.com/images/metalni-vrati/ednoplastova-metalna-vrata-sekreten-patron-bronirovka.jpg" alt="Двупластови метални врати с цяла каса" loading="eager"></div>
+<div class="gallery-item reveal" data-title="Двупластови метални врати с две брави"><img src="https://mig-trade.com/images/metalni-vrati/ednoplastova-metalna-vrata-sekreten-patron-bronirovka1.jpg" alt="Двупластови метални врати с две брави" loading="eager"></div>
+<div class="gallery-item reveal" data-title="Еднопластови метални врати за мазе"><img src="https://mig-trade.com/images/metalni-vrati/ednoplastova-metalna-vrata-sekreten-patron-bronirovka2.jpg" alt="Еднопластови метални врати за мазе" loading="eager"></div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<section class="partners">
+  <div class="container">
+    <span class="eyebrow">КАТЕГОРИИ</span>
+    <h2 class="section-title reveal">Основни теми</h2>
+    <span class="gold-sep" style="margin-bottom:48px"></span>
+    <div class="partners-grid">
+      <span class="partner-badge">АПАРТАМЕНТНИ ВРАТИ</span>
+<span class="partner-badge">ВХОДНИ ВРАТИ</span>
+<span class="partner-badge">ВРАТИ ЗА МАЗЕТА</span>
+<span class="partner-badge">МЕТАЛНИ РЕШЕТКИ</span>
+<span class="partner-badge">ОГРАДИ</span>
+<span class="partner-badge">ПОРТАЛИ</span>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<section class="energy" id="energy">
+  <div class="container">
+    <span class="eyebrow">ДЕТАЙЛИ</span>
+    <h2 class="section-title reveal">Защита и изолация</h2>
+    <p class="section-sub">Прехвърлени са описанията за конструкцията, изолацията и монтажа на металните врати.</p>
+    <span class="gold-sep" style="margin-bottom:48px"></span>
+    <div class="energy-grid">
+      <div class="energy-text reveal">
+        <h3>Изработка с внимание към детайла</h3>
+        <p>Касите се изработват от абкантно огънат студено валцован метален лист, а при двупластовите врати между пластовете има минерална вата за по-добра топло- и шумоизолация.</p>
+        <p>Метални врати с един пласт, метални врати с два пласта и други метални изделия - производител!</p>
+      </div>
+      <div class="energy-bars reveal">
+        <div class="energy-bar"><div class="energy-bar-label"><span>Еднопластова конструкция</span><span>35%</span></div><div class="energy-bar-track"><div class="energy-bar-fill" style="width:35%"></div></div></div>
+<div class="energy-bar"><div class="energy-bar-label"><span>Двупластова врата</span><span>68%</span></div><div class="energy-bar-track"><div class="energy-bar-fill" style="width:68%"></div></div></div>
+<div class="energy-bar"><div class="energy-bar-label"><span>Минерална вата</span><span>84%</span></div><div class="energy-bar-track"><div class="energy-bar-fill" style="width:84%"></div></div></div>
+<div class="energy-bar"><div class="energy-bar-label"><span>Антикорозионна защита</span><span>95%</span></div><div class="energy-bar-track"><div class="energy-bar-fill" style="width:95%"></div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<section class="testimonials" id="details">
+  <div class="container">
+    <span class="eyebrow">ОПИСАНИЯ</span>
+    <h2 class="section-title reveal">Текстове, цени и информация</h2>
+    <p class="section-sub">По-долу е подредена реалната информация от съответната оригинална страница, изчистена от стария CMS markup.</p>
+    <span class="gold-sep" style="margin-bottom:48px"></span>
+    <div class="testimonials-grid" style="grid-template-columns:1fr;gap:24px">
+      <div class="testimonial-card reveal"><p class="testimonial-author">Двупластова метална врата с една брава</p><p class="testimonial-city">Цена 365 лева Произвеждат се в нашият цех, по взетите предварително размери</p><div class="testimonial-text"><p>Метални врати подходящи за апартаменти с два пласта и една брава Цена 365 лева Произвеждат се в нашият цех, по взетите предварително размери.</p><p>Описание на металните врати с два пласта: 1.</p><p>Два пласта студено-валцова стоманена ламарина 2.</p><p>Вътрешно оребрение и пълнеж от минерална вата - по този начин се постига по-висока топло и шумоизолация 3.</p><p>Рамката е изградена от Г-образен профил 40/40/3мм или по желание от ваша страна с 45/45/3мм 4.</p><p>Вратата може да бъде боядисана по ваш избор.</p><p>Как протича монтажът на метална врата от нашата компания: 1.</p><p>При наличие на стара врата - тя се премахва 2.</p><p>Извършва се монтаж на металната рамка за вратата 3.</p><p>Извършва се монтаж на крилото (металната врата) 4.</p></div></div>
+<div class="testimonial-card reveal"><p class="testimonial-author">Еднопластови метални врати със секретна брава и бронировка</p><p class="testimonial-city">Цена 230 лева Както и останалите метални изделия, тези метални врати също се произвеждат в нашият цех, специално за вас и вашите нужди</p><div class="testimonial-text"><p>Метални врати с една ламарина и допълнителна бронировка на патрона Цена 230 лева Както и останалите метални изделия, тези метални врати също се произвеждат в нашият цех, специално за вас и вашите нужди.</p><p>Процес на изработка на метални врати с една ламарина и бронировка на патрона: 1.</p><p>Изработка на крилото на вратата: Използва се един студено-валцован метален лист, който е с дебелина на листа от 1.5 мм.</p><p>Оребрението се състои от П-лайзени, които са по цялото протежение на крилото.</p><p>П-лайзена се използва за достигане на по-висока здравина на изделието.</p><p>2.</p><p>Монтиране на патроните, бронировката за тях, както и бравата.</p><p>3.</p><p>Металната рамка, на която се захваща металната врата е с размери 40х40х3 мм.</p><p>4.</p></div></div>
+<div class="testimonial-card reveal"><p class="testimonial-author">Двупластови метални врати с фолио</p><p class="testimonial-city">Цена 415 лева Този тип метални врати са изключително подходящ и за допълнителна врата на вашата врата на апартамента ви</p><div class="testimonial-text"><p>Метална врата с два пласта, покрита с декоративно фолио Цена 415 лева Този тип метални врати са изключително подходящи за допълнителна врата на вашата врата на апартамента ви.</p><p>Те се произвеждат в нашият цех специално за вас.</p><p>Монтажа на този тип врати е изключително чист Описание на металната врата с два пласта и декоративно фолио: 1.</p><p>Метална рамка, изградена от лайзен, който е Г-образен и е с размери 40/40/3мм 2.</p><p>Металната врата (крилото) е изградена от два пласта студено-валцова стоманена ламарина, дебелината на които е 1.5мм 3.</p><p>Вътрешността на вратата е запълнена с минерална вата, която спомага за топлоизолацията и шумоизолацията 4.</p><p>Панти с размер Ø18 за постигане на максимална здравина 5.</p><p>Декоративно фолио, което се залепва Монтажът се извършва в следния ред: 1.</p><p>Монтира се металната рамка, за която се захваща металната врата 2.</p><p>Монтира се крилото (металната врата) 3.</p></div></div>
+<div class="testimonial-card reveal"><p class="testimonial-author">Двупластови метални врати с цяла каса</p><p class="testimonial-city">Цена 495 лева Този тип врати предлагат още по-висока степен на защита и са подходящи за вашият апартамент, къща или офис</p><div class="testimonial-text"><p>Метална врата с цяла каса.</p><p>Цена 495 лева Този тип врати предлагат още по-висока степен на защита и са подходящи за вашият апартамент, къща или офис.</p><p>Как протича изграждането: металната врата, както и касата за нея се изработват в нашият цех, след като са взети размери преди това.</p><p>Стоманената ламарина, от която се изработва касата е абкантно-огъната и е изградена от студено-валцов метален лист, който притежава дебелина от 2 мм Крилото (металната врата) се изработва от два пласта студено-валцова стомана, която е с дебелина от 1.5мм Между двата пласта на крилото има пълнеж от минерална вата, която притежава топло и шумоизолационни свойства Пантите са с Ø18 Крилото и касата биват грундирани с антикорозионен грунд Как протича монтирането на метални врати от този тип: 1.</p><p>Премахва се старата врата, ако има такава 2.</p><p>Премахва се старата каса 3.</p><p>Извършва се монтаж на новата каса 4.</p><p>Извършва се монтаж на новата врата 5.</p><p>Монтират се бравите, заедно с бронировката 6.</p><p>Прогонват се, за да се постигне плътно и лесно затваряне и отваряне 7.</p></div></div>
+<div class="testimonial-card reveal"><p class="testimonial-author">Двупластови метални врати с две брави</p><p class="testimonial-city">Цена 395 лева Подходящи метални врати за вашето жилище, вила, офис или къща</p><div class="testimonial-text"><p>Метални врати с два пласта и две брави, подходящи за апартаменти Цена 395 лева Подходящи метални врати за вашето жилище, вила, офис или къща!</p><p>Произвеждат се в нашият цех, по взетите предварително размери.</p><p>Описание на металните врати с два пласта: 1.</p><p>Два пласта студено-валцова стоманена ламарина 2.</p><p>Вътрешно оребрение и пълнеж с минерална вата - по този начин се постига по-висока топло и шумоизолация 3.</p><p>Рамката е изградена от Г-образен профил 40/40/3мм или по желание от ваша страна с 45/45/3мм 4.</p><p>Вратата може да бъде боядисана по ваш избор.</p><p>Как протича монтажът на метална врата от нашата компания: 1.</p><p>При наличие на стара врата - тя се премахва 2.</p><p>Извършва се монтаж на металната рамка за вратата 3.</p></div></div>
+<div class="testimonial-card reveal"><p class="testimonial-author">Еднопластови метални врати за мазе</p><p class="testimonial-city">Цена 170 лева Всички метални изделия, предлагани от компанията ни се изработват в нашият цех, след като вземем размерите ви т</p><div class="testimonial-text"><p>Метални врати с един пласт, които са подходящи за вашето мазе или таванско помещение.</p><p>Цена 170 лева Всички метални изделия, предлагани от компанията ни се изработват в нашият цех, след като вземем размерите ви т.е.</p><p>специално за вас и се използват само висококачествени материали.</p><p>Процес на изграждане на метални врати с един стоманен пласт: 1.</p><p>Изработва се металното крило, което се състои от един метален пласт, който притежава рамка, а в средата му има Г-образно оребрение, за да се постигне по-висока устойчивост и здравина.</p><p>Металният лист е с дебелина 1.5 милиметра, а оребряването е с тъй наречените П-лайзени.</p></div></div>
+<div class="testimonial-card reveal"><p class="testimonial-author">Еднопластови метални врати със секретна брава</p><p class="testimonial-city">Цена 205 лева От какво се изградена тази метална врата: 1</p><div class="testimonial-text"><p>Еднопластова метална врата със секретна брава, секретен патрон Тези метални врати са подходящи за вашият апартамент Цена 205 лева От какво се изградена тази метална врата: 1.</p><p>Метална рамка, която е изградена от метален профил Г-образен с размери 40/40/3мм 2.</p><p>Метална врата (крилото), която е изградена от един пласт студено-валцова стоманена ламарина с дебелина 1.5мм 3.</p><p>Вътрешно оребрение на металната врата изградено от П-лайзени 4.</p><p>Панти с Ø18 5.</p><p>Грундиране с компресор Монтиране: 1.</p><p>Монтира се металната рамка 2.</p><p>Монтира се металната врата (крилото) 3.</p><p>Монтират се секретната брава, патрона и бронировката 4.</p><p>Прогонва се отвора за постигане на плавно и чисто отключване и заключване 5.</p></div></div>
+<div class="testimonial-card reveal"><p class="testimonial-author">Еднопластови метални врати с две брави</p><p class="testimonial-city">Цена 265 лева Всички метални изделия, предлагани от компанията ни се изработват в нашият цех, след като вземем размерите ви т</p><div class="testimonial-text"><p>Метални врати с една ламарина, които са подходящи за апартамента Ви, вашето мазе или таванско помещение.</p><p>Цена 265 лева Всички метални изделия, предлагани от компанията ни се изработват в нашият цех, след като вземем размерите ви т.е.</p><p>специално за вас и се използват само висококачествени материали.</p><p>Процес на изграждане на метални врати с един стоманен пласт: 1.</p><p>Изработва се металното крило, което се състои от един метален пласт, който притежава рамка, а в средата му има Г-образно оребрение, за да се постигне по-висока устойчивост и здравина.</p><p>Металният лист е с дебелина 1.5 милиметра, а оребряването е с тъй наречените П-лайзени.</p></div></div>
+<div class="testimonial-card reveal"><p class="testimonial-author">Метални врати за вход с 24 кутии</p><div class="testimonial-text"><p>Метални врати за входове с 24 пощенски кутии Цени от 1015 лева + 560 за кутиите Описание на метални врати за входове с 24 пощенски кутии: Този тип метални врати са изградени от метален профил с размер 50/30/1.5мм Обкова им е от студено-валцова стоманена ламарина, която дебелина е 1.5мм Секретна брава със стоманен език (монтира се на всички метални врати за входове) Патрон (секретен), в който комплект има 3 броя ключове.</p><p>При желание от ваша страна могат да бъдат извадени достатъчен брой дубликати На металната врата се слага метална дръжка с топка от външната страна Автомат за затваряне - чрез него вратата се затваря тихо и плътно Насрещник (електрически) за домофонна система Метална дограма (профил), която е с размери 50/35/1.5мм 24 броя пощенски кутии, като за всяка кутия има по два ключа Армирано стъкло в горната част Металната врата може да бъде боядисана в цвят по ваш избор Старата врата се демонтира Срока, който отнема на фирмата ни от взимането на размери до монтажа е ДО 20 работни дни за София и София област НАПРАВЕТЕ ВАШАТА ЗАЯВКА ЗА ОГЛЕД СЕГА!</p></div></div>
+<div class="testimonial-card reveal"><p class="testimonial-author">Метални врати за вход с 48 кутии</p><div class="testimonial-text"><p>Метални врати за вход с 48 пощенски кутии Цени от 1015 лева + 1120 за кутии Описание на този тип метални врати: Металната врата от този тип е изградена от два пласта студено-валцова ламарина с дебелина 1мм, като вътрешността е запълнена с минерална вата.</p><p>В горната част има стъклен пакет 6мм (предлагаме възможност за монтиране на армирано стъкло) Секретна брава, която е със стоманен език Секретен патрон (в комплекта влизат и 3 броя ключове), като има възможност да се заявят и повече От вътрешната страна на бравата се монтира дръжка, а от външната топка Автомат за плавно и плътно затваряне на металната врата Електрически насрещник (за домофонна система) Метален профил за носещата конструкция, изграден от студено-валцова стоманена ламарина Пощенски кутии 48 броя (изработват се от нас), като за всяка кутия има включени два броя ключове Металната врата ще бъде боядисана в цвят по ваш избор Демонтаж на старата врата Времето, което отнема на фирмата ни от взимането на размерите до монтажа на новата метална врата е ДО 20 работни дни.</p><p>Важи за София и София област.</p><p>НАПРАВЕТЕ ВАШАТА ЗАЯВКА ЗА ОГЛЕД СЕГА!</p></div></div>
+<div class="testimonial-card reveal"><p class="testimonial-author">Метални врати за входове с пощенски кутии</p><div class="testimonial-text"><p>Метални врати за входове с пощенски кутии (броят е според нуждите ви) Цени от 515 лева + 25 лева за пощенска кутия Описание на метални врати за входове: Тези метални врати се изработват от два стоманени пласта с дебелина 1мм, запълнена вътрешност с минерална вата, стъклен профил 6мм, като има възможност стъклото да е армирано Всички метални врати за входове са със секретни брави Секретен патрон, в комплект с три ключа (при желание от ваша страна могат да се извадят още) Секретна дръжка от вътрешната страна и топка от външната Автомат за плавно и плътно затваряне на крилото (металната врата) Електрически насрещник за домофонна система Пощенски кутии с по 2 ключа всяка (броят на кутиите е според нуждите ви) Металната врата се боядисва в цвят по ваш избор Демонтаж на старата врата Времето, което ни отнема от взимането на размерите до монтажа е ДО 20 работни дни.</p><p>Важи за София и София област.</p><p>НАПРАВЕТЕ ВАШАТА ЗАЯВКА ЗА ОГЛЕД СЕГА!</p></div></div>
+<div class="testimonial-card reveal"><p class="testimonial-author">Входни метални врати за блок</p><div class="testimonial-text"><p>Входна метална врата за блок (с пощенски кутии) Поръчково изделие на метална врата за вход с пощенски кутии: Вратата е изградена от два пласта студено-валцова стоманена ламарина с дебелина от 1мм, вътрешната част на вратата е с изолационна вата, стъкло 6мм или армирано Секретна брава, която има стоманен език Секретен патрон с три ключа (при желание от ваша страна, могат да бъдат изготвени още) Секретна дръжка от вътрешната страна и топка от външната Автомат за плавното и плътно затваряне на вратата Насрещни - подготовка за домофонна система Остъклено крило, което се отваря - с монтирани сюрмета в горната и долната част Металната врата може да се боядиса в цвят по ваш избор Демонтиране на съществуващата врата Времето, което е необходимо на Миг Трейд ЕООД от взимането на размерите до монтирането на новата метална врата е ДО 10 работни дни.</p><p>Важи за София и София област НАПРАВЕТЕ ВАШАТА ЗАЯВКА ЗА ОГЛЕД СЕГА!</p></div></div>
+<div class="testimonial-card reveal"><p class="testimonial-author">Метална врата (крило) с пощенски кутии</p><div class="testimonial-text"><p>Входна метална врата (само крило), на която има пощенски кутии Описание на крило (метална врата) с пощенски кутии Крилото на металната врата се изработва от два пласта студено-валцова стоманена ламарина, която е с дебелина 1мм., минерална вата и пощенски кутии на самото крило.</p><p>Този тип метални врати са подходящи за малки входове, където мястото не позволява голяма метална врата с отделна част за пощенските кутии Секретна брава, която има стоманен език Секретен патрон в комплект с три ключа (при желание могат да се извадят още) Автомат за плавно и плътно затваряне на вратата Електрически насрещник (подготовка за домофонна система) Каса от метален профил Пощенски кутии в комплект с по два ключа за всяка Стъкло 6мм или армирано стъкло на остъклената част Вратата може да бъде боядисана в цвят по ваш избор Демонтаж на старата входна врата Времето, което е нужно на фирмата ни от взимането на размерите до монтажа на новата метална врата е ДО 15 работни дни.</p><p>Важи за София и Софийска Област.</p><p>НАПРАВЕТЕ ВАШАТА ЗАЯВКА ЗА ОГЛЕД СЕГА!</p></div></div>
+<div class="testimonial-card reveal"><p class="testimonial-author">Входни метални врати за офис сграда с пощенски кутии</p><div class="testimonial-text"><p>Метални врати за входове, подходящи за офис сгради (с пощенски кутии) Луксозно изпълнение на метална врата за вход на офис сграда Възможно е монтирането на система за контрол на достъпа Монтиране на секретна брава със стоманен език Секретен патрон, в комплект с три ключа Луксозни дръжки на вратата Автомат за плавното и тихо затваряне на вратата Ел.</p><p>насрещник за домофонна система Пощенски кутии (броят е според нуждите ви), в комплект с по два ключа.</p><p>Те се изработват ръчно в нашият цех Остъклената част на металната врата е с армирано стъкло Демонтиране на стара врата, ако има такава Времето, което ни е нужно от взимането на размера до монтажа е ДО 20 работни дни и важи за град София и София област.</p><p>НАПРАВЕТЕ ВАШАТА ЗАЯВКА ЗА ОГЛЕД СЕГА!</p></div></div>
+<div class="testimonial-card reveal"><p class="testimonial-author">Еднопластови метални врати с касова брава</p><div class="testimonial-text"><p>Метална врата за мазе с един пласт и касова брава - описание на изграждане и монтаж Обикновено металните врати с един пласт стоманена ламарина са предназначени за мазета и тавански помещения, но могат да бъдат монтирани и за входна врата на апартамент.</p><p>Рамката на този тип врати може да е изградена от квадратен профил или от Г-образен Самото крило на металната врата притежава един пласт стоманена ламарина с дебелина 1.5мм Размерите могат да бъдат дадени както от вас, така да бъдат взети и от наши монтажници Касовата врата е достатъчна защита за вашето мазе или таванско помещение Поради предназначението си, този тип метални врати могат да бъдат грундирани само, но при желание от ваша страна могат да бъдат допълнително боядисани Демонтажа на старата врата на мазето ви е безплатен Времето, което ни отнема от взимането на размерите до монтирането на вашата метална врата е ДО 5 работни дни и важи за София и София област.</p><p>НАПРАВЕТЕ ВАШАТА ЗАЯВКА ЗА ОГЛЕД СЕГА!</p></div></div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<section class="contact" id="contact">
+  <div class="container">
+    <span class="eyebrow">КОНТАКТИ</span>
+    <h2 class="section-title reveal">Свържете се с Миг Трейд</h2>
+    <p class="section-sub">Заявете оглед за метална врата, решетка, ограда или портал и ще получите конкретна консултация за модела, цената и срока.</p>
+    <span class="gold-sep" style="margin-bottom:48px"></span>
+    <div class="contact-grid">
+      <form class="contact-form" onsubmit="event.preventDefault(); alert('Благодарим за запитването! Ще се свържем с вас възможно най-скоро.')">
+        <div class="form-group">
+          <label for="name">Вашето име</label>
+          <input type="text" id="name" name="name" placeholder="Вашето име" required>
+        </div>
+        <div class="form-group">
+          <label for="phone">Телефон</label>
+          <input type="tel" id="phone" name="phone" placeholder="0878 24 38 10" required>
+        </div>
+        <div class="form-group">
+          <label for="email">Имейл</label>
+          <input type="email" id="email" name="email" placeholder="Имейл за обратна връзка">
+        </div>
+        <div class="form-group">
+          <label for="message">Съобщение</label>
+          <textarea id="message" name="message" placeholder="Опишете какво изделие ви е необходимо."></textarea>
+        </div>
+        <button type="submit" class="cta-btn" style="border:none;font-family:var(--font-body);font-size:1rem;padding:16px 32px;">Изпратете запитване</button>
+      </form>
+      <div class="contact-info">
+        <h3>Информация за контакт</h3>
+        <div class="contact-detail">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          <span>Ломско шосе 210<br>1220 София, България</span>
+        </div>
+        <div class="contact-detail">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          <span>0878 243 810<br>0878 243 812<br>0898 788 957</span>
+        </div>
+        <div class="contact-detail">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          <span>office@mig-trade.com<br>mig-trade.com</span>
+        </div>
+        <div class="map-placeholder">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="margin-right:8px"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Локация: София, Ломско шосе 210
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <span class="logo">Миг Трейд</span>
+        <p>Изработка и монтаж на метални врати, метални решетки, огради и портали по размер за София и София област.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Продукти</h4>
+        <a href="vrati-metalni.html">Врати за апартаменти</a>
+<a href="vrati-metalni.html">Входни врати</a>
+<a href="vrati-metalni.html">Врати за мазета</a>
+<a href="metalni-reshetki.html">Метални решетки</a>
+<a href="ogradi-i-portali.html">Огради и портали</a>
+      </div>
+      <div class="footer-col">
+        <h4>Компания</h4>
+        <a href="index.html#why-us">За нас</a>
+        <a href="galeriia.html">Проекти</a>
+        <a href="index.html#testimonials">Отзиви</a>
+        <a href="index.html#energy">Защита и изолация</a>
+      </div>
+      <div class="footer-col">
+        <h4>Контакти</h4>
+        <a href="tel:+359878243810">0878 243 810</a>
+        <a href="https://mig-trade.com">mig-trade.com</a>
+        <a href="zaiavka-za-ogled.html">Заявете оглед</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 Миг Трейд ЕООД. Всички права запазени.</p>
+      <div class="social-icons">
+        <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
+        <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
+        <a href="#" aria-label="Viber"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12c0 1.74.45 3.38 1.24 4.81L2 22l5.19-1.24A9.96 9.96 0 0 0 12 22c5.52 0 10-4.48 10-10S17.52 2 12 2zm0 18c-1.61 0-3.12-.46-4.4-1.26l-.31-.19-3.08.74.74-3.08-.19-.31A7.96 7.96 0 0 1 4 12c0-4.41 3.59-8 8-8s8 3.59 8 8-3.59 8-8 8z"/></svg></a>
+      </div>
+    </div>
+  </div>
+</footer>
+<script>
+// Mobile menu
+const hamburger = document.querySelector('.hamburger');
+const overlay = document.getElementById('mobileOverlay');
+const closeBtn = document.getElementById('mobileClose');
+hamburger.addEventListener('click', () => overlay.classList.add('active'));
+closeBtn.addEventListener('click', () => overlay.classList.remove('active'));
+overlay.querySelectorAll('a').forEach(link => {
+  link.addEventListener('click', () => overlay.classList.remove('active'));
+});
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') overlay.classList.remove('active');
+});
+
+// Scroll reveal
+window.addEventListener('load', () => {
+  document.querySelectorAll('.reveal').forEach(el => el.classList.add('animate'));
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+});
+
+// Animated stat counters
+function animateCounters() {
+  document.querySelectorAll('[data-count]').forEach(el => {
+    const target = parseInt(el.dataset.count);
+    const suffix = el.dataset.suffix || '';
+    const duration = 2000;
+    const start = performance.now();
+    function update(now) {
+      const progress = Math.min((now - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      el.textContent = Math.floor(target * eased).toLocaleString() + suffix;
+      if (progress < 1) requestAnimationFrame(update);
+    }
+    requestAnimationFrame(update);
+  });
+}
+const statsObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      animateCounters();
+      statsObserver.disconnect();
+    }
+  });
+}, { threshold: 0.3 });
+const statsSection = document.querySelector('.stats-grid');
+if (statsSection) statsObserver.observe(statsSection);
+</script>
+</body>
+</html>
