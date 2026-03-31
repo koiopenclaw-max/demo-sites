@@ -1,18 +1,6 @@
 {
   "tasks": [
     {
-      "id": 1774956423926,
-      "slug": "миг-трейд",
-      "name": "Миг Трейд",
-      "action": "building",
-      "status": "in_progress",
-      "createdAt": "2026-03-31T11:27:03.926Z",
-      "startedAt": "2026-03-31T11:27:26.770Z",
-      "completedAt": null,
-      "error": null,
-      "result": null
-    },
-    {
       "id": 1774956425645,
       "slug": "стоянов-пласт",
       "name": "Стоянов Пласт",
@@ -787,6 +775,18 @@
       "completedAt": "2026-03-31T11:25:21.195Z",
       "error": null,
       "result": "Brief enriched → brief_final"
+    },
+    {
+      "id": 1774956423926,
+      "slug": "миг-трейд",
+      "name": "Миг Трейд",
+      "action": "building",
+      "status": "done",
+      "createdAt": "2026-03-31T11:27:03.926Z",
+      "startedAt": "2026-03-31T11:27:26.770Z",
+      "completedAt": "2026-03-31T11:33:02.604Z",
+      "error": null,
+      "result": "Demo built (validated, 1 attempts): https://koiopenclaw-max.github.io/demo-sites/demos/%D0%BC%D0%B8%D0%B3-%D1%82%D1%80%D0%B5%D0%B9%D0%B4/"
     }
   ],
   "version": 1
