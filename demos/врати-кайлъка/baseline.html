@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Врати Кайлъка | Производство и продажба на врати в София</title>
+  <meta name="description" content="Врати Кайлъка е семейна фирма в София с дългогодишен опит в производството и продажбата на входни, интериорни и нестандартни врати по индивидуален размер.">
+  <meta name="keywords" content="врати София, интериорни врати, входни врати, блиндирани врати, нестандартни врати, врати по размер, Врати Кайлъка">
+  <meta name="theme-color" content="#1f2937">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Врати Кайлъка | Производство и продажба на врати">
+  <meta property="og:description" content="Качествени входни, интериорни и нестандартни врати по индивидуален размер в София.">
+  <meta property="og:locale" content="bg_BG">
+  <style>
+    :root {
+      --bg: #f6f1e8;
+      --surface: rgba(255, 255, 255, 0.78);
+      --surface-strong: #ffffff;
+      --ink: #1b1b1b;
+      --muted: #5d554c;
+      --line: rgba(27, 27, 27, 0.12);
+      --brand: #9a3412;
+      --brand-dark: #7c2d12;
+      --accent: #d6a35d;
+      --shadow: 0 24px 60px rgba(30, 20, 10, 0.12);
+      --radius: 24px;
+      --radius-sm: 16px;
+      --max: 1180px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: Georgia, "Times New Roman", serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at top left, rgba(214, 163, 93, 0.28), transparent 35%),
+        radial-gradient(circle at right 20%, rgba(154, 52, 18, 0.18), transparent 30%),
+        linear-gradient(180deg, #f8f4ed 0%, #efe7db 100%);
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    .wrap {
+      width: min(calc(100% - 32px), var(--max));
+      margin: 0 auto;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      backdrop-filter: blur(18px);
+      background: rgba(246, 241, 232, 0.86);
+      border-bottom: 1px solid rgba(27, 27, 27, 0.06);
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 16px 0;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      font-size: 1.05rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .brand-mark {
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, var(--brand) 0%, var(--brand-dark) 100%);
+      color: #fff;
+      display: grid;
+      place-items: center;
+      box-shadow: var(--shadow);
+      font-size: 1.15rem;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+      font-size: 0.98rem;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+    }
+
+    .cta {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 14px 22px;
+      border-radius: 999px;
+      background: var(--brand);
+      color: #fff;
+      font-weight: 700;
+      border: 1px solid transparent;
+      transition: transform 0.2s ease, background 0.2s ease;
+    }
+
+    .cta.secondary {
+      background: transparent;
+      color: var(--ink);
+      border-color: var(--line);
+    }
+
+    .cta:hover {
+      transform: translateY(-1px);
+      background: var(--brand-dark);
+    }
+
+    .cta.secondary:hover {
+      background: rgba(255, 255, 255, 0.7);
+    }
+
+    .hero {
+      padding: 72px 0 48px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 28px;
+      align-items: stretch;
+    }
+
+    .hero-copy,
+    .hero-panel,
+    .card,
+    .contact-box {
+      background: var(--surface);
+      border: 1px solid rgba(255, 255, 255, 0.8);
+      box-shadow: var(--shadow);
+      border-radius: var(--radius);
+    }
+
+    .hero-copy {
+      padding: 44px;
+    }
+
+    .eyebrow {
+      display: inline-block;
+      margin-bottom: 16px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(154, 52, 18, 0.1);
+      color: var(--brand-dark);
+      font-size: 0.86rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    h1, h2, h3, p {
+      margin: 0;
+    }
+
+    h1 {
+      font-size: clamp(2.8rem, 5vw, 5.1rem);
+      line-height: 0.95;
+      margin-bottom: 18px;
+      max-width: 10ch;
+    }
+
+    .lead {
+      font-size: 1.08rem;
+      line-height: 1.8;
+      color: var(--muted);
+      max-width: 58ch;
+    }
+
+    .hero-actions,
+    .contact-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 28px;
+    }
+
+    .hero-panel {
+      padding: 24px;
+      display: grid;
+      gap: 18px;
+      min-height: 100%;
+    }
+
+    .door-visual {
+      position: relative;
+      min-height: 420px;
+      border-radius: 22px;
+      overflow: hidden;
+      background:
+        linear-gradient(145deg, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.08)),
+        linear-gradient(135deg, #2b211b 0%, #6b4226 45%, #c28b51 100%);
+    }
+
+    .door-visual::before,
+    .door-visual::after {
+      content: "";
+      position: absolute;
+      border-radius: 10px;
+      background: linear-gradient(180deg, #6d4426 0%, #3f2517 100%);
+      box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.1);
+    }
+
+    .door-visual::before {
+      width: 38%;
+      height: 78%;
+      left: 16%;
+      top: 11%;
+    }
+
+    .door-visual::after {
+      width: 30%;
+      height: 64%;
+      right: 14%;
+      top: 18%;
+      background: linear-gradient(180deg, #7d512e 0%, #4b2d1d 100%);
+    }
+
+    .door-badge {
+      position: absolute;
+      left: 20px;
+      right: 20px;
+      bottom: 20px;
+      padding: 18px 20px;
+      border-radius: 18px;
+      background: rgba(17, 17, 17, 0.72);
+      color: #fff;
+    }
+
+    .door-badge strong {
+      display: block;
+      font-size: 1.1rem;
+      margin-bottom: 6px;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+
+    .stat {
+      padding: 18px;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.72);
+      border: 1px solid rgba(27, 27, 27, 0.08);
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 1.55rem;
+      margin-bottom: 6px;
+      color: var(--brand-dark);
+    }
+
+    section {
+      padding: 36px 0;
+    }
+
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 20px;
+      margin-bottom: 24px;
+    }
+
+    .section-head p {
+      max-width: 60ch;
+      line-height: 1.7;
+      color: var(--muted);
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .card {
+      padding: 28px;
+    }
+
+    .card h3 {
+      margin-bottom: 12px;
+      font-size: 1.4rem;
+    }
+
+    .card p,
+    .card li,
+    .contact-box p,
+    .hours li {
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .icon {
+      width: 52px;
+      height: 52px;
+      border-radius: 16px;
+      display: grid;
+      place-items: center;
+      margin-bottom: 18px;
+      font-weight: 700;
+      color: #fff;
+      background: linear-gradient(135deg, #b45309 0%, #7c2d12 100%);
+    }
+
+    .about-grid,
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 22px;
+    }
+
+    .feature-list,
+    .hours {
+      list-style: none;
+      padding: 0;
+      margin: 22px 0 0;
+      display: grid;
+      gap: 12px;
+    }
+
+    .feature-list li,
+    .hours li {
+      padding: 14px 16px;
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.68);
+      border: 1px solid rgba(27, 27, 27, 0.08);
+    }
+
+    .contact-box {
+      padding: 32px;
+    }
+
+    .contact-box h3 {
+      font-size: 1.5rem;
+      margin-bottom: 10px;
+    }
+
+    .contact-items {
+      display: grid;
+      gap: 14px;
+      margin-top: 22px;
+    }
+
+    .contact-item {
+      padding: 16px 18px;
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.72);
+      border: 1px solid rgba(27, 27, 27, 0.08);
+    }
+
+    .contact-item span {
+      display: block;
+      font-size: 0.84rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--brand-dark);
+      margin-bottom: 6px;
+      font-weight: 700;
+    }
+
+    .footer {
+      padding: 28px 0 46px;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    @media (max-width: 960px) {
+      .hero-grid,
+      .cards,
+      .about-grid,
+      .contact-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .stats {
+        grid-template-columns: 1fr;
+      }
+
+      .nav {
+        flex-wrap: wrap;
+      }
+
+      .nav-links {
+        width: 100%;
+        justify-content: space-between;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .hero {
+        padding-top: 40px;
+      }
+
+      .hero-copy,
+      .hero-panel,
+      .card,
+      .contact-box {
+        padding: 22px;
+      }
+
+      h1 {
+        max-width: 100%;
+      }
+
+      .section-head {
+        align-items: start;
+        flex-direction: column;
+      }
+    }
+  </style>
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "LocalBusiness",
+      "name": "Врати Кайлъка",
+      "description": "Производство и продажба на входни, интериорни и нестандартни врати по индивидуален размер.",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "бул. Христо Ботев 88",
+        "addressLocality": "София",
+        "postalCode": "1303",
+        "addressCountry": "BG"
+      },
+      "telephone": ["+35929880319", "+359898474113"],
+      "email": "vratikailaka@abv.bg",
+      "openingHoursSpecification": [
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+          "opens": "09:00",
+          "closes": "18:00"
+        },
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": "Saturday",
+          "opens": "09:00",
+          "closes": "16:00"
+        }
+      ]
+    }
+  </script>
+</head>
+<body>
+  <header class="topbar">
+    <div class="wrap nav">
+      <a class="brand" href="#начало" aria-label="Врати Кайлъка">
+        <span class="brand-mark">ВК</span>
+        <span>Врати Кайлъка</span>
+      </a>
+      <nav class="nav-links" aria-label="Основна навигация">
+        <a href="#услуги">Услуги</a>
+        <a href="#за-нас">За нас</a>
+        <a href="#контакти">Контакти</a>
+        <a class="cta" href="tel:+359898474113">Обадете се сега</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="начало">
+    <section class="hero">
+      <div class="wrap hero-grid">
+        <div class="hero-copy">
+          <span class="eyebrow">Производство и продажба на врати</span>
+          <h1>Врати за дома и офиса по ваш размер</h1>
+          <p class="lead">Врати Кайлъка е семейна фирма в София с дългогодишен опит в изработката и търговията на качествени врати. Предлагаме входни, интериорни и нестандартни решения с фокус върху сигурността, визията и добрата цена.</p>
+          <div class="hero-actions">
+            <a class="cta" href="tel:+359898474113">0898 474 113</a>
+            <a class="cta secondary" href="#контакти">Поискайте консултация</a>
+          </div>
+        </div>
+        <div class="hero-panel">
+          <div class="door-visual" aria-hidden="true">
+            <div class="door-badge">
+              <strong>Индивидуални решения</strong>
+              Изработка по размер, практични модели и надежден монтаж за жилища и офиси.
+            </div>
+          </div>
+          <div class="stats">
+            <div class="stat">
+              <strong>18+ г.</strong>
+              <span>опит в производството на врати</span>
+            </div>
+            <div class="stat">
+              <strong>По размер</strong>
+              <span>решения за стандартни и нестандартни отвори</span>
+            </div>
+            <div class="stat">
+              <strong>София</strong>
+              <span>шоурум и контактен адрес на бул. Христо Ботев 88</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="услуги">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <span class="eyebrow">Какво предлагаме</span>
+            <h2>Основни продукти и услуги</h2>
+          </div>
+          <p>Богатият асортимент помага да намерите практично и естетично решение за всеки интериор. Работим с внимание към детайла и контролираме качеството на всеки етап.</p>
+        </div>
+        <div class="cards">
+          <article class="card">
+            <div class="icon">01</div>
+            <h3>Входни врати</h3>
+            <p>Здрави и надеждни входни и блиндирани врати с акцент върху сигурността, стабилната изработка и дълготрайната употреба.</p>
+          </article>
+          <article class="card">
+            <div class="icon">02</div>
+            <h3>Интериорни врати</h3>
+            <p>Модели за дом и офис с разнообразни визии, материали и покрития, съобразени с актуалните тенденции и вашия стил.</p>
+          </article>
+          <article class="card">
+            <div class="icon">03</div>
+            <h3>Нестандартни решения</h3>
+            <p>Изработка на врати по индивидуален размер за специфични отвори, функционални изисквания и по-специални интериорни концепции.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="за-нас">
+      <div class="wrap about-grid">
+        <article class="card">
+          <span class="eyebrow">За Врати Кайлъка</span>
+          <h2>Семейна фирма с контрол върху качеството</h2>
+          <p class="lead">Ние не просто продаваме врати. Произвеждаме ги и следим целия процес от подбора на материалите до крайния резултат. Така можем да предложим по-добър контрол, коректно обслужване и решения, съобразени с клиента.</p>
+          <ul class="feature-list">
+            <li>Производство и продажба на врати с фокус върху качество и добра цена.</li>
+            <li>Подходящи решения за жилища, офиси и нестандартни проекти.</li>
+            <li>Богат избор от модели с практичен и модерен дизайн.</li>
+          </ul>
+        </article>
+        <article class="card">
+          <span class="eyebrow">Защо клиентите ни избират</span>
+          <h2>Ясна консултация и точен избор</h2>
+          <p class="lead">Целта ни е да помогнем на всеки клиент да открие най-рационалното решение за своя дом или работно пространство. Съчетаваме издръжлива изработка, добра визия и конкурентни цени.</p>
+          <ul class="feature-list">
+            <li>Входни, интериорни и нестандартни врати по индивидуален размер.</li>
+            <li>Практични предложения според интериора, отвора и бюджета.</li>
+            <li>Лесна връзка по телефон, имейл и на място в София.</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section id="контакти">
+      <div class="wrap contact-grid">
+        <div class="contact-box">
+          <span class="eyebrow">Контакти</span>
+          <h3>Свържете се с нас</h3>
+          <p>За запитвания, избор на модел или индивидуална поръчка се обадете или ни пишете. Ще ви насочим към най-подходящото решение.</p>
+          <div class="contact-items">
+            <div class="contact-item">
+              <span>Телефон</span>
+              <a href="tel:+359898474113">0898 474 113</a><br>
+              <a href="tel:+35929880319">02 988 03 19</a>
+            </div>
+            <div class="contact-item">
+              <span>Имейл</span>
+              <a href="mailto:vratikailaka@abv.bg">vratikailaka@abv.bg</a>
+            </div>
+            <div class="contact-item">
+              <span>Адрес</span>
+              бул. Христо Ботев 88, 1303 София
+            </div>
+          </div>
+          <div class="contact-actions">
+            <a class="cta" href="tel:+359898474113">Обаждане</a>
+            <a class="cta secondary" href="mailto:vratikailaka@abv.bg">Изпратете имейл</a>
+          </div>
+        </div>
+        <div class="contact-box">
+          <span class="eyebrow">Работно време</span>
+          <h3>Посетете ни в удобно за вас време</h3>
+          <p>Работното време е подбрано така, че да улесни както бърза консултация, така и по-подробен избор на подходяща врата.</p>
+          <ul class="hours">
+            <li>Понеделник - Петък: 09:00 - 18:00</li>
+            <li>Събота: 09:00 - 16:00</li>
+            <li>Неделя: почивен ден</li>
+          </ul>
+          <ul class="feature-list">
+            <li>Консултация за избор на входни, интериорни и нестандартни врати.</li>
+            <li>Решения за дом, офис и обекти с по-специфични изисквания.</li>
+            <li>Бърза връзка по телефон при нужда от информация и насоки.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap">Врати Кайлъка | Производство и продажба на врати в София</div>
+  </footer>
+</body>
+</html>
