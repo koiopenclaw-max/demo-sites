@@ -11,6 +11,18 @@
       "completedAt": null,
       "error": null,
       "result": null
+    },
+    {
+      "id": 1774945744894,
+      "slug": "дентален-център-искрови",
+      "name": "Дентален център Искрови",
+      "action": "deploying",
+      "status": "pending",
+      "createdAt": "2026-03-31T08:29:04.894Z",
+      "startedAt": null,
+      "completedAt": null,
+      "error": null,
+      "result": null
     }
   ],
   "completed": [
