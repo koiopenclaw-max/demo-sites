@@ -196,23 +196,31 @@ async function executeBriefing(task) {
     siteContent = scrapeUrl(data.websiteUrl);
   }
   
-  // Detect niche (basic keyword matching for now)
+  // Detect niche — respect manual override from platform
   const allText = `${data.name} ${data.notes || ''} ${siteContent}`.toLowerCase();
-  let niche = 'друго';
+  let niche = data.nicheOverride || 'друго';
+  const hasManualNiche = !!data.nicheOverride;
+  // Order matters! More specific niches FIRST, generic ones LAST.
+  // Keywords must be specific enough to avoid false positives.
+  // 'авто' was too broad — matched 'автоматичн', 'авторски' etc.
   const nicheKeywords = {
+    'дограма-врати': ['врат', 'дограм', 'прозор', 'pvc', 'алуминиев', 'стъклопакет', 'дървен', 'плъзгащ', 'двукрил', 'еднокрил', 'интериорн', 'метални врат', 'входни врат', 'решетк', 'оград'],
+    'стоматология': ['дентал', 'зъбо', 'стомат', 'имплант', 'ортодонт', 'зъб'],
     'счетоводство': ['счетовод', 'счетоводн', 'одитор', 'данъч', 'ддс', 'финансов', 'баланс', 'отчет', 'кантора', 'трз', 'осигуровк'],
-    'стоматология': ['дентал', 'зъбо', 'стомат', 'имплант', 'ортодонт'],
     'нотариус': ['нотариус', 'нотариал', 'заверка'],
     'hvac': ['климатик', 'климатиц', 'отоплен', 'вентилац', 'hvac'],
     'хотел': ['хотел', 'hotel', 'стаи', 'резервация', 'настаняване'],
-    'хранителни': ['храни', 'месо', 'млечн', 'био', 'органич', 'ферм'],
-    'земеделие': ['ферм', 'земедел', 'агро', 'лозе', 'овощ'],
-    'строителство': ['строител', 'ремонт', 'строеж', 'архитект'],
-    'автосервиз': ['авто', 'сервиз', 'ремонт на кол', 'автомобил', 'гуми'],
-    'дограма-врати': ['врат', 'дограм', 'прозор', 'pvc', 'алуминиев', 'стъклопакет', 'дървен', 'плъзгащ', 'двукрил', 'еднокрил', 'интериорн']
+    'хранителни': ['храни', 'месо', 'млечн', 'био', 'органич'],
+    'земеделие': ['земедел', 'агро', 'лозе', 'овощ', 'ферма', 'фермер'],
+    'строителство': ['строител', 'строеж', 'архитект'],
+    'автосервиз': ['автосервиз', 'автомивк', 'автомобилен сервиз', 'ремонт на автомобил', 'ремонт на кол', 'автомобилн', 'гуми', 'автокъща']
   };
-  for (const [n, keywords] of Object.entries(nicheKeywords)) {
-    if (keywords.some(k => allText.includes(k))) { niche = n; break; }
+  if (!hasManualNiche) {
+    for (const [n, keywords] of Object.entries(nicheKeywords)) {
+      if (keywords.some(k => allText.includes(k))) { niche = n; break; }
+    }
+  } else {
+    log(`Using manual niche override: ${niche}`);
   }
   
   // Extract text content from HTML (basic)

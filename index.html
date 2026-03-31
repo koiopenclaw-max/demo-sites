@@ -315,6 +315,24 @@ textarea { resize: vertical; min-height: 100px; }
       </select>
     </div>
     <div class="form-group">
+      <label class="form-label">Ниша</label>
+      <select id="npNiche">
+        <option value="">— Автоматично (Koi определя) —</option>
+        <option value="счетоводство">📊 Счетоводство / Одит</option>
+        <option value="стоматология">🦷 Стоматология / Дентална клиника</option>
+        <option value="дограма-врати">🚪 Врати / Дограма</option>
+        <option value="автосервиз">🔧 Автосервиз / Автомивка</option>
+        <option value="строителство">🏗️ Строителство</option>
+        <option value="hvac">❄️ Климатици / HVAC</option>
+        <option value="хотел">🏨 Хотел / Настаняване</option>
+        <option value="нотариус">📜 Нотариус</option>
+        <option value="хранителни">🍖 Хранителни продукти</option>
+        <option value="земеделие">🌾 Земеделие / Ферма</option>
+        <option value="друго">📋 Друго</option>
+      </select>
+      <div class="form-hint">Оставете празно за автоматично определяне от съдържанието</div>
+    </div>
+    <div class="form-group">
       <label class="form-label">URL на текущ сайт</label>
       <input type="url" id="npWebsiteUrl" placeholder="https://example.com">
       <div class="form-hint">Ако бизнесът има съществуващ сайт</div>
@@ -440,13 +458,44 @@ function renderDashboard() {
 // ===== NEW PROJECT =====
 function showNewProjectModal() {
   document.getElementById('newProjectModal').style.display = 'flex';
-  ['npName','npType','npWebsiteUrl','npFacebookUrl','npNotes'].forEach(id => {
+  ['npName','npType','npNiche','npWebsiteUrl','npFacebookUrl','npNotes'].forEach(id => {
     const el = document.getElementById(id);
     el.value = '';
   });
   setTimeout(() => document.getElementById('npName').focus(), 100);
 }
 function closeModal() { document.getElementById('newProjectModal').style.display = 'none'; }
+
+function changeNiche() {
+  const NICHE_OPTIONS = {
+    '': '— Автоматично —',
+    'счетоводство': '📊 Счетоводство / Одит',
+    'стоматология': '🦷 Стоматология',
+    'дограма-врати': '🚪 Врати / Дограма',
+    'автосервиз': '🔧 Автосервиз',
+    'строителство': '🏗️ Строителство',
+    'hvac': '❄️ HVAC',
+    'хотел': '🏨 Хотел',
+    'нотариус': '📜 Нотариус',
+    'хранителни': '🍖 Хранителни',
+    'земеделие': '🌾 Земеделие',
+    'друго': '📋 Друго'
+  };
+  const current = currentProject.niche || currentProject.nicheOverride || '';
+  const options = Object.entries(NICHE_OPTIONS).map(([v,l]) => `${v===current?'→ ':''}${l} (${v||'auto'})`).join('\n');
+  const choice = prompt(`Изберете ниша:\n\n${Object.entries(NICHE_OPTIONS).map(([v,l]) => `${v||'auto'} = ${l}`).join('\n')}\n\nВъведете кода:`, current);
+  if (choice === null) return;
+  const niche = choice.trim() || null;
+  const all = db();
+  all[currentSlug].nicheOverride = niche;
+  all[currentSlug].niche = niche || 'друго';
+  all[currentSlug].updatedAt = new Date().toISOString();
+  dbSave(all);
+  currentProject = all[currentSlug];
+  renderDetail();
+  pushToGitHub(currentSlug);
+  toast(`Ниша променена на: ${niche || 'автоматично'}`, 'success');
+}
 
 function createProject() {
   const name = document.getElementById('npName').value.trim();
@@ -460,6 +509,7 @@ function createProject() {
     websiteUrl: document.getElementById('npWebsiteUrl').value.trim(),
     facebookUrl: document.getElementById('npFacebookUrl').value.trim(),
     notes: document.getElementById('npNotes').value.trim(),
+    nicheOverride: document.getElementById('npNiche').value || null,
     status:'created', brief:null, qa:[], demoUrl:null,
     createdAt: new Date().toISOString(), updatedAt: new Date().toISOString()
   };
@@ -496,6 +546,7 @@ function renderDetail() {
   let info = `
     <div class="info-item"><div class="info-item-label">Тип</div><div class="info-item-value">${TYPE_LABELS[p.type]||p.type}</div></div>
     <div class="info-item"><div class="info-item-label">Създаден</div><div class="info-item-value">${new Date(p.createdAt).toLocaleDateString('bg-BG')}</div></div>`;
+  if (p.niche || p.nicheOverride) info += `<div class="info-item"><div class="info-item-label">Ниша</div><div class="info-item-value">${esc(p.niche || p.nicheOverride || 'друго')}${['created','brief_ready'].includes(p.status) ? ` <button onclick="changeNiche()" style="margin-left:8px;padding:2px 8px;font-size:0.75rem;background:var(--surface);border:1px solid var(--border);border-radius:4px;cursor:pointer">✏️ Промени</button>` : ''}</div></div>`;
   if (p.websiteUrl) info += `<div class="info-item"><div class="info-item-label">Уебсайт</div><div class="info-item-value"><a href="${esc(p.websiteUrl)}" target="_blank">${esc(p.websiteUrl)}</a></div></div>`;
   if (p.facebookUrl) info += `<div class="info-item"><div class="info-item-label">Facebook</div><div class="info-item-value"><a href="${esc(p.facebookUrl)}" target="_blank">${esc(p.facebookUrl)}</a></div></div>`;
   if (p.notes) info += `<div class="info-item full"><div class="info-item-label">Бележки</div><div class="info-item-value">${esc(p.notes).replace(/\n/g,'<br>')}</div></div>`;
