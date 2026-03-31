@@ -11,6 +11,18 @@
       "completedAt": null,
       "error": null,
       "result": null
+    },
+    {
+      "id": 1774956425645,
+      "slug": "стоянов-пласт",
+      "name": "Стоянов Пласт",
+      "action": "qa_submitted",
+      "status": "pending",
+      "createdAt": "2026-03-31T11:27:05.645Z",
+      "startedAt": null,
+      "completedAt": null,
+      "error": null,
+      "result": null
     }
   ],
   "completed": [
