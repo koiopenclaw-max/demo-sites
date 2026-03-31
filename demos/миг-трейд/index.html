@@ -22,7 +22,7 @@
       --accent: #d2a74a;
       --accent-strong: #f1c76b;
       --shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
-      --radius: 22px;
+      --radius: 8px;
       --max: 1180px;
     }
 
@@ -36,12 +36,10 @@
 
     body {
       margin: 0;
-      font-family: "Segoe UI", Arial, sans-serif;
+      font-family: "Segoe UI", "Roboto Condensed", Arial, sans-serif;
       color: var(--text);
-      background:
-        radial-gradient(circle at top left, rgba(210, 167, 74, 0.15), transparent 28%),
-        radial-gradient(circle at bottom right, rgba(83, 105, 151, 0.18), transparent 24%),
-        linear-gradient(180deg, #0c0f15, #121722 50%, #0d1016);
+      background: #0f1117;
+      border-top: 4px solid var(--accent);
       line-height: 1.6;
     }
 
@@ -89,10 +87,10 @@
     .brand-mark {
       width: 44px;
       height: 44px;
-      border-radius: 14px;
+      border-radius: 4px;
       display: grid;
       place-items: center;
-      background: linear-gradient(135deg, var(--accent), #7b5b1d);
+      background: var(--accent);
       color: #111;
       font-weight: 800;
       box-shadow: var(--shadow);
@@ -101,7 +99,7 @@
     .menu-toggle {
       display: none;
       border: 1px solid var(--line);
-      border-radius: 12px;
+      border-radius: 4px;
       background: transparent;
       color: var(--text);
       padding: 10px 12px;
@@ -145,8 +143,7 @@
     .info-strip {
       border: 1px solid var(--line);
       border-radius: var(--radius);
-      background: var(--panel);
-      backdrop-filter: blur(16px);
+      background: var(--panel-strong);
       box-shadow: var(--shadow);
     }
 
@@ -159,7 +156,7 @@
       align-items: center;
       gap: 8px;
       border: 1px solid rgba(210, 167, 74, 0.26);
-      border-radius: 999px;
+      border-radius: 2px;
       padding: 8px 14px;
       color: var(--accent-strong);
       background: rgba(210, 167, 74, 0.08);
@@ -195,7 +192,7 @@
 
     .hero-points li {
       padding: 14px 16px;
-      border-radius: 16px;
+      border-radius: 4px;
       background: rgba(255, 255, 255, 0.03);
       color: var(--muted);
     }
