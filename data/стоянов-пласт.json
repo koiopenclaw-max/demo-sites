@@ -50,5 +50,7 @@
   "createdAt": "2026-03-31T11:11:23.965Z",
   "updatedAt": "2026-03-31T12:03:25.623Z",
   "niche": "дограма-врати",
-  "nicheOverride": "дограма-врати"
+  "nicheOverride": "дограма-врати",
+  "slopScore": 90,
+  "slopGrade": "A"
 }
