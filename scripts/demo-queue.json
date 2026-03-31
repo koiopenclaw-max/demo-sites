@@ -1,18 +1,5 @@
 {
-  "tasks": [
-    {
-      "id": 1774956544297,
-      "slug": "врати-кайлъка",
-      "name": "Врати кайлъка",
-      "action": "deploying",
-      "status": "in_progress",
-      "createdAt": "2026-03-31T11:29:04.297Z",
-      "startedAt": "2026-03-31T11:33:09.473Z",
-      "completedAt": null,
-      "error": null,
-      "result": null
-    }
-  ],
+  "tasks": [],
   "completed": [
     {
       "id": 1773819482814,
@@ -787,6 +774,18 @@
       "completedAt": "2026-03-31T11:33:08.165Z",
       "error": null,
       "result": "Brief enriched → brief_final"
+    },
+    {
+      "id": 1774956544297,
+      "slug": "врати-кайлъка",
+      "name": "Врати кайлъка",
+      "action": "deploying",
+      "status": "done",
+      "createdAt": "2026-03-31T11:29:04.297Z",
+      "startedAt": "2026-03-31T11:33:09.473Z",
+      "completedAt": "2026-03-31T11:33:14.854Z",
+      "error": null,
+      "result": "Deployed to demo65.add.bg (repo: demo65-add-bg)"
     }
   ],
   "version": 1
