@@ -5,9 +5,9 @@
       "slug": "врати-кайлъка",
       "name": "Врати кайлъка",
       "action": "qa_submitted",
-      "status": "pending",
+      "status": "in_progress",
       "createdAt": "2026-03-31T08:35:04.373Z",
-      "startedAt": null,
+      "startedAt": "2026-03-31T08:35:08.502Z",
       "completedAt": null,
       "error": null,
       "result": null
