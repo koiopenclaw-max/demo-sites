@@ -1,18 +1,6 @@
 {
   "tasks": [
     {
-      "id": 1774945744192,
-      "slug": "врати-кайлъка",
-      "name": "Врати кайлъка",
-      "action": "briefing",
-      "status": "in_progress",
-      "createdAt": "2026-03-31T08:29:04.192Z",
-      "startedAt": "2026-03-31T08:29:20.932Z",
-      "completedAt": null,
-      "error": null,
-      "result": null
-    },
-    {
       "id": 1774945744894,
       "slug": "дентален-център-искрови",
       "name": "Дентален център Искрови",
@@ -691,6 +679,18 @@
       "completedAt": "2026-03-30T16:20:13.424Z",
       "error": null,
       "result": "Brief enriched → brief_final"
+    },
+    {
+      "id": 1774945744192,
+      "slug": "врати-кайлъка",
+      "name": "Врати кайлъка",
+      "action": "briefing",
+      "status": "done",
+      "createdAt": "2026-03-31T08:29:04.192Z",
+      "startedAt": "2026-03-31T08:29:20.932Z",
+      "completedAt": "2026-03-31T08:29:23.709Z",
+      "error": null,
+      "result": "Brief готов. Ниша: друго. 6 въпроса."
     }
   ],
   "version": 1
