@@ -87,13 +87,13 @@ header {
 .logo { font-family: var(--font-heading); font-size: 1.5rem; font-weight: 700; color: var(--accent); }
 .logo span { color: var(--text); font-weight: 400; }
 nav { display: flex; align-items: center; gap: 32px; }
-nav a { font-family: var(--font-heading); font-size: 0.85rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em; transition: color 0.3s; }
+nav a { font-size: 0.9rem; font-weight: 500; color: var(--text-muted); transition: color 0.3s; }
 nav a:hover { color: var(--accent); }
 .cta-btn {
-  display: inline-block; padding: 13px 30px; background: var(--accent); color: var(--bg);
-  font-family: var(--font-heading); font-weight: 600; font-size: 0.82rem; border: none; cursor: pointer;
-  transition: background 0.3s, transform 0.2s; letter-spacing: 0.1em; text-transform: uppercase;
-  position: relative; overflow: hidden; z-index: 1; border-radius: 3px;
+  display: inline-block; padding: 10px 24px; background: var(--accent); color: var(--bg);
+  font-weight: 600; font-size: 0.85rem; border: none; cursor: pointer;
+  transition: background 0.3s, transform 0.2s; letter-spacing: 0.5px;
+  position: relative; overflow: hidden; z-index: 1;
 }
 .cta-btn::before {
   content: '';
@@ -111,10 +111,9 @@ nav a:hover { color: var(--accent); }
 }
 .cta-btn:hover { background: var(--accent-hover); transform: translateY(-1px); }
 .cta-btn-outline {
-  display: inline-block; padding: 13px 30px; border: 1px solid var(--accent); color: var(--accent);
-  font-family: var(--font-heading); font-weight: 600; font-size: 0.82rem; cursor: pointer; transition: all 0.3s;
-  letter-spacing: 0.1em; text-transform: uppercase;
-  position: relative; overflow: hidden; z-index: 1; border-radius: 3px;
+  display: inline-block; padding: 10px 24px; border: 1px solid var(--accent); color: var(--accent);
+  font-weight: 600; font-size: 0.85rem; cursor: pointer; transition: all 0.3s;
+  position: relative; overflow: hidden; z-index: 1;
 }
 .cta-btn-outline::before {
   content: '';
@@ -172,22 +171,18 @@ nav a:hover { color: var(--accent); }
 }
 .mobile-nav-links a {
   font-family: var(--font-heading);
-  font-size: 1.15rem;
-  font-weight: 600;
+  font-size: 1.5rem;
   color: #F5F5F5;
-  text-transform: uppercase;
-  letter-spacing: 0.15em;
   transition: color 0.3s;
 }
 .mobile-nav-links a:hover { color: var(--accent); }
 .mobile-nav-links .mobile-cta {
   display: inline-block;
-  padding: 14px 36px;
+  padding: 14px 32px;
   background: #C9A96E;
   color: #0A0A0A;
-  font-family: var(--font-heading);
+  font-family: var(--font-body);
   font-size: 1rem;
-  border-radius: 3px;
   font-weight: 600;
   margin-top: 12px;
 }
@@ -375,30 +370,6 @@ footer { padding: 60px 0 30px; background: var(--bg); border-top: 1px solid rgba
   .hero-buttons { flex-direction: column; }
   .partners-grid { gap: 24px; }
 }
-
-/* Nav Dropdown */
-.nav-dropdown { position: relative; display: inline-block; }
-.nav-dropdown-toggle { display: flex; align-items: center; gap: 6px; cursor: pointer; }
-.nav-dropdown-toggle svg { transition: transform 0.2s ease; }
-.nav-dropdown:hover .nav-dropdown-toggle svg { transform: rotate(180deg); }
-.nav-dropdown-menu {
-  position: absolute; top: 100%; left: 50%; transform: translateX(-50%);
-  background: rgba(20,20,20,0.97); border: 1px solid rgba(201,169,110,0.2);
-  border-radius: 8px; min-width: 220px; padding: 8px 0;
-  opacity: 0; visibility: hidden; transition: opacity 0.2s ease, visibility 0.2s ease;
-  z-index: 1000; margin-top: 8px;
-}
-.nav-dropdown:hover .nav-dropdown-menu { opacity: 1; visibility: visible; }
-.nav-dropdown-menu a {
-  display: block; padding: 10px 20px; color: var(--text, #E8E0D4);
-  font-family: var(--font-heading, 'Playfair Display', Georgia, serif);
-  font-size: 0.95rem; text-decoration: none; transition: background 0.15s ease;
-}
-.nav-dropdown-menu a:hover { background: rgba(201,169,110,0.12); color: var(--accent, #C9A96E); }
-.mobile-nav-section { display: block; padding: 8px 0 4px; color: var(--accent, #C9A96E); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.1em; }
-.mobile-sub { padding-left: 16px !important; font-size: 0.95rem; }
-@media (max-width: 768px) { .nav-dropdown-menu { display: none !important; } }
-
 </style>
 </head>
 <body>
@@ -408,18 +379,12 @@ footer { padding: 60px 0 30px; background: var(--bg); border-top: 1px solid rgba
     <a href="index.html" class="logo">Миг Трейд<span> | Метални врати</span></a>
     <nav id="mainNav">
       <a href="index.html">Начало</a>
-      <div class="nav-dropdown">
-        <a href="#" class="nav-dropdown-toggle">Продукти <svg width="10" height="6" viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><polyline points="1 1 5 5 9 1"/></svg></a>
-        <div class="nav-dropdown-menu">
-          <a href="metalni-vrati.html">Врати за апартаменти</a>
-          <a href="vhodni-vrati.html">Входни врати</a>
-          <a href="metalni-reshetki.html">Метални решетки</a>
-          <a href="ogradi-i-portali.html">Огради и портали</a>
-          <a href="vrati-metalni.html">Врати за мазета</a>
-        </div>
-      </div>
-      <a href="galeriia.html" class="active">Галерия</a>
-      <a href="zaiavka-za-ogled.html" class="cta-btn">Заявете оглед</a>
+      <a href="metalni-vrati.html">Врати за апартаменти</a>
+      <a href="vhodni-vrati.html">Входни врати</a>
+      <a href="metalni-reshetki.html">Метални решетки</a>
+      <a href="ogradi-i-portali.html">Огради и портали</a>
+      <a href="galeriia.html">Галерия</a>
+      <a href="index.html#contact" class="cta-btn">Заявете оглед</a>
     </nav>
     <button class="hamburger" id="hamburger" aria-label="Меню">
       <span></span><span></span><span></span>
@@ -434,14 +399,12 @@ footer { padding: 60px 0 30px; background: var(--bg); border-top: 1px solid rgba
   </button>
   <nav class="mobile-nav-links">
     <a href="index.html">Начало</a>
-    <span class="mobile-nav-section">Продукти</span>
-    <a href="metalni-vrati.html" class="mobile-sub">Врати за апартаменти</a>
-    <a href="vhodni-vrati.html" class="mobile-sub">Входни врати</a>
-    <a href="metalni-reshetki.html" class="mobile-sub">Метални решетки</a>
-    <a href="ogradi-i-portali.html" class="mobile-sub">Огради и портали</a>
-    <a href="vrati-metalni.html" class="mobile-sub">Врати за мазета</a>
+    <a href="metalni-vrati.html">Врати за апартаменти</a>
+    <a href="vhodni-vrati.html">Входни врати</a>
+    <a href="metalni-reshetki.html">Метални решетки</a>
+    <a href="ogradi-i-portali.html">Огради и портали</a>
     <a href="galeriia.html">Галерия</a>
-    <a href="zaiavka-za-ogled.html" class="mobile-cta">Заявете оглед</a>
+    <a href="index.html#contact" class="mobile-cta">Заявете оглед</a>
   </nav>
 </div>
 

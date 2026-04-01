@@ -90,7 +90,7 @@ header {
 .logo { font-family: var(--font-heading); font-size: 1.5rem; font-weight: 700; color: var(--accent); }
 .logo span { color: var(--text); font-weight: 400; }
 nav { display: flex; align-items: center; gap: 32px; }
-nav a { font-family: var(--font-heading); font-size: 0.85rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em; transition: color 0.3s; }
+nav a { font-size: 0.9rem; font-weight: 500; color: var(--text-muted); transition: color 0.3s; }
 nav a:hover, nav a.active { color: var(--accent); }
 .cta-btn,
 .cta-btn-outline {

@@ -89,7 +89,7 @@ header {
 .logo { font-family: var(--font-heading); font-size: 1.5rem; font-weight: 700; color: var(--accent); }
 .logo span { color: var(--text); font-weight: 400; }
 nav { display: flex; align-items: center; gap: 24px; }
-nav a { font-family: var(--font-body); font-size: 0.8rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.1em; transition: color 0.3s; }
+nav a { font-size: 0.9rem; font-weight: 500; color: var(--text-muted); transition: color 0.3s; }
 nav a:hover, nav a.active { color: var(--accent); }
 
 .cta-btn,
@@ -203,11 +203,8 @@ nav a:hover, nav a.active { color: var(--accent); }
 }
 .mobile-nav-links a {
   font-family: var(--font-heading);
-  font-size: 1.15rem;
-  font-weight: 600;
+  font-size: 1.5rem;
   color: #F5F5F5;
-  text-transform: uppercase;
-  letter-spacing: 0.15em;
   transition: color 0.3s;
 }
 .mobile-nav-links a:hover,

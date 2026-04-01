@@ -87,13 +87,13 @@ header {
 .logo { font-family: var(--font-heading); font-size: 1.5rem; font-weight: 700; color: var(--accent); }
 .logo span { color: var(--text); font-weight: 400; }
 nav { display: flex; align-items: center; gap: 32px; }
-nav a { font-family: var(--font-heading); font-size: 0.85rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em; transition: color 0.3s; }
+nav a { font-size: 0.9rem; font-weight: 500; color: var(--text-muted); transition: color 0.3s; }
 nav a:hover { color: var(--accent); }
 .cta-btn {
-  display: inline-block; padding: 13px 30px; background: var(--accent); color: var(--bg);
-  font-family: var(--font-heading); font-weight: 600; font-size: 0.82rem; border: none; cursor: pointer;
-  transition: background 0.3s, transform 0.2s; letter-spacing: 0.1em; text-transform: uppercase;
-  position: relative; overflow: hidden; z-index: 1; border-radius: 3px;
+  display: inline-block; padding: 10px 24px; background: var(--accent); color: var(--bg);
+  font-weight: 600; font-size: 0.85rem; border: none; cursor: pointer;
+  transition: background 0.3s, transform 0.2s; letter-spacing: 0.5px;
+  position: relative; overflow: hidden; z-index: 1;
 }
 .cta-btn::before {
   content: '';
@@ -111,10 +111,9 @@ nav a:hover { color: var(--accent); }
 }
 .cta-btn:hover { background: var(--accent-hover); transform: translateY(-1px); }
 .cta-btn-outline {
-  display: inline-block; padding: 13px 30px; border: 1px solid var(--accent); color: var(--accent);
-  font-family: var(--font-heading); font-weight: 600; font-size: 0.82rem; cursor: pointer; transition: all 0.3s;
-  letter-spacing: 0.1em; text-transform: uppercase;
-  position: relative; overflow: hidden; z-index: 1; border-radius: 3px;
+  display: inline-block; padding: 10px 24px; border: 1px solid var(--accent); color: var(--accent);
+  font-weight: 600; font-size: 0.85rem; cursor: pointer; transition: all 0.3s;
+  position: relative; overflow: hidden; z-index: 1;
 }
 .cta-btn-outline::before {
   content: '';
@@ -172,22 +171,18 @@ nav a:hover { color: var(--accent); }
 }
 .mobile-nav-links a {
   font-family: var(--font-heading);
-  font-size: 1.15rem;
-  font-weight: 600;
+  font-size: 1.5rem;
   color: #F5F5F5;
-  text-transform: uppercase;
-  letter-spacing: 0.15em;
   transition: color 0.3s;
 }
 .mobile-nav-links a:hover { color: var(--accent); }
 .mobile-nav-links .mobile-cta {
   display: inline-block;
-  padding: 14px 36px;
+  padding: 14px 32px;
   background: #C9A96E;
   color: #0A0A0A;
-  font-family: var(--font-heading);
+  font-family: var(--font-body);
   font-size: 1rem;
-  border-radius: 3px;
   font-weight: 600;
   margin-top: 12px;
 }
