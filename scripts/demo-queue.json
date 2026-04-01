@@ -1,18 +1,5 @@
 {
-  "tasks": [
-    {
-      "id": 1775040184019,
-      "slug": "миг-трейд",
-      "name": "Миг Трейд",
-      "action": "revisions",
-      "status": "in_progress",
-      "createdAt": "2026-04-01T10:43:04.019Z",
-      "startedAt": "2026-04-01T10:43:20.782Z",
-      "completedAt": null,
-      "error": null,
-      "result": null
-    }
-  ],
+  "tasks": [],
   "completed": [
     {
       "id": 1773819482814,
@@ -883,6 +870,18 @@
       "completedAt": "2026-03-31T14:02:31.246Z",
       "error": null,
       "result": "Revision validated (3 attempts, 1 files): https://koiopenclaw-max.github.io/demo-sites/demos/%D0%BC%D0%B8%D0%B3-%D1%82%D1%80%D0%B5%D0%B9%D0%B4/"
+    },
+    {
+      "id": 1775040184019,
+      "slug": "миг-трейд",
+      "name": "Миг Трейд",
+      "action": "revisions",
+      "status": "error",
+      "createdAt": "2026-04-01T10:43:04.019Z",
+      "startedAt": "2026-04-01T10:43:20.782Z",
+      "completedAt": "2026-04-01T11:08:04.124Z",
+      "error": "ENOENT: no such file or directory, copyfile '/tmp/demo-revision-миг-трейд/fonts.googleapis.comcss.html' -> '/home/clawd/Projects/demo-sites/demos/миг-трейд/fonts.googleapis.comcss.html'",
+      "result": null
     }
   ],
   "version": 1
