@@ -137,6 +137,7 @@ textarea { resize: vertical; min-height: 100px; }
 .status-brief_final { background: rgba(46,204,113,0.25); color: var(--success); }
 .status-building { background: var(--accent-glow); color: var(--accent); }
 .status-done { background: rgba(46,204,113,0.3); color: var(--success); }
+.status-needs_clarification { background: rgba(231,76,60,0.2); color: #e74c3c; }
 .status-revisions { background: rgba(243,156,18,0.3); color: #f39c12; }
 .status-review { background: rgba(155,89,182,0.3); color: #9b59b6; }
 .status-approved { background: rgba(46,204,113,0.4); color: #2ecc71; }
@@ -362,11 +363,11 @@ const STATUS_LABELS = {
   qa_submitted:'Koi обработва...', brief_final:'Финално задание',
   building:'Билд...', done:'Билд готов ✓',
   revisions:'Koi коригира...', review:'За преглед',
-  approved:'Одобрено', dns_setup:'DNS настройка', deploying:'Koi качва...', live:'На живо 🌐'
+  needs_clarification:'Нужно уточнение ❓', approved:'Одобрено', dns_setup:'DNS настройка', deploying:'Koi качва...', live:'На живо 🌐'
 };
 const STATUS_FLOW_MAIN = ['created','briefing','brief_ready','qa_submitted','brief_final','building','done'];
-const STATUS_FLOW_POST_BUILD = ['done','revisions','review','approved','dns_setup','deploying','live'];
-const STATUS_ICONS = { created:'📝', briefing:'🔍', brief_ready:'📋', qa_submitted:'💬', brief_final:'✅', building:'🔨', done:'🎉', revisions:'🔧', review:'👀', approved:'🚀', dns_setup:'🌐', deploying:'📡', live:'✅' };
+const STATUS_FLOW_POST_BUILD = ['done','needs_clarification','revisions','review','approved','dns_setup','deploying','live'];
+const STATUS_ICONS = { created:'📝', briefing:'🔍', brief_ready:'📋', qa_submitted:'💬', brief_final:'✅', building:'🔨', done:'🎉', needs_clarification:'❓', revisions:'🔧', review:'👀', approved:'🚀', dns_setup:'🌐', deploying:'📡', live:'✅' };
 // Statuses where Koi works (show spinner)
 const KOI_WORKING = ['briefing','qa_submitted','building','revisions','deploying'];
 // Statuses where user acts
@@ -612,6 +613,20 @@ function renderAction(p) {
   } else if (p.status === 'done') {
     a.innerHTML = `<div class="action-section" style="border:none;padding:0.5rem">
       <p style="font-size:0.85rem">👇 Прегледай демото. Ако има нужда от корекции — опиши ги по-долу. Ако всичко е наред — одобри.</p></div>`;
+  } else if (p.status === 'needs_clarification') {
+    const cl = p.clarification || {};
+    const qs = cl.questions || ['Моля, опишете по-подробно какво искате да се промени.'];
+    a.innerHTML = `<div class="action-section highlight" style="border-color: var(--danger)">
+      <h3 style="color:#e74c3c;margin-bottom:0.5rem">❓ Нужно е уточнение</h3>
+      <p style="font-size:0.9rem;margin-bottom:1rem">За да продължим, моля отговорете на следните въпроси:</p>
+      <div style="text-align:left;max-width:500px;margin:0 auto">
+        ${qs.map((q,i) => `<div style="margin-bottom:1rem">
+          <label style="font-weight:600;display:block;margin-bottom:0.3rem">${q}</label>
+          <textarea id="clarify-${i}" rows="2" style="width:100%;resize:vertical;padding:0.5rem;border:1px solid var(--border);border-radius:var(--radius);background:var(--bg-input);color:var(--text);font-size:0.9rem" placeholder="Вашият отговор..."></textarea>
+        </div>`).join('')}
+      </div>
+      <button class="btn btn-success btn-xl" onclick="submitClarification()" style="margin-top:0.5rem">📩 Изпрати отговорите</button>
+    </div>`;
   } else if (p.status === 'revisions') {
     a.innerHTML = `<div class="action-section waiting">
       <div class="spinner"></div>
@@ -1066,6 +1081,40 @@ function openLightbox(src) {
 }
 
 // ===== REVISIONS =====
+function submitClarification() {
+  const cl = currentProject.clarification || {};
+  const qs = cl.questions || [];
+  const answers = [];
+  for (let i = 0; i < qs.length; i++) {
+    const el = document.getElementById('clarify-' + i);
+    const val = el ? el.value.trim() : '';
+    if (val) answers.push({ question: qs[i], answer: val });
+  }
+  if (answers.length === 0) { toast('Моля, отговорете поне на един въпрос', 'error'); return; }
+  
+  // Build enriched instruction from original + answers
+  const enriched = (cl.originalInstruction || '') + '\n\nУточнения:\n' + 
+    answers.map(a => '— ' + a.question + '\n  ' + a.answer).join('\n');
+  
+  // Save as new revision with enriched instructions
+  if (!currentProject.revisionHistory) currentProject.revisionHistory = [];
+  currentProject.revisionHistory.push({
+    issues: enriched,
+    resolution: null,
+    createdAt: new Date().toISOString(),
+    clarificationAnswers: answers
+  });
+  currentProject.currentRevision = enriched;
+  currentProject.status = 'revisions';
+  currentProject.clarification = null;
+  currentProject.updatedAt = new Date().toISOString();
+  
+  const all = db(); all[currentSlug] = currentProject; dbSave(all);
+  saveToGH();
+  renderDetail();
+  toast('Уточненията са изпратени! Koi продължава... 🔧');
+}
+
 function submitRevisions() {
   const input = document.getElementById('revisionInput');
   if (!input || !input.value.trim()) { toast('Опиши проблемите','error'); return; }
