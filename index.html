@@ -7,7 +7,7 @@
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-:root {
+:root, [data-theme="dark"] {
   --bg-deep: #0d0d1a;
   --bg-main: #1a1a2e;
   --bg-card: #16213e;
@@ -28,6 +28,23 @@
   --radius-sm: 8px;
   --shadow: 0 4px 24px rgba(0,0,0,0.4);
   --shadow-lg: 0 8px 48px rgba(0,0,0,0.6);
+
+[data-theme="light"] {
+  --bg-deep: #f0f2f5;
+  --bg-main: #ffffff;
+  --bg-card: #f8f9fa;
+  --bg-card-hover: #eef0f3;
+  --bg-input: #ffffff;
+  --accent: #d4900a;
+  --accent-dim: #b87a00;
+  --accent-glow: rgba(212, 144, 10, 0.12);
+  --text: #1a1a2e;
+  --text-dim: #5a5a7a;
+  --text-muted: #8888a0;
+  --border: #dde0e6;
+  --shadow: 0 2px 12px rgba(0,0,0,0.08);
+  --shadow-lg: 0 4px 24px rgba(0,0,0,0.12);
+}
   --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -215,6 +232,7 @@ textarea { resize: vertical; min-height: 100px; }
 
 .template-card:hover { transform: translateY(-4px); box-shadow: 0 8px 30px rgba(0,0,0,0.4); }
 .queue-tab.active { background: var(--accent); color: var(--bg-deep); border-color: var(--accent); }
+.project-card.kb-focus { outline: 2px solid var(--accent); outline-offset: 2px; }
 
 @media (max-width: 640px) {
   .container { padding: 1rem; }
@@ -245,6 +263,7 @@ textarea { resize: vertical; min-height: 100px; }
   <div class="header-actions" style="display:flex;align-items:center;gap:0.5rem;flex-wrap:wrap">
     <button class="btn btn-secondary btn-sm" onclick="toggleQueue()" id="queueBtn" style="font-size:0.8rem">⚡ Задачи <span id="queueBadge" style="background:var(--accent);color:var(--bg-deep);padding:0.1rem 0.4rem;border-radius:10px;font-size:0.7rem;font-weight:800;margin-left:0.3rem;display:none">0</span></button>
     <button id="auth-btn" class="btn btn-secondary btn-sm" onclick="toggleAuth()" style="font-size:0.8rem">🔒 Влез</button>
+    <button class="btn btn-secondary btn-sm" onclick="toggleTheme()" id="themeBtn" style="font-size:0.8rem" title="Смени тема">🌙</button>
     <div class="poll-indicator" id="pollIndicator">
       <span class="poll-dot"></span>
       <span>Live</span>
@@ -1617,6 +1636,83 @@ async function loadQueueData() {
 
 // Poll queue badge every 30s
 setInterval(loadQueueData, 30000);
+
+// ===== THEME =====
+function toggleTheme() {
+  const current = document.documentElement.getAttribute('data-theme') || 'dark';
+  const next = current === 'dark' ? 'light' : 'dark';
+  document.documentElement.setAttribute('data-theme', next);
+  localStorage.setItem('ds-theme', next);
+  document.getElementById('themeBtn').textContent = next === 'dark' ? '🌙' : '☀️';
+}
+(function initTheme() {
+  const saved = localStorage.getItem('ds-theme') || 'dark';
+  document.documentElement.setAttribute('data-theme', saved);
+  const btn = document.getElementById('themeBtn');
+  if (btn) btn.textContent = saved === 'dark' ? '🌙' : '☀️';
+})();
+
+// ===== KEYBOARD SHORTCUTS =====
+document.addEventListener('keydown', (e) => {
+  // Ignore when typing in input/textarea
+  if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.tagName === 'SELECT') {
+    if (e.key === 'Escape') { e.target.blur(); return; }
+    return;
+  }
+  
+  switch(e.key) {
+    case '/':
+      e.preventDefault();
+      const search = document.getElementById('projectSearch');
+      if (search && search.offsetParent !== null) search.focus();
+      break;
+    case 'n': case 'N':
+      if (!e.ctrlKey && !e.metaKey) { e.preventDefault(); showNewProjectModal(); }
+      break;
+    case 'Escape':
+      // Close modal or go back
+      const modal = document.getElementById('newProjectModal');
+      if (modal && modal.style.display !== 'none') { closeModal(); break; }
+      const detail = document.getElementById('detailView');
+      if (detail && detail.classList.contains('active')) { stopPolling(); navigateTo('dashboard'); break; }
+      const queue = document.getElementById('queueView');
+      if (queue && queue.classList.contains('active')) { navigateTo('dashboard'); break; }
+      break;
+    case 'q': case 'Q':
+      if (!e.ctrlKey && !e.metaKey) toggleQueue();
+      break;
+    case 'j': case 'J': {
+      // Next project card
+      e.preventDefault();
+      const cards = Array.from(document.querySelectorAll('.project-card'));
+      const focused = document.querySelector('.project-card.kb-focus');
+      const idx = focused ? cards.indexOf(focused) : -1;
+      const next = cards[idx + 1] || cards[0];
+      if (focused) focused.classList.remove('kb-focus');
+      if (next) { next.classList.add('kb-focus'); next.scrollIntoView({ block: 'nearest' }); }
+      break;
+    }
+    case 'k': case 'K': {
+      // Previous project card
+      e.preventDefault();
+      const cards = Array.from(document.querySelectorAll('.project-card'));
+      const focused = document.querySelector('.project-card.kb-focus');
+      const idx = focused ? cards.indexOf(focused) : cards.length;
+      const prev = cards[idx - 1] || cards[cards.length - 1];
+      if (focused) focused.classList.remove('kb-focus');
+      if (prev) { prev.classList.add('kb-focus'); prev.scrollIntoView({ block: 'nearest' }); }
+      break;
+    }
+    case 'Enter': {
+      const focused = document.querySelector('.project-card.kb-focus');
+      if (focused) { focused.click(); }
+      break;
+    }
+    case '?':
+      toast('/ Търси | N Нов | Q Задачи | J/K Навигация | Enter Отвори | Esc Назад', 'info');
+      break;
+  }
+});
 
 handleHash(); // Route based on URL hash (or show dashboard)
 loadQueueData(); // Load queue badge on start
