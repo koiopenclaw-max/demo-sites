@@ -48,7 +48,7 @@
   ],
   "demoUrl": "https://koiopenclaw-max.github.io/demo-sites/demos/%D0%BC%D0%B8%D0%B3-%D1%82%D1%80%D0%B5%D0%B9%D0%B4/",
   "createdAt": "2026-03-31T11:08:17.685Z",
-  "updatedAt": "2026-04-01T13:33:55.157Z",
+  "updatedAt": "2026-04-01T13:40:42.385Z",
   "niche": "дограма-врати",
   "nicheOverride": "дограма-врати",
   "slopScore": 75,
@@ -128,8 +128,8 @@
       "type": "EDIT",
       "confidence": "high",
       "writeFiles": [
-        "index.html",
-        "template.html"
+        "template.html",
+        "index.html"
       ],
       "newFiles": [],
       "readOnlyFiles": [
@@ -145,8 +145,8 @@
         "vrati-metalni.html",
         "zaiavka-za-ogled.html"
       ],
-      "reasoning": "Промяната на шрифта и подреждането на бутоните в главното меню е стилова корекция, засягаща index.html (homepage меню) и template.html (споделен шаблон за менюто)."
+      "reasoning": "Инструкцията е за шрифта и подредбата на бутоните в главното меню — това засяга template.html (споделен header/nav) и index.html (homepage меню), без нужда от нови файлове."
     },
-    "lastScopeAt": "2026-04-01T13:33:55.157Z"
+    "lastScopeAt": "2026-04-01T13:40:42.385Z"
   }
 }
