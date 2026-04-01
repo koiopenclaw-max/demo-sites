@@ -202,12 +202,12 @@ nav a:hover, nav a.active { color: var(--accent); }
   gap: 24px;
 }
 .mobile-nav-links a {
-  font-family: var(--font-body);
-  font-size: 1.05rem;
+  font-family: var(--font-heading);
+  font-size: 1.15rem;
   font-weight: 600;
   color: #F5F5F5;
   text-transform: uppercase;
-  letter-spacing: 0.18em;
+  letter-spacing: 0.15em;
   transition: color 0.3s;
 }
 .mobile-nav-links a:hover,
