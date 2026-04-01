@@ -1,12 +1,12 @@
 {
   "tasks": [
     {
-      "id": 1775024515043,
-      "slug": "искрови",
-      "name": "Искрови",
+      "id": 1775040184019,
+      "slug": "миг-трейд",
+      "name": "Миг Трейд",
       "action": "revisions",
       "status": "pending",
-      "createdAt": "2026-04-01T06:21:55.043Z",
+      "createdAt": "2026-04-01T10:43:04.019Z",
       "startedAt": null,
       "completedAt": null,
       "error": null,
