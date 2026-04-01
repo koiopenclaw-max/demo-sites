@@ -95,8 +95,9 @@
     },
     {
       "issues": "В главното меню е ползван шрифт който не е на темата, грозен е. Моял да го подмениш и да подредиш бутоните красиво, сега е много грозно.",
-      "resolution": null,
-      "createdAt": "2026-04-01T12:10:44.748Z"
+      "resolution": "✅ Навигацията преработена: шрифт от Playfair Display (serif) → DM Sans (sans-serif), подобрен padding (10px 20px), font-weight 500. Приложено на 8 файла.",
+      "createdAt": "2026-04-01T12:10:44.748Z",
+      "resolvedAt": "2026-04-01T12:22:00.000Z"
     }
   ],
   "currentRevision": null,
