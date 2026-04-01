@@ -48,7 +48,7 @@
   ],
   "demoUrl": "https://koiopenclaw-max.github.io/demo-sites/demos/%D0%BC%D0%B8%D0%B3-%D1%82%D1%80%D0%B5%D0%B9%D0%B4/",
   "createdAt": "2026-03-31T11:08:17.685Z",
-  "updatedAt": "2026-04-01T13:44:50.187Z",
+  "updatedAt": "2026-04-01T13:50:00.000Z",
   "niche": "дограма-врати",
   "nicheOverride": "дограма-врати",
   "slopScore": 75,
@@ -118,8 +118,9 @@
     },
     {
       "issues": "В главното меню е ползван шрифт който не е на темата, грозен е. Моял да го подмениш и да подредиш бутоните красиво, сега е много грозно.",
-      "resolution": null,
-      "createdAt": "2026-04-01T13:32:46.807Z"
+      "resolution": "✅ Surgical: nav font сменен от Playfair Display → DM Sans на 10 файла. 51 edits, 0 failures.",
+      "createdAt": "2026-04-01T13:32:46.807Z",
+      "resolvedAt": "2026-04-01T13:50:00.000Z"
     }
   ],
   "currentRevision": null,
