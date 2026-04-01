@@ -125,46 +125,19 @@
   ]
 }
 </script>
-<style>
-/* Nav dropdown */
-.nav-dropdown { position: relative; }
-.nav-dropdown-toggle { cursor: pointer; }
-.dropdown-arrow { font-size: 0.7em; margin-left: 2px; transition: transform 0.3s; display: inline-block; }
-.nav-dropdown:hover .dropdown-arrow { transform: rotate(180deg); }
-.dropdown-menu {
-  display: none; position: absolute; top: calc(100% + 12px); left: 50%; transform: translateX(-50%);
-  background: rgba(20,20,20,0.97); backdrop-filter: blur(12px);
-  border: 1px solid rgba(201,169,110,0.2); padding: 8px 0; min-width: 220px;
-  z-index: 1001; box-shadow: 0 12px 40px rgba(0,0,0,0.5);
-}
-.nav-dropdown:hover .dropdown-menu { display: block; }
-.dropdown-menu a {
-  display: block !important; padding: 10px 24px !important; font-size: 0.85rem !important;
-  font-weight: 500 !important; text-transform: none !important; letter-spacing: normal !important;
-  color: var(--text-muted) !important; transition: background 0.2s, color 0.2s !important;
-}
-.dropdown-menu a:hover { background: rgba(201,169,110,0.1) !important; color: var(--accent) !important; }
-</style>
 </head>
 <body>
 <header>
   <div class="header-inner">
     <a href="index.html" class="logo">Миг Трейд<span> | Метални врати</span></a>
-        <nav id="mainNav">
+    <nav id="mainNav">
       <a href="index.html">Начало</a>
-      <div class="nav-dropdown">
-        <a href="#" class="nav-dropdown-toggle" onclick="return false">Продукти <span class="dropdown-arrow">▾</span></a>
-        <div class="dropdown-menu">
-          <a href="metalni-vrati.html">Врати за апартаменти</a>
-          <a href="vhodni-vrati.html">Входни врати</a>
-          <a href="vrati-metalni.html">Врати за мазета</a>
-          <a href="metalni-reshetki.html">Метални решетки</a>
-          <a href="ogradi-i-portali.html">Огради и портали</a>
-        </div>
-      </div>
+      <a href="metalni-vrati.html" class="active">Врати за апартаменти</a>
+      <a href="vhodni-vrati.html">Входни врати</a>
+      <a href="metalni-reshetki.html">Метални решетки</a>
+      <a href="ogradi-i-portali.html">Огради и портали</a>
       <a href="galeriia.html">Галерия</a>
-      <a href="index.html#contact">Контакти</a>
-      <a href="zaiavka-za-ogled.html" class="cta-btn">Заявете оглед</a>
+      <a href="index.html#contact" class="cta-btn">Заявете оглед</a>
     </nav>
     <button class="hamburger" id="hamburger" aria-label="Меню">
       <span></span><span></span><span></span>
