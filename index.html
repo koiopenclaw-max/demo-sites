@@ -144,6 +144,7 @@ textarea { resize: vertical; min-height: 100px; }
 .status-dns_setup { background: rgba(52,152,219,0.3); color: var(--info); }
 .status-deploying { background: var(--accent-glow); color: var(--accent); }
 .status-live { background: rgba(46,204,113,0.5); color: #fff; }
+.status-deployed { background: rgba(46,204,113,0.4); color: #2ecc71; }
 
 .empty-state { text-align: center; padding: 4rem 2rem; color: var(--text-dim); }
 .empty-state-icon { font-size: 3rem; margin-bottom: 1rem; opacity: 0.4; }
@@ -217,10 +218,16 @@ textarea { resize: vertical; min-height: 100px; }
 @media (max-width: 640px) {
   .container { padding: 1rem; }
   .header { padding: 0.75rem 1rem; }
+  .header-actions .btn-sm { min-height: 44px; padding: 0.5rem 1rem; font-size: 0.85rem; }
   .info-grid { grid-template-columns: 1fr; }
   .modal { padding: 1.5rem; }
   .status-step { font-size: 0.65rem; padding: 0.25rem 0.45rem; }
   .btn-xl { padding: 0.85rem 1.5rem; font-size: 1rem; }
+  .project-card { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
+  .project-name { white-space: normal; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+  .status-badge { align-self: flex-start; }
+  .dashboard-controls { flex-direction: column; gap: 0.5rem; }
+  .dashboard-controls input, .dashboard-controls select { width: 100%; }
 }
 </style>
 </head>
@@ -249,6 +256,22 @@ textarea { resize: vertical; min-height: 100px; }
     <div class="dashboard-header">
       <h2>Проекти</h2>
       <button class="btn btn-primary" onclick="showNewProjectModal()">+ Нов проект</button>
+    </div>
+    <div class="dashboard-controls" style="display:flex;gap:0.75rem;margin-bottom:1rem;flex-wrap:wrap;align-items:center">
+      <input id="projectSearch" type="search" placeholder="🔍 Търси по име..." style="flex:1;min-width:200px;padding:0.6rem 1rem;background:var(--bg-input);border:1px solid var(--border);border-radius:var(--radius-sm);color:var(--text);font-size:0.9rem" oninput="renderDashboard()">
+      <select id="statusFilter" style="padding:0.6rem 1rem;background:var(--bg-input);border:1px solid var(--border);border-radius:var(--radius-sm);color:var(--text);font-size:0.85rem;cursor:pointer" onchange="renderDashboard()">
+        <option value="">Всички статуси</option>
+        <option value="created">Създадени</option>
+        <option value="building,briefing,qa_submitted,brief_ready,brief_final,revisions,deploying">В процес</option>
+        <option value="done,review,needs_clarification">За преглед</option>
+        <option value="live,deployed,approved">На живо</option>
+      </select>
+      <select id="sortSelect" style="padding:0.6rem 1rem;background:var(--bg-input);border:1px solid var(--border);border-radius:var(--radius-sm);color:var(--text);font-size:0.85rem;cursor:pointer" onchange="renderDashboard()">
+        <option value="newest">Най-нови</option>
+        <option value="oldest">Най-стари</option>
+        <option value="name">По име</option>
+        <option value="status">По статус</option>
+      </select>
     </div>
     <div id="projectsList" class="projects-grid"></div>
   </div>
@@ -359,7 +382,7 @@ textarea { resize: vertical; min-height: 100px; }
 const STORAGE_KEY = 'demoSitesProjects_v2';
 const TYPE_LABELS = { redesign:'🔄 Редизайн', new:'🆕 Нов сайт', ecommerce:'🛒 Онлайн магазин', other:'📋 Друго' };
 const STATUS_LABELS = {
-  created:'Създаден', briefing:'Koi анализира...', brief_ready:'Задание готово',
+  created:'Създаден', briefing:'Koi анализира...', brief_ready:'Задание готово', deployed:'Качен',
   qa_submitted:'Koi обработва...', brief_final:'Финално задание',
   building:'Билд...', done:'Билд готов ✓',
   revisions:'Koi коригира...', review:'За преглед',
@@ -425,17 +448,77 @@ function toast(msg, type='success') {
 // ===== NAV =====
 function navigateTo(view) {
   document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
-  if (view === 'dashboard') { stopPolling(); document.getElementById('dashboardView').classList.add('active'); renderDashboard(); }
-  else if (view === 'detail') { document.getElementById('detailView').classList.add('active'); renderDetail(); startPolling(); }
+  if (view === 'dashboard') {
+    stopPolling();
+    document.getElementById('dashboardView').classList.add('active');
+    renderDashboard();
+    if (location.hash !== '' && location.hash !== '#') history.pushState(null, '', location.pathname);
+  }
+  else if (view === 'detail') {
+    document.getElementById('detailView').classList.add('active');
+    renderDetail();
+    startPolling();
+    if (currentSlug) {
+      const newHash = '#project/' + encodeURIComponent(currentSlug);
+      if (location.hash !== newHash) history.pushState(null, '', newHash);
+    }
+  }
 }
+
+// Deep link routing
+function handleHash() {
+  const hash = decodeURIComponent(location.hash);
+  const m = hash.match(/^#project\/(.+)$/);
+  if (m) {
+    const slug = m[1];
+    const all = db();
+    if (all[slug]) { currentSlug = slug; currentProject = all[slug]; lastServerHash = null; navigateTo('detail'); return; }
+  }
+  navigateTo('dashboard');
+}
+window.addEventListener('popstate', handleHash);
 
 // ===== DASHBOARD =====
 function renderDashboard() {
   const all = db();
   const list = document.getElementById('projectsList');
-  const slugs = Object.keys(all).sort((a,b) => new Date(all[b].createdAt||all[b].updatedAt)-new Date(all[a].createdAt||all[a].updatedAt));
-  if (!slugs.length) {
+  
+  // Search
+  const searchVal = (document.getElementById('projectSearch')?.value || '').toLowerCase().trim();
+  // Status filter
+  const statusVal = document.getElementById('statusFilter')?.value || '';
+  const statusSet = statusVal ? new Set(statusVal.split(',')) : null;
+  // Sort
+  const sortVal = document.getElementById('sortSelect')?.value || 'newest';
+
+  let slugs = Object.keys(all);
+  
+  // Apply search filter
+  if (searchVal) {
+    slugs = slugs.filter(s => {
+      const p = all[s];
+      return (p.name || '').toLowerCase().includes(searchVal) || (p.niche || '').toLowerCase().includes(searchVal) || s.includes(searchVal);
+    });
+  }
+  // Apply status filter
+  if (statusSet) {
+    slugs = slugs.filter(s => statusSet.has(all[s].status));
+  }
+  // Apply sort
+  if (sortVal === 'newest') slugs.sort((a,b) => new Date(all[b].createdAt||all[b].updatedAt)-new Date(all[a].createdAt||all[a].updatedAt));
+  else if (sortVal === 'oldest') slugs.sort((a,b) => new Date(all[a].createdAt||all[a].updatedAt)-new Date(all[b].createdAt||all[b].updatedAt));
+  else if (sortVal === 'name') slugs.sort((a,b) => (all[a].name||'').localeCompare(all[b].name||'', 'bg'));
+  else if (sortVal === 'status') {
+    const ORDER = ['live','deployed','approved','review','done','needs_clarification','revisions','building','brief_final','qa_submitted','brief_ready','briefing','created'];
+    slugs.sort((a,b) => ORDER.indexOf(all[a].status) - ORDER.indexOf(all[b].status));
+  }
+  
+  if (!slugs.length && !searchVal && !statusSet) {
     list.innerHTML = `<div class="empty-state"><div class="empty-state-icon">📋</div><h3>Няма проекти</h3><p>Създай първия проект</p><button class="btn btn-primary btn-lg" onclick="showNewProjectModal()">+ Нов проект</button></div>`;
+    return;
+  }
+  if (!slugs.length) {
+    list.innerHTML = `<div class="empty-state"><div class="empty-state-icon">🔍</div><h3>Няма резултати</h3><p>Опитай с друг филтър</p></div>`;
     return;
   }
   list.innerHTML = slugs.map(slug => {
@@ -1498,7 +1581,7 @@ async function loadQueueData() {
 // Poll queue badge every 30s
 setInterval(loadQueueData, 30000);
 
-renderDashboard();
+handleHash(); // Route based on URL hash (or show dashboard)
 loadQueueData(); // Load queue badge on start
 syncFromGH(); // Load latest from GitHub after initial render
 checkAuth(); // Check login status
