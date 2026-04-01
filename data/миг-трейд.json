@@ -48,7 +48,7 @@
   ],
   "demoUrl": "https://koiopenclaw-max.github.io/demo-sites/demos/%D0%BC%D0%B8%D0%B3-%D1%82%D1%80%D0%B5%D0%B9%D0%B4/",
   "createdAt": "2026-03-31T11:08:17.685Z",
-  "updatedAt": "2026-04-01T13:32:46.807Z",
+  "updatedAt": "2026-04-01T13:33:55.157Z",
   "niche": "дограма-врати",
   "nicheOverride": "дограма-врати",
   "slopScore": 75,
@@ -128,7 +128,8 @@
       "type": "EDIT",
       "confidence": "high",
       "writeFiles": [
-        "index.html"
+        "index.html",
+        "template.html"
       ],
       "newFiles": [],
       "readOnlyFiles": [
@@ -140,13 +141,12 @@
         "ogradi-i-portali.html",
         "product-pages.css",
         "product-pages.js",
-        "template.html",
         "vhodni-vrati.html",
         "vrati-metalni.html",
         "zaiavka-za-ogled.html"
       ],
-      "reasoning": "Инструкцията е ясна – замяна на фабрични снимки с клиентски в секция галерия на началната страница, което засяга само index.html"
+      "reasoning": "Промяната на шрифта и подреждането на бутоните в главното меню е стилова корекция, засягаща index.html (homepage меню) и template.html (споделен шаблон за менюто)."
     },
-    "lastScopeAt": "2026-04-01T12:05:35.839Z"
+    "lastScopeAt": "2026-04-01T13:33:55.157Z"
   }
 }

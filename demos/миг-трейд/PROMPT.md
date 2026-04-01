@@ -1,94 +1,151 @@
-# Task: Create Product Category Pages for Миг Трейд
+# Task: Fix Navigation Bar — Миг Трейд
 
-## Context
-You're working on a demo website for Миг Трейд — a metal door, grille, fence and portal manufacturer in Sofia, Bulgaria. The current site has only `index.html` (home page) with dark theme + gold accents.
+Fix the navigation in ALL HTML files in this directory. The client says the font is ugly and doesn't match the theme, and the nav layout is cluttered and ugly.
 
-The client wants **separate product pages** for each product category, with ALL content (text, descriptions, prices, images) from the original site transferred to the new design.
+## Current State (BROKEN)
+- Nav has 6 links + CTA crammed in one row: Начало, Врати за апартаменти, Входни врати, Метални решетки, Огради и портали, Галерия, + CTA "Заявете оглед"
+- Nav links use inherited `DM Sans` (body font) at `0.9rem` — looks generic and small
+- `nav { display: flex; align-items: center; gap: 32px; }` — items overflow on smaller desktops
+- No meaningful hover states
 
-## What to Build
+## Required Fix
 
-Create these HTML files in the SAME directory as index.html:
+### 1. Consolidate nav items with a dropdown
+Replace the 6 separate links with:
+- **Начало** → `index.html`
+- **Продукти** (dropdown containing):
+  - Врати за апартаменти → `metalni-vrati.html`
+  - Входни врати → `vhodni-vrati.html`
+  - Метални решетки → `metalni-reshetki.html`
+  - Огради и портали → `ogradi-i-portali.html`
+- **Галерия** → `galeriia.html`
+- **Заявете оглед** (CTA button) → `index.html#contact` (or `zaiavka-za-ogled.html`)
 
-### 1. `metalni-vrati.html` — Метални врати за апартаменти
-Products (ALL must be included with full descriptions, prices, images):
-- Еднопластова за мазе — 170 лв
-- Еднопластова с касова брава
-- Еднопластова със секретна брава
-- Еднопластова с брава + бронировка — 230 лв
-- Двупластова с една брава — 365 лв
-- Двупластова с две брави — 395 лв
-- Двупластова с декоративно фолио — 415 лв
-- Двупластова с цяла каса — 495 лв
+### 2. Nav font styling
+```css
+nav a, .nav-dropdown-toggle {
+  font-family: var(--font-heading); /* Playfair Display — matches logo */
+  font-size: 1rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: var(--text);
+  transition: color 0.3s;
+}
+```
 
-### 2. `vhodni-vrati.html` — Входни метални врати за блокове
-Products:
-- Входна врата с пощенски кутии (базова) — от 515 лв + 25 лв/кутия
-- Входна врата с 24 кутии — от 1015 лв + 560 лв
-- Входна врата с 48 кутии — от 1015 лв + 1120 лв
-- Входна врата за офис сграда — луксозно изпълнение
-- Входна врата за блок (стандартна)
+### 3. Nav layout
+```css
+nav { display: flex; align-items: center; gap: 28px; }
+```
 
-### 3. `metalni-reshetki.html` — Метални решетки
-Products:
-- 12х12х1.5мм — 35 лв/м²
-- 15х15х1.5мм — 40 лв/м²
-- 20х20х1.5мм — 45 лв/м²
-- Решетки за врати — 200 лв (1х2м)
-Include price table at bottom.
+### 4. Dropdown CSS
+```css
+.nav-dropdown { position: relative; }
+.nav-dropdown-toggle {
+  display: flex; align-items: center; gap: 6px;
+  cursor: pointer; background: none; border: none;
+  font-family: var(--font-heading);
+  font-size: 1rem; font-weight: 500;
+  color: var(--text);
+  padding: 0;
+}
+.nav-dropdown-toggle:hover { color: var(--accent); }
+.nav-dropdown-toggle svg { width: 14px; height: 14px; transition: transform 0.3s; }
+.nav-dropdown:hover .nav-dropdown-toggle svg { transform: rotate(180deg); }
 
-### 4. `ogradi-portali.html` — Огради и портали
-- Lighter page — services overview, benefits, CTA to contact
-- Original site has minimal content here, so write reasonable copy about custom metalwork for fences and gates
+.nav-dropdown-menu {
+  position: absolute; top: calc(100% + 8px); left: 50%; 
+  transform: translateX(-50%) translateY(4px);
+  min-width: 220px; 
+  background: rgba(20,20,20,0.97);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(201,169,110,0.2);
+  border-radius: 8px;
+  padding: 8px 0;
+  opacity: 0; visibility: hidden;
+  transition: opacity 0.25s, visibility 0.25s, transform 0.25s;
+  z-index: 1001;
+}
+.nav-dropdown:hover .nav-dropdown-menu {
+  opacity: 1; visibility: visible;
+  transform: translateX(-50%) translateY(0);
+}
+.nav-dropdown-menu a {
+  display: block; padding: 10px 20px;
+  font-family: var(--font-body);
+  font-size: 0.9rem; font-weight: 400;
+  color: var(--text-muted);
+  transition: background 0.2s, color 0.2s;
+  white-space: nowrap;
+}
+.nav-dropdown-menu a:hover {
+  background: rgba(201,169,110,0.1);
+  color: var(--accent);
+}
+```
 
-## Design Rules (CRITICAL — match index.html exactly)
+### 5. CTA button
+```css
+.cta-btn {
+  display: inline-block; padding: 10px 24px;
+  background: var(--accent); color: var(--bg);
+  font-weight: 600; font-size: 0.9rem;
+  border: none; cursor: pointer;
+  border-radius: 999px;
+  letter-spacing: 0.5px;
+  transition: background 0.3s, transform 0.2s;
+  text-decoration: none;
+}
+.cta-btn:hover { background: #B8954F; transform: scale(1.03); }
+```
 
-1. **Same dark theme**: --bg: #0A0A0A, --accent: #C9A96E, etc.
-2. **Same fonts**: Playfair Display + DM Sans (Google Fonts)
-3. **Same navigation**: Copy the exact header/nav from index.html, add product pages to it
-4. **Same footer**: Copy from index.html
-5. **Each product** gets: image(s) from mig-trade.com (use direct URLs), title, price, full description, specs list, CTA button
-6. **Mobile-first responsive** — same breakpoints as index.html
-7. **NO gradient heroes** — use solid backgrounds or subtle patterns
-8. **Varied border-radius**: cards 8px, badges 4px, buttons 6px, images 12px
-9. **Left-align body text** (center only headings and CTAs)
-10. **Add hover states**: buttons darken + scale(1.02), cards get shadow elevation
+### 6. Hover states for regular nav links
+```css
+nav > a { position: relative; }
+nav > a::after {
+  content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 2px;
+  background: var(--accent); transition: width 0.3s;
+}
+nav > a:hover::after { width: 100%; }
+nav > a:hover { color: var(--accent); }
+nav > a.active { color: var(--accent); }
+nav > a.active::after { width: 100%; }
+```
 
-## Image Sources (use DIRECT URLs from mig-trade.com)
+## HTML Structure (for <nav id="mainNav">)
+```html
+<nav id="mainNav">
+  <a href="index.html">Начало</a>
+  <div class="nav-dropdown">
+    <button class="nav-dropdown-toggle">
+      Продукти
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+    </button>
+    <div class="nav-dropdown-menu">
+      <a href="metalni-vrati.html">Врати за апартаменти</a>
+      <a href="vhodni-vrati.html">Входни врати</a>
+      <a href="metalni-reshetki.html">Метални решетки</a>
+      <a href="ogradi-i-portali.html">Огради и портали</a>
+    </div>
+  </div>
+  <a href="galeriia.html">Галерия</a>
+  <a href="index.html#contact" class="cta-btn">Заявете оглед</a>
+</nav>
+```
 
-All product images are at `https://mig-trade.com/images/metalni-vrati/` and `https://mig-trade.com/images/metalni-reshetki/`
+## Active page highlighting
+On product subpages (metalni-vrati.html, vhodni-vrati.html, metalni-reshetki.html, ogradi-i-portali.html), the Продукти dropdown toggle should have `color: var(--accent)`.
+On galeriia.html, the Галерия link should have class `active`.
+On index.html, the Начало link should have class `active`.
 
-Full image list is in `scraped-products.md` — use the actual image URLs, do NOT use placeholder images.
+## Files to modify
+ALL .html files in this directory. Each has its own `<style>` block and `<nav id="mainNav">`.
+DO NOT modify the mobile overlay nav (`.mobile-overlay`).
+DO NOT change any content outside the `<style>` nav CSS rules and the `<nav id="mainNav">` HTML block.
+DO NOT change hero images, section content, or footer.
 
-## SEO Requirements
-
-Each page needs:
-- Unique `<title>` with product + "София" + "Миг Трейд"
-- `<meta description>` with products and prices
-- Schema.org Product markup for each product (name, description, price, image)
-- Schema.org LocalBusiness for the company
-- Open Graph tags
-- H1 → H2 → H3 proper hierarchy
-- Bulgarian language throughout
-
-## Navigation Update
-
-Update index.html navigation to include links to all new pages. Also add navigation to all new pages pointing to each other and back to index.html.
-
-Nav structure:
-- Начало (index.html)
-- Метални врати (metalni-vrati.html)
-- Входни врати (vhodni-vrati.html)
-- Решетки (metalni-reshetki.html)
-- Огради (ogradi-portali.html)
-- Контакти (#contact section in index.html)
-
-## Content Source
-
-Read `scraped-products.md` for ALL product details, prices, descriptions, and image URLs.
-Transfer EVERYTHING — don't summarize or skip products.
-
-## When Done
-
-```bash
-openclaw system event --text "Done: Миг Трейд product pages built (4 pages + nav update)" --mode now
+## Completion
+When completely finished, run this command:
+```
+openclaw system event --text "Done: Миг Трейд nav fix — dropdown + font + hover across all HTML files" --mode now
 ```

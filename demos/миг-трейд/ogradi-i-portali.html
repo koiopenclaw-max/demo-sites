@@ -86,14 +86,14 @@ header {
 }
 .logo { font-family: var(--font-heading); font-size: 1.5rem; font-weight: 700; color: var(--accent); }
 .logo span { color: var(--text); font-weight: 400; }
-nav { display: flex; align-items: center; gap: 32px; }
-nav a { font-size: 0.9rem; font-weight: 500; color: var(--text-muted); transition: color 0.3s; }
+nav { display: flex; align-items: center; gap: 28px; }
+nav a { font-family: var(--font-body); font-size: 0.8rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.1em; transition: color 0.3s; }
 nav a:hover { color: var(--accent); }
 .cta-btn {
-  display: inline-block; padding: 10px 24px; background: var(--accent); color: var(--bg);
-  font-weight: 600; font-size: 0.85rem; border: none; cursor: pointer;
-  transition: background 0.3s, transform 0.2s; letter-spacing: 0.5px;
-  position: relative; overflow: hidden; z-index: 1;
+  display: inline-block; padding: 12px 28px; background: var(--accent); color: var(--bg);
+  font-family: var(--font-body); font-weight: 600; font-size: 0.8rem; border: none; cursor: pointer;
+  transition: background 0.3s, transform 0.2s; letter-spacing: 0.12em; text-transform: uppercase;
+  position: relative; overflow: hidden; z-index: 1; border-radius: 2px;
 }
 .cta-btn::before {
   content: '';
@@ -111,9 +111,10 @@ nav a:hover { color: var(--accent); }
 }
 .cta-btn:hover { background: var(--accent-hover); transform: translateY(-1px); }
 .cta-btn-outline {
-  display: inline-block; padding: 10px 24px; border: 1px solid var(--accent); color: var(--accent);
-  font-weight: 600; font-size: 0.85rem; cursor: pointer; transition: all 0.3s;
-  position: relative; overflow: hidden; z-index: 1;
+  display: inline-block; padding: 12px 28px; border: 1px solid var(--accent); color: var(--accent);
+  font-family: var(--font-body); font-weight: 600; font-size: 0.8rem; cursor: pointer; transition: all 0.3s;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  position: relative; overflow: hidden; z-index: 1; border-radius: 2px;
 }
 .cta-btn-outline::before {
   content: '';
@@ -170,9 +171,12 @@ nav a:hover { color: var(--accent); }
   gap: 24px;
 }
 .mobile-nav-links a {
-  font-family: var(--font-heading);
-  font-size: 1.5rem;
+  font-family: var(--font-body);
+  font-size: 1.1rem;
+  font-weight: 600;
   color: #F5F5F5;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
   transition: color 0.3s;
 }
 .mobile-nav-links a:hover { color: var(--accent); }
