@@ -1,18 +1,5 @@
 {
-  "tasks": [
-    {
-      "id": 1775046963973,
-      "slug": "миг-трейд",
-      "name": "Миг Трейд",
-      "action": "revisions",
-      "status": "in_progress",
-      "createdAt": "2026-04-01T12:36:03.973Z",
-      "startedAt": "2026-04-01T12:36:29.922Z",
-      "completedAt": null,
-      "error": null,
-      "result": null
-    }
-  ],
+  "tasks": [],
   "completed": [
     {
       "id": 1773819482814,
@@ -919,6 +906,18 @@
       "completedAt": "2026-04-01T12:13:39.774Z",
       "error": null,
       "result": "Codex done (attempt 1/3, 1 files). Awaiting Koi validation. Trigger: /tmp/demo-revision-done-миг-трейд.json"
+    },
+    {
+      "id": 1775046963973,
+      "slug": "миг-трейд",
+      "name": "Миг Трейд",
+      "action": "revisions",
+      "status": "error",
+      "createdAt": "2026-04-01T12:36:03.973Z",
+      "startedAt": "2026-04-01T12:36:29.922Z",
+      "completedAt": "2026-04-01T12:36:58.461Z",
+      "error": "slug is not defined",
+      "result": null
     }
   ],
   "version": 1
