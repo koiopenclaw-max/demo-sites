@@ -1,18 +1,5 @@
 {
-  "tasks": [
-    {
-      "id": 1775045104653,
-      "slug": "миг-трейд",
-      "name": "Миг Трейд",
-      "action": "revisions",
-      "status": "in_progress",
-      "createdAt": "2026-04-01T12:05:04.654Z",
-      "startedAt": "2026-04-01T12:05:19.266Z",
-      "completedAt": null,
-      "error": null,
-      "result": null
-    }
-  ],
+  "tasks": [],
   "completed": [
     {
       "id": 1773819482814,
@@ -895,6 +882,18 @@
       "completedAt": "2026-04-01T11:08:04.124Z",
       "error": "ENOENT: no such file or directory, copyfile '/tmp/demo-revision-миг-трейд/fonts.googleapis.comcss.html' -> '/home/clawd/Projects/demo-sites/demos/миг-трейд/fonts.googleapis.comcss.html'",
       "result": null
+    },
+    {
+      "id": 1775045104653,
+      "slug": "миг-трейд",
+      "name": "Миг Трейд",
+      "action": "revisions",
+      "status": "done",
+      "createdAt": "2026-04-01T12:05:04.654Z",
+      "startedAt": "2026-04-01T12:05:19.266Z",
+      "completedAt": "2026-04-01T12:07:49.287Z",
+      "error": null,
+      "result": "Codex done (attempt 1/3, 1 files). Awaiting Koi validation. Trigger: /tmp/demo-revision-done-миг-трейд.json"
     }
   ],
   "version": 1
