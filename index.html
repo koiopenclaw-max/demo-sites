@@ -987,6 +987,11 @@ function stopPolling() {
 
 async function pollServer() {
   if (!currentSlug) return;
+  
+  // GUARD: Don't re-render if user is actively typing in any input/textarea
+  const activeEl = document.activeElement;
+  const userIsTyping = activeEl && (activeEl.tagName === 'TEXTAREA' || activeEl.tagName === 'INPUT' || activeEl.isContentEditable);
+  
   try {
     const encodedSlug = encodeURIComponent(currentSlug);
     const res = await fetch(`${PROXY_URL}/api/data/${encodedSlug}.json`, { cache: 'no-store' });
@@ -1000,8 +1005,14 @@ async function pollServer() {
       all[currentSlug] = content;
       currentProject = content;
       dbSave(all);
-      toast('🔄 Обновено', 'info');
-      renderDetail();
+      
+      // Only re-render if user is NOT typing — otherwise just update data silently
+      if (userIsTyping) {
+        console.log('Poll: data updated silently (user is typing)');
+      } else {
+        toast('🔄 Обновено', 'info');
+        renderDetail();
+      }
     }
   } catch(e) { console.log('Poll error:', e); }
 }
