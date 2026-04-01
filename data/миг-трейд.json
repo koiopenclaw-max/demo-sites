@@ -48,7 +48,7 @@
   ],
   "demoUrl": "https://koiopenclaw-max.github.io/demo-sites/demos/%D0%BC%D0%B8%D0%B3-%D1%82%D1%80%D0%B5%D0%B9%D0%B4/",
   "createdAt": "2026-03-31T11:08:17.685Z",
-  "updatedAt": "2026-04-01T10:42:18.559Z",
+  "updatedAt": "2026-04-01T10:43:50.215Z",
   "niche": "дограма-врати",
   "nicheOverride": "дограма-врати",
   "slopScore": 75,
@@ -87,5 +87,30 @@
       "createdAt": "2026-04-01T10:42:18.559Z"
     }
   ],
-  "currentRevision": "До тук добре, сега искам да създадеш отделна страница за всеки вид продукт който фирмата предлага - метални врати, метални решетки и т.н и във всяка една стрнаица да прехвърлиш инфото от стария сайт в новия - тектове, снимки, цени, описания, всички. Целта е да имаме топ заготовка за оптимизация в гугъл локано по предлаганите продукти"
+  "currentRevision": "До тук добре, сега искам да създадеш отделна страница за всеки вид продукт който фирмата предлага - метални врати, метални решетки и т.н и във всяка една стрнаица да прехвърлиш инфото от стария сайт в новия - тектове, снимки, цени, описания, всички. Целта е да имаме топ заготовка за оптимизация в гугъл локано по предлаганите продукти",
+  "v2": {
+    "lastScope": {
+      "type": "EDIT",
+      "confidence": "medium",
+      "writeFiles": [
+        "metalni-vrati.html",
+        "metalni-reshetki.html",
+        "ogradi-i-portali.html",
+        "vrati-metalni.html",
+        "product-pages.css",
+        "product-pages.js"
+      ],
+      "newFiles": [],
+      "readOnlyFiles": [
+        "catalog.css",
+        "catalog.js",
+        "galeriia.html",
+        "index.html",
+        "template.html",
+        "zaiavka-za-ogled.html"
+      ],
+      "reasoning": "Product pages already exist for the main product types (metal doors, metal grilles, fences/gates); the instruction is to populate these existing pages with full content (texts, photos, prices, descriptions) from the old site for local SEO optimization."
+    },
+    "lastScopeAt": "2026-04-01T10:43:50.214Z"
+  }
 }
