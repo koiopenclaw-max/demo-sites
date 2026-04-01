@@ -214,6 +214,7 @@ textarea { resize: vertical; min-height: 100px; }
 @keyframes spin { to { transform: rotate(360deg); } }
 
 .template-card:hover { transform: translateY(-4px); box-shadow: 0 8px 30px rgba(0,0,0,0.4); }
+.queue-tab.active { background: var(--accent); color: var(--bg-deep); border-color: var(--accent); }
 
 @media (max-width: 640px) {
   .container { padding: 1rem; }
@@ -290,14 +291,14 @@ textarea { resize: vertical; min-height: 100px; }
       </div>
     </div>
     <div id="queueStats" style="display:flex;gap:0.75rem;margin-bottom:1.5rem;flex-wrap:wrap"></div>
-    <div style="margin-bottom:1.5rem">
-      <h3 style="font-size:0.9rem;color:var(--text-dim);margin-bottom:0.75rem">🔄 Активни / Чакащи</h3>
-      <div id="queueActive"></div>
+    <div style="display:flex;gap:0.5rem;margin-bottom:1rem;flex-wrap:wrap">
+      <button class="btn btn-secondary btn-sm queue-tab active" onclick="switchQueueTab('active')" id="qtActive">🔄 Активни</button>
+      <button class="btn btn-secondary btn-sm queue-tab" onclick="switchQueueTab('done')" id="qtDone">✅ Завършени</button>
+      <button class="btn btn-secondary btn-sm queue-tab" onclick="switchQueueTab('errors')" id="qtErrors">❌ Грешки</button>
     </div>
-    <div>
-      <h3 style="font-size:0.9rem;color:var(--text-dim);margin-bottom:0.75rem">✅ Завършени (последни 20)</h3>
-      <div id="queueDone"></div>
-    </div>
+    <div id="queueActive" class="queue-panel"></div>
+    <div id="queueDone" class="queue-panel" style="display:none"></div>
+    <div id="queueErrors" class="queue-panel" style="display:none"></div>
   </div>
 
   <!-- PROJECT DETAIL -->
@@ -1496,6 +1497,26 @@ const QUEUE_URL_RAW = 'https://raw.githubusercontent.com/koiopenclaw-max/demo-si
 const Q_ACTION_ICONS = { briefing:'📋', qa_submitted:'💬', building:'🔨', revisions:'🔧', dns_setup:'🌐', deploying:'🚀' };
 const Q_ACTION_LABELS = { briefing:'Briefing', qa_submitted:'QA обработка', building:'Билд', revisions:'Корекции', dns_setup:'DNS', deploying:'Деплой' };
 
+function humanizeResult(r) {
+  if (!r) return '';
+  // Strip URLs, keep just the human part
+  let h = r.replace(/https?:\/\/[^\s)]+/g, '').trim();
+  // Clean up common patterns
+  h = h.replace(/\(\s*\)/g, '').replace(/\s+/g, ' ').trim();
+  // If nothing left, extract domain from original
+  if (!h && r.includes('http')) {
+    try { h = new URL(r.match(/https?:\/\/[^\s)]+/)[0]).hostname; } catch {}
+  }
+  return h || r.slice(0, 80);
+}
+
+function switchQueueTab(tab) {
+  document.querySelectorAll('.queue-tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.queue-panel').forEach(p => p.style.display = 'none');
+  document.getElementById('qt' + tab.charAt(0).toUpperCase() + tab.slice(1)).classList.add('active');
+  document.getElementById('queue' + tab.charAt(0).toUpperCase() + tab.slice(1)).style.display = 'block';
+}
+
 function toggleQueue() {
   if (document.getElementById('queueView').classList.contains('active')) {
     navigateTo('dashboard');
@@ -1538,7 +1559,7 @@ function renderQueueTask(t) {
         <span>⏱ ${t.status === 'in_progress' ? 'от ' + queueTimeAgo(t.startedAt) : t.status === 'done' || t.status === 'error' ? queueDuration(t.startedAt, t.completedAt) : 'чака ' + queueTimeAgo(t.createdAt)}</span>
       </div>
       ${t.error ? `<div style="font-size:0.8rem;color:var(--danger);margin-top:0.3rem;padding:0.4rem;background:rgba(231,76,60,0.1);border-radius:6px">❌ ${esc(t.error)}</div>` : ''}
-      ${t.result ? `<div style="font-size:0.8rem;color:var(--success);margin-top:0.3rem">✅ ${esc(t.result)}</div>` : ''}
+      ${t.result ? `<div style="font-size:0.8rem;color:var(--success);margin-top:0.3rem">✅ ${esc(humanizeResult(t.result))}</div>` : ''}
     </div>
     <span class="status-badge ${statusClass}">${statusText}</span>
   </div>`;
@@ -1568,15 +1589,28 @@ async function loadQueueData() {
       ? allActive.map(renderQueueTask).join('')
       : '<div style="text-align:center;padding:2rem;color:var(--text-dim)">✨ Няма чакащи задачи</div>';
 
-    document.getElementById('queueDone').innerHTML = done.length
-      ? done.map(renderQueueTask).join('')
+    const doneOnly = done.filter(t => t.status === 'done').slice(0, 15);
+    document.getElementById('queueDone').innerHTML = doneOnly.length
+      ? doneOnly.map(renderQueueTask).join('')
       : '<div style="text-align:center;padding:2rem;color:var(--text-dim)">📭 Няма завършени</div>';
+
+    document.getElementById('queueErrors').innerHTML = errors.length
+      ? errors.slice(-15).reverse().map(renderQueueTask).join('')
+      : '<div style="text-align:center;padding:2rem;color:var(--text-dim)">🎉 Няма грешки</div>';
 
     // Update badge in header
     const badge = document.getElementById('queueBadge');
     const total = pending.length + active.length;
     if (total > 0) { badge.textContent = total; badge.style.display = 'inline'; }
     else { badge.style.display = 'none'; }
+
+    // Update tab counts
+    const qa = document.getElementById('qtActive');
+    const qd = document.getElementById('qtDone');
+    const qe = document.getElementById('qtErrors');
+    if (qa) qa.textContent = `🔄 Активни (${allActive.length})`;
+    if (qd) qd.textContent = `✅ Завършени (${doneOnly.length})`;
+    if (qe) qe.textContent = `❌ Грешки (${errors.length})`;
 
   } catch (e) { console.log('Queue load error:', e); }
 }
