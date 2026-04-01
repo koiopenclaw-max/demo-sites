@@ -86,7 +86,7 @@ header {
   margin: 0 auto;
   padding: 16px 20px;
 }
-.logo { font-family: var(--font-heading); font-size: 1.5rem; font-weight: 700; color: var(--accent); }
+.logo { font-family: var(--font-heading); font-size: 1.2rem; font-weight: 700; color: var(--accent); white-space: nowrap; }
 .logo span { color: var(--text); font-weight: 400; }
 nav { display: flex; align-items: center; gap: 24px; }
 nav a { font-family: var(--font-heading); font-size: 0.8rem; font-weight: 500; letter-spacing: 0.04em; text-transform: uppercase; color: var(--text-muted); transition: color 0.3s, border-color 0.3s; padding-bottom: 4px; border-bottom: 2px solid transparent; white-space: nowrap; }
