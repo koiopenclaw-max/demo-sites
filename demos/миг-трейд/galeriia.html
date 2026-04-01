@@ -370,6 +370,49 @@ footer { padding: 60px 0 30px; background: var(--bg); border-top: 1px solid rgba
   .hero-buttons { flex-direction: column; }
   .partners-grid { gap: 24px; }
 }
+
+/* Nav Dropdown */
+.nav-dropdown { position: relative; }
+.nav-dropdown-toggle {
+  display: flex; align-items: center; gap: 4px;
+  font-size: 0.9rem; font-weight: 500; color: var(--text-muted);
+  transition: color 0.3s; cursor: pointer; background: none; border: none;
+  font-family: var(--font-body); text-decoration: none;
+}
+.nav-dropdown-toggle:hover { color: var(--accent); }
+.nav-dropdown-toggle svg { transition: transform 0.3s; }
+.nav-dropdown:hover .nav-dropdown-toggle svg { transform: rotate(180deg); }
+.nav-dropdown-menu {
+  position: absolute; top: 100%; left: 50%; transform: translateX(-50%);
+  min-width: 220px; background: rgba(20,20,20,0.97);
+  backdrop-filter: blur(12px); border: 1px solid rgba(201,169,110,0.2);
+  padding: 8px 0; opacity: 0; visibility: hidden;
+  transition: opacity 0.25s, visibility 0.25s, transform 0.25s;
+  transform: translateX(-50%) translateY(8px);
+  z-index: 1001;
+}
+.nav-dropdown:hover .nav-dropdown-menu {
+  opacity: 1; visibility: visible;
+  transform: translateX(-50%) translateY(0);
+}
+.nav-dropdown-menu a {
+  display: block; padding: 10px 20px;
+  font-size: 0.85rem; font-weight: 400; color: var(--text-muted);
+  transition: background 0.2s, color 0.2s;
+  white-space: nowrap;
+}
+.nav-dropdown-menu a:hover {
+  background: rgba(201,169,110,0.1); color: var(--accent);
+}
+.mobile-section-label {
+  font-family: var(--font-body); font-size: 0.8rem; font-weight: 600;
+  color: var(--accent); text-transform: uppercase; letter-spacing: 2px;
+  margin-top: 8px;
+}
+@media (max-width: 900px) {
+  .nav-dropdown, #mainNav > a:not(.cta-btn) { display: none; }
+}
+
 </style>
 </head>
 <body>
@@ -379,12 +422,18 @@ footer { padding: 60px 0 30px; background: var(--bg); border-top: 1px solid rgba
     <a href="index.html" class="logo">Миг Трейд<span> | Метални врати</span></a>
     <nav id="mainNav">
       <a href="index.html">Начало</a>
-      <a href="metalni-vrati.html">Врати за апартаменти</a>
-      <a href="vhodni-vrati.html">Входни врати</a>
-      <a href="metalni-reshetki.html">Метални решетки</a>
-      <a href="ogradi-i-portali.html">Огради и портали</a>
+      <div class="nav-dropdown">
+        <a href="#" class="nav-dropdown-toggle" onclick="return false;">Продукти <svg width="10" height="6" viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M1 1l4 4 4-4"/></svg></a>
+        <div class="nav-dropdown-menu">
+          <a href="metalni-vrati.html">Врати за апартаменти</a>
+          <a href="vhodni-vrati.html">Входни врати</a>
+          <a href="metalni-reshetki.html">Метални решетки</a>
+          <a href="ogradi-i-portali.html">Огради и портали</a>
+          <a href="vrati-metalni.html">Врати за мазета</a>
+        </div>
+      </div>
       <a href="galeriia.html">Галерия</a>
-      <a href="index.html#contact" class="cta-btn">Заявете оглед</a>
+      <a href="zaiavka-za-ogled.html" class="cta-btn">Заявете оглед</a>
     </nav>
     <button class="hamburger" id="hamburger" aria-label="Меню">
       <span></span><span></span><span></span>
@@ -399,12 +448,14 @@ footer { padding: 60px 0 30px; background: var(--bg); border-top: 1px solid rgba
   </button>
   <nav class="mobile-nav-links">
     <a href="index.html">Начало</a>
-    <a href="metalni-vrati.html">Врати за апартаменти</a>
-    <a href="vhodni-vrati.html">Входни врати</a>
-    <a href="metalni-reshetki.html">Метални решетки</a>
-    <a href="ogradi-i-portali.html">Огради и портали</a>
+    <span class="mobile-section-label">Продукти</span>
+    <a href="metalni-vrati.html" style="font-size:1.2rem;">Врати за апартаменти</a>
+    <a href="vhodni-vrati.html" style="font-size:1.2rem;">Входни врати</a>
+    <a href="metalni-reshetki.html" style="font-size:1.2rem;">Метални решетки</a>
+    <a href="ogradi-i-portali.html" style="font-size:1.2rem;">Огради и портали</a>
+    <a href="vrati-metalni.html" style="font-size:1.2rem;">Врати за мазета</a>
     <a href="galeriia.html">Галерия</a>
-    <a href="index.html#contact" class="mobile-cta">Заявете оглед</a>
+    <a href="zaiavka-za-ogled.html" class="mobile-cta">Заявете оглед</a>
   </nav>
 </div>
 
