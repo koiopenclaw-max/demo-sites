@@ -181,16 +181,54 @@ nav a.cta-btn:hover { background: var(--accent-hover); transform: scale(1.03); b
 .mobile-nav-links {
   display: flex;
   flex-direction: column;
+  align-items: stretch;
+  gap: 14px;
+  width: min(100%, 330px);
+}
+.mobile-nav-links > a,
+.mobile-nav-links > .mobile-dropdown > .mobile-dropdown-toggle {
+  display: flex;
   align-items: center;
-  gap: 24px;
-}
-.mobile-nav-links a {
+  justify-content: center;
+  width: 100%;
+  min-height: 54px;
+  padding: 14px 24px;
+  border: 1px solid rgba(201,169,110,0.18);
+  background: rgba(255,255,255,0.02);
+  text-align: center;
   font-family: var(--font-heading);
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   color: #F5F5F5;
-  transition: color 0.3s;
+  text-decoration: none;
+  transition: color 0.3s, border-color 0.3s, background 0.3s;
+  cursor: pointer;
 }
-.mobile-nav-links a:hover { color: var(--accent); }
+.mobile-nav-links > a:hover,
+.mobile-nav-links > .mobile-dropdown > .mobile-dropdown-toggle:hover {
+  color: var(--accent);
+  border-color: rgba(201,169,110,0.45);
+  background: rgba(201,169,110,0.08);
+}
+.mobile-dropdown { width: 100%; }
+.mobile-dropdown-toggle { display: block; cursor: pointer; }
+.mobile-dropdown-menu { display: none; padding: 10px 0 0 0; }
+.mobile-dropdown.open .mobile-dropdown-menu { display: flex; flex-direction: column; gap: 10px; }
+.mobile-dropdown-menu a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  padding: 12px 24px;
+  font-size: 1rem;
+  color: var(--text-muted);
+  border: 1px solid rgba(201,169,110,0.1);
+  background: rgba(255,255,255,0.01);
+  text-decoration: none;
+  transition: color 0.3s, border-color 0.3s;
+}
+.mobile-dropdown-menu a:hover { color: var(--accent); border-color: rgba(201,169,110,0.3); }
+.mobile-nav-links > a.mobile-menu-logo { border: none; background: none; min-height: auto; padding: 0 0 10px 0; }
+.mobile-menu-logo img { height: 40px; width: auto; }
 .mobile-nav-links .mobile-cta {
   display: inline-block;
   padding: 14px 32px;
@@ -836,14 +874,6 @@ document.querySelectorAll('.mobile-dropdown-toggle').forEach(t => {
   t.addEventListener('click', e => {
     e.preventDefault();
     t.closest('.mobile-dropdown').classList.toggle('open');
-  });
-});
-</script>
-<script>
-document.querySelectorAll(".mobile-dropdown-toggle").forEach(t => {
-  t.addEventListener("click", e => {
-    e.preventDefault();
-    t.closest(".mobile-dropdown").classList.toggle("open");
   });
 });
 </script>
