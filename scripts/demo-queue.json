@@ -1,18 +1,5 @@
 {
-  "tasks": [
-    {
-      "id": 1775116384411,
-      "slug": "миг-трейд",
-      "name": "Миг Трейд",
-      "action": "revisions",
-      "status": "in_progress",
-      "createdAt": "2026-04-02T07:53:04.411Z",
-      "startedAt": "2026-04-02T07:53:24.804Z",
-      "completedAt": null,
-      "error": null,
-      "result": null
-    }
-  ],
+  "tasks": [],
   "completed": [
     {
       "id": 1773819482814,
@@ -1015,6 +1002,18 @@
       "completedAt": "2026-04-02T07:52:52.222Z",
       "error": "Killed - revision already handled by another session",
       "result": null
+    },
+    {
+      "id": 1775116384411,
+      "slug": "миг-трейд",
+      "name": "Миг Трейд",
+      "action": "revisions",
+      "status": "done",
+      "createdAt": "2026-04-02T07:53:04.411Z",
+      "startedAt": "2026-04-02T07:53:24.804Z",
+      "completedAt": "2026-04-02T07:54:09.066Z",
+      "error": null,
+      "result": "Surgical revision completed: 7 edits, 7 files"
     }
   ],
   "version": 1
