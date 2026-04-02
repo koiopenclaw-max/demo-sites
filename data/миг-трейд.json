@@ -48,7 +48,7 @@
   ],
   "demoUrl": "https://koiopenclaw-max.github.io/demo-sites/demos/%D0%BC%D0%B8%D0%B3-%D1%82%D1%80%D0%B5%D0%B9%D0%B4/",
   "createdAt": "2026-03-31T11:08:17.685Z",
-  "updatedAt": "2026-04-01T14:12:00.072Z",
+  "updatedAt": "2026-04-02T07:08:45.731Z",
   "niche": "дограма-врати",
   "nicheOverride": "дограма-врати",
   "slopScore": 75,
@@ -153,6 +153,15 @@
       ],
       "reasoning": "Инструкцията се отнася до шрифта и подредбата на бутоните в главното меню, което е стилизирано в index.html чрез вградени стилове или inline CSS на навигацията."
     },
-    "lastScopeAt": "2026-04-01T13:44:50.186Z"
+    "lastScopeAt": "2026-04-01T13:44:50.186Z",
+    "qaResult": {
+      "passed": true,
+      "criticalFails": 0,
+      "warnings": 0,
+      "testedAt": "2026-04-02T07:08:45.731Z"
+    },
+    "slopScore": 90,
+    "slopGrade": "A",
+    "slopTestedAt": "2026-04-02T07:08:45.731Z"
   }
 }
