@@ -1035,53 +1035,6 @@ async function executeRevisions(task) {
     }
   }
   
-  // === STEP 1b: CLASSIFY REVISION (AUTO / SUPERVISED / MANUAL) ===
-  let revisionMode = 'SUPERVISED'; // default safe
-  try {
-    const demoScope = require('./demo-scope.js');
-    const classification = demoScope.classifyRevision(issues, scopeResult);
-    revisionMode = classification.mode;
-    log(`[v8] Classification: ${revisionMode} — ${classification.reason}`);
-    
-    // Shadow mode: log classification but always run as SUPERVISED
-    // After 7 days of shadow data, analyze accuracy and enable AUTO
-    if (!data.v2) data.v2 = {};
-    if (!data.v2.classificationLog) data.v2.classificationLog = [];
-    data.v2.classificationLog.push({
-      mode: revisionMode,
-      reason: classification.reason,
-      instructions: issues.substring(0, 200),
-      scope: scopeResult ? { type: scopeResult.type, confidence: scopeResult.confidence, fileCount: (scopeResult.writeFiles?.length || 0) } : null,
-      timestamp: new Date().toISOString(),
-      shadow: true // shadow mode — logged but overridden to SUPERVISED
-    });
-    // Keep last 20 classification logs
-    if (data.v2.classificationLog.length > 20) data.v2.classificationLog = data.v2.classificationLog.slice(-20);
-    saveDemoData(task.slug, data);
-    
-    // SHADOW MODE: override to SUPERVISED until proven accurate
-    if (revisionMode === 'AUTO') {
-      log(`[v8] Shadow mode: AUTO → SUPERVISED (shadow logging only)`);
-      revisionMode = 'SUPERVISED';
-    }
-  } catch (e) {
-    log(`[v8] Classification error: ${e.message.substring(0, 100)} — defaulting to SUPERVISED`);
-  }
-  
-  // === STEP 1c: BEFORE SCREENSHOTS ===
-  let beforeScreenshots = { desktop: null, mobile: null };
-  try {
-    const demoScreenshots = require('./demo-screenshots.js');
-    const liveUrl = data.liveUrl || data.demoUrl;
-    if (liveUrl) {
-      log(`[v8] Taking BEFORE screenshots: ${liveUrl}`);
-      beforeScreenshots = demoScreenshots.takeScreenshots(liveUrl, 'before', task.slug);
-      log(`[v8] Before screenshots: ${beforeScreenshots.paths.length} captured`);
-    }
-  } catch (e) {
-    log(`[v8] Before screenshots error: ${e.message.substring(0, 100)}`);
-  }
-  
   // === STEP 2: Baseline + scrape (unchanged — worker-specific logic) ===
   const baselinePath = path.join(demoDir, 'baseline.html');
   const currentPath = path.join(workDir, 'index.html');
@@ -1411,8 +1364,6 @@ Reply: VALIDATED: YES or VALIDATED: NO with PROBLEMS and FIX_INSTRUCTIONS.`;
     reviewUrl,
     buildDir,
     attempt,
-    revisionMode,
-    beforeScreenshots: { desktop: beforeScreenshots.desktop, mobile: beforeScreenshots.mobile },
     pipelineState: pipelineState ? { slug: pipelineState.slug, action: pipelineState.action } : null,
     scopeResult: scopeResult ? { type: scopeResult.type, confidence: scopeResult.confidence, writeFiles: scopeResult.writeFiles } : null,
     timestamp: new Date().toISOString()
