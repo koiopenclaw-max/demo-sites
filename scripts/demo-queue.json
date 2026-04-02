@@ -1,5 +1,18 @@
 {
-  "tasks": [],
+  "tasks": [
+    {
+      "id": 1775116384411,
+      "slug": "миг-трейд",
+      "name": "Миг Трейд",
+      "action": "revisions",
+      "status": "pending",
+      "createdAt": "2026-04-02T07:53:04.411Z",
+      "startedAt": null,
+      "completedAt": null,
+      "error": null,
+      "result": null
+    }
+  ],
   "completed": [
     {
       "id": 1773819482814,
@@ -989,6 +1002,18 @@
       "startedAt": "2026-04-01T14:12:08.605Z",
       "completedAt": "2026-04-02T07:35:21.582Z",
       "error": "Stuck in_progress from yesterday — cleared",
+      "result": null
+    },
+    {
+      "id": 1775116024390,
+      "slug": "миг-трейд",
+      "name": "Миг Трейд",
+      "action": "revisions",
+      "status": "error",
+      "createdAt": "2026-04-02T07:47:04.390Z",
+      "startedAt": "2026-04-02T07:47:06.333Z",
+      "completedAt": "2026-04-02T07:52:52.222Z",
+      "error": "Killed - revision already handled by another session",
       "result": null
     }
   ],
