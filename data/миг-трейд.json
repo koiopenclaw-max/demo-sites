@@ -140,6 +140,12 @@
       "resolution": "✅ Nav restructure: dropdown Врати с подбутони (Врати за апартаменти, Входни врати). Всички страници обновени.",
       "createdAt": "2026-04-02T07:46:03.913Z",
       "resolvedAt": "2026-04-02T08:20:19.393Z"
+    },
+    {
+      "issues": "Бутона Врати в главното меню не е подравнен с другите бутони в менюто. Може ли да бъдат подравнени всички",
+      "resolution": "✅ Nav dropdown Врати ▾ възстановен + alignment fix (display:flex + align-items:center). Merge conflict беше overwrite-нал промените. CSS + HTML на 8 файла.",
+      "createdAt": "2026-04-02T07:52:47.710Z",
+      "resolvedAt": "2026-04-02T08:21:23.682Z"
     }
   ],
   "currentRevision": null,
