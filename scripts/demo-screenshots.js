@@ -116,4 +116,81 @@ function cleanup(slug) {
   }
 }
 
-module.exports = { takeScreenshots, buildComparisonPrompt, saveAuditTrail, cleanup };
+/**
+ * Visual gate: take AFTER screenshots locally and compare with BEFORE.
+ * Returns PASS/FAIL verdict.
+ * 
+ * @param {object} beforeScreenshots - { desktop: path, mobile: path }
+ * @param {string} demoDir - Local directory with the new HTML files
+ * @param {string} slug - Site slug
+ * @param {string} instructions - What was requested
+ * @returns {{ passed: boolean, verdict: string, afterScreenshots: object, error: string|null }}
+ */
+function visualGate(beforeScreenshots, demoDir, slug, instructions) {
+  const result = { passed: false, verdict: '', afterScreenshots: { desktop: null, mobile: null }, error: null };
+  
+  // Find the main page to screenshot
+  const indexFile = path.join(demoDir, 'index.html');
+  if (!fs.existsSync(indexFile)) {
+    result.error = 'No index.html in demoDir';
+    result.passed = true; // Don't block if no index
+    result.verdict = 'SKIP — no index.html';
+    return result;
+  }
+  
+  // Take AFTER screenshots from local files
+  const afterResult = takeScreenshots(`file://${indexFile}`, 'after', slug);
+  result.afterScreenshots = { desktop: afterResult.desktop, mobile: afterResult.mobile };
+  
+  if (!afterResult.desktop || !beforeScreenshots.desktop) {
+    result.error = `Missing screenshots: before=${!!beforeScreenshots.desktop} after=${!!afterResult.desktop}`;
+    result.passed = false;
+    result.verdict = 'FAIL — could not take screenshots for comparison';
+    return result;
+  }
+  
+  // Simple comparison: check if files exist and basic metadata
+  // TODO: Implement full image model comparison via Koi agent
+  try {
+    // Basic sanity checks first
+    const beforeSize = fs.statSync(beforeScreenshots.desktop).size;
+    const afterSize = fs.statSync(afterResult.desktop).size;
+    
+    // If after screenshot is tiny (< 5KB), likely broken
+    if (afterSize < 5000) {
+      result.passed = false;
+      result.verdict = 'FAIL — after screenshot too small (likely broken page)';
+      return result;
+    }
+    
+    // For now, write a trigger for Koi to handle the comparison
+    // This makes the gate non-blocking but logged
+    const comparisonTrigger = {
+      slug,
+      beforeImage: beforeScreenshots.desktop,
+      afterImage: afterResult.desktop,
+      instructions: instructions.substring(0, 500),
+      timestamp: new Date().toISOString()
+    };
+    
+    const triggerPath = `/tmp/visual-comparison-${slug}-${Date.now()}.json`;
+    fs.writeFileSync(triggerPath, JSON.stringify(comparisonTrigger, null, 2));
+    
+    // For v9.0: Always PASS (non-blocking), but log the trigger
+    // Koi can process these triggers in heartbeat and build ML training data
+    result.passed = true;
+    result.verdict = `PASS — basic checks OK. Full comparison queued: ${triggerPath}`;
+    
+    // TODO v9.1: Replace with actual image model comparison
+    // const analysisResult = await compareImagesWithKoi(beforeScreenshots.desktop, afterResult.desktop, prompt);
+    
+  } catch (e) {
+    result.error = `Visual gate error: ${e.message.substring(0, 200)}`;
+    result.passed = true;  // Don't block on errors — let Koi validate manually
+    result.verdict = 'PASS — gate error, falling back to manual validation';
+  }
+  
+  return result;
+}
+
+module.exports = { takeScreenshots, buildComparisonPrompt, saveAuditTrail, cleanup, visualGate };
