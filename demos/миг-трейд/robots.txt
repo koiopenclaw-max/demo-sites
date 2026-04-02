@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://mig-trade.com/sitemap.xml

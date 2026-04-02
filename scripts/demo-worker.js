@@ -1035,54 +1035,6 @@ async function executeRevisions(task) {
     }
   }
   
-  // === STEP 1b: CLASSIFY REVISION (AUTO / SUPERVISED / MANUAL) ===
-  let revisionMode = 'SUPERVISED'; // default safe
-  try {
-    const demoScope = require('./demo-scope.js');
-    const classification = demoScope.classifyRevision(issues, scopeResult);
-    revisionMode = classification.mode;
-    log(`[v8] Classification: ${revisionMode} — ${classification.reason}`);
-    
-    // Shadow mode: log classification but always run as SUPERVISED
-    // After 7 days of shadow data, analyze accuracy and enable AUTO
-    if (!data.v2) data.v2 = {};
-    if (!data.v2.classificationLog) data.v2.classificationLog = [];
-    data.v2.classificationLog.push({
-      mode: revisionMode,
-      reason: classification.reason,
-      instructions: issues.substring(0, 200),
-      scope: scopeResult ? { type: scopeResult.type, confidence: scopeResult.confidence, fileCount: (scopeResult.writeFiles?.length || 0) } : null,
-      timestamp: new Date().toISOString(),
-      shadow: true // shadow mode — logged but overridden to SUPERVISED
-    });
-    // Keep last 20 classification logs
-    if (data.v2.classificationLog.length > 20) data.v2.classificationLog = data.v2.classificationLog.slice(-20);
-    saveDemoData(task.slug, data);
-    
-    // SHADOW MODE: override to SUPERVISED until proven accurate
-    if (revisionMode === 'AUTO') {
-      log(`[v8] Shadow mode: AUTO → SUPERVISED (shadow logging only)`);
-      revisionMode = 'SUPERVISED';
-    }
-  } catch (e) {
-    log(`[v8] Classification error: ${e.message.substring(0, 100)} — defaulting to SUPERVISED`);
-  }
-  
-  // === STEP 1c: BEFORE SCREENSHOTS ===
-  let beforeScreenshots = { desktop: null, mobile: null };
-  let demoScreenshots = null;
-  try {
-    demoScreenshots = require('./demo-screenshots.js');
-    const liveUrl = data.liveUrl || data.demoUrl;
-    if (liveUrl) {
-      log(`[v8] Taking BEFORE screenshots: ${liveUrl}`);
-      beforeScreenshots = demoScreenshots.takeScreenshots(liveUrl, 'before', task.slug);
-      log(`[v8] Before screenshots: ${beforeScreenshots.paths.length} captured`);
-    }
-  } catch (e) {
-    log(`[v8] Before screenshots error: ${e.message.substring(0, 100)}`);
-  }
-  
   // === STEP 2: Baseline + scrape (unchanged — worker-specific logic) ===
   const baselinePath = path.join(demoDir, 'baseline.html');
   const currentPath = path.join(workDir, 'index.html');
@@ -1332,22 +1284,8 @@ Reply: VALIDATED: YES or VALIDATED: NO with PROBLEMS and FIX_INSTRUCTIONS.`;
     }
     
     log(`Claude verdict (attempt ${attempt}): ${claudeResult.substring(0, 300)}`);
-    // Flexible validation parsing — accept multiple YES formats
-    const yesPatterns = [
-      /VALIDATED:\s*YES/i,
-      /Design preserved[?:]?\s*\**YES\**/i,
-      /1\).*preserved[?:]?\s*\**YES\**/i,
-      /all three.*YES/i
-    ];
-    const noPatterns = [
-      /VALIDATED:\s*NO/i,
-      /Design preserved[?:]?\s*\**NO\**/i,
-      /FAIL/i
-    ];
-    const isYes = yesPatterns.some(p => p.test(claudeResult));
-    const isNo = noPatterns.some(p => p.test(claudeResult));
-    if (isYes && !isNo) { validated = true; log(`✅ VALIDATED on attempt ${attempt}`); }
-    else { claudeFeedback = claudeResult; log(`❌ FAILED attempt ${attempt} (isYes=${isYes}, isNo=${isNo})`); }
+    if (claudeResult.includes('VALIDATED: YES')) { validated = true; log(`✅ VALIDATED on attempt ${attempt}`); }
+    else { claudeFeedback = claudeResult; log(`❌ FAILED attempt ${attempt}`); }
   }
   
   // === STEP 4: POST-CODEX PIPELINE (diff → copy → push → QA → autofix) ===
@@ -1408,80 +1346,6 @@ Reply: VALIDATED: YES or VALIDATED: NO with PROBLEMS and FIX_INSTRUCTIONS.`;
     fs.copyFileSync(path.join(buildDir, 'baseline.html'), path.join(demoDir, 'baseline.html'));
   }
   
-  // === v9: VISUAL GATE — automatic before/after comparison ===
-  // Takes AFTER screenshots locally, compares with BEFORE via image model.
-  // If design is broken → revert files, notify, stop. No push.
-  // If design is OK → continue to Koi validation trigger.
-  let visualGateResult = null;
-  if (beforeScreenshots.desktop && demoScreenshots) {
-    try {
-      log(`[v9] Visual gate: comparing before/after for ${task.slug}...`);
-      visualGateResult = demoScreenshots.visualGate(beforeScreenshots, demoDir, task.slug, issues);
-      log(`[v9] Visual gate result: passed=${visualGateResult.passed} verdict=${(visualGateResult.verdict || '').substring(0, 150)}`);
-      
-      if (!visualGateResult.passed) {
-        // REVERT: restore original files from baseline/before state
-        log(`[v9] 🛑 VISUAL GATE FAILED — design regression detected. Reverting files.`);
-        
-        // Git checkout to restore original files in demoDir
-        try {
-          execSync(`cd "${DEMO_REPO}" && git checkout -- "demos/${task.slug}/"`, { timeout: 15000, stdio: 'pipe' });
-          log(`[v9] Files reverted via git checkout`);
-        } catch (revertErr) {
-          log(`[v9] Git revert failed: ${revertErr.message.substring(0, 100)}`);
-        }
-        
-        // Also revert workDir if deploy repo
-        if (isDeployRepo && workDir !== demoDir) {
-          try {
-            execSync(`cd "${workDir}" && git checkout -- .`, { timeout: 15000, stdio: 'pipe' });
-            log(`[v9] Deploy repo files reverted`);
-          } catch (revertErr) {
-            log(`[v9] Deploy repo revert failed: ${revertErr.message.substring(0, 100)}`);
-          }
-        }
-        
-        // Save visual audit trail
-        if (!data.v2) data.v2 = {};
-        data.v2.lastVisualGate = {
-          passed: false,
-          verdict: (visualGateResult.verdict || '').substring(0, 500),
-          beforeDesktop: beforeScreenshots.desktop,
-          afterDesktop: visualGateResult.afterScreenshots?.desktop,
-          timestamp: new Date().toISOString()
-        };
-        saveDemoData(task.slug, data);
-        
-        // Notify and stop
-        await notifyTelegram(`🛑 <b>${data.name}</b> — дизайн regression!\nVisual gate FAIL. Файловете са revert-нати.\n\nПричина: ${(visualGateResult.verdict || '').substring(0, 200)}\n\nКорекцията НЕ е приложена.`);
-        
-        // Cleanup
-        try { execSync(`rm -rf "${buildDir}"`, { stdio: 'pipe' }); } catch {}
-        try { fs.unlinkSync(`/tmp/demo-revision-trigger-${task.slug}.json`); } catch {}
-        
-        return `VISUAL GATE FAILED: Design regression detected. Files reverted. Verdict: ${(visualGateResult.verdict || '').substring(0, 200)}`;
-      }
-      
-      // Gate PASSED — save audit trail and continue
-      if (!data.v2) data.v2 = {};
-      data.v2.lastVisualGate = {
-        passed: true,
-        verdict: (visualGateResult.verdict || '').substring(0, 500),
-        beforeDesktop: beforeScreenshots.desktop,
-        afterDesktop: visualGateResult.afterScreenshots?.desktop,
-        timestamp: new Date().toISOString()
-      };
-      saveDemoData(task.slug, data);
-      log(`[v9] ✅ Visual gate PASSED — design preserved`);
-      
-    } catch (vgError) {
-      log(`[v9] Visual gate error: ${vgError.message.substring(0, 200)} — continuing to Koi validation`);
-      // On error, don't block — let Koi validate manually
-    }
-  } else {
-    log(`[v9] Visual gate skipped — no before screenshots or module not loaded`);
-  }
-
   // === v7: KOI VALIDATION GATE ===
   // Worker STOPS here. Writes done trigger + wakes Koi.
   // Koi validates visually (screenshot before/after), then pushes.
@@ -1500,11 +1364,8 @@ Reply: VALIDATED: YES or VALIDATED: NO with PROBLEMS and FIX_INSTRUCTIONS.`;
     reviewUrl,
     buildDir,
     attempt,
-    revisionMode,
-    beforeScreenshots: { desktop: beforeScreenshots.desktop, mobile: beforeScreenshots.mobile },
     pipelineState: pipelineState ? { slug: pipelineState.slug, action: pipelineState.action } : null,
     scopeResult: scopeResult ? { type: scopeResult.type, confidence: scopeResult.confidence, writeFiles: scopeResult.writeFiles } : null,
-    visualGate: visualGateResult ? { passed: visualGateResult.passed, verdict: (visualGateResult.verdict || '').substring(0, 300) } : null,
     timestamp: new Date().toISOString()
   };
   const triggerPath = `/tmp/demo-revision-done-${task.slug.replace(/[^a-zA-Z0-9а-яА-Я-]/g, '_')}.json`;

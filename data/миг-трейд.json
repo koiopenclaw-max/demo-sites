@@ -48,7 +48,7 @@
   ],
   "demoUrl": "https://koiopenclaw-max.github.io/demo-sites/demos/%D0%BC%D0%B8%D0%B3-%D1%82%D1%80%D0%B5%D0%B9%D0%B4/",
   "createdAt": "2026-03-31T11:08:17.685Z",
-  "updatedAt": "2026-04-02T18:26:40.631Z",
+  "updatedAt": "2026-04-02T19:08:46.523Z",
   "niche": "дограма-врати",
   "nicheOverride": "дограма-врати",
   "slopScore": 75,
@@ -211,9 +211,9 @@
         "product-pages.css",
         "product-pages.js"
       ],
-      "reasoning": "SEO/GEO/AEO optimization requires updating meta tags, structured data, headings, and semantic HTML across all content pages, plus creating sitemap.xml, robots.txt, and structured data files for search engine discoverability"
+      "reasoning": "SEO/GEO/AEO optimization requires updating meta tags, structured data, semantic HTML, and headings across all HTML pages site-wide, plus creating sitemap.xml, robots.txt, and structured data files for search engine discoverability"
     },
-    "lastScopeAt": "2026-04-02T18:26:40.628Z",
+    "lastScopeAt": "2026-04-02T19:08:46.520Z",
     "qaResult": {
       "passed": true,
       "criticalFails": 0,
@@ -270,6 +270,18 @@
           "fileCount": 9
         },
         "timestamp": "2026-04-02T18:26:40.630Z",
+        "shadow": true
+      },
+      {
+        "mode": "SUPERVISED",
+        "reason": "RESTRUCTURE type — Koi validates",
+        "instructions": "Сега искам за целия сайт да вградиш топ практики за SEO, GEO АЕО. Трябва сайта да има топ резултати когато стане жив на клиентски домейн",
+        "scope": {
+          "type": "RESTRUCTURE",
+          "confidence": "medium",
+          "fileCount": 9
+        },
+        "timestamp": "2026-04-02T19:08:46.523Z",
         "shadow": true
       }
     ]
