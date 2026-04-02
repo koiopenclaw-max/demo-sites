@@ -91,6 +91,19 @@ nav a { font-family: var(--font-heading); font-size: 0.8rem; font-weight: 500; l
 nav a:hover { color: var(--accent); border-bottom-color: var(--accent); }
 nav a.cta-btn { font-family: var(--font-heading); background: var(--accent); color: var(--bg); padding: 8px 20px; border-radius: 999px; font-weight: 600; letter-spacing: 0.02em; border-bottom: none; transition: background 0.3s, transform 0.2s; }
 nav a.cta-btn:hover { background: var(--accent-hover); transform: scale(1.03); border-bottom: none; color: var(--bg); }
+/* Nav dropdown */
+.nav-dropdown { position: relative; }
+.nav-dropdown-toggle { cursor: pointer; }
+.nav-dropdown-menu { display: none; position: absolute; top: 100%; left: 0; background: rgba(10,10,10,0.97); border: 1px solid rgba(201,169,110,0.2); border-radius: 8px; padding: 8px 0; min-width: 200px; box-shadow: 0 8px 24px rgba(0,0,0,0.4); z-index: 1001; }
+.nav-dropdown:hover .nav-dropdown-menu { display: block; }
+.nav-dropdown-menu a { display: block; padding: 8px 20px; font-size: 0.78rem; border-bottom: none !important; }
+.nav-dropdown-menu a:hover { background: rgba(201,169,110,0.1); color: var(--accent); }
+/* Mobile dropdown */
+.mobile-dropdown { width: 100%; }
+.mobile-dropdown-toggle { display: block; cursor: pointer; }
+.mobile-dropdown-menu { display: none; padding-left: 20px; }
+.mobile-dropdown.open .mobile-dropdown-menu { display: block; }
+.mobile-dropdown-menu a { font-size: 0.9rem; }
 .cta-btn {
   display: inline-block; padding: 10px 24px; background: var(--accent); color: var(--bg);
   font-weight: 600; font-size: 0.85rem; border: none; cursor: pointer;
@@ -381,8 +394,13 @@ footer { padding: 60px 0 30px; background: var(--bg); border-top: 1px solid rgba
     <a href="index.html" class="logo">Миг Трейд<span> | Метални врати</span></a>
     <nav id="mainNav">
       <a href="index.html">Начало</a>
-      <a href="metalni-vrati.html">Врати за апартаменти</a>
-      <a href="vhodni-vrati.html">Входни врати</a>
+      <div class="nav-dropdown">
+        <a href="#" class="nav-dropdown-toggle">Врати ▾</a>
+        <div class="nav-dropdown-menu">
+          <a href="metalni-vrati.html">Врати за апартаменти</a>
+          <a href="vhodni-vrati.html">Входни врати</a>
+        </div>
+      </div>
       <a href="metalni-reshetki.html">Метални решетки</a>
       <a href="ogradi-i-portali.html">Огради и портали</a>
       <a href="galeriia.html">Галерия</a>
@@ -401,8 +419,13 @@ footer { padding: 60px 0 30px; background: var(--bg); border-top: 1px solid rgba
   </button>
   <nav class="mobile-nav-links">
     <a href="index.html">Начало</a>
-    <a href="metalni-vrati.html">Врати за апартаменти</a>
-    <a href="vhodni-vrati.html">Входни врати</a>
+    <div class="mobile-dropdown">
+      <a href="#" class="mobile-dropdown-toggle">Врати ▾</a>
+      <div class="mobile-dropdown-menu">
+        <a href="metalni-vrati.html">Врати за апартаменти</a>
+        <a href="vhodni-vrati.html">Входни врати</a>
+      </div>
+    </div>
     <a href="metalni-reshetki.html">Метални решетки</a>
     <a href="ogradi-i-portali.html">Огради и портали</a>
     <a href="galeriia.html">Галерия</a>
@@ -729,6 +752,18 @@ const statsObserver = new IntersectionObserver((entries) => {
 }, { threshold: 0.3 });
 const statsSection = document.querySelector('.stats-grid');
 if (statsSection) statsObserver.observe(statsSection);
+
+// Desktop dropdown: prevent default on toggle links
+document.querySelectorAll(".nav-dropdown-toggle").forEach(t => {
+  t.addEventListener("click", e => e.preventDefault());
+});
+// Mobile dropdown toggle
+document.querySelectorAll(".mobile-dropdown-toggle").forEach(t => {
+  t.addEventListener("click", e => {
+    e.preventDefault();
+    t.closest(".mobile-dropdown").classList.toggle("open");
+  });
+});
 </script>
 </body>
 </html>

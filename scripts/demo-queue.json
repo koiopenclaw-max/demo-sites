@@ -1,18 +1,5 @@
 {
-  "tasks": [
-    {
-      "id": 1775116024390,
-      "slug": "миг-трейд",
-      "name": "Миг Трейд",
-      "action": "revisions",
-      "status": "in_progress",
-      "createdAt": "2026-04-02T07:47:04.390Z",
-      "startedAt": "2026-04-02T07:47:06.333Z",
-      "completedAt": null,
-      "error": null,
-      "result": null
-    }
-  ],
+  "tasks": [],
   "completed": [
     {
       "id": 1773819482814,

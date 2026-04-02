@@ -21,12 +21,84 @@ const OPENCLAW = '/home/clawd/.npm-global/bin/openclaw';
 const LOG_FILE = '/tmp/demo-worker.log';
 const POLL_INTERVAL = 30000; // 30 seconds
 
+// ===== v2 Modules (Phase 1) — imported with try/catch for safety =====
+let demoTags = null;
+let demoManifest = null;
+try {
+  demoTags = require('./demo-tags.js');
+  log('[v2] demo-tags.js loaded');
+} catch (e) {
+  console.error('[v2] demo-tags.js not available:', e.message);
+}
+try {
+  demoManifest = require('./demo-manifest.js');
+  log('[v2] demo-manifest.js loaded');
+} catch (e) {
+  console.error('[v2] demo-manifest.js not available:', e.message);
+}
+let demoScope = null;
+let demoDiff = null;
+try {
+  demoScope = require('./demo-scope.js');
+  log('[v2] demo-scope.js loaded');
+} catch (e) {
+  console.error('[v2] demo-scope.js not available:', e.message);
+}
+try {
+  demoDiff = require('./demo-diff.js');
+  log('[v2] demo-diff.js loaded');
+} catch (e) {
+  console.error('[v2] demo-diff.js not available:', e.message);
+}
+let demoMeasure = null;
+let demoFallback = null;
+try {
+  demoMeasure = require('./demo-measure.js');
+  log('[v2] demo-measure.js loaded');
+} catch (e) {
+  console.error('[v2] demo-measure.js not available:', e.message);
+}
+try {
+  demoFallback = require('./demo-fallback.js');
+  log('[v2] demo-fallback.js loaded');
+} catch (e) {
+  console.error('[v2] demo-fallback.js not available:', e.message);
+}
+let demoPipelineGlobal = null;
+try {
+  demoPipelineGlobal = require('./demo-pipeline.js');
+  log('[v6] demo-pipeline.js loaded');
+} catch (e) {
+  console.error('[v6] demo-pipeline.js not available:', e.message);
+}
+
+// ===== Per-slug Lock (v2) — prevents concurrent tasks on same slug =====
+const activeSlugLocks = new Set();
+
 // ===== Logging =====
 function log(msg) {
   const ts = new Date().toISOString();
   const line = `[${ts}] ${msg}`;
   console.log(line);
   fs.appendFileSync(LOG_FILE, line + '\n');
+}
+
+// ===== Trigger File Status (for failsafe + history) =====
+function updateTriggerStatus(slug, processingStatus, action, result) {
+  const triggerFile = `/tmp/demo-action-trigger-${slug}.json`;
+  try {
+    let trigger = {};
+    if (fs.existsSync(triggerFile)) {
+      trigger = JSON.parse(fs.readFileSync(triggerFile, 'utf8'));
+    }
+    trigger.processingStatus = processingStatus;
+    trigger.processingAction = action;
+    trigger.processingUpdatedAt = new Date().toISOString();
+    if (result) trigger.processingResult = result.substring(0, 500);
+    fs.writeFileSync(triggerFile, JSON.stringify(trigger, null, 2));
+  } catch (e) {
+    log(`Trigger status update error: ${e.message.substring(0, 100)}`);
+  }
 }
 
 // ===== Queue Operations =====
@@ -53,9 +125,28 @@ function saveQueue(q) {
 
 function addTask(slug, name, action, data) {
   const q = readQueue();
-  // Deduplicate: don't add if same slug+action already pending
-  const exists = q.tasks.find(t => t.slug === slug && t.action === action && t.status === 'pending');
-  if (exists) return false;
+  // Deduplicate: don't add if same slug+action already pending or in_progress
+  const exists = q.tasks.find(t => t.slug === slug && t.action === action && (t.status === 'pending' || t.status === 'in_progress'));
+  if (exists) {
+    // Check if in_progress task is stale (>15 min) — if so, clear it and allow re-queue
+    if (exists.status === 'in_progress' && exists.startedAt) {
+      const elapsed = Date.now() - new Date(exists.startedAt).getTime();
+      if (elapsed > 15 * 60 * 1000) {
+        log(`STALE: ${slug} (${action}) stuck in_progress for ${Math.round(elapsed/60000)}min — clearing`);
+        exists.status = 'error';
+        exists.error = `Stuck in_progress for ${Math.round(elapsed/60000)}min — auto-cleared`;
+        exists.completedAt = new Date().toISOString();
+        q.completed.push(exists);
+        q.tasks = q.tasks.filter(t => t !== exists);
+        saveQueue(q);
+        // Fall through to add new task
+      } else {
+        return false;
+      }
+    } else {
+      return false;
+    }
+  }
   
   q.tasks.push({
     id: Date.now(),
@@ -76,13 +167,19 @@ function addTask(slug, name, action, data) {
 
 // ===== GitHub Operations =====
 function gitPull() {
+  // v3: fetch + merge only. NEVER stash, reset, or clean.
+  // Local uncommitted/untracked files are ALWAYS preserved.
   try {
-    // Discard ALL local changes and sync to remote (worker never has local-only work worth keeping)
     execSync('git fetch origin main', { cwd: DEMO_REPO, timeout: 30000, stdio: 'pipe' });
-    execSync('git reset --hard origin/main', { cwd: DEMO_REPO, timeout: 15000, stdio: 'pipe' });
-    execSync('git clean -fd', { cwd: DEMO_REPO, timeout: 5000, stdio: 'pipe' });
+    // Merge remote changes. If there are local uncommitted tracked changes, merge may fail — that's OK.
+    try {
+      execSync('git merge origin/main --no-edit', { cwd: DEMO_REPO, timeout: 15000, stdio: 'pipe' });
+    } catch (mergeErr) {
+      // Merge conflict with uncommitted changes — just log, don't force anything
+      log(`[gitPull] merge skipped (local changes): ${mergeErr.message.substring(0, 100)}`);
+    }
   } catch (e) {
-    log(`git pull error: ${e.message}`);
+    log(`[gitPull] fetch error: ${e.message.substring(0, 100)}`);
   }
 }
 
@@ -94,14 +191,73 @@ function readDemoData(slug) {
 
 function saveDemoData(slug, data) {
   const file = path.join(DEMO_REPO, 'data', `${slug}.json`);
+  
+  // STATUS GUARD: Check if file on disk has a more advanced status
+  if (fs.existsSync(file) && data.status) {
+    try {
+      const existing = JSON.parse(fs.readFileSync(file, 'utf8'));
+      const existingIdx = getStatusIndex(existing.status);
+      const newIdx = getStatusIndex(data.status);
+      if (existingIdx > newIdx && newIdx !== -1) {
+        log(`⛔ SAVE GUARD: Refusing to write "${data.status}" (${newIdx}) — file has "${existing.status}" (${existingIdx}) for ${slug}`);
+        return false;
+      }
+    } catch {}
+  }
+  
   data.updatedAt = new Date().toISOString();
   fs.writeFileSync(file, JSON.stringify(data, null, 2));
+  return true;
 }
 
-function gitCommitPush(slug, status, name) {
+// Status ordering — higher index = further in the flow
+const STATUS_ORDER = [
+  'created',               // 0
+  'briefing',              // 1
+  'brief_ready',           // 2
+  'qa_submitted',          // 3
+  'brief_final',           // 4
+  'building',              // 5
+  'done',                  // 6
+  'needs_clarification',   // 7
+  'revisions',             // 8
+  'review',                // 9
+  'approved',              // 10
+  'dns_setup',             // 11
+  'deploying',             // 12
+  'live'                   // 13
+];
+
+function getStatusIndex(status) {
+  const idx = STATUS_ORDER.indexOf(status);
+  return idx === -1 ? -1 : idx;
+}
+
+function gitCommitPush(slug, newStatus, name) {
   try {
+    // GUARD: Pull latest and check if status has already moved forward
+    try {
+      execSync('git fetch origin main', { cwd: DEMO_REPO, timeout: 15000, stdio: 'pipe' });
+      execSync('git merge origin/main --no-edit', { cwd: DEMO_REPO, timeout: 10000, stdio: 'pipe' });
+    } catch (e) {
+      log(`[gitCommitPush] pull before push: ${e.message.substring(0, 100)}`);
+    }
+    
+    // Re-read the file from disk (after pull) to get current remote status
+    const dataFile = path.join(DEMO_REPO, 'data', `${slug}.json`);
+    if (fs.existsSync(dataFile)) {
+      const currentData = JSON.parse(fs.readFileSync(dataFile, 'utf8'));
+      const currentIdx = getStatusIndex(currentData.status);
+      const newIdx = getStatusIndex(newStatus);
+      
+      if (currentIdx > newIdx && newIdx !== -1) {
+        log(`⛔ STATUS GUARD: Refusing to write "${newStatus}" (${newIdx}) — already at "${currentData.status}" (${currentIdx}) for ${name}`);
+        return false;
+      }
+    }
+    
     execSync(`git add "data/${slug}.json"`, { cwd: DEMO_REPO, stdio: 'pipe' });
-    execSync(`git commit -m "[${status}] ${name} (worker)"`, { cwd: DEMO_REPO, stdio: 'pipe' });
+    execSync(`git commit -m "[${newStatus}] ${name} (worker)"`, { cwd: DEMO_REPO, stdio: 'pipe' });
     execSync('git push origin main', { cwd: DEMO_REPO, timeout: 30000, stdio: 'pipe' });
     return true;
   } catch (e) {
@@ -110,7 +266,45 @@ function gitCommitPush(slug, status, name) {
   }
 }
 
+// Guard for git add -A pushes (building, revisions) — pull + check status before push
+function guardedPush(slug, newStatus, name, commitMsg) {
+  try {
+    // Pull latest first
+    try {
+      execSync('git fetch origin main', { cwd: DEMO_REPO, timeout: 15000, stdio: 'pipe' });
+      execSync('git merge origin/main --no-edit', { cwd: DEMO_REPO, timeout: 10000, stdio: 'pipe' });
+    } catch (e) {
+      log(`[guardedPush] pull error: ${e.message.substring(0, 100)}`);
+    }
+    
+    // Check status ordering
+    const dataFile = path.join(DEMO_REPO, 'data', `${slug}.json`);
+    if (fs.existsSync(dataFile)) {
+      const currentData = JSON.parse(fs.readFileSync(dataFile, 'utf8'));
+      const currentIdx = getStatusIndex(currentData.status);
+      const newIdx = getStatusIndex(newStatus);
+      
+      if (currentIdx > newIdx && newIdx !== -1) {
+        log(`⛔ STATUS GUARD: Refusing "${newStatus}" (${newIdx}) — already at "${currentData.status}" (${currentIdx}) for ${name}`);
+        return false;
+      }
+    }
+    
+    execSync('git add -A', { cwd: DEMO_REPO, stdio: 'pipe' });
+    execSync(`git commit -m "${commitMsg}"`, { cwd: DEMO_REPO, stdio: 'pipe' });
+    execSync('git push origin main', { cwd: DEMO_REPO, timeout: 30000, stdio: 'pipe' });
+    return true;
+  } catch (e) {
+    log(`guardedPush error: ${e.message}`);
+    return false;
+  }
+}
+
 // ===== Telegram Notification =====
+function projectUrl(slug) {
+  return `https://koiopenclaw-max.github.io/demo-sites/#project/${encodeURIComponent(slug)}`;
+}
+
 function notifyTelegram(msg) {
   return new Promise((resolve) => {
     const payload = JSON.stringify({
@@ -201,15 +395,13 @@ async function executeBriefing(task) {
   let niche = data.nicheOverride || 'друго';
   const hasManualNiche = !!data.nicheOverride;
   // Order matters! More specific niches FIRST, generic ones LAST.
-  // Keywords must be specific enough to avoid false positives.
-  // 'авто' was too broad — matched 'автоматичн', 'авторски' etc.
   const nicheKeywords = {
     'дограма-врати': ['врат', 'дограм', 'прозор', 'pvc', 'алуминиев', 'стъклопакет', 'дървен', 'плъзгащ', 'двукрил', 'еднокрил', 'интериорн', 'метални врат', 'входни врат', 'решетк', 'оград'],
     'стоматология': ['дентал', 'зъбо', 'стомат', 'имплант', 'ортодонт', 'зъб'],
     'счетоводство': ['счетовод', 'счетоводн', 'одитор', 'данъч', 'ддс', 'финансов', 'баланс', 'отчет', 'кантора', 'трз', 'осигуровк'],
     'нотариус': ['нотариус', 'нотариал', 'заверка'],
     'hvac': ['климатик', 'климатиц', 'отоплен', 'вентилац', 'hvac'],
-    'хотел': ['хотел', 'hotel', 'стаи', 'резервация', 'настаняване'],
+    'хотел': ['хотел', 'hotel', 'резервация', 'настаняване'],
     'хранителни': ['храни', 'месо', 'млечн', 'био', 'органич'],
     'земеделие': ['земедел', 'агро', 'лозе', 'овощ', 'ферма', 'фермер'],
     'строителство': ['строител', 'строеж', 'архитект'],
@@ -255,7 +447,6 @@ ${textContent ? textContent.substring(0, 1500) : 'Не е намерено съ�
   // Template selection if niche has templates
   const TEMPLATE_NICHES = ['счетоводство', 'стоматология', 'дограма-врати'];
   if (TEMPLATE_NICHES.includes(niche)) {
-    // Map worker niche names to TEMPLATE_CATALOG keys in index.html
     const NICHE_TO_CATALOG = {
       'счетоводство': 'счетоводство',
       'стоматология': 'стоматолог',
@@ -287,7 +478,7 @@ ${textContent ? textContent.substring(0, 1500) : 'Не е намерено съ�
   saveDemoData(task.slug, data);
   gitCommitPush(task.slug, 'brief_ready', data.name);
   
-  await notifyTelegram(`📋 Задание готово: <b>${data.name}</b>\nНиша: ${niche}\nСтатус: brief_ready\n\nОтвори платформата и попълни въпросите.`);
+  await notifyTelegram(`📋 Задание готово: <b>${data.name}</b>\nНиша: ${niche}\nСтатус: brief_ready\n\n<a href="${projectUrl(slug)}">Отвори → попълни въпросите</a>`);
   
   return `Brief готов. Ниша: ${niche}. ${qa.length} въпроса.`;
 }
@@ -314,7 +505,7 @@ async function executeQaSubmitted(task) {
   saveDemoData(task.slug, data);
   gitCommitPush(task.slug, 'brief_final', data.name);
   
-  await notifyTelegram(`✅ Задание обогатено: <b>${data.name}</b>\nСтатус: brief_final\n\nПрегледай и потвърди билда.`);
+  await notifyTelegram(`✅ Задание обогатено: <b>${data.name}</b>\nСтатус: brief_final\n\n<a href="${projectUrl(slug)}">Прегледай и потвърди билда</a>`);
   
   return 'Brief enriched → brief_final';
 }
@@ -322,6 +513,16 @@ async function executeQaSubmitted(task) {
 async function executeBuilding(task) {
   const data = readDemoData(task.slug);
   if (!data) throw new Error('Data file not found');
+  
+  // v2: Create pre-build tag + ensure file manifest
+  if (demoTags) {
+    const tag = demoTags.createTag(DEMO_REPO, 'pre-build', task.slug);
+    if (tag) log(`[v2] Tag created: ${tag}`);
+  }
+  if (demoManifest) {
+    const manifest = demoManifest.ensureManifest(task.slug);
+    if (manifest) log(`[v2] Manifest ensured: ${manifest.length} files`);
+  }
   
   // Find selected template
   const templateQ = (data.qa || []).find(q => q.type === 'template_select');
@@ -361,10 +562,8 @@ async function executeBuilding(task) {
   if (tpl) {
     let tplUrl = '';
     if (tpl.url) {
-      // Direct URL (e.g. dental templates on separate repos)
       tplUrl = tpl.url;
     } else if (tpl.local) {
-      // Local file in demo-sites repo
       const localPath = path.join(DEMO_REPO, tpl.local);
       log(`Reading local template: ${localPath}`);
       try {
@@ -373,7 +572,6 @@ async function executeBuilding(task) {
         log(`Local template read failed: ${e.message}`);
       }
     } else if (tpl.repo && tpl.file) {
-      // GitHub Pages URL from repo+file
       tplUrl = `https://koiopenclaw-max.github.io/${tpl.repo}/${tpl.file}`;
     }
     
@@ -673,14 +871,29 @@ Fix instructions:
     }
   }
   
-  // Use the final output (validated or best effort)
+  // v2: NULA BEST EFFORT — if not validated, STOP. Don't push broken code.
+  if (!buildValidated) {
+    log(`🛑 [v2] NULA BEST EFFORT: Build NOT validated after ${buildAttempt} attempts. NOT pushing.`);
+    await notifyTelegram(`🛑 Build СПРЯН: <b>${data.name}</b>\n${buildAttempt} опита, не мина валидация.\nНе е push-нато. Нужна е намеса.`);
+    return `Build STOPPED (not validated after ${buildAttempt} attempts) — nula best effort`;
+  }
+  
+  // Build validated — proceed with push
   const finalOutput = path.join(buildDir, 'index.html');
   if (!fs.existsSync(finalOutput)) {
     throw new Error('Codex did not produce index.html after all attempts');
   }
   
+  // Ensure demo dir exists (gitPull may have cleaned it)
+  if (!fs.existsSync(demoDir)) fs.mkdirSync(demoDir, { recursive: true });
+  
   // Copy to demo dir
   fs.copyFileSync(finalOutput, path.join(demoDir, 'index.html'));
+  
+  // === LOCK: Save baseline version for future revisions ===
+  // baseline.html is the LOCKED approved design — revisions work FROM this, never modify it
+  fs.copyFileSync(finalOutput, path.join(demoDir, 'baseline.html'));
+  log(`LOCKED baseline: ${path.join(demoDir, 'baseline.html')}`);
   
   // Git add demos folder and push
   try {
@@ -692,20 +905,29 @@ Fix instructions:
   data.demoUrl = demoUrl;
   data.status = 'done';
   
+  // v2: Update file manifest after successful build
+  if (demoManifest) {
+    const manifest = demoManifest.generateManifest(task.slug);
+    if (manifest.length > 0) {
+      data.files = manifest;
+      data.filesUpdatedAt = new Date().toISOString();
+      log(`[v2] Post-build manifest updated: ${manifest.length} files`);
+    }
+  }
+  
   saveDemoData(task.slug, data);
   
-  try {
-    execSync(`git add -A`, { cwd: DEMO_REPO, stdio: 'pipe' });
+  {
     const vTag = buildValidated ? '' : ' (best-effort)';
-    execSync(`git commit -m "[done] ${data.name} — demo built${vTag} (worker)"`, { cwd: DEMO_REPO, stdio: 'pipe' });
-    execSync('git push origin main', { cwd: DEMO_REPO, timeout: 30000, stdio: 'pipe' });
-  } catch (e) {
-    log(`git push error: ${e.message}`);
+    const pushed = guardedPush(task.slug, 'done', data.name, `[done] ${data.name} — demo built${vTag} (worker)`);
+    if (!pushed) {
+      log(`⛔ Build push blocked by status guard for ${data.name}`);
+    }
   }
   
   const statusEmoji = buildValidated ? '🎉' : '⚠️';
   const statusNote = buildValidated ? '' : '\n⚠️ Не е напълно валидиран — прегледай ръчно.';
-  await notifyTelegram(`${statusEmoji} Демо готово: <b>${data.name}</b>\n🔗 ${demoUrl}${statusNote}\n\nПрегледай и одобри или изпрати корекции.`);
+  await notifyTelegram(`${statusEmoji} Демо готово: <b>${data.name}</b>\n🔗 ${demoUrl}${statusNote}\n\n<a href="${projectUrl(slug)}">Прегледай и одобри</a>`);
   
   // Cleanup screenshots
   try { execSync(`rm -rf "${path.join(buildDir, 'screenshots')}"`, { stdio: 'pipe' }); } catch {}
@@ -714,11 +936,16 @@ Fix instructions:
 }
 
 async function executeRevisions(task) {
-  // v4: Pre-parse → Codex builds → Claude validates → loop until done
-  // 1. Pre-parse: extract concrete URLs/elements from old site
-  // 2. Codex: apply changes with specific instructions
-  // 3. Claude Code: validate output against requirements
-  // 4. If failed → Codex retry with Claude's feedback (max 3 loops)
+  // v7: PIPELINE-DRIVEN revision flow with Koi validation gate
+  // Flow: preCodex → [scope stop?] → baseline + scrape → Codex loop → postCodex → STOP → wake Koi → Koi validates → push
+  
+  // v7: START notification — Крис sees that work has begun
+  await notifyTelegram(`🔧 Корекция стартирана: <b>${task.name}</b>\nCodex работи (~5-10 мин)`);
+  
+  let demoPipeline = null;
+  try { demoPipeline = require('./demo-pipeline.js'); } catch (e) {
+    log(`[v6] demo-pipeline.js not available: ${e.message.substring(0, 100)} — falling back to v5 logic`);
+  }
   
   const MAX_ATTEMPTS = 3;
   const data = readDemoData(task.slug);
@@ -727,380 +954,582 @@ async function executeRevisions(task) {
   const issues = data.currentRevision || 'Не са описани конкретни проблеми';
   
   // === STEP 0: Determine working repo ===
-  let workDir, htmlFile, isDeployRepo = false;
+  let workDir, isDeployRepo = false;
+  const demoDir = path.join(DEMO_REPO, 'demos', task.slug);
+  
   if (data.deployRepo) {
     isDeployRepo = true;
     const repoName = data.deployRepo.split('/').pop();
     workDir = `/tmp/${repoName}`;
     if (fs.existsSync(workDir)) {
-      try { execSync(`cd "${workDir}" && git pull --rebase origin main`, { timeout: 30000, stdio: 'pipe' }); }
+      try { execSync(`cd "${workDir}" && git pull --no-rebase origin main`, { timeout: 30000, stdio: 'pipe' }); }
       catch { execSync(`rm -rf "${workDir}"`, { stdio: 'pipe' }); }
     }
     if (!fs.existsSync(workDir)) {
       execSync(`git clone https://x-access-token:${GH_TOKEN}@github.com/${data.deployRepo}.git "${workDir}"`, { timeout: 30000, stdio: 'pipe' });
     }
-    htmlFile = path.join(workDir, 'index.html');
   } else {
-    workDir = path.join(DEMO_REPO, 'demos', task.slug);
-    htmlFile = path.join(workDir, 'index.html');
-    // Stash → pull → stash pop (prevents "unstaged changes" blocking pull)
+    workDir = demoDir;
     try { execSync('git stash --quiet', { cwd: DEMO_REPO, timeout: 5000, stdio: 'pipe' }); } catch {}
-    try { 
-      execSync('git pull --rebase origin main', { cwd: DEMO_REPO, timeout: 30000, stdio: 'pipe' }); 
-    } catch (e) {
-      log(`Revision git pull failed: ${e.message} — attempting hard reset`);
-      try { execSync('git fetch origin main && git reset --hard origin/main', { cwd: DEMO_REPO, timeout: 15000, stdio: 'pipe' }); } catch {}
+    try { execSync('git pull --no-rebase origin main', { cwd: DEMO_REPO, timeout: 30000, stdio: 'pipe' }); } catch (e) {
+      log(`Revision git pull failed: ${e.message} — fetching only`);
+      try { execSync('git fetch origin main', { cwd: DEMO_REPO, timeout: 15000, stdio: 'pipe' }); } catch {}
     }
     try { execSync('git stash pop --quiet', { cwd: DEMO_REPO, timeout: 5000, stdio: 'pipe' }); } catch {}
   }
   
-  if (!fs.existsSync(htmlFile)) {
-    throw new Error(`HTML file not found: ${htmlFile}`);
-  }
+  // === STEP 1: PRE-CODEX PIPELINE (tag → manifest → scope → sandbox → measure) ===
+  let pipelineState = null;
+  let scopeResult = null;
+  let measurePrompt = '';
   
-  const currentHtml = fs.readFileSync(htmlFile, 'utf8');
-  
-  // === STEP 1: PRE-PARSE — extract concrete data from old site ===
-  let scrapedContent = '';
-  let extractedAssets = '';
-  
-  if (data.websiteUrl && /снимк|лого|прехвърл|стар|оригинал|съдържание|контент|hero|хиро/i.test(issues)) {
-    log(`Revisions: scraping original site ${data.websiteUrl}...`);
-    scrapedContent = scrapeUrl(data.websiteUrl);
+  if (demoPipeline) {
+    const liveUrl = data.liveUrl || data.demoUrl || null;
+    const pre = demoPipeline.preCodex({
+      slug: task.slug,
+      siteName: data.name,
+      instructions: issues,
+      workDir,
+      action: 'revision',
+      liveUrl,
+    });
+    pipelineState = pre.state;
+    scopeResult = pre.scope;
+    measurePrompt = pre.measurePrompt;
     
-    if (scrapedContent) {
-      // Extract concrete assets using regex — give Codex exact URLs, not "find them yourself"
-      const imgUrls = [...new Set((scrapedContent.match(/src="(https?:\/\/[^"]+\.(jpg|jpeg|png|svg|webp|gif)(?:\?[^"]*)?)"/gi) || [])
-        .map(m => m.match(/src="([^"]+)"/)?.[1]).filter(Boolean))];
-      
-      const logoUrls = imgUrls.filter(u => /logo|лого/i.test(u));
-      const heroUrls = imgUrls.filter(u => /hero|banner|nachalo|slider|главн/i.test(u));
-      
-      // Extract nav/menu structure
-      const navLinks = [...new Set((scrapedContent.match(/href="(\/[^"]{2,60})"/g) || [])
-        .map(m => m.match(/href="([^"]+)"/)?.[1]).filter(Boolean))];
-      
-      extractedAssets = `
-=== PRE-EXTRACTED ASSETS FROM ORIGINAL SITE ===
-These are EXACT URLs found in the original site HTML. USE THESE, do not guess.
-
-LOGO URLs found:
-${logoUrls.length ? logoUrls.map(u => `  - ${u}`).join('\n') : '  (none found — look in original-site.html manually)'}
-
-HERO/BANNER image URLs found:
-${heroUrls.length ? heroUrls.map(u => `  - ${u}`).join('\n') : '  (none with hero/banner in name — check first large image in original-site.html)'}
-
-ALL image URLs (${imgUrls.length} total):
-${imgUrls.slice(0, 30).map(u => `  - ${u}`).join('\n')}
-
-NAVIGATION structure (${navLinks.length} internal links):
-${navLinks.slice(0, 25).map(u => `  - ${data.websiteUrl.replace(/\/$/, '')}${u}`).join('\n')}
-=== END PRE-EXTRACTED ===`;
-      
-      log(`Pre-parsed: ${logoUrls.length} logos, ${heroUrls.length} hero images, ${imgUrls.length} total images, ${navLinks.length} nav links`);
+    log(`[v6] preCodex: proceed=${pre.proceed} scope=${pre.scope?.type}/${pre.scope?.confidence} manifest=${pre.manifest.length} measure=${pre.measurePrompt.length}chars`);
+    
+    // Handle SCOPE STOP → but let surgical try first for EDIT-type
+    if (!pre.proceed) {
+      if (scopeResult && scopeResult.type === 'EDIT') {
+        log(`[v6] SCOPE STOP (${pre.stopReason}) but type=EDIT — letting surgical path try first`);
+        // Don't stop — surgical will attempt below, falls back to Codex if it can't
+      } else {
+        log(`🛑 [v6] SCOPE STOP: ${pre.stopReason}`);
+        const clarification = demoPipeline.handleScopeStop({
+          slug: task.slug,
+          siteName: data.name,
+          instructions: issues,
+          manifest: pre.manifest,
+          stopReason: pre.stopReason,
+        });
+        
+        // Update data JSON with clarification questions
+        Object.assign(data, clarification.dataUpdate);
+        data.updatedAt = new Date().toISOString();
+        saveDemoData(task.slug, data);
+        gitCommitPush(task.slug, 'needs_clarification', data.name);
+        
+        const qList = clarification.questions.map(q => '• ' + q).join('\n');
+        await notifyTelegram(`❓ Уточнение: <b>${data.name}</b>\nИнструкцията е неясна: "${issues.substring(0, 100)}"\n\n<a href="${projectUrl(task.slug)}">Отговори на ${clarification.questions.length} въпроса</a>`);
+        return `Revision needs clarification — ${clarification.questions.length} questions sent to client`;
+      }
+    }
+    
+    // Save scope to data
+    if (scopeResult) {
+      if (!data.v2) data.v2 = {};
+      data.v2.lastScope = scopeResult;
+      data.v2.lastScopeAt = new Date().toISOString();
+      saveDemoData(task.slug, data);
     }
   }
   
-  // === STEP 2: Prepare build directory ===
+  // === STEP 2: Baseline + scrape (unchanged — worker-specific logic) ===
+  const baselinePath = path.join(demoDir, 'baseline.html');
+  const currentPath = path.join(workDir, 'index.html');
+  
+  if (!fs.existsSync(baselinePath)) {
+    if (fs.existsSync(currentPath)) {
+      if (!fs.existsSync(demoDir)) fs.mkdirSync(demoDir, { recursive: true });
+      fs.copyFileSync(currentPath, baselinePath);
+      log(`Created baseline from current index.html`);
+    } else {
+      throw new Error(`No baseline.html and no index.html found for ${task.slug}`);
+    }
+  }
+  
+  const baselineHtml = fs.readFileSync(baselinePath, 'utf8');
+  log(`Baseline loaded: ${baselinePath} (${baselineHtml.length} bytes)`);
+  
+  // Deep scrape
+  let scrapedPages = {};
+  let scrapeSummary = '';
+  if (data.websiteUrl) {
+    const baseUrl = data.websiteUrl.replace(/\/$/, '');
+    log(`Deep scraping: ${baseUrl}...`);
+    const homepageHtml = scrapeUrl(baseUrl + '/');
+    if (homepageHtml) {
+      scrapedPages['/'] = homepageHtml;
+      const domain = new URL(baseUrl).hostname;
+      const linkRegex = new RegExp(`href="((?:https?://${domain.replace('.', '\\.')})?/[^"]{2,80})"`, 'gi');
+      const allLinks = [...new Set((homepageHtml.match(linkRegex) || [])
+        .map(m => { const match = m.match(/href="([^"]+)"/); if (!match) return null; let url = match[1]; if (url.startsWith('/')) url = baseUrl + url; try { return new URL(url).pathname; } catch { return null; } })
+        .filter(p => p && p !== '/' && !p.match(/\.(jpg|png|gif|svg|css|js|xml|json|pdf|zip|rss|feed)/i) && !p.includes('wp-'))
+      )];
+      for (const pagePath of allLinks.slice(0, 10)) {
+        try { const pageHtml = scrapeUrl(baseUrl + pagePath); if (pageHtml && pageHtml.length > 500) { scrapedPages[pagePath] = pageHtml; } } catch {}
+      }
+    }
+    for (const [pagePath, html] of Object.entries(scrapedPages)) {
+      const text = html.replace(/<script[^>]*>[\s\S]*?<\/script>/gi, '').replace(/<style[^>]*>[\s\S]*?<\/style>/gi, '').replace(/<[^>]*>/g, '\n').replace(/\s+/g, ' ').trim().substring(0, 3000);
+      scrapeSummary += `\n=== PAGE: ${pagePath} ===\n${text}\n`;
+    }
+    log(`Deep scrape: ${Object.keys(scrapedPages).length} pages`);
+  }
+  
+  // === STEP 3: Build directory + Codex loop ===
   const buildDir = `/tmp/demo-revision-${task.slug}`;
   if (fs.existsSync(buildDir)) execSync(`rm -rf "${buildDir}"`, { stdio: 'pipe' });
   fs.mkdirSync(buildDir, { recursive: true });
   
-  fs.writeFileSync(path.join(buildDir, 'current.html'), currentHtml);
-  if (scrapedContent) {
-    fs.writeFileSync(path.join(buildDir, 'original-site.html'), scrapedContent.substring(0, 500000));
+  fs.writeFileSync(path.join(buildDir, 'baseline.html'), baselineHtml);
+  if (scrapeSummary) fs.writeFileSync(path.join(buildDir, 'scraped-content.txt'), scrapeSummary);
+  for (const [pagePath, html] of Object.entries(scrapedPages)) {
+    const safeName = pagePath.replace(/\//g, '_').replace(/^_/, '') || 'home';
+    fs.writeFileSync(path.join(buildDir, `original-page-${safeName}.html`), html.substring(0, 500000));
   }
   fs.writeFileSync(path.join(buildDir, 'brief.md'), data.brief || '');
   
-  // === STEP 3: CODEX-CLAUDE LOOP ===
+  const needsMultiPage = /страниц|pages|допълнителн|създа.*страниц|прехвърл.*съдържание/i.test(issues);
+  const scrapedPageCount = Object.keys(scrapedPages).length;
+  
+  // === STEP 2.5: SURGICAL EDIT PATH (skip Codex for micro-edits) ===
+  let surgicalDone = false;
+  let surgicalFiles = [];
+  
+  if (scopeResult && scopeResult.type === 'EDIT' && !needsMultiPage) {
+    try {
+      const demoSurgical = require('./demo-surgical.js');
+      const allSiteFiles = fs.readdirSync(workDir).filter(f => f.endsWith('.html') || f.endsWith('.css'));
+      const writeFiles = scopeResult.writeFiles && scopeResult.writeFiles.length > 0 ? scopeResult.writeFiles : allSiteFiles;
+      
+      log(`[surgical] Analyzing: scope=EDIT, writeFiles=${writeFiles.join(',')}`);
+      const analysis = demoSurgical.analyzeSurgical({
+        instructions: issues,
+        scope: scopeResult,
+        workDir,
+        writeFiles: allSiteFiles, // Give ALL site files so Claude can find the pattern everywhere
+      });
+      
+      if (analysis && analysis.surgical && analysis.edits && analysis.edits.length > 0) {
+        // Sanity check: too many edits per file = Claude overscoped
+        const uniqueFiles = [...new Set(analysis.edits.map(e => e.file))];
+        const editsPerPrimaryFile = analysis.edits.filter(e => e.file === 'index.html' || e.file === allSiteFiles[0]).length;
+        log(`[surgical] Plan: ${analysis.edits.length} edits (${editsPerPrimaryFile} on primary) across ${uniqueFiles.length} files`);
+        log(`[surgical] Reasoning: ${analysis.reasoning}`);
+        
+        // Multi-file sites: CSS/font changes replicate across all files = high edit count is EXPECTED
+        // Only reject if edits-per-file is unreasonable (>15) — not the old limit of 5
+        const MAX_EDITS_PER_PRIMARY = uniqueFiles.length > 3 ? 15 : 8;
+        if (editsPerPrimaryFile > MAX_EDITS_PER_PRIMARY) {
+          log(`[surgical] ⚠️ REJECTED: ${editsPerPrimaryFile} edits on primary file (limit: ${MAX_EDITS_PER_PRIMARY} for ${uniqueFiles.length} files) — Claude overscoped. Falling through to Codex.`);
+          analysis.surgical = false;
+        }
+      }
+      
+      if (analysis && analysis.surgical && analysis.edits && analysis.edits.length > 0) {
+        
+        // Backup files before editing
+        const backupDir = path.join(buildDir, '_surgical_backup');
+        fs.mkdirSync(backupDir, { recursive: true });
+        for (const f of [...new Set(analysis.edits.map(e => e.file))]) {
+          const src = path.join(workDir, f);
+          if (fs.existsSync(src)) fs.copyFileSync(src, path.join(backupDir, f));
+        }
+        
+        // Apply edits
+        const result = demoSurgical.applySurgical(analysis.edits, workDir);
+        log(`[surgical] Applied: ${result.applied}/${analysis.edits.length}, failed: ${result.failed.length}, files: ${result.files.join(',')}`);
+        
+        if (result.failed.length > 0) {
+          for (const f of result.failed) log(`[surgical] FAILED: ${f.file} — ${f.description}: ${f.error}`);
+        }
+        
+        // Validate — diff should be minimal
+        const validation = demoSurgical.validateSurgical(analysis.edits, workDir, backupDir);
+        
+        if (result.applied > 0 && result.failed.length === 0 && validation.valid) {
+          log(`[surgical] ✅ All edits applied and validated. Skipping Codex.`);
+          surgicalDone = true;
+          surgicalFiles = result.files.filter(f => f !== 'baseline.html'); // Don't push baseline changes
+          
+          // Surgical edits are minimal and validated — push directly (no Koi gate needed)
+          log(`[surgical] Pushing ${surgicalFiles.length} files directly (surgical = safe)...`);
+          try {
+            for (const f of surgicalFiles) {
+              execSync(`git add "demos/${task.slug}/${f}"`, { cwd: DEMO_REPO, timeout: 5000, stdio: 'pipe' });
+            }
+            execSync(`git commit -m "surgical(${task.slug}): ${issues.substring(0, 60).replace(/"/g, "'")}"`, { cwd: DEMO_REPO, timeout: 10000, stdio: 'pipe' });
+            execSync('git push origin main', { cwd: DEMO_REPO, timeout: 30000, stdio: 'pipe' });
+            log(`[surgical] ✅ Pushed to GitHub`);
+          } catch (gitErr) {
+            log(`[surgical] Git push failed: ${gitErr.message.substring(0, 200)}`);
+          }
+          
+          // Update status to review
+          const resolution = `✅ Surgical: ${result.applied} edits across ${surgicalFiles.length} files. ${analysis.reasoning?.substring(0, 100) || ''}`;
+          data.status = 'review';
+          if (!data.revisionHistory) data.revisionHistory = [];
+          const lastRev = data.revisionHistory[data.revisionHistory.length - 1];
+          if (lastRev && !lastRev.resolvedAt) {
+            lastRev.resolvedAt = new Date().toISOString();
+            lastRev.resolution = resolution;
+          }
+          data.currentRevision = null;
+          data.updatedAt = new Date().toISOString();
+          saveDemoData(task.slug, data);
+          gitCommitPush(task.slug, 'review', data.name);
+          
+          // Notify
+          const reviewUrl = data.demoUrl || `https://koiopenclaw-max.github.io/demo-sites/demos/${encodeURIComponent(task.slug)}/`;
+          await notifyTelegram(`✅ Surgical корекция: <b>${data.name}</b>\n📝 ${issues.substring(0, 150)}\n🔗 ${reviewUrl}\n${result.applied} edits, ${surgicalFiles.length} файла, 0 грешки`);
+          
+          return `Surgical revision completed: ${result.applied} edits, ${surgicalFiles.length} files`;
+        
+        } else {
+          log(`[surgical] ❌ Validation failed or partial edits — rolling back, falling through to Codex`);
+          if (validation.issues.length > 0) log(`[surgical] Issues: ${validation.issues.join('; ')}`);
+          // Rollback
+          for (const f of [...new Set(analysis.edits.map(e => e.file))]) {
+            const backup = path.join(backupDir, f);
+            if (fs.existsSync(backup)) fs.copyFileSync(backup, path.join(workDir, f));
+          }
+        }
+      } else {
+        log(`[surgical] Not surgical: ${analysis?.reasoning || 'analysis returned null'}`);
+      }
+    } catch (e) {
+      log(`[surgical] Error: ${e.message.substring(0, 200)} — falling through to Codex`);
+    }
+  }
+  
   let attempt = 0;
   let claudeFeedback = '';
-  let validated = false;
+  let validated = surgicalDone;
+  
+  // Skip Codex loop entirely if surgical edit succeeded
+  if (surgicalDone) {
+    attempt = 1; // For the done trigger
+    log(`[surgical] Surgical path completed — skipping Codex loop`);
+  }
   
   while (attempt < MAX_ATTEMPTS && !validated) {
     attempt++;
     log(`Revision attempt ${attempt}/${MAX_ATTEMPTS} for ${data.name}...`);
     
-    // Build prompt — include Claude's feedback if this is a retry
-    const retrySection = claudeFeedback ? `
-PREVIOUS ATTEMPT FAILED VALIDATION. Here is what the validator found:
-${claudeFeedback}
-
-Fix ALL the issues listed above. This is attempt ${attempt}/${MAX_ATTEMPTS}.
-` : '';
+    const retrySection = claudeFeedback ? `\nPREVIOUS ATTEMPT FAILED VALIDATION. Fix these issues:\n${claudeFeedback}\nThis is attempt ${attempt}/${MAX_ATTEMPTS}.\n` : '';
     
+    const multiPageInstructions = needsMultiPage ? `\nMULTI-PAGE INSTRUCTIONS:\nCreate SEPARATE HTML files for each page. Original site has ${scrapedPageCount} pages.\n${Object.keys(scrapedPages).filter(p => p !== '/').map(p => `- ${p.replace(/\//g, '').replace(/^$/, 'home')}.html`).join('\n')}\nEach page: same design as baseline.html, real content, working nav links.\n` : '';
+    
+    const scopeSection = scopeResult ? `\n=== SCOPE LOCK ===\nType: ${scopeResult.type} | You may ONLY modify: ${scopeResult.writeFiles.join(', ')}\n${scopeResult.newFiles?.length > 0 ? 'You may CREATE: ' + scopeResult.newFiles.join(', ') + '\n' : ''}ALL other files are READ-ONLY.\n` : '';
+
     const prompt = `You are revising a demo website for "${data.name}".
 
-TASK: Apply the requested changes to the current HTML file.
-
-INPUT FILES IN THIS DIRECTORY:
-- current.html — the current demo site HTML that needs changes
-${scrapedContent ? '- original-site.html — HTML from the client\'s original/old website (for reference)' : ''}
-- brief.md — the original project brief for context
-
-REQUESTED CHANGES:
+=== CRITICAL RULE ===
+baseline.html is the LOCKED approved design. Preserve its visual appearance.
+DO NOT change the design unless the revision explicitly asks for it.
+${scopeSection}${measurePrompt}
+=== REVISION INSTRUCTIONS ===
 ${issues}
-${extractedAssets}
-${retrySection}
-INSTRUCTIONS:
-1. Read current.html carefully
-${scrapedContent ? '2. If you need content from the original site, check the PRE-EXTRACTED ASSETS section above FIRST — use those exact URLs\n3. Only read original-site.html if you need additional content not in the pre-extracted section' : ''}
-4. Apply ALL requested changes using the EXACT URLs from pre-extracted assets
-5. Keep the current design, colors, and layout style
-6. Output the modified file as index.html in this directory
-7. The file must be a complete, self-contained HTML file (all CSS/JS inline)
-8. All text must be in Bulgarian
 
-CRITICAL: Use the EXACT URLs from PRE-EXTRACTED ASSETS. Do NOT guess or substitute different images.
-CRITICAL: Do NOT remove existing content unless explicitly asked.
+=== INPUT FILES ===
+- baseline.html — LOCKED approved design
+${scrapeSummary ? '- scraped-content.txt — content from original site' : ''}
+- brief.md — project brief
+${retrySection}${multiPageInstructions}
+=== INSTRUCTIONS ===
+1. Read baseline.html — approved design to keep
+2. Apply the revision instructions
+3. ${scrapeSummary ? 'Use scraped-content.txt for content' : 'Make targeted changes only'}
+4. All CSS identical to baseline. All text in Bulgarian.
 
-OUTPUT: Save the final file as index.html in this directory.`;
+OUTPUT: Save all HTML files in this directory.`;
 
     fs.writeFileSync(path.join(buildDir, 'PROMPT.md'), prompt);
     
-    // Remove previous output
-    try { fs.unlinkSync(path.join(buildDir, 'index.html')); } catch {}
+    // Clean previous outputs
+    try { for (const f of fs.readdirSync(buildDir).filter(f => f.endsWith('.html') && f !== 'baseline.html' && !f.startsWith('original-page-'))) { fs.unlinkSync(path.join(buildDir, f)); } } catch {}
     
     // Run Codex
     log(`Spawning Codex (attempt ${attempt})...`);
     try {
-      // Re-init git for clean state
       try { execSync(`rm -rf "${buildDir}/.git"`, { stdio: 'pipe' }); } catch {}
-      execSync(
-        `cd "${buildDir}" && git init -q && codex exec --full-auto "Read PROMPT.md and follow the instructions exactly." 2>&1 | tail -20`,
-        {
-          timeout: 600000,
-          stdio: ['pipe', 'pipe', 'pipe'],
-          maxBuffer: 10 * 1024 * 1024,
-          env: { ...process.env, PATH: `${process.env.PATH}:/home/clawd/.npm-global/bin` }
-        }
-      );
-    } catch (e) {
-      log(`Codex attempt ${attempt}: ${e.message.substring(0, 200)}`);
-    }
-    
-    // Check Codex produced output
-    const outputFile = path.join(buildDir, 'index.html');
-    if (!fs.existsSync(outputFile)) {
-      claudeFeedback = 'Codex did not produce index.html. Try again — read PROMPT.md and save the result as index.html.';
-      continue;
-    }
-    
-    // === STEP 4: VISUAL + CODE VALIDATION ===
-    log(`Validating attempt ${attempt} (visual + code)...`);
-    
-    // 4a: Serve locally and take screenshots
-    const screenshotDir = path.join(buildDir, 'screenshots');
-    if (!fs.existsSync(screenshotDir)) fs.mkdirSync(screenshotDir, { recursive: true });
-    
-    let screenshotsOk = false;
-    let localServer = null;
-    try {
-      // Start local server
-      const http = require('http');
-      const serverDir = buildDir;
-      localServer = http.createServer((req, res) => {
-        // Serve index.html for / or any path
-        let filePath = path.join(serverDir, req.url === '/' ? 'index.html' : req.url.replace(/^\//, ''));
-        // Also serve assets from the working directory (logos, images etc.)
-        if (!fs.existsSync(filePath) && workDir) {
-          filePath = path.join(workDir, req.url.replace(/^\//, ''));
-        }
-        if (fs.existsSync(filePath)) {
-          const ext = path.extname(filePath).toLowerCase();
-          const mimeTypes = {'.html':'text/html','.css':'text/css','.js':'application/javascript','.png':'image/png','.jpg':'image/jpeg','.jpeg':'image/jpeg','.svg':'image/svg+xml','.webp':'image/webp','.gif':'image/gif','.ico':'image/x-icon'};
-          res.writeHead(200, {'Content-Type': mimeTypes[ext] || 'application/octet-stream'});
-          fs.createReadStream(filePath).pipe(res);
-        } else {
-          res.writeHead(404);
-          res.end('Not found');
-        }
+      execSync(`cd "${buildDir}" && git init -q && codex exec --full-auto "Read PROMPT.md and follow the instructions exactly." 2>&1 | tail -20`, {
+        timeout: 600000, stdio: ['pipe', 'pipe', 'pipe'], maxBuffer: 10 * 1024 * 1024,
+        env: { ...process.env, PATH: `${process.env.PATH}:/home/clawd/.npm-global/bin` }
       });
-      
-      const port = 18900 + Math.floor(Math.random() * 100);
-      await new Promise((resolve) => localServer.listen(port, '127.0.0.1', resolve));
-      log(`Local server on port ${port}`);
-      
-      // Desktop screenshot (1280x800)
-      try {
-        execSync(
-          `npx playwright screenshot --viewport-size "1280,800" --wait-for-timeout 3000 --full-page "http://127.0.0.1:${port}/" "${path.join(screenshotDir, 'desktop.png')}"`,
-          { timeout: 60000, stdio: 'pipe', env: { ...process.env, PATH: `${process.env.PATH}:/home/clawd/.npm-global/bin` } }
-        );
-        log('Desktop screenshot captured');
-      } catch (e) {
-        log(`Desktop screenshot failed: ${e.message.substring(0, 100)}`);
-      }
-      
-      // Mobile screenshot (375x667 - iPhone SE)
-      try {
-        execSync(
-          `npx playwright screenshot --viewport-size "375,667" --wait-for-timeout 3000 --full-page "http://127.0.0.1:${port}/" "${path.join(screenshotDir, 'mobile.png')}"`,
-          { timeout: 60000, stdio: 'pipe', env: { ...process.env, PATH: `${process.env.PATH}:/home/clawd/.npm-global/bin` } }
-        );
-        log('Mobile screenshot captured');
-      } catch (e) {
-        log(`Mobile screenshot failed: ${e.message.substring(0, 100)}`);
-      }
-      
-      screenshotsOk = fs.existsSync(path.join(screenshotDir, 'desktop.png')) && fs.existsSync(path.join(screenshotDir, 'mobile.png'));
-    } catch (e) {
-      log(`Screenshot server error: ${e.message.substring(0, 200)}`);
-    } finally {
-      if (localServer) localServer.close();
-    }
+    } catch (e) { log(`Codex attempt ${attempt}: ${e.message.substring(0, 200)}`); }
     
-    // 4b: Claude visual + code validation
-    const validationPrompt = `You are a senior QA validator for a demo website revision.
-You must validate BOTH the code AND the visual output.
-
-=== CLIENT REQUIREMENTS ===
-${issues}
-
-=== PRE-EXTRACTED ASSETS ===
-${extractedAssets || '(no pre-extracted assets — generic revision)'}
-
-=== YOUR VALIDATION CHECKLIST ===
-
-**A. Code validation (read index.html vs current.html):**
-1. Are ALL client requirements implemented in the HTML?
-2. Are the correct URLs/assets used (from pre-extracted list if provided)?
-3. Is the HTML valid, complete, not truncated?
-4. Are contact details correct (phone, email, address)?
-5. Is all text in Bulgarian?
-
-**B. Visual validation (look at desktop.png and mobile.png):**
-6. DESKTOP: Is the hero section visually clean? Text readable over background?
-7. DESKTOP: Are ALL sections visible (no empty/blank gaps)?
-8. DESKTOP: Do images look professional? Not zoomed/cropped awkwardly? Not pixelated?
-9. DESKTOP: Is the footer populated with real content?
-10. DESKTOP: Does it look like a site made for humans? Not "AI-generated"?
-11. MOBILE: Does the layout adapt properly? No horizontal overflow?
-12. MOBILE: Is text readable without zooming?
-13. MOBILE: Are buttons/links tappable (adequate size)?
-14. MOBILE: Are images properly sized (not overflowing or tiny)?
-15. OVERALL: Would a real business be proud to show this to clients?
-
-**SCORING: Each check = 1 point. Total = 15.**
-
-RESPOND IN THIS EXACT FORMAT:
-SCORE: X/15
-PASSED: [list of passed check numbers]
-FAILED: [list of failed check numbers]
-
-If SCORE >= 12/15:
-VALIDATED: YES
-Summary: [what was done well]
-
-If SCORE < 12/15:
-VALIDATED: NO
-Failed checks:
-- [check N]: [specific problem]
-- [check N]: [specific problem]
-Fix instructions:
-- [concrete, actionable instruction with exact URLs/values if relevant]
-- [another fix instruction]`;
-
-    fs.writeFileSync(path.join(buildDir, 'VALIDATE.md'), validationPrompt);
+    const outputFiles = fs.readdirSync(buildDir).filter(f => f.endsWith('.html') && f !== 'baseline.html' && !f.startsWith('original-page-'));
+    if (!outputFiles.includes('index.html')) { claudeFeedback = 'No index.html produced.'; continue; }
+    log(`Codex produced: ${outputFiles.join(', ')}`);
     
+    // Claude validation
+    log(`Validating attempt ${attempt}...`);
+    const validationPrompt = `Compare baseline.html (locked design) against output files (${outputFiles.join(', ')}).
+Revision instructions: ${issues.substring(0, 500)}
+Check: 1) Design preserved? 2) Instructions fulfilled? 3) HTML valid, Bulgarian text?
+Reply: VALIDATED: YES or VALIDATED: NO with PROBLEMS and FIX_INSTRUCTIONS.`;
+
     let claudeResult = '';
     try {
-      // Build claude command — include screenshots if available
-      const claudePrompt = screenshotsOk
-        ? `Read VALIDATE.md. Then examine: index.html (new), current.html (original), screenshots/desktop.png (desktop visual), screenshots/mobile.png (mobile visual). Follow the validation checklist exactly.`
-        : `Read VALIDATE.md. Then examine: index.html (new), current.html (original). Follow the validation checklist (skip visual checks 6-15, code-only validation).`;
-      
-      claudeResult = execSync(
-        `cd "${buildDir}" && claude --print --permission-mode bypassPermissions "${claudePrompt}" 2>/dev/null`,
-        {
-          timeout: 180000, // 3 min for visual validation
-          stdio: ['pipe', 'pipe', 'pipe'],
-          maxBuffer: 5 * 1024 * 1024,
-          env: { ...process.env, PATH: `${process.env.PATH}:/home/clawd/.local/bin:/home/clawd/.npm-global/bin:/usr/local/bin:/usr/bin:/bin` }
-        }
-      ).toString().trim();
+      fs.writeFileSync(path.join(buildDir, 'VALIDATE.md'), validationPrompt);
+      claudeResult = execSync(`cd "${buildDir}" && claude --print --permission-mode bypassPermissions "Read VALIDATE.md and validate the output files against baseline.html." 2>/dev/null`, {
+        timeout: 180000, stdio: ['pipe', 'pipe', 'pipe'], maxBuffer: 5 * 1024 * 1024,
+        env: { ...process.env, PATH: `${process.env.PATH}:/home/clawd/.local/bin:/home/clawd/.npm-global/bin:/usr/local/bin:/usr/bin:/bin` }
+      }).toString().trim();
     } catch (e) {
-      log(`Claude validation error: ${e.message.substring(0, 200)}`);
-      claudeResult = 'VALIDATED: YES\nSummary: Validation skipped due to error.';
+      claudeResult = 'VALIDATED: NO\nPROBLEMS:\n- Validation error\nFIX_INSTRUCTIONS:\n- Re-read PROMPT.md';
     }
     
     log(`Claude verdict (attempt ${attempt}): ${claudeResult.substring(0, 300)}`);
-    
-    // Extract score
-    const scoreMatch = claudeResult.match(/SCORE:\s*(\d+)\/(\d+)/);
-    const score = scoreMatch ? parseInt(scoreMatch[1]) : 0;
-    const maxScore = scoreMatch ? parseInt(scoreMatch[2]) : 15;
-    const pct = maxScore > 0 ? Math.round(score / maxScore * 100) : 0;
-    log(`Visual+Code score: ${score}/${maxScore} (${pct}%)`);
-    
-    if (claudeResult.includes('VALIDATED: YES')) {
-      validated = true;
-      log(`✅ Revision VALIDATED on attempt ${attempt} (score: ${score}/${maxScore}, ${pct}%)`);
-    } else {
-      claudeFeedback = claudeResult;
-      log(`❌ Revision FAILED validation on attempt ${attempt} (score: ${score}/15). Retrying...`);
-      // Copy the failed output as current for next attempt (iterative improvement)
-      fs.copyFileSync(outputFile, path.join(buildDir, 'current.html'));
-    }
+    if (claudeResult.includes('VALIDATED: YES')) { validated = true; log(`✅ VALIDATED on attempt ${attempt}`); }
+    else { claudeFeedback = claudeResult; log(`❌ FAILED attempt ${attempt}`); }
   }
   
-  // === STEP 5: FINALIZE ===
-  const outputFile = path.join(buildDir, 'index.html');
-  if (!fs.existsSync(outputFile)) {
-    throw new Error(`Revision failed after ${MAX_ATTEMPTS} attempts — no output produced`);
+  // === STEP 4: POST-CODEX PIPELINE (diff → copy → push → QA → autofix) ===
+  // Filename filter: skip files with invalid names (URLs, special chars, too long)
+  const isValidFilename = (f) => f.length < 100 && !/[?#:&=]/.test(f) && !f.includes('googleapis') && !f.includes('http') && !f.includes('www.');
+  
+  // For surgical edits, files are already in workDir — use surgicalFiles
+  const finalFiles = surgicalDone ? surgicalFiles : fs.readdirSync(buildDir).filter(f => f.endsWith('.html') && f !== 'baseline.html' && !f.startsWith('original-page-') && !f.startsWith('_') && isValidFilename(f));
+  const skippedFiles = surgicalDone ? [] : fs.readdirSync(buildDir).filter(f => f.endsWith('.html') && f !== 'baseline.html' && !f.startsWith('original-page-') && !f.startsWith('_') && !isValidFilename(f));
+  if (skippedFiles.length > 0) log(`⚠️ Skipped ${skippedFiles.length} invalid filenames: ${skippedFiles.join(', ')}`);
+  
+  if (finalFiles.length === 0) {
+    throw new Error(`Revision failed after ${MAX_ATTEMPTS} attempts — no HTML files produced`);
   }
   
   if (!validated) {
-    log(`⚠️ Revision not fully validated after ${MAX_ATTEMPTS} attempts. Publishing best effort.`);
+    log(`🛑 NULA BEST EFFORT: Not validated after ${MAX_ATTEMPTS} attempts. NOT pushing.`);
+    await notifyTelegram(`🛑 Ревизия СПРЯНА: <b>${data.name}</b>\n${MAX_ATTEMPTS} опита, не мина валидация.\nНе е push-нато. Нужна е намеса.`);
+    return `Revision STOPPED (not validated after ${MAX_ATTEMPTS} attempts)`;
   }
   
-  // Copy result
-  fs.copyFileSync(outputFile, htmlFile);
-  log(`Revision HTML copied to ${htmlFile}`);
-  
-  // Push to deploy repo if needed
-  if (isDeployRepo) {
-    try {
-      execSync(`cd "${workDir}" && git add -A && git commit -m "Revision: ${data.name}" && git push origin main`, { timeout: 30000, stdio: 'pipe' });
-      log(`Pushed revision to deploy repo: ${data.deployRepo}`);
-    } catch (e) {
-      log(`Deploy repo push error: ${e.message.substring(0, 100)}`);
+  // Diff audit via pipeline
+  if (demoPipeline && scopeResult) {
+    const postResult = demoPipeline.postCodex({
+      state: pipelineState || { slug: task.slug, action: 'revision', phases: {} },
+      slug: task.slug,
+      siteName: data.name,
+      sandboxDir: buildDir,
+      workDir,
+      scope: scopeResult,
+      liveUrl: null,  // QA runs after deploy below
+    });
+    if (postResult.diffAudit) {
+      log(`[v6] Diff audit: passed=${postResult.diffAudit.passed} reverted=${postResult.diffAudit.reverted?.length || 0}`);
+      if (!data.v2) data.v2 = {};
+      data.v2.lastDiffAudit = { passed: postResult.diffAudit.passed, stats: postResult.diffAudit.stats, reverted: postResult.diffAudit.reverted };
     }
-    const demoDir = path.join(DEMO_REPO, 'demos', task.slug);
-    if (!fs.existsSync(demoDir)) fs.mkdirSync(demoDir, { recursive: true });
-    fs.copyFileSync(htmlFile, path.join(demoDir, 'index.html'));
   }
   
-  // Update data JSON
-  if (data.revisionHistory && data.revisionHistory.length > 0) {
+  // Copy output files to local dirs (NOT pushed yet — Koi validates first)
+  // For surgical: files are already edited in-place in workDir, just need to sync demoDir if different
+  if (!fs.existsSync(demoDir)) fs.mkdirSync(demoDir, { recursive: true });
+  for (const f of finalFiles) {
+    if (surgicalDone) {
+      // Surgical edits were applied directly to workDir
+      // If workDir !== demoDir, sync to demoDir
+      if (workDir !== demoDir && fs.existsSync(path.join(workDir, f))) {
+        fs.copyFileSync(path.join(workDir, f), path.join(demoDir, f));
+      }
+      log(`Surgical: ${f} (edited in-place)`);
+    } else {
+      fs.copyFileSync(path.join(buildDir, f), path.join(demoDir, f));
+      if (isDeployRepo) fs.copyFileSync(path.join(buildDir, f), path.join(workDir, f));
+      log(`Copied: ${f}`);
+    }
+  }
+  if (!fs.existsSync(path.join(demoDir, 'baseline.html'))) {
+    fs.copyFileSync(path.join(buildDir, 'baseline.html'), path.join(demoDir, 'baseline.html'));
+  }
+  
+  // === v7: KOI VALIDATION GATE ===
+  // Worker STOPS here. Writes done trigger + wakes Koi.
+  // Koi validates visually (screenshot before/after), then pushes.
+  const reviewUrl = data.deployRepo ? data.liveUrl || data.demoUrl : data.demoUrl || `https://koiopenclaw-max.github.io/demo-sites/demos/${encodeURIComponent(task.slug)}/`;
+  
+  const doneTrigger = {
+    slug: task.slug,
+    name: data.name,
+    status: 'revision-pending-validation',
+    issues: issues.substring(0, 500),
+    finalFiles,
+    demoDir,
+    workDir,
+    isDeployRepo,
+    deployRepo: data.deployRepo || null,
+    reviewUrl,
+    buildDir,
+    attempt,
+    pipelineState: pipelineState ? { slug: pipelineState.slug, action: pipelineState.action } : null,
+    scopeResult: scopeResult ? { type: scopeResult.type, confidence: scopeResult.confidence, writeFiles: scopeResult.writeFiles } : null,
+    timestamp: new Date().toISOString()
+  };
+  const triggerPath = `/tmp/demo-revision-done-${task.slug.replace(/[^a-zA-Z0-9а-яА-Я-]/g, '_')}.json`;
+  fs.writeFileSync(triggerPath, JSON.stringify(doneTrigger, null, 2));
+  log(`[v7] Koi validation trigger written: ${triggerPath}`);
+  
+  // Wake Koi (Layer 1: system event)
+  try {
+    execSync(OPENCLAW + ` system event --text "REVISION_DONE: ${data.name} — Codex finished (${finalFiles.length} files, attempt ${attempt}/${MAX_ATTEMPTS}). Validate and push." --mode now`, {
+      timeout: 10000, stdio: 'pipe'
+    });
+    log(`[v7] Koi wake event sent`);
+  } catch (e) {
+    log(`[v7] Koi wake event FAILED: ${e.message.substring(0, 100)} — trigger file remains for heartbeat pickup`);
+  }
+  
+  await notifyTelegram(`📸 Codex свърши: <b>${data.name}</b>\nKoi проверява резултата (~1 мин)...`);
+  
+  // Cleanup build dir (output already copied to demoDir/workDir)
+  try { execSync(`rm -rf "${buildDir}"`, { stdio: 'pipe' }); } catch {}
+  try { fs.unlinkSync(`/tmp/demo-revision-trigger-${task.slug}.json`); } catch {}
+  
+  return `Codex done (attempt ${attempt}/${MAX_ATTEMPTS}, ${finalFiles.length} files). Awaiting Koi validation. Trigger: ${triggerPath}`;
+  
+  // === BELOW IS NOW DEAD CODE — Koi handles push + QA + notify ===
+  // Kept for reference / rollback. Will be cleaned up after v7 is stable.
+  
+  /* v6 ORIGINAL: direct push + QA (no Koi validation)
+  // Push to deploy repo
+  if (isDeployRepo) {
+    try { execSync(`cd "${workDir}" && git add -A && git commit -m "Revision: ${data.name}" && git push origin main`, { timeout: 30000, stdio: 'pipe' }); log(`Pushed to deploy repo`); } catch (e) { log(`Deploy push error: ${e.message.substring(0, 100)}`); }
+  }
+  
+  // Push to demo-sites repo
+  if (data.revisionHistory?.length > 0) {
     const lastRevision = data.revisionHistory[data.revisionHistory.length - 1];
-    lastRevision.resolution = validated
-      ? `✅ Валидирано (attempt ${attempt}): ${issues.substring(0, 200)}`
-      : `⚠️ Частично (${MAX_ATTEMPTS} опита): ${issues.substring(0, 200)}`;
+    lastRevision.resolution = `✅ Валидирано (attempt ${attempt}): ${finalFiles.length} файла — ${finalFiles.join(', ')}`;
     lastRevision.resolvedAt = new Date().toISOString();
   }
   data.currentRevision = null;
-  data.status = validated ? 'review' : 'review';
+  data.status = 'review';
   
+  if (demoManifest) {
+    const manifest = demoManifest.generateManifest(task.slug);
+    if (manifest.length > 0) { data.files = manifest; data.filesUpdatedAt = new Date().toISOString(); }
+  }
   saveDemoData(task.slug, data);
-  gitCommitPush(task.slug, 'review', data.name);
+  guardedPush(task.slug, 'review', data.name, `[review] ${data.name} — revision v6 (pipeline)`);
   
-  const reviewUrl = data.deployRepo
-    ? data.liveUrl || data.demoUrl
-    : data.demoUrl || `https://koiopenclaw-max.github.io/demo-sites/demos/${encodeURIComponent(task.slug)}/`;
+  const reviewUrlOld = data.deployRepo ? data.liveUrl || data.demoUrl : data.demoUrl || `https://koiopenclaw-max.github.io/demo-sites/demos/${encodeURIComponent(task.slug)}/`;
   
-  const statusEmoji = validated ? '✅' : '⚠️';
-  const statusText = validated
-    ? `Валидирано от Claude (опит ${attempt}/${MAX_ATTEMPTS})`
-    : `${MAX_ATTEMPTS} опита, не е напълно валидирано — прегледай ръчно`;
+  // === STEP 5: POST-DEPLOY QA + AUTOFIX ===
+  let qaReport = '';
+  if (demoPipeline && reviewUrlOld) {
+    log(`[v6] Running post-deploy QA on ${reviewUrlOld}...`);
+    // Wait for GitHub Pages deploy
+    await new Promise(r => setTimeout(r, 15000));
+    
+    const postDeploy = demoPipeline.postCodex({
+      state: pipelineState || { slug: task.slug, action: 'revision', phases: {} },
+      slug: task.slug,
+      siteName: data.name,
+      sandboxDir: null,
+      workDir: null,
+      scope: scopeResult,
+      liveUrl: reviewUrl,
+    });
+    
+    if (postDeploy.qaResult) {
+      qaReport = demoPipeline.formatQA(postDeploy.qaResult, reviewUrl);
+      log(`[v6] QA: passed=${postDeploy.qaResult.passed} critical=${postDeploy.qaResult.criticalFails} warnings=${postDeploy.qaResult.warnings}`);
+      log(`[v6] Ship decision: ${postDeploy.shipDecision.action} — ${postDeploy.shipDecision.reason}`);
+      
+      // AUTO-FIX LOOP
+      if (postDeploy.shipDecision.action === 'AUTOFIX' && postDeploy.autoFixContext?.shouldProceed) {
+        log(`[v6] 🔧 Starting auto-fix loop...`);
+        let prevQA = postDeploy.qaResult;
+        
+        for (let fixAttempt = 1; fixAttempt <= 3; fixAttempt++) {
+          const fixCtx = demoPipeline.prepareAutoFix({
+            slug: task.slug,
+            siteName: data.name,
+            prevQA,
+            liveUrl: reviewUrl,
+            writeFiles: scopeResult?.writeFiles || ['index.html'],
+            attempt: fixAttempt,
+            previousFeedback: fixAttempt > 1 ? `Attempt ${fixAttempt - 1} did not resolve all issues.` : null,
+          });
+          
+          if (!fixCtx.shouldProceed) { log(`[v6] Auto-fix stopped: ${fixCtx.reason}`); break; }
+          
+          // Write fix prompt and run Codex
+          const fixDir = `/tmp/demo-autofix-build-${task.slug}`;
+          if (fs.existsSync(fixDir)) execSync(`rm -rf "${fixDir}"`, { stdio: 'pipe' });
+          fs.mkdirSync(fixDir, { recursive: true });
+          
+          // Copy current files to fix dir
+          const sourceForFix = isDeployRepo ? workDir : demoDir;
+          for (const f of fs.readdirSync(sourceForFix).filter(f => !f.startsWith('.') && f !== 'baseline.html')) {
+            const src = path.join(sourceForFix, f);
+            if (fs.statSync(src).isFile()) fs.copyFileSync(src, path.join(fixDir, f));
+          }
+          
+          fs.writeFileSync(path.join(fixDir, 'PROMPT.md'), fixCtx.prompt);
+          
+          log(`[v6] Auto-fix attempt ${fixAttempt}: running Codex...`);
+          try {
+            try { execSync(`rm -rf "${fixDir}/.git"`, { stdio: 'pipe' }); } catch {}
+            execSync(`cd "${fixDir}" && git init -q && codex exec --full-auto "Read PROMPT.md and fix the issues." 2>&1 | tail -10`, {
+              timeout: 300000, stdio: ['pipe', 'pipe', 'pipe'], maxBuffer: 5 * 1024 * 1024,
+              env: { ...process.env, PATH: `${process.env.PATH}:/home/clawd/.npm-global/bin` }
+            });
+          } catch (e) { log(`[v6] Auto-fix Codex error: ${e.message.substring(0, 100)}`); }
+          
+          // Copy fixed files back
+          for (const f of fs.readdirSync(fixDir).filter(f => f.endsWith('.html') || f.endsWith('.css'))) {
+            fs.copyFileSync(path.join(fixDir, f), path.join(isDeployRepo ? workDir : demoDir, f));
+          }
+          
+          // Push fixed files
+          if (isDeployRepo) {
+            try { execSync(`cd "${workDir}" && git add -A && git commit -m "Auto-fix ${fixAttempt}: ${data.name}" && git push origin main`, { timeout: 30000, stdio: 'pipe' }); } catch {}
+          } else {
+            guardedPush(task.slug, 'review', data.name, `[auto-fix ${fixAttempt}] ${data.name}`);
+          }
+          
+          // Wait for deploy + re-test
+          await new Promise(r => setTimeout(r, 15000));
+          const { runQA } = require('./demo-qa.js');
+          const newQA = runQA(reviewUrl);
+          
+          const evalResult = demoPipeline.evaluateAutoFix({ prevQA, newQA });
+          log(`[v6] Auto-fix ${fixAttempt} result: fixed=${evalResult.fixed} improved=${evalResult.improved}`);
+          
+          if (evalResult.fixed) {
+            log(`[v6] ✅ Auto-fix resolved all issues on attempt ${fixAttempt}`);
+            qaReport = demoPipeline.formatQA(newQA, reviewUrl);
+            break;
+          }
+          
+          prevQA = newQA;
+          try { execSync(`rm -rf "${fixDir}"`, { stdio: 'pipe' }); } catch {}
+        }
+      }
+      
+      // Save QA data
+      if (!data.v2) data.v2 = {};
+      data.v2.lastQA = { passed: postDeploy.qaResult.passed, criticalFails: postDeploy.qaResult.criticalFails, warnings: postDeploy.qaResult.warnings, shipDecision: postDeploy.shipDecision.action };
+      data.v2.lastQAAt = new Date().toISOString();
+      saveDemoData(task.slug, data);
+    }
+  }
   
-  await notifyTelegram(`${statusEmoji} Корекции: <b>${data.name}</b>\n📝 ${issues.substring(0, 200)}\n🔗 ${reviewUrl}\n${statusText}`);
+  // Notify
+  const pagesInfo = finalFiles.length > 1 ? `\n📄 Страници: ${finalFiles.join(', ')}` : '';
+  const qaInfo = qaReport ? `\n📊 QA: ${data.v2?.lastQA?.passed ? '✅' : '⚠️'} ${data.v2?.lastQA?.criticalFails || 0} critical, ${data.v2?.lastQA?.warnings || 0} warnings` : '';
+  await notifyTelegram(`✅ Корекции: <b>${data.name}</b>\n📝 ${issues.substring(0, 200)}${pagesInfo}\n🔗 ${reviewUrl}\nВалидирано (опит ${attempt}/${MAX_ATTEMPTS})${qaInfo}\n\n<a href="${projectUrl(task.slug)}">Прегледай</a>`);
   
   // Cleanup
   try { execSync(`rm -rf "${buildDir}"`, { stdio: 'pipe' }); } catch {}
   try { fs.unlinkSync(`/tmp/demo-revision-trigger-${task.slug}.json`); } catch {}
   
-  return `Revision ${validated ? 'validated' : 'best-effort'} (${attempt} attempts): ${reviewUrl}`;
+  return `Revision validated (${attempt} attempts, ${finalFiles.length} files): ${reviewUrlOld}`;
+  END OF DEAD CODE */
 }
 
 async function executeDnsSetup(task) {
@@ -1230,14 +1659,146 @@ async function executeDeploying(task) {
 }
 
 // ===== Task Dispatcher =====
+
+// === KOI-REVISION EXECUTOR ===
+// Koi wrote the assignment. Worker just executes Codex and notifies Koi for validation.
+async function executeKoiRevision(task) {
+  // v7: START notification — Крис sees that work has begun
+  await notifyTelegram(`🔧 Корекция стартирана: <b>${task.name}</b>\nCodex работи (~5-10 мин)`);
+
+  const ctx = JSON.parse(fs.readFileSync(task.contextFile, 'utf8'));
+  const slug = task.slug;
+  gitPull();
+  const dataFile = path.join(DEMO_REPO, 'data', slug + '.json');
+  if (!fs.existsSync(dataFile)) throw new Error('No data file for ' + slug);
+  const data = JSON.parse(fs.readFileSync(dataFile, 'utf8'));
+
+  // v2: Create pre-revision tag
+  if (demoTags) {
+    const tag = demoTags.createTag(DEMO_REPO, 'pre-rev', slug);
+    if (tag) log(`[v2] Tag created: ${tag}`);
+  }
+
+  const isDeployRepo = !!data.deployRepo;
+  const demoDir = path.join(DEMO_REPO, 'demos', slug);
+  let workDir = demoDir;
+  
+  if (isDeployRepo) {
+    workDir = path.join('/tmp', data.deployRepo.split('/').pop());
+    if (!fs.existsSync(workDir)) {
+      execSync(`git clone https://${GH_TOKEN}@github.com/${data.deployRepo}.git "${workDir}"`, { timeout: 30000, stdio: 'pipe' });
+    } else {
+      execSync(`cd "${workDir}" && git pull --no-rebase origin main`, { timeout: 15000, stdio: 'pipe' });
+    }
+  }
+
+  // Build directory
+  const buildDir = path.join('/tmp', 'koi-revision-' + slug.replace(/[^a-zA-Z0-9а-яА-Я-]/g, '_'));
+  if (fs.existsSync(buildDir)) execSync('rm -rf "' + buildDir + '"', { stdio: 'pipe' });
+  fs.mkdirSync(buildDir, { recursive: true });
+
+  // Copy affected files
+  for (const f of ctx.affectedFiles || []) {
+    const src = path.join(workDir, f);
+    if (fs.existsSync(src)) fs.copyFileSync(src, path.join(buildDir, f));
+  }
+  // Also copy all HTML files as context
+  if (fs.existsSync(workDir)) {
+    for (const f of fs.readdirSync(workDir).filter(f => f.endsWith('.html'))) {
+      const dest = path.join(buildDir, f);
+      if (!fs.existsSync(dest)) fs.copyFileSync(path.join(workDir, f), dest);
+    }
+  }
+
+  // Copy client screenshots if any
+  if (ctx.clientImages) {
+    const imgDir = path.join(buildDir, 'screenshots');
+    fs.mkdirSync(imgDir, { recursive: true });
+    for (let i = 0; i < ctx.clientImages.length; i++) {
+      const imgPath = ctx.clientImages[i];
+      if (fs.existsSync(imgPath)) {
+        fs.copyFileSync(imgPath, path.join(imgDir, 'client-' + (i+1) + '.jpg'));
+      }
+    }
+  }
+
+  // Write Koi's exact assignment as PROMPT.md
+  fs.writeFileSync(path.join(buildDir, 'PROMPT.md'), ctx.myAssignment);
+
+  // Run Codex
+  log('[KOI-REVISION] Spawning Codex with Koi assignment...');
+  try {
+    try { execSync('rm -rf "' + buildDir + '/.git"', { stdio: 'pipe' }); } catch {}
+    execSync(
+      'cd "' + buildDir + '" && git init -q && codex exec --full-auto "Read PROMPT.md and follow the instructions exactly." 2>&1 | tail -20',
+      {
+        timeout: 600000,
+        stdio: ['pipe', 'pipe', 'pipe'],
+        maxBuffer: 10 * 1024 * 1024,
+        env: { ...process.env, PATH: process.env.PATH + ':/home/clawd/.npm-global/bin' }
+      }
+    );
+  } catch (e) {
+    log('[KOI-REVISION] Codex error: ' + e.message.substring(0, 200));
+  }
+
+  // v2: Diff audit on Codex output BEFORE copying back
+  // Filename filter: skip files with invalid names (URLs, special chars, too long)
+  const isValidFilename = (f) => f.length < 100 && !/[?#:&=]/.test(f) && !f.includes('googleapis') && !f.includes('http') && !f.includes('www.');
+  const outputFiles = fs.readdirSync(buildDir).filter(f => f.endsWith('.html') && !f.startsWith('original-') && isValidFilename(f));
+  const skippedKoi = fs.readdirSync(buildDir).filter(f => f.endsWith('.html') && !f.startsWith('original-') && !isValidFilename(f));
+  if (skippedKoi.length > 0) log(`⚠️ [KOI-REVISION] Skipped ${skippedKoi.length} invalid filenames: ${skippedKoi.join(', ')}`);
+  if (demoDiff && ctx.affectedFiles) {
+    const auditResult = demoDiff.auditAndRevert(buildDir, workDir, ctx.affectedFiles, []);
+    log(`[v2] KOI-REVISION diff audit: passed=${auditResult.passed} modified=${auditResult.stats.modified} unauthorized=${auditResult.stats.unauthorized} reverted=${auditResult.reverted.length}`);
+    if (auditResult.reverted.length > 0) {
+      log(`[v2] Reverted: ${auditResult.reverted.join(', ')}`);
+    }
+  }
+
+  // Copy output files back to working dir (but do NOT push yet — Koi validates first)
+  for (const f of outputFiles) {
+    fs.copyFileSync(path.join(buildDir, f), path.join(workDir, f));
+    if (isDeployRepo && workDir !== demoDir) {
+      if (!fs.existsSync(demoDir)) fs.mkdirSync(demoDir, { recursive: true });
+      fs.copyFileSync(path.join(buildDir, f), path.join(demoDir, f));
+    }
+  }
+  log('[KOI-REVISION] Output files: ' + outputFiles.join(', '));
+
+  // Write done trigger for Koi to pick up
+  const doneTrigger = {
+    slug,
+    name: data.name,
+    status: 'revision-done',
+    contextFile: task.contextFile,
+    outputFiles,
+    workDir,
+    buildDir,
+    timestamp: new Date().toISOString()
+  };
+  fs.writeFileSync('/tmp/demo-revision-done-' + slug.replace(/[^a-zA-Z0-9а-яА-Я-]/g, '_') + '.json', JSON.stringify(doneTrigger, null, 2));
+
+  // Wake Koi for validation
+  try {
+    execSync(OPENCLAW + ' system event --text "REVISION_DONE: ' + data.name + ' — Codex finished, awaiting Koi validation" --mode now', {
+      timeout: 10000, stdio: 'pipe'
+    });
+  } catch {}
+
+  return 'Codex done, awaiting Koi validation. Output: ' + outputFiles.join(', ');
+}
+
 const EXECUTORS = {
   briefing: executeBriefing,
   qa_submitted: executeQaSubmitted,
   building: executeBuilding,
-  revisions: executeRevisions,
+  revisions: executeRevisions,      // v7: executeRevisions now has Koi validation gate built in
+  'koi-revision': executeKoiRevision,
   dns_setup: executeDnsSetup,
   deploying: executeDeploying
 };
+log('EXECUTORS keys at startup: ' + Object.keys(EXECUTORS).join(', '));
 
 // Check for instant tasks that don't need queuing (dns_setup)
 async function processInstantTasks() {
@@ -1249,6 +1810,33 @@ async function processInstantTasks() {
     if (!file.endsWith('.json')) continue;
     try {
       const data = JSON.parse(fs.readFileSync(path.join(dataDir, file), 'utf8'));
+      
+      // v2: approved → create bookmark tag (golden standard for rollback)
+      if (data.status === 'approved' && demoTags && !data.v2?.approvedTag) {
+        log(`[v2] BOOKMARK: ${data.name} approved — creating tag`);
+        const tag = demoTags.createTag(DEMO_REPO, 'approved', data.slug);
+        if (tag) {
+          if (!data.v2) data.v2 = {};
+          data.v2.approvedTag = tag;
+          data.v2.approvedAt = new Date().toISOString();
+          fs.writeFileSync(path.join(dataDir, file), JSON.stringify(data, null, 2));
+          gitCommitPush(data.slug, 'approved', data.name);
+          log(`[v2] Bookmark created: ${tag}`);
+        }
+        // Also create tag in deploy repo if exists
+        if (data.deployRepo) {
+          try {
+            const deployDir = path.join('/tmp', data.deployRepo.split('/').pop());
+            if (!fs.existsSync(deployDir)) {
+              execSync(`git clone https://x-access-token:${GH_TOKEN}@github.com/${data.deployRepo}.git "${deployDir}"`, { timeout: 30000, stdio: 'pipe' });
+            }
+            const deployTag = demoTags.createTag(deployDir, 'approved', data.slug);
+            if (deployTag) log(`[v2] Deploy repo bookmark: ${deployTag}`);
+          } catch (e) {
+            log(`[v2] Deploy repo bookmark error: ${e.message.substring(0, 100)}`);
+          }
+        }
+      }
       
       // dns_setup: generate DNS records if not already done
       if (data.status === 'dns_setup' && data.deployDomain && !data.dnsRecords?.length) {
@@ -1275,13 +1863,19 @@ async function processInstantTasks() {
 
 async function processNextTask() {
   const q = readQueue();
-  const task = q.tasks.find(t => t.status === 'pending');
+  // v2: Skip tasks whose slug is already being processed (per-slug lock)
+  const task = q.tasks.find(t => t.status === 'pending' && !activeSlugLocks.has(t.slug));
   if (!task) return false;
   
-  log(`STARTING: ${task.name} → ${task.action}`);
+  // v2: Acquire slug lock
+  activeSlugLocks.add(task.slug);
+  log(`STARTING: ${task.name} → ${task.action} [lock: ${task.slug}]`);
   task.status = 'in_progress';
   task.startedAt = new Date().toISOString();
   saveQueue(q);
+  
+  // Update trigger file with processing status (for failsafe + history)
+  updateTriggerStatus(task.slug, 'in_progress', task.action);
   
   try {
     gitPull(); // Always pull latest before processing
@@ -1293,23 +1887,29 @@ async function processNextTask() {
     task.status = 'done';
     task.completedAt = new Date().toISOString();
     log(`COMPLETED: ${task.name} → ${task.action}: ${task.result}`);
+    
+    // Update trigger file with done status (keeps history)
+    updateTriggerStatus(task.slug, 'done', task.action, task.result);
   } catch (e) {
     task.status = 'error';
     task.error = e.message;
     task.completedAt = new Date().toISOString();
     log(`ERROR: ${task.name} → ${task.action}: ${e.message}`);
     
+    // Update trigger file with error status (keeps history)
+    updateTriggerStatus(task.slug, 'failed', task.action, e.message.substring(0, 500));
+    
     await notifyTelegram(`❌ Грешка: <b>${task.name}</b> → ${task.action}\n${e.message.substring(0, 200)}`);
   }
+  
+  // v2: Release slug lock
+  activeSlugLocks.delete(task.slug);
   
   // Move to completed
   const q2 = readQueue();
   q2.tasks = q2.tasks.filter(t => t.id !== task.id);
   q2.completed.push(task);
   saveQueue(q2);
-  
-  // Clean trigger file
-  try { fs.unlinkSync(`/tmp/demo-action-trigger-${task.slug}.json`); } catch {}
   
   return true;
 }
@@ -1338,7 +1938,27 @@ async function mainLoop() {
 }
 
 // ===== Also export addTask for processor to use =====
-module.exports = { addTask, readQueue };
+
+// === KOI-DRIVEN REVISION: Koi writes the assignment, worker executes + notifies back ===
+function addRevisionTask(slug, name, contextFile) {
+  // contextFile is /tmp/demo-revision-context-<slug>.json written by Koi
+  // Contains: myAssignment, affectedFiles, checkpoints, beforeScreenshots
+  const q = readQueue();
+  const exists = q.tasks.find(t => t.slug === slug && t.action === 'koi-revision' && t.status === 'pending');
+  if (exists) return;
+  q.tasks.push({
+    slug,
+    name,
+    action: 'koi-revision',
+    status: 'pending',
+    contextFile,
+    addedAt: new Date().toISOString()
+  });
+  saveQueue(q);
+  log(`[KOI-REVISION] Task queued: ${slug} (context: ${contextFile})`);
+}
+
+module.exports = { addTask, readQueue, addRevisionTask };
 
 // Start if run directly
 if (require.main === module) {

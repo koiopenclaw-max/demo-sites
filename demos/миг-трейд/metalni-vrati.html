@@ -132,8 +132,13 @@
     <a href="index.html" class="logo">Миг Трейд<span> | Метални врати</span></a>
     <nav id="mainNav">
       <a href="index.html">Начало</a>
-      <a href="metalni-vrati.html" class="active">Врати за апартаменти</a>
-      <a href="vhodni-vrati.html">Входни врати</a>
+      <div class="nav-dropdown">
+        <a href="#" class="nav-dropdown-toggle">Врати ▾</a>
+        <div class="nav-dropdown-menu">
+          <a href="metalni-vrati.html">Врати за апартаменти</a>
+          <a href="vhodni-vrati.html">Входни врати</a>
+        </div>
+      </div>
       <a href="metalni-reshetki.html">Метални решетки</a>
       <a href="ogradi-i-portali.html">Огради и портали</a>
       <a href="galeriia.html">Галерия</a>
@@ -150,8 +155,13 @@
   </button>
   <nav class="mobile-nav-links">
     <a href="index.html">Начало</a>
-    <a href="metalni-vrati.html">Врати за апартаменти</a>
-    <a href="vhodni-vrati.html">Входни врати</a>
+    <div class="mobile-dropdown">
+      <a href="#" class="mobile-dropdown-toggle">Врати ▾</a>
+      <div class="mobile-dropdown-menu">
+        <a href="metalni-vrati.html">Врати за апартаменти</a>
+        <a href="vhodni-vrati.html">Входни врати</a>
+      </div>
+    </div>
     <a href="metalni-reshetki.html">Метални решетки</a>
     <a href="ogradi-i-portali.html">Огради и портали</a>
     <a href="galeriia.html">Галерия</a>
@@ -525,5 +535,9 @@
   </div>
 </footer>
 <script src="product-pages.js"></script>
+<script>
+document.querySelectorAll(".nav-dropdown-toggle").forEach(t=>{t.addEventListener("click",e=>e.preventDefault())});
+document.querySelectorAll(".mobile-dropdown-toggle").forEach(t=>{t.addEventListener("click",e=>{e.preventDefault();t.closest(".mobile-dropdown").classList.toggle("open")})});
+</script>
 </body>
 </html>
