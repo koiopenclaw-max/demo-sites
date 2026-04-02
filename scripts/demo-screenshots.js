@@ -149,45 +149,73 @@ function visualGate(beforeScreenshots, demoDir, slug, instructions) {
     return result;
   }
   
-  // Simple comparison: check if files exist and basic metadata
-  // TODO: Implement full image model comparison via Koi agent
+  // Real image comparison using Claude with bypassPermissions
   try {
-    // Basic sanity checks first
     const beforeSize = fs.statSync(beforeScreenshots.desktop).size;
     const afterSize = fs.statSync(afterResult.desktop).size;
     
-    // If after screenshot is tiny (< 5KB), likely broken
+    // If after screenshot is tiny (< 5KB), likely broken page
     if (afterSize < 5000) {
       result.passed = false;
       result.verdict = 'FAIL — after screenshot too small (likely broken page)';
       return result;
     }
     
-    // For now, write a trigger for Koi to handle the comparison
-    // This makes the gate non-blocking but logged
-    const comparisonTrigger = {
-      slug,
-      beforeImage: beforeScreenshots.desktop,
-      afterImage: afterResult.desktop,
-      instructions: instructions.substring(0, 500),
-      timestamp: new Date().toISOString()
-    };
+    // Write comparison prompt to temp file
+    const safeInstructions = instructions.replace(/["\\]/g, ' ').substring(0, 300);
+    const promptFile = `/tmp/visual-gate-prompt-${slug}-${Date.now()}.md`;
+    const promptText = `Look at these two screenshots of a website.
+
+File 1 (BEFORE): ${beforeScreenshots.desktop}
+File 2 (AFTER): ${afterResult.desktop}
+
+The requested change was: "${safeInstructions}"
+
+Compare them and answer EXACTLY in this format:
+
+DESIGN_PRESERVED: YES or NO
+CHANGE_APPLIED: YES or NO
+REGRESSION: list any visual problems in AFTER that weren't in BEFORE (or NONE)
+VERDICT: PASS or FAIL
+
+PASS = layout, colors, nav, footer, sections all look the same. Only the requested change is visible.
+FAIL = something broke: missing nav, broken layout, different colors, missing sections, etc.
+Invisible changes (meta tags, schema) = always PASS.`;
     
-    const triggerPath = `/tmp/visual-comparison-${slug}-${Date.now()}.json`;
-    fs.writeFileSync(triggerPath, JSON.stringify(comparisonTrigger, null, 2));
+    fs.writeFileSync(promptFile, promptText);
     
-    // For v9.0: Always PASS (non-blocking), but log the trigger
-    // Koi can process these triggers in heartbeat and build ML training data
-    result.passed = true;
-    result.verdict = `PASS — basic checks OK. Full comparison queued: ${triggerPath}`;
+    const output = execSync(
+      `claude --print --permission-mode bypassPermissions "Read ${promptFile} then look at the two image files mentioned in it and answer the questions." 2>/dev/null`,
+      { timeout: 90000, stdio: ['pipe', 'pipe', 'pipe'], maxBuffer: 2 * 1024 * 1024,
+        env: { ...process.env, PATH: `${process.env.PATH}:/home/clawd/.local/bin:/home/clawd/.npm-global/bin:/usr/local/bin:/usr/bin:/bin` }
+      }
+    ).toString().trim();
     
-    // TODO v9.1: Replace with actual image model comparison
-    // const analysisResult = await compareImagesWithKoi(beforeScreenshots.desktop, afterResult.desktop, prompt);
+    // Cleanup prompt file
+    try { fs.unlinkSync(promptFile); } catch {}
+    
+    result.verdict = output;
+    
+    // Parse verdict
+    const verdictMatch = output.match(/VERDICT:\s*(PASS|FAIL)/i);
+    const designMatch = output.match(/DESIGN_PRESERVED:\s*(YES|NO)/i);
+    const regressionMatch = output.match(/REGRESSION:\s*(NONE|none)/i);
+    
+    if (verdictMatch) {
+      result.passed = verdictMatch[1].toUpperCase() === 'PASS';
+    } else if (designMatch) {
+      result.passed = designMatch[1].toUpperCase() === 'YES';
+    } else {
+      // Can't parse — be conservative, fail
+      result.passed = false;
+      result.verdict += '\n[PARSE_FAIL — no VERDICT found, defaulting to FAIL]';
+    }
     
   } catch (e) {
     result.error = `Visual gate error: ${e.message.substring(0, 200)}`;
-    result.passed = true;  // Don't block on errors — let Koi validate manually
-    result.verdict = 'PASS — gate error, falling back to manual validation';
+    // On error, FAIL (conservative) — don't let broken code through
+    result.passed = false;
+    result.verdict = 'FAIL — visual gate error, blocking for safety';
   }
   
   return result;
