@@ -548,7 +548,7 @@ footer {
 }
 
 /* Nav dropdown */
-.nav-dropdown { position: relative; display: flex; align-items: center; }
+.nav-dropdown { position: relative; }
 .nav-dropdown-toggle { cursor: pointer; }
 .nav-dropdown-menu { display: none; position: absolute; top: 100%; left: 0; background: rgba(10,10,10,0.97); border: 1px solid rgba(201,169,110,0.2); border-radius: 8px; padding: 8px 0; min-width: 200px; box-shadow: 0 8px 24px rgba(0,0,0,0.4); z-index: 1001; }
 .nav-dropdown:hover .nav-dropdown-menu { display: block; }

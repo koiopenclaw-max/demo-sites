@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Миг Трейд — Метални врати, решетки и портали | София</title>
-<meta name="description" content="Миг Трейд изработва и монтира метални врати, решетки, огради и портали в София и областта. Цени от 170 лв. Срок до 5 работни дни.">
+<title>Миг Трейд — Метални врати | София</title>
+<meta name="description" content="Метални врати за апартаменти, входове и мазета с реални цени, описания и снимки от стария сайт на Миг Трейд.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
@@ -84,14 +84,26 @@ header {
   display: flex; align-items: center; justify-content: space-between;
   max-width: 1200px; margin: 0 auto; padding: 16px 20px;
  gap: 24px; }
-.logo { color: var(--accent); white-space: nowrap; flex-shrink: 0; }
-.logo img { height: 38px; width: auto; display: block; }
-.mobile-menu-logo img { height: 52px; width: auto; display: block; }
+.logo { font-family: var(--font-heading); font-size: 1.1rem; font-weight: 700; color: var(--accent); white-space: nowrap; flex-shrink: 0; }
+.logo span { color: var(--text); font-weight: 400; }
 nav { display: flex; align-items: center; gap: 18px; }
 nav a { font-family: var(--font-heading); font-size: 0.8rem; font-weight: 500; letter-spacing: 0.04em; text-transform: uppercase; color: var(--text-muted); transition: color 0.3s, border-color 0.3s; padding-bottom: 4px; border-bottom: 2px solid transparent; white-space: nowrap; }
 nav a:hover { color: var(--accent); border-bottom-color: var(--accent); }
 nav a.cta-btn { font-family: var(--font-heading); background: var(--accent); color: var(--bg); padding: 8px 20px; border-radius: 999px; font-weight: 600; letter-spacing: 0.02em; border-bottom: none; transition: background 0.3s, transform 0.2s; }
 nav a.cta-btn:hover { background: var(--accent-hover); transform: scale(1.03); border-bottom: none; color: var(--bg); }
+/* Nav dropdown */
+.nav-dropdown { position: relative; }
+.nav-dropdown-toggle { cursor: pointer; }
+.nav-dropdown-menu { display: none; position: absolute; top: 100%; left: 0; background: rgba(10,10,10,0.97); border: 1px solid rgba(201,169,110,0.2); border-radius: 8px; padding: 8px 0; min-width: 200px; box-shadow: 0 8px 24px rgba(0,0,0,0.4); z-index: 1001; }
+.nav-dropdown:hover .nav-dropdown-menu { display: block; }
+.nav-dropdown-menu a { display: block; padding: 8px 20px; font-size: 0.78rem; border-bottom: none !important; }
+.nav-dropdown-menu a:hover { background: rgba(201,169,110,0.1); color: var(--accent); }
+/* Mobile dropdown */
+.mobile-dropdown { width: 100%; }
+.mobile-dropdown-toggle { display: block; cursor: pointer; }
+.mobile-dropdown-menu { display: none; padding-left: 20px; }
+.mobile-dropdown.open .mobile-dropdown-menu { display: block; }
+.mobile-dropdown-menu a { font-size: 0.9rem; }
 .cta-btn {
   display: inline-block; padding: 10px 24px; background: var(--accent); color: var(--bg);
   font-weight: 600; font-size: 0.85rem; border: none; cursor: pointer;
@@ -376,20 +388,23 @@ footer { padding: 60px 0 30px; background: var(--bg); border-top: 1px solid rgba
 </style>
 </head>
 <body>
-
 <!-- HEADER -->
 <header>
   <div class="header-inner">
-    <a href="index.html" class="logo" aria-label="Миг Трейд">
-      <img src="/templates/siteground-j16-2/mig.png" alt="Миг Трейд ЕООД - Метални врати от производител" loading="eager">
-    </a>
+    <a href="index.html" class="logo">Миг Трейд<span> | Метални врати</span></a>
     <nav id="mainNav">
-      <a href="#hero">Начало</a>
-      <a href="#products">Продукти</a>
-      <a href="#why-us">За нас</a>
-      <a href="#gallery">Проекти</a>
-      <a href="#contact">Контакти</a>
-      <a href="#contact" class="cta-btn">Заявете оглед</a>
+      <a href="index.html">Начало</a>
+      <div class="nav-dropdown">
+        <a href="#" class="nav-dropdown-toggle">Врати ▾</a>
+        <div class="nav-dropdown-menu">
+          <a href="metalni-vrati.html">Врати за апартаменти</a>
+          <a href="vhodni-vrati.html">Входни врати</a>
+        </div>
+      </div>
+      <a href="metalni-reshetki.html">Метални решетки</a>
+      <a href="ogradi-i-portali.html">Огради и портали</a>
+      <a href="galeriia.html">Галерия</a>
+      <a href="index.html#contact" class="cta-btn">Заявете оглед</a>
     </nav>
     <button class="hamburger" id="hamburger" aria-label="Меню">
       <span></span><span></span><span></span>
@@ -406,101 +421,72 @@ footer { padding: 60px 0 30px; background: var(--bg); border-top: 1px solid rgba
     <a href="index.html" class="mobile-menu-logo" aria-label="Миг Трейд">
       <img src="/templates/siteground-j16-2/mig.png" alt="Миг Трейд ЕООД - Метални врати от производител" loading="eager">
     </a>
-    <a href="#hero">Начало</a>
-    <a href="#products">Продукти</a>
-    <a href="#why-us">За нас</a>
-    <a href="#gallery">Проекти</a>
-    <a href="#contact">Контакти</a>
-    <a href="#contact" class="mobile-cta">Заявете оглед</a>
+    <a href="index.html">Начало</a>
+    <div class="mobile-dropdown">
+      <a href="#" class="mobile-dropdown-toggle">Врати ▾</a>
+      <div class="mobile-dropdown-menu">
+        <a href="metalni-vrati.html">Врати за апартаменти</a>
+        <a href="vhodni-vrati.html">Входни врати</a>
+      </div>
+    </div>
+    <a href="metalni-reshetki.html">Метални решетки</a>
+    <a href="ogradi-i-portali.html">Огради и портали</a>
+    <a href="galeriia.html">Галерия</a>
+    <a href="index.html#contact" class="mobile-cta">Заявете оглед</a>
   </nav>
 </div>
 
 <!-- HERO -->
-<section class="hero" id="hero">
+<section class="hero" id="hero" style="background-image:url('https://mig-trade.com/images/metalni-vrati/dvuplastova-metalna-vrata-s-edna-brava.jpg')">
   <div class="hero-content">
-    <span class="hero-tag">Метални врати от 170 лева</span>
-    <h1>Метални врати и решетки с <em>изработка по мярка</em></h1>
-    <p>Миг Трейд изработва и монтира метални врати за апартаменти, входове и мазета, метални решетки, огради и портали. Работим за София и София област със срок до 5 работни дни.</p>
+    <span class="hero-tag">Метални врати</span>
+    <h1>Метални врати по мярка за апартаменти, входове и мазета</h1>
+    <p>Прехвърлени са моделите, цените, снимките и описанията от оригиналната продуктова страница за метални врати.</p>
     <div class="hero-buttons">
-      <a href="#contact" class="cta-btn">Заявете оглед</a>
-      <a href="#products" class="cta-btn-outline">Вижте каталога</a>
+      <a href="zaiavka-za-ogled.html" class="cta-btn">Заявете оглед</a>
+      <a href="#details" class="cta-btn-outline">Вижте повече</a>
     </div>
   </div>
 </section>
 
-<!-- Gold divider -->
 <div class="section-divider"></div>
 
-<!-- PRODUCTS -->
 <section class="products" id="products">
   <div class="container">
-    <span class="eyebrow">НАШИТЕ ПРОДУКТИ</span>
-    <h2 class="section-title reveal">Продуктов каталог</h2>
-    <p class="section-sub">Предлагаме метални врати, метални решетки, огради и портали по размер, съобразени с обекта, нивото на защита и бюджета ви.</p>
+    <span class="eyebrow">ОСНОВНО СЪДЪРЖАНИЕ</span>
+    <h2 class="section-title reveal">Модели и акценти</h2>
+    <p class="section-sub">Събрани са основните заглавия, цени и типове изделия от съответната оригинална страница.</p>
     <span class="gold-sep" style="margin-bottom:48px"></span>
     <div class="products-grid">
-      <div class="product-card reveal">
-        <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="6" y="6" width="36" height="36" rx="2"/><line x1="24" y1="6" x2="24" y2="42"/><line x1="6" y1="24" x2="24" y2="24"/><rect x="10" y="10" width="10" height="10" rx="1" opacity="0.3" fill="currentColor"/></svg>
-        <h3>Врати за апартаменти</h3>
-        <p>Двупластови метални врати за апартаменти с минерална вата, широкоъгълна шпионка и надеждно заключване.</p>
-      </div>
-      <div class="product-card reveal">
-        <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="6" y="6" width="36" height="36" rx="1"/><line x1="24" y1="6" x2="24" y2="42"/><line x1="6" y1="24" x2="48" y2="24"/><circle cx="21" cy="24" r="2" fill="currentColor"/><circle cx="27" cy="24" r="2" fill="currentColor"/></svg>
-        <h3>Входни врати</h3>
-        <p>Стабилни входни метални врати за къщи, офиси и входове, изработени по предварително взети размери.</p>
-      </div>
-      <div class="product-card reveal">
-        <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="10" y="4" width="28" height="40" rx="2"/><line x1="24" y1="4" x2="24" y2="44"/><circle cx="32" cy="26" r="2" fill="currentColor"/><rect x="14" y="8" width="8" height="14" rx="1" opacity="0.2" fill="currentColor"/></svg>
-        <h3>Врати за мазета</h3>
-        <p>Практични метални врати за сервизни и складови помещения с антикорозионен грунд и чист монтаж.</p>
-      </div>
-      <div class="product-card reveal">
-        <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="10" y="4" width="28" height="40" rx="2"/><rect x="14" y="8" width="20" height="16" rx="1" opacity="0.2" fill="currentColor"/><circle cx="32" cy="28" r="2" fill="currentColor"/><line x1="14" y1="32" x2="34" y2="32" opacity="0.4"/></svg>
-        <h3>Метални решетки</h3>
-        <p>Изработка на метални решетки 12/12/1.5, 15/15/1.5, 20/20/1.5 и решетки за врати според нуждите на обекта.</p>
-      </div>
-      <div class="product-card reveal">
-        <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="8" width="20" height="32" rx="1"/><rect x="26" y="8" width="20" height="32" rx="1"/><path d="M22 24 L26 24" stroke-dasharray="2 2"/><line x1="12" y1="8" x2="12" y2="40" opacity="0.3"/><line x1="36" y1="8" x2="36" y2="40" opacity="0.3"/></svg>
-        <h3>Огради и портали</h3>
-        <p>Здрави метални огради и портали за жилищни и търговски имоти с изработка в собствен цех и монтаж на място.</p>
-      </div>
+      <div class="product-card reveal"><h3>Двупластова метална врата с една брава</h3><p>Цена 365 лева Произвеждат се в нашият цех, по взетите предварително размери</p></div>
+<div class="product-card reveal"><h3>Еднопластови метални врати със секретна брава и бронировка</h3><p>Цена 230 лева Както и останалите метални изделия, тези метални врати също се произвеждат в нашият цех, специално за вас и вашите нужди</p></div>
+<div class="product-card reveal"><h3>Двупластови метални врати с фолио</h3><p>Цена 415 лева Този тип метални врати са изключително подходящ и за допълнителна врата на вашата врата на апартамента ви</p></div>
+<div class="product-card reveal"><h3>Двупластови метални врати с цяла каса</h3><p>Цена 495 лева Този тип врати предлагат още по-висока степен на защита и са подходящи за вашият апартамент, къща или офис</p></div>
+<div class="product-card reveal"><h3>Двупластови метални врати с две брави</h3><p>Цена 395 лева Подходящи метални врати за вашето жилище, вила, офис или къща</p></div>
+<div class="product-card reveal"><h3>Еднопластови метални врати за мазе</h3><p>Цена 170 лева Всички метални изделия, предлагани от компанията ни се изработват в нашият цех, след като вземем размерите ви т</p></div>
     </div>
   </div>
 </section>
 
 <div class="section-divider"></div>
 
-<!-- WHY US -->
 <section class="why-us" id="why-us">
   <div class="container">
-    <span class="eyebrow">ЗАЩО НАС</span>
-    <h2 class="section-title reveal">Предимства на Миг Трейд</h2>
-    <p class="section-sub">Изработваме изделия по размер в собствен цех и организираме монтажа така, че клиентът да получи яснота за цена, срок и изпълнение.</p>
+    <span class="eyebrow">БЪРЗИ ДАННИ</span>
+    <h2 class="section-title reveal">Ключови параметри</h2>
+    <p class="section-sub">Кратки показатели за цените, сроковете, снимките и наличната информация по страницата.</p>
     <span class="gold-sep" style="margin-bottom:48px"></span>
     <div class="stats-grid">
-      <div class="stat-item reveal">
-        <span class="stat-number" data-count="170" data-suffix=" лв.">170 лв.</span>
-        <span class="stat-label">Стартова цена</span>
-      </div>
-      <div class="stat-item reveal">
-        <span class="stat-number" data-count="5" data-suffix=" дни">5 дни</span>
-        <span class="stat-label">Срок за изработка</span>
-      </div>
-      <div class="stat-item reveal">
-        <span class="stat-number">0 лв.</span>
-        <span class="stat-label">Оглед и оферта</span>
-      </div>
-      <div class="stat-item reveal">
-        <span class="stat-number" data-count="3" data-suffix="">3</span>
-        <span class="stat-label">Телефона за връзка</span>
-      </div>
+      <div class="stat-item reveal"><span class="stat-number" data-count="170" data-suffix=" лв.">170 лв.</span><span class="stat-label">Стартова цена</span></div>
+<div class="stat-item reveal"><span class="stat-number" data-count="5" data-suffix=" дни">5 дни</span><span class="stat-label">Срок до монтаж</span></div>
+<div class="stat-item reveal"><span class="stat-number">0 лв.</span><span class="stat-label">Оглед и оферта</span></div>
+<div class="stat-item reveal"><span class="stat-number" data-count="15" data-suffix="">15</span><span class="stat-label">Описани модела</span></div>
     </div>
   </div>
 </section>
 
 <div class="section-divider"></div>
 
-<!-- PROCESS -->
 <section class="process" id="process">
   <div class="container">
     <span class="eyebrow">КАК РАБОТИМ</span>
@@ -508,6 +494,7 @@ footer { padding: 60px 0 30px; background: var(--bg); border-top: 1px solid rgba
     <p class="section-sub">От заявката за оглед до финалния монтаж следваме ясен процес, съобразен с размерите и типа метално изделие.</p>
     <span class="gold-sep" style="margin-bottom:48px"></span>
     <div class="timeline">
+
       <div class="timeline-step reveal">
         <div class="step-num">1</div>
         <h4 class="step-title">Оглед</h4>
@@ -534,75 +521,60 @@ footer { padding: 60px 0 30px; background: var(--bg); border-top: 1px solid rgba
 
 <div class="section-divider"></div>
 
-<!-- GALLERY -->
 <section class="gallery" id="gallery">
   <div class="container">
-    <span class="eyebrow">НАШИТЕ ПРОЕКТИ</span>
+    <span class="eyebrow">СНИМКИ</span>
     <h2 class="section-title reveal">Галерия</h2>
-    <p class="section-sub">Примерни реализации и вдъхновение за метални врати, решетки и входни решения за различни типове обекти.</p>
+    <p class="section-sub">Използвани са наличните изображения от стария сайт за конкретната категория.</p>
     <span class="gold-sep" style="margin-bottom:48px"></span>
     <div class="gallery-grid">
-      <div class="gallery-item reveal" data-title="Врата за апартамент — София"><img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&q=80" alt="Пример за метална врата за апартамент" loading="eager"></div>
-      <div class="gallery-item reveal" data-title="Входно решение — София област"><img src="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=800&q=80" alt="Пример за входно решение с метална врата" loading="eager"></div>
-      <div class="gallery-item reveal" data-title="Решетки за прозорци — София"><img src="https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=800&q=80" alt="Пример за метални решетки за прозорци" loading="eager"></div>
-      <div class="gallery-item reveal" data-title="Портал за двор — София"><img src="https://images.unsplash.com/photo-1600573472592-401b489a3cdc?w=800&q=80" alt="Пример за метален портал" loading="eager"></div>
-      <div class="gallery-item reveal" data-title="Входна метална врата — София"><img src="https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=800&q=80" alt="Пример за входна метална врата" loading="eager"></div>
-      <div class="gallery-item reveal" data-title="Ограда по поръчка — София област"><img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&q=80" alt="Пример за метална ограда по поръчка" loading="eager"></div>
+      <div class="gallery-item reveal" data-title="Двупластова метална врата с една брава"><img src="https://mig-trade.com/images/metalni-vrati/dvuplastova-metalna-vrata-s-edna-brava.jpg" alt="Двупластова метална врата с една брава" loading="eager"></div>
+<div class="gallery-item reveal" data-title="Еднопластови метални врати със секретна брава и бронировка"><img src="https://mig-trade.com/images/metalni-vrati/dvuplastova-metalna-vrata-s-edna-brava1.jpg" alt="Еднопластови метални врати със секретна брава и бронировка" loading="eager"></div>
+<div class="gallery-item reveal" data-title="Двупластови метални врати с фолио"><img src="https://mig-trade.com/images/metalni-vrati/dvpl-vrata-edna-brava.jpg" alt="Двупластови метални врати с фолио" loading="eager"></div>
+<div class="gallery-item reveal" data-title="Двупластови метални врати с цяла каса"><img src="https://mig-trade.com/images/metalni-vrati/ednoplastova-metalna-vrata-sekreten-patron-bronirovka.jpg" alt="Двупластови метални врати с цяла каса" loading="eager"></div>
+<div class="gallery-item reveal" data-title="Двупластови метални врати с две брави"><img src="https://mig-trade.com/images/metalni-vrati/ednoplastova-metalna-vrata-sekreten-patron-bronirovka1.jpg" alt="Двупластови метални врати с две брави" loading="eager"></div>
+<div class="gallery-item reveal" data-title="Еднопластови метални врати за мазе"><img src="https://mig-trade.com/images/metalni-vrati/ednoplastova-metalna-vrata-sekreten-patron-bronirovka2.jpg" alt="Еднопластови метални врати за мазе" loading="eager"></div>
     </div>
   </div>
 </section>
 
 <div class="section-divider"></div>
 
-<!-- PARTNERS -->
 <section class="partners">
   <div class="container">
     <span class="eyebrow">КАТЕГОРИИ</span>
-    <h2 class="section-title reveal">Какво изработваме</h2>
+    <h2 class="section-title reveal">Основни теми</h2>
     <span class="gold-sep" style="margin-bottom:48px"></span>
     <div class="partners-grid">
       <span class="partner-badge">АПАРТАМЕНТНИ ВРАТИ</span>
-      <span class="partner-badge">ВХОДНИ ВРАТИ</span>
-      <span class="partner-badge">ВРАТИ ЗА МАЗЕТА</span>
-      <span class="partner-badge">МЕТАЛНИ РЕШЕТКИ</span>
-      <span class="partner-badge">ОГРАДИ</span>
-      <span class="partner-badge">ПОРТАЛИ</span>
+<span class="partner-badge">ВХОДНИ ВРАТИ</span>
+<span class="partner-badge">ВРАТИ ЗА МАЗЕТА</span>
+<span class="partner-badge">МЕТАЛНИ РЕШЕТКИ</span>
+<span class="partner-badge">ОГРАДИ</span>
+<span class="partner-badge">ПОРТАЛИ</span>
     </div>
   </div>
 </section>
 
 <div class="section-divider"></div>
 
-<!-- ENERGY EFFICIENCY -->
 <section class="energy" id="energy">
   <div class="container">
-    <span class="eyebrow">КОНСТРУКЦИЯ</span>
+    <span class="eyebrow">ДЕТАЙЛИ</span>
     <h2 class="section-title reveal">Защита и изолация</h2>
-    <p class="section-sub">Металните врати на Миг Трейд комбинират здрава конструкция, изолационен пълнеж и надежден монтаж.</p>
+    <p class="section-sub">Прехвърлени са описанията за конструкцията, изолацията и монтажа на металните врати.</p>
     <span class="gold-sep" style="margin-bottom:48px"></span>
     <div class="energy-grid">
       <div class="energy-text reveal">
         <h3>Изработка с внимание към детайла</h3>
-        <p>Касите се изработват от абкантно огънат студено валцован метален лист с дебелина 2 мм, а крилата са от два пласта стомана с дебелина 1.5 мм.</p>
-        <p>Между пластовете се поставя минерална вата за по-добра топло- и шумоизолация, а всички елементи се грундират с антикорозионен грунд преди монтаж.</p>
+        <p>Касите се изработват от абкантно огънат студено валцован метален лист, а при двупластовите врати между пластовете има минерална вата за по-добра топло- и шумоизолация.</p>
+        <p>Метални врати с един пласт, метални врати с два пласта и други метални изделия - производител!</p>
       </div>
       <div class="energy-bars reveal">
-        <div class="energy-bar">
-          <div class="energy-bar-label"><span>Еднопластова конструкция</span><span>35%</span></div>
-          <div class="energy-bar-track"><div class="energy-bar-fill" style="width:35%"></div></div>
-        </div>
-        <div class="energy-bar">
-          <div class="energy-bar-label"><span>Двупластова врата</span><span>68%</span></div>
-          <div class="energy-bar-track"><div class="energy-bar-fill" style="width:68%"></div></div>
-        </div>
-        <div class="energy-bar">
-          <div class="energy-bar-label"><span>Минерална вата</span><span>84%</span></div>
-          <div class="energy-bar-track"><div class="energy-bar-fill" style="width:84%"></div></div>
-        </div>
-        <div class="energy-bar">
-          <div class="energy-bar-label"><span>Антикорозионна защита</span><span>95%</span></div>
-          <div class="energy-bar-track"><div class="energy-bar-fill" style="width:95%"></div></div>
-        </div>
+        <div class="energy-bar"><div class="energy-bar-label"><span>Еднопластова конструкция</span><span>35%</span></div><div class="energy-bar-track"><div class="energy-bar-fill" style="width:35%"></div></div></div>
+<div class="energy-bar"><div class="energy-bar-label"><span>Двупластова врата</span><span>68%</span></div><div class="energy-bar-track"><div class="energy-bar-fill" style="width:68%"></div></div></div>
+<div class="energy-bar"><div class="energy-bar-label"><span>Минерална вата</span><span>84%</span></div><div class="energy-bar-track"><div class="energy-bar-fill" style="width:84%"></div></div></div>
+<div class="energy-bar"><div class="energy-bar-label"><span>Антикорозионна защита</span><span>95%</span></div><div class="energy-bar-track"><div class="energy-bar-fill" style="width:95%"></div></div></div>
       </div>
     </div>
   </div>
@@ -610,41 +582,39 @@ footer { padding: 60px 0 30px; background: var(--bg); border-top: 1px solid rgba
 
 <div class="section-divider"></div>
 
-<!-- TESTIMONIALS -->
-<section class="testimonials" id="testimonials">
+<section class="testimonials" id="details">
   <div class="container">
-    <span class="eyebrow">ОТЗИВИ</span>
-    <h2 class="section-title reveal">Какво казват клиентите</h2>
-    <p class="section-sub">Отзиви от клиенти, които поръчаха метални врати, решетки и входни решения от Миг Трейд.</p>
+    <span class="eyebrow">ОПИСАНИЯ</span>
+    <h2 class="section-title reveal">Текстове, цени и информация</h2>
+    <p class="section-sub">По-долу е подредена реалната информация от съответната оригинална страница, изчистена от стария CMS markup.</p>
     <span class="gold-sep" style="margin-bottom:48px"></span>
-    <div class="testimonials-grid">
-      <div class="testimonial-card reveal">
-        <p class="testimonial-text">Поръчахме двупластова метална врата за апартамента. Обясниха ни вариантите, взеха размери и до няколко дни монтажът беше готов и много чист.</p>
-        <p class="testimonial-author">Иван Петров</p>
-        <p class="testimonial-city">София, ж.к. Надежда</p>
-      </div>
-      <div class="testimonial-card reveal">
-        <p class="testimonial-text">Търсехме метални решетки за прозорци и врата към сервизно помещение. Изработката стана по размер, а екипът се съобрази напълно с особеностите на обекта.</p>
-        <p class="testimonial-author">Мария Георгиева</p>
-        <p class="testimonial-city">София област, Костинброд</p>
-      </div>
-      <div class="testimonial-card reveal">
-        <p class="testimonial-text">За двора ни изработиха портал и входна метална врата. Хареса ми, че всичко беше по предварително уточнени размери, цена и срок без излишно забавяне.</p>
-        <p class="testimonial-author">Николай Димитров</p>
-        <p class="testimonial-city">София, кв. Требич</p>
-      </div>
+    <div class="testimonials-grid" style="grid-template-columns:1fr;gap:24px">
+      <div class="testimonial-card reveal"><p class="testimonial-author">Двупластова метална врата с една брава</p><p class="testimonial-city">Цена 365 лева Произвеждат се в нашият цех, по взетите предварително размери</p><div class="testimonial-text"><p>Метални врати подходящи за апартаменти с два пласта и една брава Цена 365 лева Произвеждат се в нашият цех, по взетите предварително размери.</p><p>Описание на металните врати с два пласта: 1.</p><p>Два пласта студено-валцова стоманена ламарина 2.</p><p>Вътрешно оребрение и пълнеж от минерална вата - по този начин се постига по-висока топло и шумоизолация 3.</p><p>Рамката е изградена от Г-образен профил 40/40/3мм или по желание от ваша страна с 45/45/3мм 4.</p><p>Вратата може да бъде боядисана по ваш избор.</p><p>Как протича монтажът на метална врата от нашата компания: 1.</p><p>При наличие на стара врата - тя се премахва 2.</p><p>Извършва се монтаж на металната рамка за вратата 3.</p><p>Извършва се монтаж на крилото (металната врата) 4.</p></div></div>
+<div class="testimonial-card reveal"><p class="testimonial-author">Еднопластови метални врати със секретна брава и бронировка</p><p class="testimonial-city">Цена 230 лева Както и останалите метални изделия, тези метални врати също се произвеждат в нашият цех, специално за вас и вашите нужди</p><div class="testimonial-text"><p>Метални врати с една ламарина и допълнителна бронировка на патрона Цена 230 лева Както и останалите метални изделия, тези метални врати също се произвеждат в нашият цех, специално за вас и вашите нужди.</p><p>Процес на изработка на метални врати с една ламарина и бронировка на патрона: 1.</p><p>Изработка на крилото на вратата: Използва се един студено-валцован метален лист, който е с дебелина на листа от 1.5 мм.</p><p>Оребрението се състои от П-лайзени, които са по цялото протежение на крилото.</p><p>П-лайзена се използва за достигане на по-висока здравина на изделието.</p><p>2.</p><p>Монтиране на патроните, бронировката за тях, както и бравата.</p><p>3.</p><p>Металната рамка, на която се захваща металната врата е с размери 40х40х3 мм.</p><p>4.</p></div></div>
+<div class="testimonial-card reveal"><p class="testimonial-author">Двупластови метални врати с фолио</p><p class="testimonial-city">Цена 415 лева Този тип метални врати са изключително подходящ и за допълнителна врата на вашата врата на апартамента ви</p><div class="testimonial-text"><p>Метална врата с два пласта, покрита с декоративно фолио Цена 415 лева Този тип метални врати са изключително подходящи за допълнителна врата на вашата врата на апартамента ви.</p><p>Те се произвеждат в нашият цех специално за вас.</p><p>Монтажа на този тип врати е изключително чист Описание на металната врата с два пласта и декоративно фолио: 1.</p><p>Метална рамка, изградена от лайзен, който е Г-образен и е с размери 40/40/3мм 2.</p><p>Металната врата (крилото) е изградена от два пласта студено-валцова стоманена ламарина, дебелината на които е 1.5мм 3.</p><p>Вътрешността на вратата е запълнена с минерална вата, която спомага за топлоизолацията и шумоизолацията 4.</p><p>Панти с размер Ø18 за постигане на максимална здравина 5.</p><p>Декоративно фолио, което се залепва Монтажът се извършва в следния ред: 1.</p><p>Монтира се металната рамка, за която се захваща металната врата 2.</p><p>Монтира се крилото (металната врата) 3.</p></div></div>
+<div class="testimonial-card reveal"><p class="testimonial-author">Двупластови метални врати с цяла каса</p><p class="testimonial-city">Цена 495 лева Този тип врати предлагат още по-висока степен на защита и са подходящи за вашият апартамент, къща или офис</p><div class="testimonial-text"><p>Метална врата с цяла каса.</p><p>Цена 495 лева Този тип врати предлагат още по-висока степен на защита и са подходящи за вашият апартамент, къща или офис.</p><p>Как протича изграждането: металната врата, както и касата за нея се изработват в нашият цех, след като са взети размери преди това.</p><p>Стоманената ламарина, от която се изработва касата е абкантно-огъната и е изградена от студено-валцов метален лист, който притежава дебелина от 2 мм Крилото (металната врата) се изработва от два пласта студено-валцова стомана, която е с дебелина от 1.5мм Между двата пласта на крилото има пълнеж от минерална вата, която притежава топло и шумоизолационни свойства Пантите са с Ø18 Крилото и касата биват грундирани с антикорозионен грунд Как протича монтирането на метални врати от този тип: 1.</p><p>Премахва се старата врата, ако има такава 2.</p><p>Премахва се старата каса 3.</p><p>Извършва се монтаж на новата каса 4.</p><p>Извършва се монтаж на новата врата 5.</p><p>Монтират се бравите, заедно с бронировката 6.</p><p>Прогонват се, за да се постигне плътно и лесно затваряне и отваряне 7.</p></div></div>
+<div class="testimonial-card reveal"><p class="testimonial-author">Двупластови метални врати с две брави</p><p class="testimonial-city">Цена 395 лева Подходящи метални врати за вашето жилище, вила, офис или къща</p><div class="testimonial-text"><p>Метални врати с два пласта и две брави, подходящи за апартаменти Цена 395 лева Подходящи метални врати за вашето жилище, вила, офис или къща!</p><p>Произвеждат се в нашият цех, по взетите предварително размери.</p><p>Описание на металните врати с два пласта: 1.</p><p>Два пласта студено-валцова стоманена ламарина 2.</p><p>Вътрешно оребрение и пълнеж с минерална вата - по този начин се постига по-висока топло и шумоизолация 3.</p><p>Рамката е изградена от Г-образен профил 40/40/3мм или по желание от ваша страна с 45/45/3мм 4.</p><p>Вратата може да бъде боядисана по ваш избор.</p><p>Как протича монтажът на метална врата от нашата компания: 1.</p><p>При наличие на стара врата - тя се премахва 2.</p><p>Извършва се монтаж на металната рамка за вратата 3.</p></div></div>
+<div class="testimonial-card reveal"><p class="testimonial-author">Еднопластови метални врати за мазе</p><p class="testimonial-city">Цена 170 лева Всички метални изделия, предлагани от компанията ни се изработват в нашият цех, след като вземем размерите ви т</p><div class="testimonial-text"><p>Метални врати с един пласт, които са подходящи за вашето мазе или таванско помещение.</p><p>Цена 170 лева Всички метални изделия, предлагани от компанията ни се изработват в нашият цех, след като вземем размерите ви т.е.</p><p>специално за вас и се използват само висококачествени материали.</p><p>Процес на изграждане на метални врати с един стоманен пласт: 1.</p><p>Изработва се металното крило, което се състои от един метален пласт, който притежава рамка, а в средата му има Г-образно оребрение, за да се постигне по-висока устойчивост и здравина.</p><p>Металният лист е с дебелина 1.5 милиметра, а оребряването е с тъй наречените П-лайзени.</p></div></div>
+<div class="testimonial-card reveal"><p class="testimonial-author">Еднопластови метални врати със секретна брава</p><p class="testimonial-city">Цена 205 лева От какво се изградена тази метална врата: 1</p><div class="testimonial-text"><p>Еднопластова метална врата със секретна брава, секретен патрон Тези метални врати са подходящи за вашият апартамент Цена 205 лева От какво се изградена тази метална врата: 1.</p><p>Метална рамка, която е изградена от метален профил Г-образен с размери 40/40/3мм 2.</p><p>Метална врата (крилото), която е изградена от един пласт студено-валцова стоманена ламарина с дебелина 1.5мм 3.</p><p>Вътрешно оребрение на металната врата изградено от П-лайзени 4.</p><p>Панти с Ø18 5.</p><p>Грундиране с компресор Монтиране: 1.</p><p>Монтира се металната рамка 2.</p><p>Монтира се металната врата (крилото) 3.</p><p>Монтират се секретната брава, патрона и бронировката 4.</p><p>Прогонва се отвора за постигане на плавно и чисто отключване и заключване 5.</p></div></div>
+<div class="testimonial-card reveal"><p class="testimonial-author">Еднопластови метални врати с две брави</p><p class="testimonial-city">Цена 265 лева Всички метални изделия, предлагани от компанията ни се изработват в нашият цех, след като вземем размерите ви т</p><div class="testimonial-text"><p>Метални врати с една ламарина, които са подходящи за апартамента Ви, вашето мазе или таванско помещение.</p><p>Цена 265 лева Всички метални изделия, предлагани от компанията ни се изработват в нашият цех, след като вземем размерите ви т.е.</p><p>специално за вас и се използват само висококачествени материали.</p><p>Процес на изграждане на метални врати с един стоманен пласт: 1.</p><p>Изработва се металното крило, което се състои от един метален пласт, който притежава рамка, а в средата му има Г-образно оребрение, за да се постигне по-висока устойчивост и здравина.</p><p>Металният лист е с дебелина 1.5 милиметра, а оребряването е с тъй наречените П-лайзени.</p></div></div>
+<div class="testimonial-card reveal"><p class="testimonial-author">Метални врати за вход с 24 кутии</p><div class="testimonial-text"><p>Метални врати за входове с 24 пощенски кутии Цени от 1015 лева + 560 за кутиите Описание на метални врати за входове с 24 пощенски кутии: Този тип метални врати са изградени от метален профил с размер 50/30/1.5мм Обкова им е от студено-валцова стоманена ламарина, която дебелина е 1.5мм Секретна брава със стоманен език (монтира се на всички метални врати за входове) Патрон (секретен), в който комплект има 3 броя ключове.</p><p>При желание от ваша страна могат да бъдат извадени достатъчен брой дубликати На металната врата се слага метална дръжка с топка от външната страна Автомат за затваряне - чрез него вратата се затваря тихо и плътно Насрещник (електрически) за домофонна система Метална дограма (профил), която е с размери 50/35/1.5мм 24 броя пощенски кутии, като за всяка кутия има по два ключа Армирано стъкло в горната част Металната врата може да бъде боядисана в цвят по ваш избор Старата врата се демонтира Срока, който отнема на фирмата ни от взимането на размери до монтажа е ДО 20 работни дни за София и София област НАПРАВЕТЕ ВАШАТА ЗАЯВКА ЗА ОГЛЕД СЕГА!</p></div></div>
+<div class="testimonial-card reveal"><p class="testimonial-author">Метални врати за вход с 48 кутии</p><div class="testimonial-text"><p>Метални врати за вход с 48 пощенски кутии Цени от 1015 лева + 1120 за кутии Описание на този тип метални врати: Металната врата от този тип е изградена от два пласта студено-валцова ламарина с дебелина 1мм, като вътрешността е запълнена с минерална вата.</p><p>В горната част има стъклен пакет 6мм (предлагаме възможност за монтиране на армирано стъкло) Секретна брава, която е със стоманен език Секретен патрон (в комплекта влизат и 3 броя ключове), като има възможност да се заявят и повече От вътрешната страна на бравата се монтира дръжка, а от външната топка Автомат за плавно и плътно затваряне на металната врата Електрически насрещник (за домофонна система) Метален профил за носещата конструкция, изграден от студено-валцова стоманена ламарина Пощенски кутии 48 броя (изработват се от нас), като за всяка кутия има включени два броя ключове Металната врата ще бъде боядисана в цвят по ваш избор Демонтаж на старата врата Времето, което отнема на фирмата ни от взимането на размерите до монтажа на новата метална врата е ДО 20 работни дни.</p><p>Важи за София и София област.</p><p>НАПРАВЕТЕ ВАШАТА ЗАЯВКА ЗА ОГЛЕД СЕГА!</p></div></div>
+<div class="testimonial-card reveal"><p class="testimonial-author">Метални врати за входове с пощенски кутии</p><div class="testimonial-text"><p>Метални врати за входове с пощенски кутии (броят е според нуждите ви) Цени от 515 лева + 25 лева за пощенска кутия Описание на метални врати за входове: Тези метални врати се изработват от два стоманени пласта с дебелина 1мм, запълнена вътрешност с минерална вата, стъклен профил 6мм, като има възможност стъклото да е армирано Всички метални врати за входове са със секретни брави Секретен патрон, в комплект с три ключа (при желание от ваша страна могат да се извадят още) Секретна дръжка от вътрешната страна и топка от външната Автомат за плавно и плътно затваряне на крилото (металната врата) Електрически насрещник за домофонна система Пощенски кутии с по 2 ключа всяка (броят на кутиите е според нуждите ви) Металната врата се боядисва в цвят по ваш избор Демонтаж на старата врата Времето, което ни отнема от взимането на размерите до монтажа е ДО 20 работни дни.</p><p>Важи за София и София област.</p><p>НАПРАВЕТЕ ВАШАТА ЗАЯВКА ЗА ОГЛЕД СЕГА!</p></div></div>
+<div class="testimonial-card reveal"><p class="testimonial-author">Входни метални врати за блок</p><div class="testimonial-text"><p>Входна метална врата за блок (с пощенски кутии) Поръчково изделие на метална врата за вход с пощенски кутии: Вратата е изградена от два пласта студено-валцова стоманена ламарина с дебелина от 1мм, вътрешната част на вратата е с изолационна вата, стъкло 6мм или армирано Секретна брава, която има стоманен език Секретен патрон с три ключа (при желание от ваша страна, могат да бъдат изготвени още) Секретна дръжка от вътрешната страна и топка от външната Автомат за плавното и плътно затваряне на вратата Насрещни - подготовка за домофонна система Остъклено крило, което се отваря - с монтирани сюрмета в горната и долната част Металната врата може да се боядиса в цвят по ваш избор Демонтиране на съществуващата врата Времето, което е необходимо на Миг Трейд ЕООД от взимането на размерите до монтирането на новата метална врата е ДО 10 работни дни.</p><p>Важи за София и София област НАПРАВЕТЕ ВАШАТА ЗАЯВКА ЗА ОГЛЕД СЕГА!</p></div></div>
+<div class="testimonial-card reveal"><p class="testimonial-author">Метална врата (крило) с пощенски кутии</p><div class="testimonial-text"><p>Входна метална врата (само крило), на която има пощенски кутии Описание на крило (метална врата) с пощенски кутии Крилото на металната врата се изработва от два пласта студено-валцова стоманена ламарина, която е с дебелина 1мм., минерална вата и пощенски кутии на самото крило.</p><p>Този тип метални врати са подходящи за малки входове, където мястото не позволява голяма метална врата с отделна част за пощенските кутии Секретна брава, която има стоманен език Секретен патрон в комплект с три ключа (при желание могат да се извадят още) Автомат за плавно и плътно затваряне на вратата Електрически насрещник (подготовка за домофонна система) Каса от метален профил Пощенски кутии в комплект с по два ключа за всяка Стъкло 6мм или армирано стъкло на остъклената част Вратата може да бъде боядисана в цвят по ваш избор Демонтаж на старата входна врата Времето, което е нужно на фирмата ни от взимането на размерите до монтажа на новата метална врата е ДО 15 работни дни.</p><p>Важи за София и Софийска Област.</p><p>НАПРАВЕТЕ ВАШАТА ЗАЯВКА ЗА ОГЛЕД СЕГА!</p></div></div>
+<div class="testimonial-card reveal"><p class="testimonial-author">Входни метални врати за офис сграда с пощенски кутии</p><div class="testimonial-text"><p>Метални врати за входове, подходящи за офис сгради (с пощенски кутии) Луксозно изпълнение на метална врата за вход на офис сграда Възможно е монтирането на система за контрол на достъпа Монтиране на секретна брава със стоманен език Секретен патрон, в комплект с три ключа Луксозни дръжки на вратата Автомат за плавното и тихо затваряне на вратата Ел.</p><p>насрещник за домофонна система Пощенски кутии (броят е според нуждите ви), в комплект с по два ключа.</p><p>Те се изработват ръчно в нашият цех Остъклената част на металната врата е с армирано стъкло Демонтиране на стара врата, ако има такава Времето, което ни е нужно от взимането на размера до монтажа е ДО 20 работни дни и важи за град София и София област.</p><p>НАПРАВЕТЕ ВАШАТА ЗАЯВКА ЗА ОГЛЕД СЕГА!</p></div></div>
+<div class="testimonial-card reveal"><p class="testimonial-author">Еднопластови метални врати с касова брава</p><div class="testimonial-text"><p>Метална врата за мазе с един пласт и касова брава - описание на изграждане и монтаж Обикновено металните врати с един пласт стоманена ламарина са предназначени за мазета и тавански помещения, но могат да бъдат монтирани и за входна врата на апартамент.</p><p>Рамката на този тип врати може да е изградена от квадратен профил или от Г-образен Самото крило на металната врата притежава един пласт стоманена ламарина с дебелина 1.5мм Размерите могат да бъдат дадени както от вас, така да бъдат взети и от наши монтажници Касовата врата е достатъчна защита за вашето мазе или таванско помещение Поради предназначението си, този тип метални врати могат да бъдат грундирани само, но при желание от ваша страна могат да бъдат допълнително боядисани Демонтажа на старата врата на мазето ви е безплатен Времето, което ни отнема от взимането на размерите до монтирането на вашата метална врата е ДО 5 работни дни и важи за София и София област.</p><p>НАПРАВЕТЕ ВАШАТА ЗАЯВКА ЗА ОГЛЕД СЕГА!</p></div></div>
     </div>
   </div>
 </section>
 
 <div class="section-divider"></div>
 
-<!-- CONTACT -->
 <section class="contact" id="contact">
   <div class="container">
     <span class="eyebrow">КОНТАКТИ</span>
     <h2 class="section-title reveal">Свържете се с Миг Трейд</h2>
-    <p class="section-sub">Заявете оглед за метална врата, решетки, ограда или портал и ще получите конкретна консултация за модела, цената и срока.</p>
+    <p class="section-sub">Заявете оглед за метална врата, решетка, ограда или портал и ще получите конкретна консултация за модела, цената и срока.</p>
     <span class="gold-sep" style="margin-bottom:48px"></span>
     <div class="contact-grid">
       <form class="contact-form" onsubmit="event.preventDefault(); alert('Благодарим за запитването! Ще се свържем с вас възможно най-скоро.')">
@@ -662,7 +632,7 @@ footer { padding: 60px 0 30px; background: var(--bg); border-top: 1px solid rgba
         </div>
         <div class="form-group">
           <label for="message">Съобщение</label>
-          <textarea id="message" name="message" placeholder="Опишете какъв тип метална врата, решетка, ограда или портал ви е необходим."></textarea>
+          <textarea id="message" name="message" placeholder="Опишете какво изделие ви е необходимо."></textarea>
         </div>
         <button type="submit" class="cta-btn" style="border:none;font-family:var(--font-body);font-size:1rem;padding:16px 32px;">Изпратете запитване</button>
       </form>
@@ -678,7 +648,7 @@ footer { padding: 60px 0 30px; background: var(--bg); border-top: 1px solid rgba
         </div>
         <div class="contact-detail">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-          <span>Имейлът е защитен в текущия сайт<br>mig-trade.com</span>
+          <span>office@mig-trade.com<br>mig-trade.com</span>
         </div>
         <div class="map-placeholder">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="margin-right:8px"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
@@ -698,25 +668,27 @@ footer { padding: 60px 0 30px; background: var(--bg); border-top: 1px solid rgba
         <p>Изработка и монтаж на метални врати, метални решетки, огради и портали по размер за София и София област.</p>
       </div>
       <div class="footer-col">
-        <h4>Продукти</h4>
-        <a href="#products">Врати за апартаменти</a>
-        <a href="#products">Входни врати</a>
-        <a href="#products">Врати за мазета</a>
-        <a href="#products">Метални решетки</a>
-        <a href="#products">Огради и портали</a>
+        <h4>Навигация</h4>
+        <a href="index.html">Начало</a>
+        <a href="metalni-vrati.html">Врати за апартаменти</a>
+        <a href="vhodni-vrati.html">Входни врати</a>
+        <a href="metalni-vrati.html#maze">Врати за мазета</a>
+        <a href="metalni-reshetki.html">Метални решетки</a>
+        <a href="ogradi-i-portali.html">Огради и портали</a>
+        <a href="galeriia.html">Галерия</a>
       </div>
       <div class="footer-col">
-        <h4>Компания</h4>
-        <a href="#why-us">За нас</a>
-        <a href="#gallery">Проекти</a>
-        <a href="#testimonials">Отзиви</a>
-        <a href="#energy">Защита и изолация</a>
+        <h4>Полезно</h4>
+        <a href="index.html#why-us">За нас</a>
+        <a href="galeriia.html">Проекти</a>
+        <a href="index.html#testimonials">Отзиви</a>
+        <a href="index.html#energy">Защита и изолация</a>
       </div>
       <div class="footer-col">
         <h4>Контакти</h4>
         <a href="tel:+359878243810">0878 243 810</a>
-        <a href="http://mig-trade.com">mig-trade.com</a>
-        <a href="#contact">Заявете оглед</a>
+        <a href="https://mig-trade.com">mig-trade.com</a>
+        <a href="index.html#contact">Заявете оглед</a>
       </div>
     </div>
     <div class="footer-bottom">
@@ -729,7 +701,6 @@ footer { padding: 60px 0 30px; background: var(--bg); border-top: 1px solid rgba
     </div>
   </div>
 </footer>
-
 <script>
 // Mobile menu
 const hamburger = document.querySelector('.hamburger');
@@ -784,6 +755,18 @@ const statsObserver = new IntersectionObserver((entries) => {
 }, { threshold: 0.3 });
 const statsSection = document.querySelector('.stats-grid');
 if (statsSection) statsObserver.observe(statsSection);
+
+// Desktop dropdown: prevent default on toggle links
+document.querySelectorAll(".nav-dropdown-toggle").forEach(t => {
+  t.addEventListener("click", e => e.preventDefault());
+});
+// Mobile dropdown toggle
+document.querySelectorAll(".mobile-dropdown-toggle").forEach(t => {
+  t.addEventListener("click", e => {
+    e.preventDefault();
+    t.closest(".mobile-dropdown").classList.toggle("open");
+  });
+});
 </script>
 </body>
 </html>

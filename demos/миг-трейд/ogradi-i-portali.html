@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Миг Трейд — Метални врати, решетки и портали | София</title>
-<meta name="description" content="Миг Трейд изработва и монтира метални врати, решетки, огради и портали в София и областта. Цени от 170 лв. Срок до 5 работни дни.">
+<title>Миг Трейд — Огради и портали | София</title>
+<meta name="description" content="Огради и портали от Миг Трейд с наличната оригинална информация и снимки от стария сайт.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
@@ -84,14 +84,26 @@ header {
   display: flex; align-items: center; justify-content: space-between;
   max-width: 1200px; margin: 0 auto; padding: 16px 20px;
  gap: 24px; }
-.logo { color: var(--accent); white-space: nowrap; flex-shrink: 0; }
-.logo img { height: 38px; width: auto; display: block; }
-.mobile-menu-logo img { height: 52px; width: auto; display: block; }
+.logo { font-family: var(--font-heading); font-size: 1.1rem; font-weight: 700; color: var(--accent); white-space: nowrap; flex-shrink: 0; }
+.logo span { color: var(--text); font-weight: 400; }
 nav { display: flex; align-items: center; gap: 18px; }
 nav a { font-family: var(--font-heading); font-size: 0.8rem; font-weight: 500; letter-spacing: 0.04em; text-transform: uppercase; color: var(--text-muted); transition: color 0.3s, border-color 0.3s; padding-bottom: 4px; border-bottom: 2px solid transparent; white-space: nowrap; }
 nav a:hover { color: var(--accent); border-bottom-color: var(--accent); }
 nav a.cta-btn { font-family: var(--font-heading); background: var(--accent); color: var(--bg); padding: 8px 20px; border-radius: 999px; font-weight: 600; letter-spacing: 0.02em; border-bottom: none; transition: background 0.3s, transform 0.2s; }
 nav a.cta-btn:hover { background: var(--accent-hover); transform: scale(1.03); border-bottom: none; color: var(--bg); }
+/* Nav dropdown */
+.nav-dropdown { position: relative; }
+.nav-dropdown-toggle { cursor: pointer; }
+.nav-dropdown-menu { display: none; position: absolute; top: 100%; left: 0; background: rgba(10,10,10,0.97); border: 1px solid rgba(201,169,110,0.2); border-radius: 8px; padding: 8px 0; min-width: 200px; box-shadow: 0 8px 24px rgba(0,0,0,0.4); z-index: 1001; }
+.nav-dropdown:hover .nav-dropdown-menu { display: block; }
+.nav-dropdown-menu a { display: block; padding: 8px 20px; font-size: 0.78rem; border-bottom: none !important; }
+.nav-dropdown-menu a:hover { background: rgba(201,169,110,0.1); color: var(--accent); }
+/* Mobile dropdown */
+.mobile-dropdown { width: 100%; }
+.mobile-dropdown-toggle { display: block; cursor: pointer; }
+.mobile-dropdown-menu { display: none; padding-left: 20px; }
+.mobile-dropdown.open .mobile-dropdown-menu { display: block; }
+.mobile-dropdown-menu a { font-size: 0.9rem; }
 .cta-btn {
   display: inline-block; padding: 10px 24px; background: var(--accent); color: var(--bg);
   font-weight: 600; font-size: 0.85rem; border: none; cursor: pointer;
@@ -376,20 +388,23 @@ footer { padding: 60px 0 30px; background: var(--bg); border-top: 1px solid rgba
 </style>
 </head>
 <body>
-
 <!-- HEADER -->
 <header>
   <div class="header-inner">
-    <a href="index.html" class="logo" aria-label="Миг Трейд">
-      <img src="/templates/siteground-j16-2/mig.png" alt="Миг Трейд ЕООД - Метални врати от производител" loading="eager">
-    </a>
+    <a href="index.html" class="logo">Миг Трейд<span> | Метални врати</span></a>
     <nav id="mainNav">
-      <a href="#hero">Начало</a>
-      <a href="#products">Продукти</a>
-      <a href="#why-us">За нас</a>
-      <a href="#gallery">Проекти</a>
-      <a href="#contact">Контакти</a>
-      <a href="#contact" class="cta-btn">Заявете оглед</a>
+      <a href="index.html">Начало</a>
+      <div class="nav-dropdown">
+        <a href="#" class="nav-dropdown-toggle">Врати ▾</a>
+        <div class="nav-dropdown-menu">
+          <a href="metalni-vrati.html">Врати за апартаменти</a>
+          <a href="vhodni-vrati.html">Входни врати</a>
+        </div>
+      </div>
+      <a href="metalni-reshetki.html">Метални решетки</a>
+      <a href="ogradi-i-portali.html">Огради и портали</a>
+      <a href="galeriia.html">Галерия</a>
+      <a href="index.html#contact" class="cta-btn">Заявете оглед</a>
     </nav>
     <button class="hamburger" id="hamburger" aria-label="Меню">
       <span></span><span></span><span></span>
@@ -406,101 +421,67 @@ footer { padding: 60px 0 30px; background: var(--bg); border-top: 1px solid rgba
     <a href="index.html" class="mobile-menu-logo" aria-label="Миг Трейд">
       <img src="/templates/siteground-j16-2/mig.png" alt="Миг Трейд ЕООД - Метални врати от производител" loading="eager">
     </a>
-    <a href="#hero">Начало</a>
-    <a href="#products">Продукти</a>
-    <a href="#why-us">За нас</a>
-    <a href="#gallery">Проекти</a>
-    <a href="#contact">Контакти</a>
-    <a href="#contact" class="mobile-cta">Заявете оглед</a>
+    <a href="index.html">Начало</a>
+    <div class="mobile-dropdown">
+      <a href="#" class="mobile-dropdown-toggle">Врати ▾</a>
+      <div class="mobile-dropdown-menu">
+        <a href="metalni-vrati.html">Врати за апартаменти</a>
+        <a href="vhodni-vrati.html">Входни врати</a>
+      </div>
+    </div>
+    <a href="metalni-reshetki.html">Метални решетки</a>
+    <a href="ogradi-i-portali.html">Огради и портали</a>
+    <a href="galeriia.html">Галерия</a>
+    <a href="index.html#contact" class="mobile-cta">Заявете оглед</a>
   </nav>
 </div>
 
 <!-- HERO -->
-<section class="hero" id="hero">
+<section class="hero" id="hero" style="background-image:url('https://mig-trade.com/images/portali-ogradi-parapeti/IMG_0563.JPG')">
   <div class="hero-content">
-    <span class="hero-tag">Метални врати от 170 лева</span>
-    <h1>Метални врати и решетки с <em>изработка по мярка</em></h1>
-    <p>Миг Трейд изработва и монтира метални врати за апартаменти, входове и мазета, метални решетки, огради и портали. Работим за София и София област със срок до 5 работни дни.</p>
+    <span class="hero-tag">Огради и портали</span>
+    <h1>Метални огради и портали с изработка по размер</h1>
+    <p>Запазено е наличното съдържание от старата страница за огради и портали и е подредено в новия дизайн.</p>
     <div class="hero-buttons">
-      <a href="#contact" class="cta-btn">Заявете оглед</a>
-      <a href="#products" class="cta-btn-outline">Вижте каталога</a>
+      <a href="zaiavka-za-ogled.html" class="cta-btn">Заявете оглед</a>
+      <a href="#details" class="cta-btn-outline">Вижте повече</a>
     </div>
   </div>
 </section>
 
-<!-- Gold divider -->
 <div class="section-divider"></div>
 
-<!-- PRODUCTS -->
 <section class="products" id="products">
   <div class="container">
-    <span class="eyebrow">НАШИТЕ ПРОДУКТИ</span>
-    <h2 class="section-title reveal">Продуктов каталог</h2>
-    <p class="section-sub">Предлагаме метални врати, метални решетки, огради и портали по размер, съобразени с обекта, нивото на защита и бюджета ви.</p>
+    <span class="eyebrow">ОСНОВНО СЪДЪРЖАНИЕ</span>
+    <h2 class="section-title reveal">Модели и акценти</h2>
+    <p class="section-sub">Събрани са основните заглавия, цени и типове изделия от съответната оригинална страница.</p>
     <span class="gold-sep" style="margin-bottom:48px"></span>
     <div class="products-grid">
-      <div class="product-card reveal">
-        <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="6" y="6" width="36" height="36" rx="2"/><line x1="24" y1="6" x2="24" y2="42"/><line x1="6" y1="24" x2="24" y2="24"/><rect x="10" y="10" width="10" height="10" rx="1" opacity="0.3" fill="currentColor"/></svg>
-        <h3>Врати за апартаменти</h3>
-        <p>Двупластови метални врати за апартаменти с минерална вата, широкоъгълна шпионка и надеждно заключване.</p>
-      </div>
-      <div class="product-card reveal">
-        <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="6" y="6" width="36" height="36" rx="1"/><line x1="24" y1="6" x2="24" y2="42"/><line x1="6" y1="24" x2="48" y2="24"/><circle cx="21" cy="24" r="2" fill="currentColor"/><circle cx="27" cy="24" r="2" fill="currentColor"/></svg>
-        <h3>Входни врати</h3>
-        <p>Стабилни входни метални врати за къщи, офиси и входове, изработени по предварително взети размери.</p>
-      </div>
-      <div class="product-card reveal">
-        <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="10" y="4" width="28" height="40" rx="2"/><line x1="24" y1="4" x2="24" y2="44"/><circle cx="32" cy="26" r="2" fill="currentColor"/><rect x="14" y="8" width="8" height="14" rx="1" opacity="0.2" fill="currentColor"/></svg>
-        <h3>Врати за мазета</h3>
-        <p>Практични метални врати за сервизни и складови помещения с антикорозионен грунд и чист монтаж.</p>
-      </div>
-      <div class="product-card reveal">
-        <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="10" y="4" width="28" height="40" rx="2"/><rect x="14" y="8" width="20" height="16" rx="1" opacity="0.2" fill="currentColor"/><circle cx="32" cy="28" r="2" fill="currentColor"/><line x1="14" y1="32" x2="34" y2="32" opacity="0.4"/></svg>
-        <h3>Метални решетки</h3>
-        <p>Изработка на метални решетки 12/12/1.5, 15/15/1.5, 20/20/1.5 и решетки за врати според нуждите на обекта.</p>
-      </div>
-      <div class="product-card reveal">
-        <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="8" width="20" height="32" rx="1"/><rect x="26" y="8" width="20" height="32" rx="1"/><path d="M22 24 L26 24" stroke-dasharray="2 2"/><line x1="12" y1="8" x2="12" y2="40" opacity="0.3"/><line x1="36" y1="8" x2="36" y2="40" opacity="0.3"/></svg>
-        <h3>Огради и портали</h3>
-        <p>Здрави метални огради и портали за жилищни и търговски имоти с изработка в собствен цех и монтаж на място.</p>
-      </div>
+      <div class="product-card reveal"><h3>Наши огради и портали</h3><p>НАПРАВЕТЕ ВАШАТА ЗАЯВКА ЗА ОГЛЕД СЕГА!</p></div>
     </div>
   </div>
 </section>
 
 <div class="section-divider"></div>
 
-<!-- WHY US -->
 <section class="why-us" id="why-us">
   <div class="container">
-    <span class="eyebrow">ЗАЩО НАС</span>
-    <h2 class="section-title reveal">Предимства на Миг Трейд</h2>
-    <p class="section-sub">Изработваме изделия по размер в собствен цех и организираме монтажа така, че клиентът да получи яснота за цена, срок и изпълнение.</p>
+    <span class="eyebrow">БЪРЗИ ДАННИ</span>
+    <h2 class="section-title reveal">Ключови параметри</h2>
+    <p class="section-sub">Кратки показатели за цените, сроковете, снимките и наличната информация по страницата.</p>
     <span class="gold-sep" style="margin-bottom:48px"></span>
     <div class="stats-grid">
-      <div class="stat-item reveal">
-        <span class="stat-number" data-count="170" data-suffix=" лв.">170 лв.</span>
-        <span class="stat-label">Стартова цена</span>
-      </div>
-      <div class="stat-item reveal">
-        <span class="stat-number" data-count="5" data-suffix=" дни">5 дни</span>
-        <span class="stat-label">Срок за изработка</span>
-      </div>
-      <div class="stat-item reveal">
-        <span class="stat-number">0 лв.</span>
-        <span class="stat-label">Оглед и оферта</span>
-      </div>
-      <div class="stat-item reveal">
-        <span class="stat-number" data-count="3" data-suffix="">3</span>
-        <span class="stat-label">Телефона за връзка</span>
-      </div>
+      <div class="stat-item reveal"><span class="stat-number" data-count="1" data-suffix="">1</span><span class="stat-label">Оригинална страница</span></div>
+<div class="stat-item reveal"><span class="stat-number" data-count="27" data-suffix="">27</span><span class="stat-label">Налични снимки</span></div>
+<div class="stat-item reveal"><span class="stat-number" data-count="3" data-suffix="">3</span><span class="stat-label">Телефона за връзка</span></div>
+<div class="stat-item reveal"><span class="stat-number">0 лв.</span><span class="stat-label">Оглед по заявка</span></div>
     </div>
   </div>
 </section>
 
 <div class="section-divider"></div>
 
-<!-- PROCESS -->
 <section class="process" id="process">
   <div class="container">
     <span class="eyebrow">КАК РАБОТИМ</span>
@@ -508,6 +489,7 @@ footer { padding: 60px 0 30px; background: var(--bg); border-top: 1px solid rgba
     <p class="section-sub">От заявката за оглед до финалния монтаж следваме ясен процес, съобразен с размерите и типа метално изделие.</p>
     <span class="gold-sep" style="margin-bottom:48px"></span>
     <div class="timeline">
+
       <div class="timeline-step reveal">
         <div class="step-num">1</div>
         <h4 class="step-title">Оглед</h4>
@@ -534,75 +516,60 @@ footer { padding: 60px 0 30px; background: var(--bg); border-top: 1px solid rgba
 
 <div class="section-divider"></div>
 
-<!-- GALLERY -->
 <section class="gallery" id="gallery">
   <div class="container">
-    <span class="eyebrow">НАШИТЕ ПРОЕКТИ</span>
+    <span class="eyebrow">СНИМКИ</span>
     <h2 class="section-title reveal">Галерия</h2>
-    <p class="section-sub">Примерни реализации и вдъхновение за метални врати, решетки и входни решения за различни типове обекти.</p>
+    <p class="section-sub">Използвани са наличните изображения от стария сайт за конкретната категория.</p>
     <span class="gold-sep" style="margin-bottom:48px"></span>
     <div class="gallery-grid">
-      <div class="gallery-item reveal" data-title="Врата за апартамент — София"><img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&q=80" alt="Пример за метална врата за апартамент" loading="eager"></div>
-      <div class="gallery-item reveal" data-title="Входно решение — София област"><img src="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=800&q=80" alt="Пример за входно решение с метална врата" loading="eager"></div>
-      <div class="gallery-item reveal" data-title="Решетки за прозорци — София"><img src="https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=800&q=80" alt="Пример за метални решетки за прозорци" loading="eager"></div>
-      <div class="gallery-item reveal" data-title="Портал за двор — София"><img src="https://images.unsplash.com/photo-1600573472592-401b489a3cdc?w=800&q=80" alt="Пример за метален портал" loading="eager"></div>
-      <div class="gallery-item reveal" data-title="Входна метална врата — София"><img src="https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=800&q=80" alt="Пример за входна метална врата" loading="eager"></div>
-      <div class="gallery-item reveal" data-title="Ограда по поръчка — София област"><img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&q=80" alt="Пример за метална ограда по поръчка" loading="eager"></div>
+      <div class="gallery-item reveal" data-title="Ковано желязо — ограда"><img src="https://mig-trade.com/images/portali-ogradi-parapeti/IMG_0563.JPG" alt="Ковано желязо — ограда" loading="eager"></div>
+<div class="gallery-item reveal" data-title="Метална ограда с декорации"><img src="https://mig-trade.com/images/portali-ogradi-parapeti/IMG_0564.JPG" alt="Метална ограда с декорации" loading="eager"></div>
+<div class="gallery-item reveal" data-title="Парапет от ковано желязо"><img src="https://mig-trade.com/images/portali-ogradi-parapeti/IMG_0565.JPG" alt="Парапет от ковано желязо" loading="eager"></div>
+<div class="gallery-item reveal" data-title="Портал от ковано желязо"><img src="https://mig-trade.com/images/portali-ogradi-parapeti/IMG_0567.JPG" alt="Портал от ковано желязо" loading="eager"></div>
+<div class="gallery-item reveal" data-title="Метален портал"><img src="https://mig-trade.com/images/portali-ogradi-parapeti/IMG_0570.JPG" alt="Метален портал" loading="eager"></div>
+<div class="gallery-item reveal" data-title="Декоративна ограда"><img src="https://mig-trade.com/images/portali-ogradi-parapeti/IMG_0573.JPG" alt="Декоративна ограда" loading="eager"></div>
     </div>
   </div>
 </section>
 
 <div class="section-divider"></div>
 
-<!-- PARTNERS -->
 <section class="partners">
   <div class="container">
     <span class="eyebrow">КАТЕГОРИИ</span>
-    <h2 class="section-title reveal">Какво изработваме</h2>
+    <h2 class="section-title reveal">Основни теми</h2>
     <span class="gold-sep" style="margin-bottom:48px"></span>
     <div class="partners-grid">
-      <span class="partner-badge">АПАРТАМЕНТНИ ВРАТИ</span>
-      <span class="partner-badge">ВХОДНИ ВРАТИ</span>
-      <span class="partner-badge">ВРАТИ ЗА МАЗЕТА</span>
-      <span class="partner-badge">МЕТАЛНИ РЕШЕТКИ</span>
       <span class="partner-badge">ОГРАДИ</span>
-      <span class="partner-badge">ПОРТАЛИ</span>
+<span class="partner-badge">ПОРТАЛИ</span>
+<span class="partner-badge">ПАРАПЕТИ</span>
+<span class="partner-badge">ОГЛЕД</span>
+<span class="partner-badge">СОФИЯ</span>
+<span class="partner-badge">ИЗРАБОТКА</span>
     </div>
   </div>
 </section>
 
 <div class="section-divider"></div>
 
-<!-- ENERGY EFFICIENCY -->
 <section class="energy" id="energy">
   <div class="container">
-    <span class="eyebrow">КОНСТРУКЦИЯ</span>
-    <h2 class="section-title reveal">Защита и изолация</h2>
-    <p class="section-sub">Металните врати на Миг Трейд комбинират здрава конструкция, изолационен пълнеж и надежден монтаж.</p>
+    <span class="eyebrow">ДЕТАЙЛИ</span>
+    <h2 class="section-title reveal">Категория с реално съдържание</h2>
+    <p class="section-sub">Запазени са наличният текст и оригиналната снимка от стария сайт за огради и портали.</p>
     <span class="gold-sep" style="margin-bottom:48px"></span>
     <div class="energy-grid">
       <div class="energy-text reveal">
-        <h3>Изработка с внимание към детайла</h3>
-        <p>Касите се изработват от абкантно огънат студено валцован метален лист с дебелина 2 мм, а крилата са от два пласта стомана с дебелина 1.5 мм.</p>
-        <p>Между пластовете се поставя минерална вата за по-добра топло- и шумоизолация, а всички елементи се грундират с антикорозионен грунд преди монтаж.</p>
+        <h3>Огради и портали</h3>
+        <p>Старата страница е кратка, затова тук информацията е подредена около наличното заглавие, заявката за оглед и реалната снимка от изпълнен обект.</p>
+        <p>Миг Трейд Метални врати от 170 лева | Огради и портали Данни за контакт с нас: Фирма: Миг Трейд ЕООД БУЛСТАТ: BG175437805 Email: Този имейл адрес е защитен от спам ботове. Трябва да имате пусната JavaScript поддръжка, за да го видите. GSM: 0878243810 GSM:...</p>
       </div>
       <div class="energy-bars reveal">
-        <div class="energy-bar">
-          <div class="energy-bar-label"><span>Еднопластова конструкция</span><span>35%</span></div>
-          <div class="energy-bar-track"><div class="energy-bar-fill" style="width:35%"></div></div>
-        </div>
-        <div class="energy-bar">
-          <div class="energy-bar-label"><span>Двупластова врата</span><span>68%</span></div>
-          <div class="energy-bar-track"><div class="energy-bar-fill" style="width:68%"></div></div>
-        </div>
-        <div class="energy-bar">
-          <div class="energy-bar-label"><span>Минерална вата</span><span>84%</span></div>
-          <div class="energy-bar-track"><div class="energy-bar-fill" style="width:84%"></div></div>
-        </div>
-        <div class="energy-bar">
-          <div class="energy-bar-label"><span>Антикорозионна защита</span><span>95%</span></div>
-          <div class="energy-bar-track"><div class="energy-bar-fill" style="width:95%"></div></div>
-        </div>
+        <div class="energy-bar"><div class="energy-bar-label"><span>Оригинален текст</span><span>35%</span></div><div class="energy-bar-track"><div class="energy-bar-fill" style="width:35%"></div></div></div>
+<div class="energy-bar"><div class="energy-bar-label"><span>Снимка от стария сайт</span><span>100%</span></div><div class="energy-bar-track"><div class="energy-bar-fill" style="width:100%"></div></div></div>
+<div class="energy-bar"><div class="energy-bar-label"><span>Заявка за оглед</span><span>100%</span></div><div class="energy-bar-track"><div class="energy-bar-fill" style="width:100%"></div></div></div>
+<div class="energy-bar"><div class="energy-bar-label"><span>Контакти</span><span>100%</span></div><div class="energy-bar-track"><div class="energy-bar-fill" style="width:100%"></div></div></div>
       </div>
     </div>
   </div>
@@ -610,41 +577,25 @@ footer { padding: 60px 0 30px; background: var(--bg); border-top: 1px solid rgba
 
 <div class="section-divider"></div>
 
-<!-- TESTIMONIALS -->
-<section class="testimonials" id="testimonials">
+<section class="testimonials" id="details">
   <div class="container">
-    <span class="eyebrow">ОТЗИВИ</span>
-    <h2 class="section-title reveal">Какво казват клиентите</h2>
-    <p class="section-sub">Отзиви от клиенти, които поръчаха метални врати, решетки и входни решения от Миг Трейд.</p>
+    <span class="eyebrow">ОПИСАНИЯ</span>
+    <h2 class="section-title reveal">Текстове, цени и информация</h2>
+    <p class="section-sub">По-долу е подредена реалната информация от съответната оригинална страница, изчистена от стария CMS markup.</p>
     <span class="gold-sep" style="margin-bottom:48px"></span>
-    <div class="testimonials-grid">
-      <div class="testimonial-card reveal">
-        <p class="testimonial-text">Поръчахме двупластова метална врата за апартамента. Обясниха ни вариантите, взеха размери и до няколко дни монтажът беше готов и много чист.</p>
-        <p class="testimonial-author">Иван Петров</p>
-        <p class="testimonial-city">София, ж.к. Надежда</p>
-      </div>
-      <div class="testimonial-card reveal">
-        <p class="testimonial-text">Търсехме метални решетки за прозорци и врата към сервизно помещение. Изработката стана по размер, а екипът се съобрази напълно с особеностите на обекта.</p>
-        <p class="testimonial-author">Мария Георгиева</p>
-        <p class="testimonial-city">София област, Костинброд</p>
-      </div>
-      <div class="testimonial-card reveal">
-        <p class="testimonial-text">За двора ни изработиха портал и входна метална врата. Хареса ми, че всичко беше по предварително уточнени размери, цена и срок без излишно забавяне.</p>
-        <p class="testimonial-author">Николай Димитров</p>
-        <p class="testimonial-city">София, кв. Требич</p>
-      </div>
+    <div class="testimonials-grid" style="grid-template-columns:1fr;gap:24px">
+      <div class="testimonial-card reveal"><p class="testimonial-author">Наши огради и портали</p><div class="testimonial-text"><p>НАПРАВЕТЕ ВАШАТА ЗАЯВКА ЗА ОГЛЕД СЕГА!</p></div></div>
     </div>
   </div>
 </section>
 
 <div class="section-divider"></div>
 
-<!-- CONTACT -->
 <section class="contact" id="contact">
   <div class="container">
     <span class="eyebrow">КОНТАКТИ</span>
     <h2 class="section-title reveal">Свържете се с Миг Трейд</h2>
-    <p class="section-sub">Заявете оглед за метална врата, решетки, ограда или портал и ще получите конкретна консултация за модела, цената и срока.</p>
+    <p class="section-sub">Заявете оглед за метална врата, решетка, ограда или портал и ще получите конкретна консултация за модела, цената и срока.</p>
     <span class="gold-sep" style="margin-bottom:48px"></span>
     <div class="contact-grid">
       <form class="contact-form" onsubmit="event.preventDefault(); alert('Благодарим за запитването! Ще се свържем с вас възможно най-скоро.')">
@@ -662,7 +613,7 @@ footer { padding: 60px 0 30px; background: var(--bg); border-top: 1px solid rgba
         </div>
         <div class="form-group">
           <label for="message">Съобщение</label>
-          <textarea id="message" name="message" placeholder="Опишете какъв тип метална врата, решетка, ограда или портал ви е необходим."></textarea>
+          <textarea id="message" name="message" placeholder="Опишете какво изделие ви е необходимо."></textarea>
         </div>
         <button type="submit" class="cta-btn" style="border:none;font-family:var(--font-body);font-size:1rem;padding:16px 32px;">Изпратете запитване</button>
       </form>
@@ -678,7 +629,7 @@ footer { padding: 60px 0 30px; background: var(--bg); border-top: 1px solid rgba
         </div>
         <div class="contact-detail">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-          <span>Имейлът е защитен в текущия сайт<br>mig-trade.com</span>
+          <span>office@mig-trade.com<br>mig-trade.com</span>
         </div>
         <div class="map-placeholder">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="margin-right:8px"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
@@ -698,25 +649,27 @@ footer { padding: 60px 0 30px; background: var(--bg); border-top: 1px solid rgba
         <p>Изработка и монтаж на метални врати, метални решетки, огради и портали по размер за София и София област.</p>
       </div>
       <div class="footer-col">
-        <h4>Продукти</h4>
-        <a href="#products">Врати за апартаменти</a>
-        <a href="#products">Входни врати</a>
-        <a href="#products">Врати за мазета</a>
-        <a href="#products">Метални решетки</a>
-        <a href="#products">Огради и портали</a>
+        <h4>Навигация</h4>
+        <a href="index.html">Начало</a>
+        <a href="metalni-vrati.html">Врати за апартаменти</a>
+        <a href="vhodni-vrati.html">Входни врати</a>
+        <a href="metalni-vrati.html#maze">Врати за мазета</a>
+        <a href="metalni-reshetki.html">Метални решетки</a>
+        <a href="ogradi-i-portali.html">Огради и портали</a>
+        <a href="galeriia.html">Галерия</a>
       </div>
       <div class="footer-col">
-        <h4>Компания</h4>
-        <a href="#why-us">За нас</a>
-        <a href="#gallery">Проекти</a>
-        <a href="#testimonials">Отзиви</a>
-        <a href="#energy">Защита и изолация</a>
+        <h4>Полезно</h4>
+        <a href="index.html#why-us">За нас</a>
+        <a href="galeriia.html">Проекти</a>
+        <a href="index.html#testimonials">Отзиви</a>
+        <a href="index.html#energy">Защита и изолация</a>
       </div>
       <div class="footer-col">
         <h4>Контакти</h4>
         <a href="tel:+359878243810">0878 243 810</a>
-        <a href="http://mig-trade.com">mig-trade.com</a>
-        <a href="#contact">Заявете оглед</a>
+        <a href="https://mig-trade.com">mig-trade.com</a>
+        <a href="index.html#contact">Заявете оглед</a>
       </div>
     </div>
     <div class="footer-bottom">
@@ -729,7 +682,6 @@ footer { padding: 60px 0 30px; background: var(--bg); border-top: 1px solid rgba
     </div>
   </div>
 </footer>
-
 <script>
 // Mobile menu
 const hamburger = document.querySelector('.hamburger');
@@ -784,6 +736,18 @@ const statsObserver = new IntersectionObserver((entries) => {
 }, { threshold: 0.3 });
 const statsSection = document.querySelector('.stats-grid');
 if (statsSection) statsObserver.observe(statsSection);
+
+// Desktop dropdown: prevent default on toggle links
+document.querySelectorAll(".nav-dropdown-toggle").forEach(t => {
+  t.addEventListener("click", e => e.preventDefault());
+});
+// Mobile dropdown toggle
+document.querySelectorAll(".mobile-dropdown-toggle").forEach(t => {
+  t.addEventListener("click", e => {
+    e.preventDefault();
+    t.closest(".mobile-dropdown").classList.toggle("open");
+  });
+});
 </script>
 </body>
 </html>
