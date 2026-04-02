@@ -817,7 +817,10 @@ const closeBtn = document.getElementById('mobileClose');
 hamburger.addEventListener('click', () => overlay.classList.add('active'));
 closeBtn.addEventListener('click', () => overlay.classList.remove('active'));
 overlay.querySelectorAll('a').forEach(link => {
-  link.addEventListener('click', () => overlay.classList.remove('active'));
+  link.addEventListener('click', (e) => {
+    if (link.classList.contains('mobile-dropdown-toggle')) return;
+    overlay.classList.remove('active');
+  });
 });
 document.addEventListener('keydown', (e) => {
   if (e.key === 'Escape') overlay.classList.remove('active');
