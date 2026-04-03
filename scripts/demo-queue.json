@@ -1,18 +1,5 @@
 {
-  "tasks": [
-    {
-      "id": 1775206144231,
-      "slug": "миг-трейд",
-      "name": "Миг Трейд",
-      "action": "revisions",
-      "status": "in_progress",
-      "createdAt": "2026-04-03T08:49:04.231Z",
-      "startedAt": "2026-04-03T08:49:20.635Z",
-      "completedAt": null,
-      "error": null,
-      "result": null
-    }
-  ],
+  "tasks": [],
   "completed": [
     {
       "id": 1773819482814,
@@ -1110,6 +1097,18 @@
       "startedAt": "2026-04-02T19:08:32.527Z",
       "completedAt": "2026-04-03T08:49:03.453Z",
       "error": "Stuck in_progress for 821min — auto-cleared",
+      "result": null
+    },
+    {
+      "id": 1775206144231,
+      "slug": "миг-трейд",
+      "name": "Миг Трейд",
+      "action": "revisions",
+      "status": "error",
+      "createdAt": "2026-04-03T08:49:04.231Z",
+      "startedAt": "2026-04-03T08:49:20.635Z",
+      "completedAt": "2026-04-03T08:57:07.674Z",
+      "error": "Revision failed after 3 attempts — no HTML files produced",
       "result": null
     }
   ],
