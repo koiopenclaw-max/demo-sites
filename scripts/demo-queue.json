@@ -1,31 +1,6 @@
 {
-  "tasks": [
-    {
-      "id": 1775218144202,
-      "slug": "миг-трейд",
-      "name": "Миг Трейд",
-      "action": "revisions",
-      "status": "in_progress",
-      "createdAt": "2026-04-03T12:09:04.202Z",
-      "startedAt": "2026-04-03T12:10:15.069Z",
-      "completedAt": null,
-      "error": null,
-      "result": null
-    }
-  ],
+  "tasks": [],
   "completed": [
-    {
-      "id": 1773820443063,
-      "slug": "рум-плам-2007",
-      "name": "РУМ - ПЛАМ 2007",
-      "action": "revisions",
-      "status": "done",
-      "createdAt": "2026-03-18T07:54:03.063Z",
-      "startedAt": "2026-03-18T07:54:22.358Z",
-      "completedAt": "2026-03-18T07:54:29.019Z",
-      "error": null,
-      "result": "Revisions applied → review"
-    },
     {
       "id": 1773820682829,
       "slug": "рум-плам-2007",
@@ -1207,6 +1182,18 @@
       "completedAt": "2026-04-03T12:01:22.147Z",
       "error": null,
       "result": "Codex done (attempt 2/3, 1 files). Awaiting Koi validation. Trigger: /tmp/demo-revision-done-миг-трейд.json"
+    },
+    {
+      "id": 1775218144202,
+      "slug": "миг-трейд",
+      "name": "Миг Трейд",
+      "action": "revisions",
+      "status": "done",
+      "createdAt": "2026-04-03T12:09:04.202Z",
+      "startedAt": "2026-04-03T12:10:15.069Z",
+      "completedAt": "2026-04-03T12:15:36.078Z",
+      "error": null,
+      "result": "Codex done (attempt 1/3, 1 files). Awaiting Koi validation. Trigger: /tmp/demo-revision-done-миг-трейд.json"
     }
   ],
   "version": 1
