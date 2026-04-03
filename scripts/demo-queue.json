@@ -1,13 +1,13 @@
 {
   "tasks": [
     {
-      "id": 1775206685596,
+      "id": 1775207403474,
       "slug": "миг-трейд",
       "name": "Миг Трейд",
       "action": "revisions",
-      "status": "in_progress",
-      "createdAt": "2026-04-03T08:58:05.596Z",
-      "startedAt": "2026-04-03T08:58:10.324Z",
+      "status": "pending",
+      "createdAt": "2026-04-03T09:10:03.474Z",
+      "startedAt": null,
       "completedAt": null,
       "error": null,
       "result": null
@@ -1122,6 +1122,18 @@
       "startedAt": "2026-04-03T08:49:20.635Z",
       "completedAt": "2026-04-03T08:57:07.674Z",
       "error": "Revision failed after 3 attempts — no HTML files produced",
+      "result": null
+    },
+    {
+      "id": 1775206685596,
+      "slug": "миг-трейд",
+      "name": "Миг Трейд",
+      "action": "revisions",
+      "status": "error",
+      "createdAt": "2026-04-03T08:58:05.596Z",
+      "startedAt": "2026-04-03T08:58:10.324Z",
+      "completedAt": "2026-04-03T09:09:04.344Z",
+      "error": "Worker restart orphaned task — cleared",
       "result": null
     }
   ],
