@@ -5,7 +5,7 @@
   "websiteUrl": "https://mig-trade.com/",
   "facebookUrl": "",
   "notes": "Клиента иска нов сайт, модерен и подходящ за настоящите клиенти ползващи мобилни устройства. Иска продуктов каталог за предлганите продукти. Използвай съдържанеито от сайта, снимки, описания, цени и др",
-  "status": "revisions",
+  "status": "review",
   "brief": "# Задание: Миг Трейд — Редизайн\n\n## За клиента\n**Миг Трейд** — дограма-врати\nКлиента иска нов сайт, модерен и подходящ за настоящите клиенти ползващи мобилни устройства. Иска продуктов каталог за предлганите продукти. Използвай съдържанеито от сайта, снимки, описания, цени и др\n\n## Текущо съдържание\nМиг Трейд Метални врати от 170 лева | Начало Данни за контакт с нас: Фирма: Миг Трейд ЕООД БУЛСТАТ: BG175437805&nbsp; Email: Този имейл адрес е защитен от спам ботове. Трябва да имате пусната JavaScript поддръжка, за да го видите. GSM: 0878243810 GSM: 0878243812 GSM: 0898788957 Enable Ginger Cannot connect to Ginger Check your internet connection or reload the browser Disable in this text field Edit Edit in Ginger Edit in Ginger &times; Enable Ginger Cannot connect to Ginger Check your internet connection or reload the browser Disable in this text field Edit Edit in Ginger Edit in Ginger &times; Карта на сайта Enable Ginger Cannot connect to Ginger Check your internet connection or reload the browser Disable in this text field Edit Edit in Ginger Edit in Ginger &times; Начало Метални врати Метални решетки Огради и портали Галерия Контакти Метални врати Метални врати Врати за апартаменти Входни врати Врати за мазета Цени на метални врати Метални решетки Метални решетки Метални решетки 12/12/1.5 Метални решетки 15/15/1.5 Метални решетки 20/20/1.5 Метални решетки за врати Цени на метални решетки Бисквитки Този сайт използва бисквитки (cookies), за да ви предоставим по-качествена услуга. Ако продължите да използвате сайта ни, се съгласявате с това. Приемам Абонамент чрез RSS Двупластови метални врати с цяла каса Метална врата с цяла каса. &nbsp; Цена 495 лева &nbsp; Този тип врати предлагат още по-висока степен на защита и са подходящи за вашият апартамент, къща или офис. &nbsp; \n\n## Препоръки\n- Модерен, mobile-first дизайн\n- SEO оптимизация (Schema.org, meta tags)\n- Бързо зареждане (оптимизирани изображения)\n- Ясен CTA (Call to Action)\n- Контактна информация на видно място\n\n## Решения от клиента\n\n### Темплейт: wd-premium-dark\n- **Има ли бизнесът лого (SVG/PNG с прозрачен фон)?:** В сайта\n- **Има ли предпочитана цветова гама?:** като на темата\n- **Има ли снимки на офиса/екипа за използване?:** в сайта ако има\n- **Има ли Google Business Profile?:** https://share.google/mWtwExFDBmLHJKnWk\n- **Какво е работното време?:** София, Ломско шосе 210 София Софийка 1220 България\nТелефон:  0878243810\n\nМобилен:  0898788957\n\nhttp://mig-trade.com\n- **Има ли допълнителни услуги/акценти извън текущия сайт?:** да предлагат богат асортимент от врати\n",
   "qa": [
     {
@@ -48,7 +48,7 @@
   ],
   "demoUrl": "https://koiopenclaw-max.github.io/demo-sites/demos/%D0%BC%D0%B8%D0%B3-%D1%82%D1%80%D0%B5%D0%B9%D0%B4/",
   "createdAt": "2026-03-31T11:08:17.685Z",
-  "updatedAt": "2026-04-03T13:41:49.329Z",
+  "updatedAt": "2026-04-03T13:46:07.677Z",
   "niche": "дограма-врати",
   "nicheOverride": "дограма-врати",
   "slopScore": 75,
@@ -270,11 +270,12 @@
     },
     {
       "issues": "Можже ли наначалната страница да сложиш висококачествена снимка на метална решетка тип ковано желязо за да подобрим първото впечатленние на потребителите на сайта",
-      "resolution": null,
-      "createdAt": "2026-04-03T13:41:49.329Z"
+      "resolution": "✅ Валидирано (attempt 2): 1 файла — index.html",
+      "createdAt": "2026-04-03T13:41:49.329Z",
+      "resolvedAt": "2026-04-03T13:46:07.675Z"
     }
   ],
-  "currentRevision": "Можже ли наначалната страница да сложиш висококачествена снимка на метална решетка тип ковано желязо за да подобрим първото впечатленние на потребителите на сайта",
+  "currentRevision": null,
   "v2": {
     "lastScope": {
       "type": "EDIT",
@@ -297,9 +298,9 @@
         "vrati-metalni.html",
         "zaiavka-za-ogled.html"
       ],
-      "reasoning": "Инструкцията е за подобряване на снимката в хиро секцията на началната страница, което изисква промяна само в index.html."
+      "reasoning": "Инструкцията изисква добавяне на висококачествена снимка на метална решетка на началната страница (index.html), което е промяна на съдържанието само в един файл."
     },
-    "lastScopeAt": "2026-04-03T11:50:46.327Z",
+    "lastScopeAt": "2026-04-03T13:42:26.534Z",
     "qaResult": {
       "passed": true,
       "criticalFails": 0,
@@ -486,28 +487,31 @@
         "unauthorized": 0
       },
       "reverted": [
-        "VALIDATE.md",
-        "brief.md",
-        "original-page-_fonts.googleapis.com_css.html",
-        "original-page-galeriia.html",
-        "original-page-home.html",
-        "original-page-index.php.html",
-        "original-page-metalni-reshetki.html",
-        "original-page-metalni-vrati-vsichki.html",
-        "original-page-ogradi-i-portali.html",
-        "original-page-plugins_editors_jckeditor_typography_typography.php.html",
-        "original-page-templates_siteground-j16-2_favicon.ico.html",
-        "original-page-vrati-metalni.html",
-        "original-page-zaiavka-za-ogled.html",
-        "scraped-content.txt"
+        "VALIDATE.md"
       ]
     },
     "lastVisualGate": {
       "passed": true,
-      "verdict": "DESIGN_PRESERVED: YES\nCHANGE_APPLIED: YES\nREGRESSION: NONE\nVERDICT: PASS\n\nThe hero section image in the AFTER screenshot has been replaced with a clearer, higher-quality photo (appears to be a sharper image of a modern building/facility), while the overall layout, dark color scheme with gold accents, navigation, all content sections, and footer remain identical.",
-      "beforeDesktop": "/tmp/demo-screenshots/миг-трейд/before-desktop-1775212201512.png",
-      "afterDesktop": "/tmp/demo-screenshots/миг-трейд/after-desktop-1775212550143.png",
-      "timestamp": "2026-04-03T10:36:26.967Z"
+      "verdict": "DESIGN_PRESERVED: YES\nCHANGE_APPLIED: YES\nREGRESSION: NONE\nVERDICT: PASS\n\nThe AFTER screenshot preserves the full page structure — navigation bar, hero section with heading/buttons, all content sections (products, about, how we work, projects, categories, construction, reviews, contacts), contact form, and footer. The dark theme with gold/amber accents is intact throughout. The hero area now features what appears to be an updated/higher-quality background image of wrought iron metalwork, which m",
+      "beforeDesktop": "/tmp/demo-screenshots/миг-трейд/before-desktop-1775223746539.png",
+      "afterDesktop": "/tmp/demo-screenshots/миг-трейд/after-desktop-1775223919239.png",
+      "timestamp": "2026-04-03T13:46:07.672Z"
     }
-  }
+  },
+  "files": [
+    "catalog.css",
+    "catalog.js",
+    "galeriia.html",
+    "index.html",
+    "metalni-reshetki.html",
+    "metalni-vrati.html",
+    "ogradi-i-portali.html",
+    "product-pages.css",
+    "product-pages.js",
+    "template.html",
+    "vhodni-vrati.html",
+    "vrati-metalni.html",
+    "zaiavka-za-ogled.html"
+  ],
+  "filesUpdatedAt": "2026-04-03T13:46:07.676Z"
 }

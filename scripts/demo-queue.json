@@ -1,4 +1,5 @@
 {
+<<<<<<< Updated upstream
   "tasks": [
     {
       "id": 1775223723986,
@@ -13,6 +14,9 @@
       "result": null
     }
   ],
+=======
+  "tasks": [],
+>>>>>>> Stashed changes
   "completed": [
     {
       "id": 1773821342979,
@@ -943,6 +947,7 @@
       "completedAt": "2026-04-02T07:35:21.582Z",
       "error": "Stuck in_progress from yesterday — cleared",
       "result": null
+<<<<<<< Updated upstream
     },
     {
       "id": 1775116024390,
@@ -1207,6 +1212,8 @@
       "completedAt": "2026-04-03T13:08:53.147Z",
       "error": null,
       "result": "Codex done (attempt 1/3, 1 files). Awaiting Koi validation. Trigger: /tmp/demo-revision-done-миг-трейд.json"
+=======
+>>>>>>> Stashed changes
     }
   ],
   "version": 1
