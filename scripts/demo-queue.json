@@ -1,18 +1,5 @@
 {
-  "tasks": [
-    {
-      "id": 1775208906309,
-      "slug": "финкомекс-одитинг-оод",
-      "name": "Финкомекс Одитинг ООД",
-      "action": "revisions",
-      "status": "in_progress",
-      "createdAt": "2026-04-03T09:35:06.309Z",
-      "startedAt": "2026-04-03T09:35:19.392Z",
-      "completedAt": null,
-      "error": null,
-      "result": null
-    }
-  ],
+  "tasks": [],
   "completed": [
     {
       "id": 1773819482814,
@@ -1145,6 +1132,18 @@
       "createdAt": "2026-04-03T09:10:03.474Z",
       "startedAt": "2026-04-03T09:10:30.932Z",
       "completedAt": "2026-04-03T09:10:48.446Z",
+      "error": null,
+      "result": "TIL Tier 2 asset-fix — Koi notified"
+    },
+    {
+      "id": 1775208906309,
+      "slug": "финкомекс-одитинг-оод",
+      "name": "Финкомекс Одитинг ООД",
+      "action": "revisions",
+      "status": "done",
+      "createdAt": "2026-04-03T09:35:06.309Z",
+      "startedAt": "2026-04-03T09:35:19.392Z",
+      "completedAt": "2026-04-03T09:35:36.195Z",
       "error": null,
       "result": "TIL Tier 2 asset-fix — Koi notified"
     }
