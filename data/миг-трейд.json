@@ -218,8 +218,9 @@
     },
     {
       "issues": "На началната страница в хиро секцията, снимката е с лошо качество — подобри първото впечатление",
-      "resolution": null,
-      "createdAt": "2026-04-03T10:46:16.409Z"
+      "resolution": "Маршрутизиране fix — задачата беше хваната от Tier 2 early-exit вместо Koi Decision Layer. Поправено.",
+      "createdAt": "2026-04-03T10:46:16.409Z",
+      "resolvedAt": "2026-04-03T10:55:13.000Z"
     }
   ],
   "currentRevision": null,
