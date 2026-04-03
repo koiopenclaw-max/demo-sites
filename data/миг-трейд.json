@@ -5,7 +5,7 @@
   "websiteUrl": "https://mig-trade.com/",
   "facebookUrl": "",
   "notes": "Клиента иска нов сайт, модерен и подходящ за настоящите клиенти ползващи мобилни устройства. Иска продуктов каталог за предлганите продукти. Използвай съдържанеито от сайта, снимки, описания, цени и др",
-  "status": "revisions",
+  "status": "review",
   "brief": "# Задание: Миг Трейд — Редизайн\n\n## За клиента\n**Миг Трейд** — дограма-врати\nКлиента иска нов сайт, модерен и подходящ за настоящите клиенти ползващи мобилни устройства. Иска продуктов каталог за предлганите продукти. Използвай съдържанеито от сайта, снимки, описания, цени и др\n\n## Текущо съдържание\nМиг Трейд Метални врати от 170 лева | Начало Данни за контакт с нас: Фирма: Миг Трейд ЕООД БУЛСТАТ: BG175437805&nbsp; Email: Този имейл адрес е защитен от спам ботове. Трябва да имате пусната JavaScript поддръжка, за да го видите. GSM: 0878243810 GSM: 0878243812 GSM: 0898788957 Enable Ginger Cannot connect to Ginger Check your internet connection or reload the browser Disable in this text field Edit Edit in Ginger Edit in Ginger &times; Enable Ginger Cannot connect to Ginger Check your internet connection or reload the browser Disable in this text field Edit Edit in Ginger Edit in Ginger &times; Карта на сайта Enable Ginger Cannot connect to Ginger Check your internet connection or reload the browser Disable in this text field Edit Edit in Ginger Edit in Ginger &times; Начало Метални врати Метални решетки Огради и портали Галерия Контакти Метални врати Метални врати Врати за апартаменти Входни врати Врати за мазета Цени на метални врати Метални решетки Метални решетки Метални решетки 12/12/1.5 Метални решетки 15/15/1.5 Метални решетки 20/20/1.5 Метални решетки за врати Цени на метални решетки Бисквитки Този сайт използва бисквитки (cookies), за да ви предоставим по-качествена услуга. Ако продължите да използвате сайта ни, се съгласявате с това. Приемам Абонамент чрез RSS Двупластови метални врати с цяла каса Метална врата с цяла каса. &nbsp; Цена 495 лева &nbsp; Този тип врати предлагат още по-висока степен на защита и са подходящи за вашият апартамент, къща или офис. &nbsp; \n\n## Препоръки\n- Модерен, mobile-first дизайн\n- SEO оптимизация (Schema.org, meta tags)\n- Бързо зареждане (оптимизирани изображения)\n- Ясен CTA (Call to Action)\n- Контактна информация на видно място\n\n## Решения от клиента\n\n### Темплейт: wd-premium-dark\n- **Има ли бизнесът лого (SVG/PNG с прозрачен фон)?:** В сайта\n- **Има ли предпочитана цветова гама?:** като на темата\n- **Има ли снимки на офиса/екипа за използване?:** в сайта ако има\n- **Има ли Google Business Profile?:** https://share.google/mWtwExFDBmLHJKnWk\n- **Какво е работното време?:** София, Ломско шосе 210 София Софийка 1220 България\nТелефон:  0878243810\n\nМобилен:  0898788957\n\nhttp://mig-trade.com\n- **Има ли допълнителни услуги/акценти извън текущия сайт?:** да предлагат богат асортимент от врати\n",
   "qa": [
     {
@@ -48,7 +48,7 @@
   ],
   "demoUrl": "https://koiopenclaw-max.github.io/demo-sites/demos/%D0%BC%D0%B8%D0%B3-%D1%82%D1%80%D0%B5%D0%B9%D0%B4/",
   "createdAt": "2026-03-31T11:08:17.685Z",
-  "updatedAt": "2026-04-03T10:28:10.838Z",
+  "updatedAt": "2026-04-03T10:36:26.968Z",
   "niche": "дограма-врати",
   "nicheOverride": "дограма-врати",
   "slopScore": 75,
@@ -216,7 +216,7 @@
       "createdAt": "2026-04-03T10:28:10.838Z"
     }
   ],
-  "currentRevision": "На началната страница в хиро секцията, снимката е с лошо качество — подобри първото впечатление",
+  "currentRevision": null,
   "v2": {
     "lastScope": {
       "type": "EDIT",
@@ -239,9 +239,9 @@
         "vrati-metalni.html",
         "zaiavka-za-ogled.html"
       ],
-      "reasoning": "Инструкцията засяга само хиро секцията на началната страница (index.html) — подмяна или оправяне на разтегната снимка, без промени по други файлове."
+      "reasoning": "Инструкцията е за подобряване на снимката в хиро секцията на началната страница, което изисква промяна само в index.html."
     },
-    "lastScopeAt": "2026-04-03T09:41:27.131Z",
+    "lastScopeAt": "2026-04-03T10:29:31.467Z",
     "qaResult": {
       "passed": true,
       "criticalFails": 0,
@@ -347,6 +347,18 @@
         },
         "timestamp": "2026-04-03T09:41:27.133Z",
         "shadow": true
+      },
+      {
+        "mode": "SUPERVISED",
+        "reason": "Complex change (files: 1, confidence: high)",
+        "instructions": "На началната страница в хиро секцията, снимката е с лошо качество — подобри първото впечатление",
+        "scope": {
+          "type": "EDIT",
+          "confidence": "high",
+          "fileCount": 1
+        },
+        "timestamp": "2026-04-03T10:29:31.470Z",
+        "shadow": true
       }
     ],
     "tilLog": [
@@ -376,6 +388,15 @@
         "unclear": true,
         "instructions": "На началната страница в хиро секцията, снимката е много разтеглена и размазана, разваля цялата визия на сайта. Може ли да я оправиш или подмениш с д друга снимка от глаерията на клиента, за да подобри",
         "timestamp": "2026-04-03T09:41:27.145Z"
+      },
+      {
+        "taskType": "text-edit",
+        "tier": 1,
+        "executor": "koi-direct",
+        "confidence": "low",
+        "unclear": true,
+        "instructions": "На началната страница в хиро секцията, снимката е с лошо качество — подобри първото впечатление",
+        "timestamp": "2026-04-03T10:29:31.491Z"
       }
     ],
     "lastDiffAudit": {
@@ -404,10 +425,10 @@
     },
     "lastVisualGate": {
       "passed": true,
-      "verdict": "DESIGN_PRESERVED: YES\nCHANGE_APPLIED: YES\nREGRESSION: NONE\nVERDICT: PASS\n\nThe hero image in the BEFORE screenshot showed a stretched, blurry close-up of a door, which matched the complaint. In the AFTER screenshot, the hero image has been replaced with a different photo (appears to be an exterior/building shot from the client's gallery). The overall page structure — dark theme, gold/amber accents, navigation bar, all content sections (products, process, projects, categories, contact form), and f",
-      "beforeDesktop": "/tmp/demo-screenshots/миг-трейд/before-desktop-1775209287152.png",
-      "afterDesktop": "/tmp/demo-screenshots/миг-трейд/after-desktop-1775209618773.png",
-      "timestamp": "2026-04-03T09:47:40.933Z"
+      "verdict": "DESIGN_PRESERVED: YES\nCHANGE_APPLIED: YES\nREGRESSION: NONE\nVERDICT: PASS\n\nThe hero section image in the AFTER screenshot has been replaced with a clearer, higher-quality photo (appears to be a sharper image of a modern building/facility), while the overall layout, dark color scheme with gold accents, navigation, all content sections, and footer remain identical.",
+      "beforeDesktop": "/tmp/demo-screenshots/миг-трейд/before-desktop-1775212201512.png",
+      "afterDesktop": "/tmp/demo-screenshots/миг-трейд/after-desktop-1775212550143.png",
+      "timestamp": "2026-04-03T10:36:26.967Z"
     }
   }
 }
