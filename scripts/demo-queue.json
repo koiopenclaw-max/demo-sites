@@ -1,18 +1,5 @@
 {
-  "tasks": [
-    {
-      "id": 1775207403474,
-      "slug": "миг-трейд",
-      "name": "Миг Трейд",
-      "action": "revisions",
-      "status": "in_progress",
-      "createdAt": "2026-04-03T09:10:03.474Z",
-      "startedAt": "2026-04-03T09:10:30.932Z",
-      "completedAt": null,
-      "error": null,
-      "result": null
-    }
-  ],
+  "tasks": [],
   "completed": [
     {
       "id": 1773819482814,
@@ -1135,6 +1122,18 @@
       "completedAt": "2026-04-03T09:09:04.344Z",
       "error": "Worker restart orphaned task — cleared",
       "result": null
+    },
+    {
+      "id": 1775207403474,
+      "slug": "миг-трейд",
+      "name": "Миг Трейд",
+      "action": "revisions",
+      "status": "done",
+      "createdAt": "2026-04-03T09:10:03.474Z",
+      "startedAt": "2026-04-03T09:10:30.932Z",
+      "completedAt": "2026-04-03T09:10:48.446Z",
+      "error": null,
+      "result": "TIL Tier 2 asset-fix — Koi notified"
     }
   ],
   "version": 1
