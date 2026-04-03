@@ -1,18 +1,5 @@
 {
-  "tasks": [
-    {
-      "id": 1775213224672,
-      "slug": "миг-трейд",
-      "name": "Миг Трейд",
-      "action": "revisions",
-      "status": "in_progress",
-      "createdAt": "2026-04-03T10:47:04.672Z",
-      "startedAt": "2026-04-03T10:47:22.276Z",
-      "completedAt": null,
-      "error": null,
-      "result": null
-    }
-  ],
+  "tasks": [],
   "completed": [
     {
       "id": 1773819482814,
@@ -1195,6 +1182,18 @@
       "completedAt": "2026-04-03T10:36:30.218Z",
       "error": null,
       "result": "Codex done (attempt 2/3, 1 files). Awaiting Koi validation. Trigger: /tmp/demo-revision-done-миг-трейд.json"
+    },
+    {
+      "id": 1775213224672,
+      "slug": "миг-трейд",
+      "name": "Миг Трейд",
+      "action": "revisions",
+      "status": "done",
+      "createdAt": "2026-04-03T10:47:04.672Z",
+      "startedAt": "2026-04-03T10:47:22.276Z",
+      "completedAt": "2026-04-03T10:47:39.142Z",
+      "error": null,
+      "result": "TIL Tier 2 asset-fix — Koi notified"
     }
   ],
   "version": 1
