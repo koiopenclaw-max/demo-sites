@@ -1,31 +1,19 @@
 {
   "tasks": [
     {
-      "id": 1775213824085,
+      "id": 1775215264053,
       "slug": "миг-трейд",
       "name": "Миг Трейд",
       "action": "revisions",
-      "status": "in_progress",
-      "createdAt": "2026-04-03T10:57:04.085Z",
-      "startedAt": "2026-04-03T10:57:08.964Z",
+      "status": "pending",
+      "createdAt": "2026-04-03T11:21:04.053Z",
+      "startedAt": null,
       "completedAt": null,
       "error": null,
       "result": null
     }
   ],
   "completed": [
-    {
-      "id": 1773819482814,
-      "slug": "одиторска-кантора-узунова",
-      "name": "Одиторска кантора Узунова",
-      "action": "deploying",
-      "status": "done",
-      "createdAt": "2026-03-18T07:38:02.814Z",
-      "startedAt": "2026-03-18T07:38:08.708Z",
-      "completedAt": "2026-03-18T07:38:10.868Z",
-      "error": null,
-      "result": "Deployed to demo55.add.bg"
-    },
     {
       "id": 1773819783140,
       "slug": "одиторска-кантора-узунова",
@@ -1207,6 +1195,18 @@
       "completedAt": "2026-04-03T10:47:39.142Z",
       "error": null,
       "result": "TIL Tier 2 asset-fix — Koi notified"
+    },
+    {
+      "id": 1775213824085,
+      "slug": "миг-трейд",
+      "name": "Миг Трейд",
+      "action": "revisions",
+      "status": "done",
+      "createdAt": "2026-04-03T10:57:04.085Z",
+      "startedAt": "2026-04-03T10:57:08.964Z",
+      "completedAt": "2026-04-03T11:04:18.687Z",
+      "error": null,
+      "result": "Codex done (attempt 1/3, 1 files). Awaiting Koi validation. Trigger: /tmp/demo-revision-done-миг-трейд.json"
     }
   ],
   "version": 1
